@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="product">
+
+	<resultMap id="productMap" type="prodVO">
+		<result property="prodId" column="prod_id"/>
+		<result property="prodName" column="prod_name"/>
+		<result property="unitPrice" column="unit_price"/>
+		<result property="stockQty" column="stock_qty"/>
+		<result property="category" column="category"/>
+		<result property="detail" column="detail"/>
+		<result property="ingredientca" column="ingredientca"/>
+		<result property="use" column="use"/>
+	</resultMap>
+
+	<select id="selectAllProduct" resultMap="productMap">
+	    select *
+	      from product
+	</select>
+
+	<select id="selectMakeupProduct" resultMap="productMap">
+		select *
+		  from product
+		 where category = '화장품'
+	</select>
+
+	<select id="selectGroceryProduct" resultMap="productMap">
+		select *
+		from product
+		where category = '잡화/주얼리'
+	</select>
+
+	<select id="selectFoodProduct" resultMap="productMap">
+		select *
+		from product
+		where category = '식품'
+	</select>
+
+
+	<select id="selectAllCnt" resultType="int">
+		select count(*)
+		from product
+	</select>
+
+
+	<select id="selectSearchList" resultMap="productMap">
+		select *
+		from product
+		where PROD_NAME like '%' || #{prodName} || '%'
+	</select>
+
+
+	</mapper>

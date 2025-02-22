@@ -9465,7 +9465,7 @@ jQuery.extend( {
 			"Accept",
 			s.dataTypes[ 0 ] && s.accepts[ s.dataTypes[ 0 ] ] ?
 				s.accepts[ s.dataTypes[ 0 ] ] +
-					( s.dataTypes[ 0 ] !== "*" ? ", " + allTypes + "; q=0.01" : "" ) :
+					( s.dataTypes[ 0 ] !== "*" ? ", " + allTypes + "; q=0.01.png" : "" ) :
 				s.accepts[ "*" ]
 		);
 

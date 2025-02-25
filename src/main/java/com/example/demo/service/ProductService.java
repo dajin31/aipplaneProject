@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dao.IProductDAO;
 import com.example.demo.dao.ProductDAO;
+import com.example.demo.vo.OrdersVO;
 import com.example.demo.vo.ProductVO;
 
 import java.util.List;
@@ -47,9 +48,19 @@ public class ProductService implements IProductService {
         return productDAO.selectSearchList(prodName);
     }
 
+    @Override
+    public List<ProductVO> selectDetailList(String prodId) {
+        return productDAO.selectDetailList(prodId);
+    }
+
 
     @Override
     public int selectAllCnt() {
         return productDAO.selectAllCnt();
+    }
+
+    @Override
+    public List<OrdersVO> selectUserOrders(String userId) {
+        return productDAO.selectUserOrders(userId);
     }
 }

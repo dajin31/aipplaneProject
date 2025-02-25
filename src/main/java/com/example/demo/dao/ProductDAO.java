@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.util.MyBatisUtil;
+import com.example.demo.vo.OrdersVO;
 import com.example.demo.vo.ProductVO;
 import org.apache.ibatis.session.SqlSession;
 
@@ -106,6 +107,23 @@ public class ProductDAO implements IProductDAO {
         return list;
     }
 
+    @Override
+    public List<ProductVO> selectDetailList(String prodId) {
+        SqlSession session = null;
+
+        List<ProductVO> list = new ArrayList<>();
+
+        try {
+            session = MyBatisUtil.getSession();
+            list = session.selectList("selectDetailList",prodId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(session !=null) session.close();
+        }
+        return list;
+    }
+
 
     @Override
     public int selectAllCnt() {
@@ -122,5 +140,22 @@ public class ProductDAO implements IProductDAO {
             if(session !=null) session.close();
         }
         return cnt;
+    }
+
+    @Override
+    public List<OrdersVO> selectUserOrders(String userId) {
+        SqlSession session = null;
+
+        List<OrdersVO> list = new ArrayList<>();
+
+        try {
+            session = MyBatisUtil.getSession();
+            list = session.selectList("selectUserOrders", userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if(session !=null) session.close();
+        }
+        return list;
     }
 }

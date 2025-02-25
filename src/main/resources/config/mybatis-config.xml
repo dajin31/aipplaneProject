@@ -16,6 +16,8 @@
 	<typeAliases>
 			<typeAlias type="com.example.demo.vo.MemVO" alias="memVO"/>
 			<typeAlias type="com.example.demo.vo.ProductVO" alias="prodVO"/>
+			<typeAlias type="com.example.demo.vo.UsersVO" alias="usersVO"/>
+			<typeAlias type="com.example.demo.vo.OrdersVO" alias="ordersVO"/>
 	</typeAliases>
 
 
@@ -34,5 +36,6 @@
 	<mappers>
 		<mapper resource="META-INF/member-mapper.xml"/>
 		<mapper resource="META-INF/product-mapper.xml"/>
+		<mapper resource="META-INF/users-mapper.xml"/>
 	</mappers>
 </configuration>

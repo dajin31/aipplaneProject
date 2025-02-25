@@ -135,7 +135,7 @@
             <input type="text" class="search-input" placeholder="검색어를 입력하세요">
             <button class="search-button">검색</button>
         </div>
-        <button class="order-button">주문내역</button>
+        <button class="order-button" id="goOrderDetail">주문내역</button>
     </div>
 
     <div class="filter-section">
@@ -157,6 +157,8 @@
 </div>
 
 <script>
+    let isLogin = false;
+
     document.querySelectorAll('.tab').forEach(tab => {
         tab.addEventListener('click', () => {
             document.querySelector('.tab.active').classList.remove('active');
@@ -201,7 +203,7 @@
                     numId.innerText = "총 " + totalNum + "개 검색";
 
                     products.forEach(product => {
-                        console.log(product); // 제품 정보 콘솔로 확인
+                        console.log(product);
 
                         const productCard = document.createElement('div');
                         productCard.classList.add('product-card');
@@ -230,12 +232,22 @@
                         mileageText.classList.add('product-mileage')
                         mileageText.textContent = " 마일리지";
 
+
+
                         productPrice.appendChild(priceText);
                         productPrice.appendChild(mileageText);
 
                         productCard.appendChild(productImg);
                         productCard.appendChild(productName);
                         productCard.appendChild(productPrice);
+
+                        productImg.addEventListener('click',()=>{
+                            console.log("클릭클릭")
+
+                            const prodId = product.prodId;
+                            console.log(prodId);
+                            window.location.href='/mileage/mileageDetail?prodId=' + prodId;
+                        })
 
 
                         productGrid.appendChild(productCard);
@@ -271,6 +283,8 @@
 
                     const productImg = document.createElement('img');
                     productImg.classList.add('product-image');
+                    const id = product.prodId + "id";
+                    productImg.id = id;
                     const url = product.prodId.split('_')[1];
                     const urlImg = 'image/' + url + '.png';
                     productImg.src = urlImg;
@@ -339,6 +353,7 @@
                     const urlImg = 'image/' + url + '.png';
                     productImg.src = urlImg;
 
+
                     const productName = document.createElement('div');
                     productName.classList.add('product-name');
                     productName.textContent = product.prodName ? product.prodName : '상품명이 없습니다';
@@ -353,6 +368,8 @@
                     mileageText.classList.add('product-mileage');
                     mileageText.textContent = " 마일리지";
 
+
+
                     productPrice.appendChild(priceText);
                     productPrice.appendChild(mileageText);
 
@@ -360,7 +377,11 @@
                     productCard.appendChild(productName);
                     productCard.appendChild(productPrice);
 
+
+
                     productGrid.appendChild(productCard);
+
+
                 });
             })
             .catch(err => console.error('error', err));
@@ -372,6 +393,16 @@
         }
     });
 
+    document.getElementById("goOrderDetail").addEventListener('click',()=>{
+        if (!isLogin) {
+            alert("로그인하세요")
+            return;
+        }
+
+        const prodId = product.prodId;
+        console.log(prodId);
+        window.location.href='/mileage/mileageDetail?prodId=' + prodId;
+    })
 </script>
 </body>
 </html>

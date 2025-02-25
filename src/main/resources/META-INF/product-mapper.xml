@@ -13,6 +13,16 @@
 		<result property="use" column="use"/>
 	</resultMap>
 
+	<resultMap id="ordersMap" type="ordersVO">
+		<result property="orderId" column="order_id"/>
+		<result property="orderDate" column="order_date"/>
+		<result property="orderAmt" column="order_amt"/>
+		<result property="userId" column="user_id"/>
+		<result property="prodId" column="prod_id"/>
+		<result property="orderQty" column="order_qty"/>
+		<result property="prodName" column="prod_name"/>
+	</resultMap>
+
 	<select id="selectAllProduct" resultMap="productMap">
 	    select *
 	      from product
@@ -49,5 +59,17 @@
 		where PROD_NAME like '%' || #{prodName} || '%'
 	</select>
 
+	<select id="selectDetailList" resultMap="productMap">
+		select *
+		 from product
+		where prod_id = #{prodId}
+	</select>
 
+	<select id="selectUserOrders" resultMap="ordersMap">
+		SELECT  o.order_id,o.order_date,o.order_amt,o.prod_id,o.order_qty,p.prod_name
+		  FROM orders o
+		 JOIN product p ON o.prod_id = p.prod_id
+		WHERE o.user_id =#{userId}
+	 ORDER BY o.order_id DESC
+	</select>
 	</mapper>

@@ -9,7 +9,168 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 
-<script src="<%=request.getContextPath() %>/jquery-3.7.1.js"></script>
+<script src="<%=request.getContextPath() %>/<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+	<script type="text/javascript">
+		let i=0;
+		let u=0;
+		$(function(){
+
+			$('#del').click(function(){
+				if(i==0)
+				{
+					$('#delTr').show("slow");
+					$('#del').text("취소")
+					i=1;
+				}
+				else
+				{
+					$('#delTr').hide();
+					$('#del').text("삭제")
+					i=0;
+				}
+			})
+
+			$('#delBtn').on("click",function(){
+				let pwd=$('#delPwd').val();
+				let no=$(this).attr("data-no");
+				if(pwd.trim()=="")
+				{
+					$("#delPwd").focus();
+					return;
+				}
+
+				$.ajax({
+					type:'post',
+					url:'../noticeboard/delete.do',
+					data:{"no":no,"pwd":pwd},
+					success:function(result)
+					{
+						let res=result.trim();
+						if(res=="yes")// 정상 수행 (비밀번호가 같다)
+						{
+							location.href="../noticeboard/list.do"; // sendRedirect()
+						}
+						else
+						{
+							alert("비밀번호가 틀립니다!")
+							$('#delPwd').val("");
+							$('#delPwd').focus();
+						}
+					},
+					error:function(request, status, error)
+					{
+						alert(error);
+					}
+
+				})
+			})
+
+			// $('.details').click(function(){})
+			const items = document.querySelectorAll('.question');
+
+			function openCloseAnswer() {
+				const answerId = this.id.replace('que', 'ans');
+
+				if(document.getElementById(answerId).style.display === 'block') {
+					document.getElementById(answerId).style.display = 'none';
+					document.getElementById(this.id + '-toggle').textContent = '+';
+				} else {
+					document.getElementById(answerId).style.display = 'block';
+					document.getElementById(this.id + '-toggle').textContent = '-';
+				}
+			}
+
+			items.forEach(item => item.addEventListener('click', openCloseAnswer));
+
+
+
+		})
+
+	</script>
+</head>
+<body>
+
+<%-- 요기는 헤더! --%>
+<div class="hero page-inner overlay" style="background-image: url('../images/hero_bg_1.jpg'); height:40vh;">
+	<!--
+            <div class="container">
+                <div class="row justify-content-center align-items-center">
+                    <div class="col-lg-9 text-center mt-5">
+                        <h1 class="heading_signup" data-aos="fade-up"></h1>
+                    </div>
+                </div>
+            </div> -->
+</div>
+
+<%-- 요기부터 메인! --%>
+<div class="section section-properties">
+	<div class="container">
+		<div class="two_third first" style="height:auto">
+			<div class="col-lg-6">
+				<h2 class="font-weight-bold text-primary heading">공지사항</h2>
+				<hr/><br><br>
+
+				<c:forEach var="vo" items="${list }">
+					<div class="faq-content" style="width:1100px;">
+						<button class="question" id="que-${vo.no }"><span id="que-${vo.no }-toggle">+</span>
+							<tr>
+								<td width="45%">${vo.subject }</td>
+								<!-- <td width="50%" style="text-align: right;">${vo.dbday }</td>  -->
+
+							</tr>
+						</button>
+						<div class="answer" id="ans-${vo.no }">
+							<p style="white-space: pre-line;">${vo.content}</p>
+							<c:if test="${sessionScope.admin == 'y' }">
+								<br><br>
+
+								<tr id="delTr" style="display:none">
+									<td colspan="4" class="text-right">
+										<span style="color: red;">  비밀번호를 입력하세요! :  </span><input type=password name=pwd size=10 class="input-sm" id="delPwd">
+										<input type=button value="삭제" class="w-btn w-btn-red" id="delBtn"  data-no=${vo.no }>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4" class="text-center">
+										<button class="w-btn w-btn-green" type="button" style=" display: inline-block;" >
+											<a href="../noticeboard/update.do?no=${vo.no }">수정</a>
+										</button>
+									</td>
+								</tr>
+							</c:if>
+						</div>
+
+					</div>
+				</c:forEach>
+
+				<!-- board list area -->
+				<div id="board-list">
+					<div class="container">
+						<table>
+							<tr>
+								<td>
+									<c:if test="${sessionScope.admin == 'y' }">
+										<div class="wrap">
+											<a href="../noticeboard/insert.do" class="button">새글</a>
+												<%--<a href="../main/main.do" class="button">홈</a> --%>
+										</div>
+									</c:if>
+								</td>
+								<!-- 페이지 나누는 기능 => 공지사항에서는 일단 비활성화 -->
+								<!-- <td class="text-right inline">
+       				    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+	       					<a href="#" class="btn btn-sm btn-success">이전</a>
+	       					${curpage } page / ${totalpage } pages
+	       					<a href="#" class="btn btn-sm btn-success">다음</a>
+       					</td>  -->
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 

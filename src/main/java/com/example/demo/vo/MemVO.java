@@ -145,5 +145,6 @@ public class MemVO {
 				+ ", mem_mileage=" + mem_mileage + ", mem_delete=" + mem_delete + "]";
 	}
 	
-	
+
+
 }

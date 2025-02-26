@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="Notice_BoardVO">
+	<select id="getAllNotices" resultType="com.example.vo.Notice">
+		SELECT * FROM Notice_BoardVO ORDER BY created_at DESC
+	</select>
+
+	<select id="getNoticeById" parameterType="int" resultType="com.example.vo.Notice">
+		SELECT * FROM Notice_BoardVO WHERE ntc_board = #{noticeId}
+	</select>
+
+	<update id="increaseViewCount" parameterType="int">
+		UPDATE Notice_BoardVO SET view_count = view_count + 1 WHERE notice_id = #{noticeId}
+	</update>
+
+	<insert id="addNotice" parameterType="com.example.vo.Notice">
+		INSERT INTO Notice_BoardVO (title, content, author) VALUES (#{title}, #{content}, #{author})
+	</insert>
+
+
+	<delete id="deleteNotice" parameterType="int">
+		DELETE FROM Notice_BoardVO WHERE notice_id = #{noticeId}
+	</delete>
+	</mapper>

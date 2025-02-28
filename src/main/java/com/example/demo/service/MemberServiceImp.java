@@ -4,6 +4,7 @@ package com.example.demo.service;
 import com.example.demo.dao.IMemberDAO;
 import com.example.demo.dao.MemberDaoImp;
 import com.example.demo.vo.MemVO;
+import com.example.demo.vo.UsersVO;
 
 public class MemberServiceImp implements IMemberService {
 	private IMemberDAO dao;
@@ -27,6 +28,12 @@ public class MemberServiceImp implements IMemberService {
 	@Override
 	public int insertMember(MemVO memVO) {
 		return dao.insertMember(memVO);
+	}
+
+	//내가 추가한것
+	@Override
+	public int getLoginUser(UsersVO usersVO) {
+		return dao.getLoginUser(usersVO);
 	}
 
 }

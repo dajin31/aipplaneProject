@@ -3,6 +3,7 @@ package com.example.demo.dao;
 
 import com.example.demo.util.MyBatisUtil;
 import com.example.demo.vo.MemVO;
+import com.example.demo.vo.UsersVO;
 import org.apache.ibatis.session.SqlSession;
 
 public class MemberDaoImp implements IMemberDAO{
@@ -50,6 +51,24 @@ public class MemberDaoImp implements IMemberDAO{
 		}
 		return count;
 	}
-	
+
+	@Override
+	public int getLoginUser(UsersVO usersVO) {
+		SqlSession session = null;
+		int cnt = 0;
+
+		try{
+			session = MyBatisUtil.getSession();
+			cnt = session.selectOne("member.getLoginUser", usersVO);
+		}catch (Exception e){
+			e.printStackTrace();
+		}finally {
+			if(session != null){
+				session.close();
+			}
+		}
+		return cnt;
+	}
+
 
 }

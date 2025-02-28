@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.product;
 
 import com.example.demo.service.ProductService;
 import com.example.demo.vo.ProductVO;
@@ -15,8 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(value = "/mileage/mileageShop/food")
-public class ProductFoodController extends HttpServlet {
+@WebServlet(value = "/mileage/mileageShop/all")
+public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,13 +28,16 @@ public class ProductFoodController extends HttpServlet {
 
         Gson gson = new Gson();
 
-        String category = req.getParameter("category");
-
-        List<ProductVO> productList = service.selectFoodProduct();
+        List<ProductVO> productList = service.selectAllProduct();
 
 
-        String json = gson.toJson(productList);
+        int cnt = service.selectAllCnt();
 
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("products", productList);
+        responseMap.put("count", cnt);
+
+        String json = gson.toJson(responseMap);
 
         PrintWriter out = resp.getWriter();
         out.write(json);

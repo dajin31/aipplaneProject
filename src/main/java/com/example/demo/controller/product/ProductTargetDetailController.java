@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.product;
 
 import com.example.demo.service.ProductService;
 import com.example.demo.vo.ProductVO;
@@ -13,20 +13,22 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(value = "/mileage/mileageShop/grocery")
-public class ProductGroceryController extends HttpServlet {
-
+@WebServlet("/mileage/mileageDetailList")
+public class ProductTargetDetailController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json; charset=utf-8");
 
+
         ProductService service = ProductService.getInstance();
 
         Gson gson = new Gson();
 
-        List<ProductVO> productList = service.selectGroceryProduct();
+        String prodId = req.getParameter("prodId");
+
+        List<ProductVO> productList = service.selectDetailList(prodId);
 
         String json = gson.toJson(productList);
 
@@ -34,10 +36,7 @@ public class ProductGroceryController extends HttpServlet {
         out.write(json);
 
         resp.flushBuffer();
-
-
     }
-
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);

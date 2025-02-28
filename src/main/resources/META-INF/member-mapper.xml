@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	<mapper namespace="member">
+	<resultMap id="usersMap" type="usersVO">
+		<result property="userId" column="user_id"/>
+		<result property="userPw" column="user_pw"/>
+		<result property="userName" column="user_name"/>
+		<result property="userEmail" column="user_email"/>
+		<result property="userRegnum" column="user_regnum"/>
+		<result property="userMileage" column="user_mileage"/>
+		<result property="userPassnum" column="user_passnum"/>
+		<result property="memCode" column="mem_code"/>
+	</resultMap>
 	<!-- id 중복검사 -->
 	<select id="memberIdCount" parameterType="String" resultType="int">
 	    select count(*)
@@ -13,5 +23,13 @@
 	    insert into member(mem_id,mem_pass,mem_name,mem_bir,mem_zip,mem_add1,mem_add2,mem_hp,mem_mail)
 	    values(#{mem_id},#{mem_pass},#{mem_name},#{mem_bir},#{mem_zip},#{mem_add1},#{mem_add2},#{mem_hp},#{mem_mail})
 	</insert>
+
+	<!--로그인하기 여기부터 만든거-->
+	<select id="getLoginUser" resultType="int"  parameterType="com.example.demo.vo.UsersVO">
+		select count(*)
+		from users
+		where user_id = #{userId}
+		  and user_pw = #{userPw}
+	</select>
 	
 	</mapper>

@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.product;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;

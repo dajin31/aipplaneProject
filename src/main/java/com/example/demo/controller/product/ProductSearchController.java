@@ -1,7 +1,7 @@
-package com.example.demo.controller;
+package com.example.demo.controller.product;
 
-import com.example.demo.service.UsersService;
-import com.example.demo.vo.UsersVO;
+import com.example.demo.service.ProductService;
+import com.example.demo.vo.ProductVO;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,40 +11,36 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
-@WebServlet("/mileage/mileagePaymentPage/searchUser")
-public class ProductSelectUserController extends HttpServlet {
+@WebServlet(value = "/mileage/mileageShop/search")
+public class ProductSearchController extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        UsersService service = UsersService.getInstance();
+        ProductService service = ProductService.getInstance();
 
+        String prodName = req.getParameter("prodName");
+        System.out.println(prodName);
         Gson gson = new Gson();
 
-        String userId = req.getParameter("userId");
-        String userPw = req.getParameter("userPw");
-        UsersVO usersVO = new UsersVO();
-        usersVO.setUserId(userId);
-        usersVO.setUserPw(userPw);
+        List<ProductVO> productList = service.selectSearchList(prodName);
 
-        int cnt = service.selectUser(usersVO);
-        System.out.println(cnt);
-        if (cnt > 0) {
-            System.out.println("성공");
-        }else {
-            System.out.println("실패");
-        }
 
-        String json = gson.toJson(cnt);
+        String json = gson.toJson(productList);
 
         PrintWriter out = resp.getWriter();
-
         out.write(json);
 
         resp.flushBuffer();
+
+
+
+
     }
 
     @Override

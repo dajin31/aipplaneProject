@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.product;
 
 import com.example.demo.service.ProductService;
 import com.example.demo.vo.ProductVO;
@@ -11,12 +11,10 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@WebServlet(value = "/mileage/mileageShop/makeup")
-public class ProductMakeupController extends HttpServlet {
+@WebServlet(value = "/mileage/mileageShop/allList")
+public class ProductAllController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -28,7 +26,7 @@ public class ProductMakeupController extends HttpServlet {
 
         Gson gson = new Gson();
 
-        List<ProductVO> productList = service.selectMakeupProduct();
+        List<ProductVO> productList = service.selectAllProduct();
 
         String param = req.getParameter("화장품");
 

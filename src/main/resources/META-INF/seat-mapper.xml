@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="seat">
+
+	<resultMap id="seatMap" type="seatVO">
+		<result property="seatCode" column="seat_code"/>
+		<result property="seatPosition" column="seat_position"/>
+		<result property="seatClass" column="seat_class"/>
+		<result property="seatStatus" column="seat_status"/>
+		<result property="airCode" column="air_code"/>
+	</resultMap>
+
+	<select id="selectSeatList" resultMap="seatMap">
+		select *
+		  from seat
+		order by SEAT_POSITION
+	</select>
+
+
+	</mapper>

@@ -4,23 +4,24 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class Notice_BoardVO {
-    private String ntc_board; //게시물 id
+    private int ntc_board; //게시물 id
     private String crt_time; //게시물 생성시간
     private String mod_time; //게시물 수정시간
     private String ntc_title; // 게시글 제목
     private String ntc_content; //게시글 내용
+    private String admin_id; //
     private Boolean board_deleted; // 게시글 삭제 여부
-    private String admin_id; // 관리자 id
     private String file_name; //파일 이름
     private String file_origin_name; //파일 원래 이름
     private String file_path; //파일경로
     private Float file_size; //파일 크기
+    private UserVO user;
 
     public Notice_BoardVO() {
 
     }
 
-    public Notice_BoardVO(String ntc_board, String crt_time, String mod_time, String ntc_content, String ntc_title,
+    public Notice_BoardVO(int ntc_board, String crt_time, String mod_time, String ntc_content, String ntc_title,
                           Boolean board_deleted, String admin_id, String file_name, String file_origin_name,
                           String file_path, Float file_size) {
         this.ntc_board = ntc_board;
@@ -36,11 +37,11 @@ public class Notice_BoardVO {
         this.file_size = file_size;
     }
 
-    public String getNtc_board() {
+    public int getNtc_board() {
         return ntc_board;
     }
 
-    public void setNtc_board(String ntc_board) {
+    public void setNtc_board(int ntc_board) {
         this.ntc_board = ntc_board;
     }
 
@@ -122,6 +123,14 @@ public class Notice_BoardVO {
 
     public void setFile_size(Float file_size) {
         this.file_size = file_size;
+    }
+
+    public UserVO getUser() {
+        return user;
+    }
+
+    public void setUser(UserVO user) {
+        this.user = user;
     }
 
     @Override

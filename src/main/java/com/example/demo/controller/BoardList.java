@@ -2,9 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.service.Notice_BoardService;
 import com.example.demo.service.Notice_BoardServiceImpl;
+import com.example.demo.service.UserService;
+import com.example.demo.service.UserServiceImpl;
 import com.example.demo.vo.Notice_BoardVO;
 import com.example.demo.vo.PageVO;
+import com.example.demo.vo.UserVO;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -14,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@WebServlet("/member/list.do")
 public class BoardList extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -21,37 +26,46 @@ public class BoardList extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 
+
         int page = 1;
         if(req.getParameter("page") != null){
             page = Integer.parseInt(req.getParameter("page"));
         }
 
-        String stype = req.getParameter("type");
-        stype = stype == null ? ""  : stype;
 
         String sword = req.getParameter("sword");
         sword = sword == null ? "" : sword;
 
         Notice_BoardService notice_boardService = Notice_BoardServiceImpl.getInstance();
+        UserService userService = UserServiceImpl.getInstance();
 
 
-
-
-        PageVO pageVO = notice_boardService.pageInfo(page, stype, sword);
+        PageVO pageVO = notice_boardService.pageInfo(page, sword);
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("start", pageVO.getStart());
         map.put("end", pageVO.getEnd());
-        map.put("stype", stype);
         map.put("sword", sword);
 
 
+        List<Notice_BoardVO> boardList = notice_boardService.selectByPage(map);
+
+        for(Notice_BoardVO boardVO : boardList){
+            UserVO writeUserVO = userService.getUser(boardVO.getAdmin_id());
+            boardVO.setUser(writeUserVO);
+        }
+        System.out.println(boardList);
+        req.setAttribute("boardList", boardList);
 
         req.setAttribute("pageVO", pageVO);
-        req.setAttribute("stype", stype);
         req.setAttribute("sword", sword);
 
-        req.getRequestDispatcher("board/boardList.jsp").forward(req, resp);
+        req.getRequestDispatcher("/member/list.jsp").forward(req, resp);
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
     }
 }

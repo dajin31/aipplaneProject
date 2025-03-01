@@ -37,12 +37,12 @@ public class Notice_BoardServiceImpl implements Notice_BoardService {
     }
 
     @Override
-    public int deleteBoard(String ntc_board) {
+    public int deleteBoard(int ntc_board) {
         return notice_boardDao.deleteBoard(ntc_board);
     }
 
     @Override
-    public Notice_BoardVO getBoard(String ntc_board) {
+    public Notice_BoardVO getBoard(int ntc_board) {
         return notice_boardDao.getBoard(ntc_board);
     }
 
@@ -52,11 +52,10 @@ public class Notice_BoardServiceImpl implements Notice_BoardService {
     }
 
     @Override //게시글리스트 - 검색 포함
-    public PageVO pageInfo(int page, String stype, String sword) {
+    public PageVO pageInfo(int page, String sword) {
 
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("sword", sword);
-        map.put("stype", stype);
 
         int count = this.totalCount(map);
 

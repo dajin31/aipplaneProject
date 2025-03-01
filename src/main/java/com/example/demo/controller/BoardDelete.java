@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/board/boardList.do")
+@WebServlet("/member/delete.do")
 public class BoardDelete extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
@@ -22,7 +22,7 @@ public class BoardDelete extends HttpServlet {
         resp.setContentType("application/json; charset=UTF-8");
 
         //게시글 아이디 가져옴
-        String id = req.getParameter("Ntc_board"); //jsp랑 이름 맞추기
+        int id = Integer.parseInt(req.getParameter("ntc_board")); //jsp랑 이름 맞추기
 
         Notice_BoardService notice_boardService = Notice_BoardServiceImpl.getInstance();
 

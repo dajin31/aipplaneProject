@@ -10,11 +10,11 @@ public interface Notice_BoardService {
 
     public int insertBoard(Notice_BoardVO boardVO); //게시물 생성
     public int updateBoard(Notice_BoardVO boardVO); //게시물 수정
-    public int deleteBoard(String ntc_board); //게시물 삭제
-    public Notice_BoardVO getBoard(String ntc_board); //게시글 보기
+    public int deleteBoard(int ntc_board); //게시물 삭제
+    public Notice_BoardVO getBoard(int ntc_board); //게시글 보기
 
     public List<Notice_BoardVO> selectByPage(Map<String, Object> map); //게시글리스트 - 검색 포함
 
-    public PageVO pageInfo(int page, String stype, String sword);
+    public PageVO pageInfo(int page, String sword);
     public int totalCount(Map<String, Object> map); //전체 게시글 갯수 구하기
 }

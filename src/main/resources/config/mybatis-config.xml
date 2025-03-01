@@ -14,7 +14,8 @@
 	</settings>
 
 	<typeAliases>
-			<typeAlias type="com.example.demo.vo.MemVO" alias="memVO"/>
+			<typeAlias type="com.example.demo.vo.Notice_BoardVO" alias="boardVO"/>
+			<typeAlias type="com.example.demo.vo.UserVO" alias="userVO"/>
 	</typeAliases>
 
 
@@ -31,6 +32,7 @@
 	</environments>
 
 	<mappers>
-		<mapper resource="META-INF/member-mapper.xml"/>
+		<mapper resource="/META-INF/user-mapper.xml"/>
+		<mapper resource="/META-INF/notice-mapper.xml"/>
 	</mappers>
 </configuration>

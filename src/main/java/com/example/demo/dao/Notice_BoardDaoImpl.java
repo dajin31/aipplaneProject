@@ -24,10 +24,10 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     @Override
     public int insertBoard(Notice_BoardVO boardVO) {
         int res = 0;
-        SqlSession session = MyBatisUtil.getSession();
+        SqlSession session = MyBatisUtil.getSqlSession(); //
 
         try{
-            res = session.insert("insertBoard", boardVO);
+            res = session.insert("notice.insertBoard", boardVO);
         }finally{
             session.commit();
             session.close();
@@ -38,10 +38,10 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     @Override
     public int updateBoard(Notice_BoardVO boardVO) {
         int res = 0;
-        SqlSession session = MyBatisUtil.getSession();
+        SqlSession session = MyBatisUtil.getSqlSession();
 
         try{
-            res = session.insert("updateBoard", boardVO);
+            res = session.insert("notice.updateBoard", boardVO);
         }finally{
             session.commit();
             session.close();
@@ -50,12 +50,12 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     }
 
     @Override
-    public int deleteBoard(String ntc_board) {
+    public int deleteBoard(int ntc_board) {
         int res = 0;
-        SqlSession session = MyBatisUtil.getSession();
+        SqlSession session = MyBatisUtil.getSqlSession();
 
         try{
-            res = session.insert("deleteBoard", ntc_board);
+            res = session.insert("notice.deleteBoard", ntc_board);
         }finally{
             session.commit();
             session.close();
@@ -64,12 +64,12 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     }
 
     @Override
-    public Notice_BoardVO getBoard(String ntc_board) {
+    public Notice_BoardVO getBoard(int ntc_board) {
         Notice_BoardVO boardVO = null;
-        SqlSession session = MyBatisUtil.getSession();
+        SqlSession session = MyBatisUtil.getSqlSession();
 
         try{
-            boardVO = session.selectOne("deleteBoard", ntc_board);
+            boardVO = session.selectOne("notice.getBoard", ntc_board);
         }finally{
             session.commit();
             session.close();
@@ -81,10 +81,10 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     @Override
     public List<Notice_BoardVO> selectByPage(Map<String, Object> map) {
         List<Notice_BoardVO> list = null;
-        SqlSession session = MyBatisUtil.getSession();
+        SqlSession session = MyBatisUtil.getSqlSession();
 
         try{
-            list = session.selectOne("deleteBoard", map);
+            list = session.selectList("notice.selectByPage", map);
         }finally{
             session.commit();
             session.close();
@@ -94,6 +94,15 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 
     @Override
     public int totalCount(Map<String, Object> map) {
-        return 0;
+        int res = 0;
+        SqlSession  session = MyBatisUtil.getSqlSession();
+
+        try {
+            res = session.selectOne("notice.totalCount", map);
+        } finally {
+            session.commit();
+            session.close();
+        }
+        return res;
     }
 }

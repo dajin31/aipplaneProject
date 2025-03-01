@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="com.example.demo.vo.Notice_BoardVO" %>
+<%@ page import="com.example.demo.vo.UserVO" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -7,40 +9,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>공지사항 상세</title>
     <link rel="stylesheet" href="viewstyle.css">
-    <style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    <%
+        Notice_BoardVO noticeBoardVO = (Notice_BoardVO) request.getAttribute("boardVO");
+    %>
+    <script>
 
-    </style>
+        $(function (){
+
+        })
+    </script>
 </head>
 <body>
 
-<div class="container">
-    <div class="title">공지사항</div>
-    <div class="divider"></div>
+<!-- 공지사항 상세보기 -->
+<%
+    if(noticeBoardVO==null){
 
-    <div class="info">
-        <div>
-            <span class="notice-title">공지사항 이상한 내용</span>
-            <span class="category">공지사항 주제</span>
-        </div>
-        <div class="date">2025.02.16</div>
-    </div>
+%>
 
-    <div class="content-box">
-        공지사항 내용입니다.<br><br>
-        이것은 공지사항 내용입니다.<br><br>
-        공지 사항 내용입니다. 이것은
-    </div>
+<div>게시글을 찾을 수 없습니다.</div>
+<%
+}else {
 
-    <div class="button-box">
-        <div class="left-buttons">
-            <button class="btn">목록보기</button>
-        </div>
-        <div class="right-buttons">
-            <button class="btn btn-danger">등록</button>
-            <button class="btn btn-danger">삭제</button>
+%>
+<div id="wModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">공지사항</h5>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="wfrom">
+                    <div class="form-group">
+                        <label for="title">공지사항 주제</label>
+                        <div id="title"><%=noticeBoardVO.getNtc_title()%></div>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">내용</label>
+                        <div id="content"><%=noticeBoardVO.getNtc_content()%></div>
+                    </div>
+                    <input type="hidden" name="crt_time" value="<%=noticeBoardVO.getMod_time()%>">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">닫기</button>
+            </div>
         </div>
     </div>
 </div>
+<%
+    }
+%>
+
 
 </body>
 </html>

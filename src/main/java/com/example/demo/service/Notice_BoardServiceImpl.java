@@ -28,6 +28,7 @@ public class Notice_BoardServiceImpl implements Notice_BoardService {
 
     @Override
     public int insertBoard(Notice_BoardVO boardVO) {
+        System.out.println(boardVO.getNtc_title());
         return notice_boardDao.insertBoard(boardVO);
     }
 

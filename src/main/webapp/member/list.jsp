@@ -190,10 +190,10 @@
         $('#searchForm').submit();
       });
 
-      // // 공지사항 등록 버튼 클릭 이벤트
-      // $('#write').click(function() {
-      //   location.href = "write.jsp";
-      // });
+      // 공지사항 등록 버튼 클릭 이벤트
+      $('#write').click(function() {
+        location.href = "test.jsp";
+      });
     });
     <%--function listclick(){--%>
     <%--    const num = $(this).data("num");--%>
@@ -238,10 +238,7 @@
 
 
 
-    <%--    // 글쓰기 이벤트 - 새 창 띄우기--%>
-    <%--    $('#write').on('click', function() {--%>
-    <%--        location.href="write.jsp"--%>
-    <%--    });--%>
+
 
     <%--});--%>
   </script>
@@ -327,14 +324,6 @@
   %>
 </div>
 
-<%
-  if (noticeBoardVO != null && noticeBoardVO.getUser() != null && "admin".equals(noticeBoardVO.getUser().getMem_code())) {
-%>
-<button class="register-btn" id="write">공지사항 등록</button>
-<%
-  }
-%>
-</div>
 
 <%--  <%--%>
 <%--      if(noticeBoardVO!=null){//로그인 안하면 null이므로 null이 아닐때만 실행--%>
@@ -349,7 +338,7 @@
 
 <button class="register-btn" id="write">공지사항 등록</button>
 
-</div>
+
 
 </body>
 </html>

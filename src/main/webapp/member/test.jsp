@@ -10,9 +10,9 @@
     <title>공지사항</title>
 <%--    //<link rel="stylesheet" href="viewstyle.css">--%>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
-    <%
-        Notice_BoardVO noticeBoardVO = (Notice_BoardVO) request.getAttribute("boardVO");
-    %>
+    <script src="/js/jquery.serializejson.js"></script>
+
+
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
@@ -100,39 +100,60 @@
             margin-right: 5px;
         }
     </style>
+    <script>
+        $(function (){
+
+            $('#send').on('click', function (){
+                // 입력한 모든 값을 가져온다
+                const formData = $('#wform').serializeJSON();
+
+                $.ajax({
+                    url : "<%=request.getContextPath()%>/member/write.do",
+                    contentType :"application/json; charset=utf-8",
+                    type : "post",
+                    data : JSON.stringify(formData),
+                    success: function(response) {
+                        console.log("새 글 생성 성공" + response)
+                        location.href = "/member/list.do";
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("새 글 생성 실패:", error);
+                        console.log(xhr);
+                        try {
+                            var errorData = JSON.parse(xhr.responseText);
+                            alert("새 글 생성 실패: " + errorData.message);
+                        } catch (e) {
+                            alert("새 글 생성 실패. 서버 오류 발생.");
+                        }
+                    }
+                })
+            })
+
+
+        })
+    </script>
 </head>
 <body>
 
-<!-- 공지사항 상세보기 -->
-<%
-    if(noticeBoardVO==null){
-
-%>
-
-<div>게시글을 찾을 수 없습니다.</div>
-<%
-}else {
-
-%>
+<form id="wform">
 <div class="container">
     <div class="notice-header">
-        <div class="notice-title"><%=noticeBoardVO.getNtc_title()%></div>
+        <div class="notice-title"><h3>공지사항 등록</h3>제목  <input type="text" class="form-control" id="ntc_title" name="ntc_title"></div>
         <div class="notice-info">
             <span class="category-label">카테고리?</span>
-            <%=noticeBoardVO.getMod_time()%>
         </div>
     </div>
 
-    <div class="notice-content">
-        <%=noticeBoardVO.getNtc_content()%>
+    <div class="notice-content">내용<br>
+        <textarea class="form-control" id="ntc_contents" name="ntc_contents" cols="100" rows="30"></textarea>
     </div>
 
     <div class="button-container">
-        <a href="/member/list.do" class="list-button">목록보기</a>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">닫기</button>
+        <button type="button" class="btn btn-primary" id="send">등록</button>
     </div>
-</div>
-<%
-    }
-%>
+    </div>
+
+</form>
 </body>
 </html>

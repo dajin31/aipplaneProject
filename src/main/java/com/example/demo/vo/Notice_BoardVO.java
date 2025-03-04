@@ -8,7 +8,7 @@ public class Notice_BoardVO {
     private String crt_time; //게시물 생성시간
     private String mod_time; //게시물 수정시간
     private String ntc_title; // 게시글 제목
-    private String ntc_content; //게시글 내용
+    private String ntc_contents; //게시글 내용
     private String admin_id; //
     private Boolean board_deleted; // 게시글 삭제 여부
     private String file_name; //파일 이름
@@ -21,13 +21,13 @@ public class Notice_BoardVO {
 
     }
 
-    public Notice_BoardVO(int ntc_board, String crt_time, String mod_time, String ntc_content, String ntc_title,
+    public Notice_BoardVO(int ntc_board, String crt_time, String mod_time, String ntc_contents, String ntc_title,
                           Boolean board_deleted, String admin_id, String file_name, String file_origin_name,
                           String file_path, Float file_size) {
         this.ntc_board = ntc_board;
         this.crt_time = crt_time;
         this.mod_time = mod_time;
-        this.ntc_content = ntc_content;
+        this.ntc_contents = ntc_contents;
         this.ntc_title = ntc_title;
         this.board_deleted = board_deleted;
         this.admin_id = admin_id;
@@ -69,12 +69,12 @@ public class Notice_BoardVO {
         this.ntc_title = ntc_title;
     }
 
-    public String getNtc_content() {
-        return ntc_content;
+    public String getNtc_contents() {
+        return ntc_contents;
     }
 
-    public void setNtc_content(String ntc_content) {
-        this.ntc_content = ntc_content;
+    public void setNtc_contents(String ntc_contents) {
+        this.ntc_contents = ntc_contents;
     }
 
     public Boolean getBoard_deleted() {
@@ -140,7 +140,7 @@ public class Notice_BoardVO {
                 ", crt_time=" + crt_time +
                 ", mod_time=" + mod_time +
                 ", ntc_title='" + ntc_title + '\'' +
-                ", ntc_content='" + ntc_content + '\'' +
+                ", ntc_content='" + ntc_contents + '\'' +
                 ", board_deleted=" + board_deleted +
                 ", admin_id='" + admin_id + '\'' +
                 ", file_name='" + file_name + '\'' +

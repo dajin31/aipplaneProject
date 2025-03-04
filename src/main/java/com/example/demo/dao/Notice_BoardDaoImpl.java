@@ -24,10 +24,13 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     @Override
     public int insertBoard(Notice_BoardVO boardVO) {
         int res = 0;
-        SqlSession session = MyBatisUtil.getSqlSession(); //
+        SqlSession session = MyBatisUtil.getSqlSession();
 
         try{
+            System.out.println("Dao insert title : "+ boardVO.getNtc_title());
             res = session.insert("notice.insertBoard", boardVO);
+            System.out.println(boardVO.getNtc_title());
+            System.out.println(res);
         }finally{
             session.commit();
             session.close();
@@ -41,7 +44,7 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
         SqlSession session = MyBatisUtil.getSqlSession();
 
         try{
-            res = session.insert("notice.updateBoard", boardVO);
+            res = session.update("notice.updateBoard", boardVO);
         }finally{
             session.commit();
             session.close();
@@ -70,6 +73,7 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 
         try{
             boardVO = session.selectOne("notice.getBoard", ntc_board);
+            System.out.println(boardVO);
         }finally{
             session.commit();
             session.close();

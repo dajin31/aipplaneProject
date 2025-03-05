@@ -3,7 +3,7 @@
 <%@ page import="com.example.demo.vo.PageVO" %>
 <%@ page import="com.example.demo.controller.NBoardList" %>
 <%@ page import="com.example.demo.vo.UserVO" %>
-<%@ page import="com.example.demo.service.UserService" %>
+<%@ page import="com.example.demo.service.IUserService" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -174,7 +174,7 @@
   </style>
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
   <%
-      UserVO loginUserVO = (UserVO) session.getAttribute("loginUserVO");
+      UserVO loginUser = (UserVO) session.getAttribute("loginUser");
 
   %>
   <script>
@@ -204,66 +204,42 @@
       });
 
       // 공지사항 등록 버튼 클릭 이벤트
-      $('#write').click(function() {
-        <%if(loginUserVO == null){%>
-          alert("로그인 하세요")
-        <%}else if(!loginUserVO.getMem_code().equals("admin")){%>
-          alert("권한이 없습니다");
-        <%}else{%>
-          location.href = "write.jsp";
-        <%}%>
-
-      });
-    });
-    <%--function listclick(){--%>
-    <%--    const num = $(this).data("num");--%>
-    <%--    $.ajax({--%>
-    <%--        url: "<%=request.getContextPath()%>/member/view.do",--%>
-    <%--        contentType: "application/json; charset=utf-8",--%>
-    <%--        type: "get",--%>
-    <%--        data: "ntc_board="+num,--%>
-    <%--        success: function(data){--%>
-    <%--            console.log("성공")--%>
-    <%--            console.log(data)--%>
-    <%--            //location.href ="<%=request.getContextPath()%>/member/view.do?ntc_board=" + num;--%>
-    <%--        },--%>
-    <%--        error : function (data){--%>
-    <%--            console.log("실패")--%>
-    <%--            console.log(data)--%>
-    <%--        }--%>
-    <%--    })--%>
-    <%--}--%>
-    <%--$(function() {--%>
-
-
-    <%--    $(document).on('click','#notice-list-click', function (){--%>
-    <%--        const num = $(this).data("num");--%>
-    <%--        $.ajax({--%>
-    <%--            url: "<%=request.getContextPath()%>/member/view.do",--%>
-    <%--            contentType: "application/json; charset=utf-8",--%>
-    <%--            type: "get",--%>
-    <%--            data: "ntc_board="+num,--%>
-    <%--            success: function(data){--%>
-    <%--                console.log("성공")--%>
-    <%--                console.log(data)--%>
-    <%--                //location.href ="<%=request.getContextPath()%>/member/view.do?ntc_board=" + num;--%>
-    <%--            },--%>
-    <%--            error : function (data){--%>
-    <%--                console.log("실패")--%>
-    <%--                console.log(data)--%>
-    <%--            }--%>
-    <%--        })--%>
-
-    <%--    })--%>
-
-
-
-
+    <%--  $('#write').click(function() {--%>
+    <%--    <%--%>
+    <%--    if(loginUser.getUserId() == null){%>--%>
+    <%--      alert("로그인 하세요")--%>
+    <%--    <%}else if(!loginUser.getMem_code().equals("admin")){%>--%>
+    <%--      alert("권한이 없습니다");--%>
+    <%--    <%}else{%>--%>
+    <%--      location.href = "write.jsp";--%>
+    <%--    <%}%>--%>
+    <%--  });--%>
 
     <%--});--%>
+      $('#write').click(function(){
+        location.href = "write.jsp"
+
+      })
+
+
+
+    });
   </script>
 </head>
 <body>
+<button type="button" id="login" name="login" > <a href="<%=request.getContextPath() %>/member/login.jsp?">로그인</a></button>
+<%
+
+  if (loginUser != null && loginUser.getUserId() != null) {
+    System.out.println("list" + loginUser.getUserId());
+    System.out.println("list" + loginUser.getMemCode());
+  } else {
+    // loginUser가 null인 경우 처리 (예: 로그인 페이지로 리다이렉트)
+    out.println("<script>console.log('loginUser is null');</script>"); // 콘솔 로그
+  }
+%>
+
+
 <%
   // 컨트롤러에서 보내온 자료 받기
   List<Notice_BoardVO> boardVOList = (List<Notice_BoardVO>) request.getAttribute("boardList");
@@ -293,24 +269,24 @@
     if (boardVOList == null || boardVOList.size() == 0) {
   %>
   <div class="notice-item" style="justify-content: center; >
-          <span>등록된 공지사항이 없습니다.</span>
-          </div>
+          <span>등록된 공지사항이 없습니다.</span></div>
     <%
         } else {
             for (Notice_BoardVO boardVO : boardVOList) {
     %>
-          <div class="notice-list">
 
-  <div class="notice-item">
-    <a href="<%=request.getContextPath() %>/member/view.do?ntc_board=<%=boardVO.getNtc_board()%>">
-      <span class="notice-title"><%=boardVO.getNtc_title()%></span>
-      <span class="notice-date"><%=boardVO.getCrt_time()%></span>
-    </a>
+
+    <div class="notice-list">
+      <div class="notice-item">
+        <a href="<%=request.getContextPath() %>/member/view.do?ntc_board=<%=boardVO.getNtc_board()%>">
+          <span class="notice-title"><%=boardVO.getNtc_title()%></span>
+          <span class="notice-date"><%=boardVO.getCrt_time()%></span>
+        </a>
+      </div>
   </div>
-</div>
 <%
+      }
     }
-  }
 %>
 <!-- 페이지네이션 -->
 <div class="pagination">
@@ -344,15 +320,13 @@
   %>
 </div>
 
-
-  <%
-        if(loginUserVO.getMem_code().equals("admin")){
-  %>
-  <button class="register-btn" id="write">등록</button>
-  <%
-        } //inner if
-  %>
-
+<%
+  if (loginUser != null && loginUser.getMemCode().equals("admin")) {
+%>
+<button class="register-btn" id="write">등록</button>
+<%
+  }
+%>
 
 
 </body>

@@ -58,7 +58,8 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
         SqlSession session = MyBatisUtil.getSqlSession();
 
         try{
-            res = session.insert("notice.deleteBoard", ntc_board);
+            res = session.delete("notice.deleteBoard", ntc_board);
+            System.out.println("Dao res = " + res);
         }finally{
             session.commit();
             session.close();

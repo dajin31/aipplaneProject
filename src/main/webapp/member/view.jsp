@@ -12,6 +12,7 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <%
         Notice_BoardVO noticeBoardVO = (Notice_BoardVO) request.getAttribute("boardVO");
+        UserVO loginUserVO = (UserVO) session.getAttribute("loginUserVO");
     %>
     <style>
         body {
@@ -28,12 +29,13 @@
             background-color: #fff;
             padding: 40px;
             border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
 
         .notice-header {
+            margin-top: 10px;
             margin-bottom: 30px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #A4A4A4;
             padding-bottom: 20px;
         }
 
@@ -100,10 +102,34 @@
             margin-right: 5px;
         }
     </style>
+
+
     <script>
         $(function (){
 
-            $()
+            $('#delete').click(function() {
+                const ntc_board = $(this).data("num");
+                console.log(ntc_board)
+                alert(ntc_board + " 번 글을 삭제")
+                $.ajax({
+                    url  : `<%=request.getContextPath()%>/member/delete.do`,
+                    type : 'post',
+                    data : {"ntc_board" : ntc_board},
+                    success : function(data){
+                        if(data.result>0){
+                            console.log(ntc_board + "번 게시글이 삭제되었습니다.");
+                            location.href = "<%=request.getContextPath()%>/member/list.do";
+                        }else{
+                            console.log("게시글 삭제 오류~~")
+                        }
+
+                    },
+                    error : function(xhr){
+                        alert("상태 : " + xhr.status)
+                    },
+                    dataType : 'json'
+                });
+            });
         })
     </script>
 </head>
@@ -111,7 +137,7 @@
 
 
 <div class="container">
-    <div class="notice-header">
+    <div class="notice-header">공지사항
         <div class="notice-title"><%=noticeBoardVO.getNtc_title()%></div>
         <div class="notice-info">
             <span class="category-label">카테고리?</span>
@@ -125,12 +151,16 @@
 
     <div class="button-container">
         <a href="/member/list.do" class="list-button">목록보기</a>
-        <a href="/member/update.do" class="list-button" id="update">수정</a>
-        <a href="/member/delete.do" class="list-button" id="delete">삭제</a>
+        <%
+            if(loginUserVO.getMem_code().equals("admin")){
+        %>
+        <button type="button"  class="list-button" > <a href="<%=request.getContextPath() %>/member/update.do?ntc_board=<%=noticeBoardVO.getNtc_board()%>" id="update">수정</a></button>
+        <button type="button" data-num="<%=noticeBoardVO.getNtc_board() %>" class="list-button" id="delete">삭제</button>
+        <%
+            }
+        %>
     </div>
 </div>
-<%
-    }
-%>
+
 </body>
 </html>

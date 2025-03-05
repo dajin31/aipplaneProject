@@ -27,7 +27,7 @@
 
 	<!-- 글삭제 -->
 	<delete id="deleteBoard" parameterType="int">
-		delete from notice_board  where ntc_board = #{data}
+		delete from notice_board where ntc_board = #{ntc_board}
 	</delete>
 
 	<!-- 글수정 -->

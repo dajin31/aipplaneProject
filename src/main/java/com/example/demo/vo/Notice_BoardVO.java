@@ -9,32 +9,31 @@ public class Notice_BoardVO {
     private String mod_time; //게시물 수정시간
     private String ntc_title; // 게시글 제목
     private String ntc_contents; //게시글 내용
-    private String admin_id; //
     private Boolean board_deleted; // 게시글 삭제 여부
     private String file_name; //파일 이름
     private String file_origin_name; //파일 원래 이름
     private String file_path; //파일경로
     private Float file_size; //파일 크기
-    private UserVO user;
+    private String user_id;
 
     public Notice_BoardVO() {
 
     }
 
-    public Notice_BoardVO(int ntc_board, String crt_time, String mod_time, String ntc_contents, String ntc_title,
-                          Boolean board_deleted, String admin_id, String file_name, String file_origin_name,
-                          String file_path, Float file_size) {
+    public Notice_BoardVO(int ntc_board, String crt_time, String mod_time, String ntc_title,
+                          String ntc_contents, Boolean board_deleted, String file_name, String file_origin_name,
+                          String file_path, Float file_size, String user_id) {
         this.ntc_board = ntc_board;
         this.crt_time = crt_time;
         this.mod_time = mod_time;
-        this.ntc_contents = ntc_contents;
         this.ntc_title = ntc_title;
+        this.ntc_contents = ntc_contents;
         this.board_deleted = board_deleted;
-        this.admin_id = admin_id;
         this.file_name = file_name;
         this.file_origin_name = file_origin_name;
         this.file_path = file_path;
         this.file_size = file_size;
+        this.user_id = user_id;
     }
 
     public int getNtc_board() {
@@ -85,13 +84,6 @@ public class Notice_BoardVO {
         this.board_deleted = board_deleted;
     }
 
-    public String getAdmin_id() {
-        return admin_id;
-    }
-
-    public void setAdmin_id(String admin_id) {
-        this.admin_id = admin_id;
-    }
 
     public String getFile_name() {
         return file_name;
@@ -125,30 +117,29 @@ public class Notice_BoardVO {
         this.file_size = file_size;
     }
 
-    public UserVO getUser() {
-        return user;
+
+    public String getUser_id() {
+        return user_id;
     }
 
-    public void setUser(UserVO user) {
-        this.user = user;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     @Override
     public String toString() {
         return "Notice_BoardVO{" +
-                "ntc_board='" + ntc_board + '\'' +
-                ", crt_time=" + crt_time +
-                ", mod_time=" + mod_time +
+                "ntc_board=" + ntc_board +
+                ", crt_time='" + crt_time + '\'' +
+                ", mod_time='" + mod_time + '\'' +
                 ", ntc_title='" + ntc_title + '\'' +
-                ", ntc_content='" + ntc_contents + '\'' +
+                ", ntc_contents='" + ntc_contents + '\'' +
                 ", board_deleted=" + board_deleted +
-                ", admin_id='" + admin_id + '\'' +
                 ", file_name='" + file_name + '\'' +
                 ", file_origin_name='" + file_origin_name + '\'' +
                 ", file_path='" + file_path + '\'' +
                 ", file_size=" + file_size +
+                ", user_id='" + user_id + '\'' +
                 '}';
     }
-
-
 }

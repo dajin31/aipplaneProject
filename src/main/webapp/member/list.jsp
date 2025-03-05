@@ -1,7 +1,9 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.demo.vo.Notice_BoardVO" %>
 <%@ page import="com.example.demo.vo.PageVO" %>
-<%@ page import="com.example.demo.controller.BoardList" %>
+<%@ page import="com.example.demo.controller.NBoardList" %>
+<%@ page import="com.example.demo.vo.UserVO" %>
+<%@ page import="com.example.demo.service.UserService" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -52,23 +54,33 @@
     .search-input {
       flex: 1;
       border: none;
-      border-bottom: 2px solid #0064de;
+      border-bottom: 2px solid #0B2161;
       padding: 8px 0;
       outline: none;
     }
     .search-button {
+      color: white;
       margin-left: 16px;
       padding: 8px 24px;
-      background-color: #fff;
+      background-color: #0B2161;
       border: 1px solid #ccc;
       border-radius: 4px;
       cursor: pointer;
     }
     .search-button:hover {
-      background-color: #f5f5f5;
+      background-color: darkblue;
     }
     .notice-list {
       border-top: 1px solid #ccc;
+    }
+    .register-btn {
+      color: white;
+      margin-left: 16px;
+      padding: 8px 24px;
+      background-color: #0B2161;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      cursor: pointer;
     }
     .notice-item {
       display: flex;
@@ -162,7 +174,8 @@
   </style>
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
   <%
-    Notice_BoardVO noticeBoardVO = (Notice_BoardVO) session.getAttribute("user");
+      UserVO loginUserVO = (UserVO) session.getAttribute("loginUserVO");
+
   %>
   <script>
     $(function() {
@@ -192,7 +205,14 @@
 
       // 공지사항 등록 버튼 클릭 이벤트
       $('#write').click(function() {
-        location.href = "test.jsp";
+        <%if(loginUserVO == null){%>
+          alert("로그인 하세요")
+        <%}else if(!loginUserVO.getMem_code().equals("admin")){%>
+          alert("권한이 없습니다");
+        <%}else{%>
+          location.href = "write.jsp";
+        <%}%>
+
       });
     });
     <%--function listclick(){--%>
@@ -325,18 +345,13 @@
 </div>
 
 
-<%--  <%--%>
-<%--      if(noticeBoardVO!=null){//로그인 안하면 null이므로 null이 아닐때만 실행--%>
-<%--        if(noticeBoardVO.getUser().getMem_code().equals("admin")){--%>
-<%--  %>--%>
-<%--  <button class="register-btn" id="write">등록</button>--%>
-<%--  <%--%>
-<%--        }//inner if--%>
-<%--      }//outer if--%>
-<%--    }--%>
-<%--  %>--%>
-
-<button class="register-btn" id="write">공지사항 등록</button>
+  <%
+        if(loginUserVO.getMem_code().equals("admin")){
+  %>
+  <button class="register-btn" id="write">등록</button>
+  <%
+        } //inner if
+  %>
 
 
 

@@ -219,7 +219,7 @@ $(function(){
 	  </div>
 	  
 	  <div class="form-group">
-	    <label class="control-label col-sm-2" for="zip">우편번호</label>
+	    <label class="control-label col-sm-2" for="zipcode">우편번호</label>
 	    <div class="col-sm-2">
 	      <input type="text" name="mem_zip" class="form-control" id="zipcode" readonly placeholder="우편번호">
 	    </div>
@@ -235,7 +235,7 @@ $(function(){
 	  </div>
 	  
 	  <div class="form-group">
-	    <label class="control-label col-sm-2" for="add2">상세주소</label>
+	    <label class="control-label col-sm-2" for="addr2">상세주소</label>
 	    <div class="col-sm-3">
 	      <input type="text" name="mem_add2" class="form-control" id="addr2" placeholder="상세주소"><br>
 	      <input type="text" class="form-control" id="extraAddress" readonly placeholder="참고항목">

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="TicketMapper">
+    <resultMap id="passengerTicketResultMap" type="com.example.demo.vo.PassengerVO">
+        <id property="pNum" column="P_NUM"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="fltCode" column="FLT_CODE"/>
+        <result property="passNum" column="PASS_NUM"/>
+        <result property="regNum" column="REG_NUM"/>
+        <result property="seatCode" column="SEAT_CODE"/>
+        <association property="outboundFlight" javaType="com.example.demo.vo.AirRouteScheduleVO">
+            <id property="fltCode" column="outbound_flt_code"/>
+            <result property="dptDate" column="outbound_dpt_date"/>
+            <result property="arrDate" column="outbound_arr_date"/>
+            <result property="dptTime" column="outbound_dpt_time"/>
+            <result property="arrTime" column="outbound_arr_time"/>
+            <result property="dptAptCode" column="outbound_dpt_apt_code"/>
+            <result property="arrAptCode" column="outbound_arr_apt_code"/>
+            <result property="dptCntName" column="outbound_dpt_cnt_name"/>
+            <result property="arrCntName" column="outbound_arr_cnt_name"/>
+        </association>
+        <association property="inboundFlight" javaType="com.example.demo.vo.AirRouteScheduleVO">
+            <id property="fltCode" column="inbound_flt_code"/>
+            <result property="dptDate" column="inbound_dpt_date"/>
+            <result property="arrDate" column="inbound_arr_date"/>
+            <result property="dptTime" column="inbound_dpt_time"/>
+            <result property="arrTime" column="inbound_arr_time"/>
+            <result property="dptAptCode" column="inbound_dpt_apt_code"/>
+            <result property="arrAptCode" column="inbound_arr_apt_code"/>
+            <result property="dptCntName" column="inbound_dpt_cnt_name"/>
+            <result property="arrCntName" column="inbound_arr_cnt_name"/>
+        </association>
+    </resultMap>
+
+    <select id="getPassengerTicketInfo" parameterType="int" resultMap="passengerTicketResultMap">
+        SELECT p.*,
+               f1.FLT_CODE as outbound_flt_code, f1.DPT_DATE as outbound_dpt_date,
+               f1.ARR_DATE as outbound_arr_date, f1.DPT_TIME as outbound_dpt_time,
+               f1.ARR_TIME as outbound_arr_time, f1.DPT_APT_CODE as outbound_dpt_apt_code,
+               f1.ARR_APT_CODE as outbound_arr_apt_code, f1.DPT_CNT_NAME as outbound_dpt_cnt_name,
+               f1.ARR_CNT_NAME as outbound_arr_cnt_name,
+               f2.FLT_CODE as inbound_flt_code, f2.DPT_DATE as inbound_dpt_date,
+               f2.ARR_DATE as inbound_arr_date, f2.DPT_TIME as inbound_dpt_time,
+               f2.ARR_TIME as inbound_arr_time, f2.DPT_APT_CODE as inbound_dpt_apt_code,
+               f2.ARR_APT_CODE as inbound_arr_apt_code, f2.DPT_CNT_NAME as inbound_dpt_cnt_name,
+               f2.ARR_CNT_NAME as inbound_arr_cnt_name
+        FROM PASSENGER p
+                 JOIN AIR_ROUTE_SCHEDULE f1 ON p.FLT_CODE = f1.FLT_CODE
+                 JOIN AIR_ROUTE_SCHEDULE f2 ON p.FLT_CODE != f2.FLT_CODE
+        WHERE p.P_NUM = #{pNum}
+    </select>
+</mapper>

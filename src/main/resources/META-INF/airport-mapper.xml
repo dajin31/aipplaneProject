@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="airport">
+
+    <resultMap id="airportMap" type="airportVO">
+        <result property="aptCode" column="apt_code"/>
+        <result property="aptName" column="apt_name"/>
+        <result property="cntName" column="cnt_name"/>
+        <result property="cntCategory" column="cnt_category"/>
+    </resultMap>
+
+    <resultMap id="airRouteScheduleMap" type="airRouteScheduleVO">
+        <result property="fltCode" column="FLT_CODE"/>
+        <result property="dptDate" column="DPT_DATE"/>
+        <result property="arrDate" column="ARR_DATE"/>
+        <result property="dptTime" column="DPT_TIME"/>
+        <result property="arrTime" column="ARR_TIME"/>
+        <result property="fltTime" column="FLT_TIME"/>
+        <result property="airCode" column="AIR_CODE"/>
+        <result property="dptAptCode" column="DPT_APT_CODE"/>
+        <result property="arrAptCode" column="ARR_APT_CODE"/>
+        <result property="dptCntName" column="출발_국가"/>
+        <result property="arrCntName" column="도착_국가"/>
+        <result property="aptName" column="도착_항공"/>
+        <result property="airName" column="AIR_NAME"/>
+    </resultMap>
+
+    <select id="selectCountyList" resultMap="airportMap">
+        select *
+        from airport
+    </select>
+
+    <select id="selectCountryCategory" resultMap="airportMap">
+        SELECT *
+        FROM airport
+        <where>
+            <choose>
+                <when test="cnt_category == '유럽'">
+                    cnt_category = '유럽'
+                </when>
+                <when test="cnt_category == '아시아'">
+                    cnt_category = '아시아'
+                </when>
+                <when test="cnt_category == '아메리카'">
+                    cnt_category = '아메리카'
+                </when>
+                <otherwise>
+                    1=0
+                </otherwise>
+            </choose>
+        </where>
+    </select>
+
+    <select id="findSchedulesByAirCode" resultMap="airRouteScheduleMap">
+        select *
+        from air_route_schedule
+        where air_code = #{airCode}
+        order by DPT_TIME
+    </select>
+
+    <select id="findScheduleOne" resultMap="airRouteScheduleMap">
+        WITH air_a AS (
+            SELECT CNT_NAME, APT_CODE
+            FROM AIRPORT
+        ),
+             air_b AS (
+                 SELECT CNT_NAME, APT_CODE , APT_NAME
+                 FROM AIRPORT
+             ),
+             air_c as (
+                 select AIR_CODE , AIR_NAME
+                 from AIRCRAFT
+             )
+        SELECT s.*, air_a.CNT_NAME AS 출발_국가, air_b.CNT_NAME AS 도착_국가 , air_b.APT_NAME as 도착_항공 , air_c.AIR_NAME
+        FROM AIR_ROUTE_SCHEDULE s
+                 LEFT JOIN air_a ON s.DPT_APT_CODE = air_a.APT_CODE
+                 LEFT JOIN air_b ON s.ARR_APT_CODE = air_b.APT_CODE
+                 LEFT JOIN air_c ON s.AIR_CODE = air_c.AIR_CODE
+        WHERE s.FLT_CODE = #{fltCode}
+    </select>
+
+</mapper>

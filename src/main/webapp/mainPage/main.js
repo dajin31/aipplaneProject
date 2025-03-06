@@ -1,91 +1,92 @@
 // 탭 연동
 document.addEventListener('DOMContentLoaded', function() {
     const container = document.querySelector('.slides-container');
+    const track = document.querySelector('.slides-track');
     const slides = document.querySelectorAll('.slide');
     const prevButton = document.querySelector('.slide-button.prev');
     const nextButton = document.querySelector('.slide-button.next');
 
-    let currentIndex = 0;
-    const slidesToShow = 6; // 한 번에 보여줄 슬라이드 수
-    const slideWidth = container.clientWidth/ slidesToShow - 30;
-
-    slides.forEach(item => {
-        item.style.minWidth = slideWidth + "px";
-    })
-
-    // 초기 버튼 상태 설정
-    updateButtonStates();
-
-    // 이전 버튼 클릭
-    prevButton.addEventListener('click', () => {
-        if (currentIndex > 0) {
-            currentIndex--;
-            updateSlidePosition();
-        }
-    });
-
-    // 다음 버튼 클릭
-    nextButton.addEventListener('click', () => {
-        if (currentIndex < slides.length - slidesToShow) {
-            currentIndex++;
-            updateSlidePosition();
-        }
-    });
-
-    // 슬라이드 위치 업데이트
-    function updateSlidePosition() {
-        container.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
-        updateButtonStates();
-    }
-
-    // 버튼 상태 업데이트
-    function updateButtonStates() {
-        prevButton.style.opacity = currentIndex === 0 ? '0.5' : '1';
-        prevButton.style.cursor = currentIndex === 0 ? 'default' : 'pointer';
-
-        nextButton.style.opacity = currentIndex >= slides.length - slidesToShow ? '0.5' : '1';
-        nextButton.style.cursor = currentIndex >= slides.length - slidesToShow ? 'default' : 'pointer';
-    }
-
-    // 반응형 처리
-    window.addEventListener('resize', () => {
-        const newSlideWidth = container.clientWidth / slidesToShow;
+    // 슬라이드 복제하여 무한 루프 구현
+    const slideCount = slides.length;
+    const cloneSlides = () => {
         slides.forEach(slide => {
-            slide.style.minWidth = `${newSlideWidth}px`;
+            const clone = slide.cloneNode(true);
+            track.appendChild(clone);
         });
-        updateSlidePosition();
+    };
+    cloneSlides();
+
+    let currentIndex = 0;
+    let isTransitioning = false;
+
+    // 슬라이드 이동 함수
+    const moveSlides = (direction) => {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        const slideWidth = slides[0].offsetWidth + 30; // margin 포함
+
+        if (direction === 'next') {
+            currentIndex++;
+            track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+
+            // 마지막 슬라이드 도달 시 처음으로 리셋
+            if (currentIndex >= slideCount) {
+                setTimeout(() => {
+                    track.style.transition = 'none';
+                    currentIndex = 0;
+                    track.style.transform = `translateX(0)`;
+                    setTimeout(() => {
+                        track.style.transition = 'transform 0.5s ease-in-out';
+                    }, 10);
+                }, 500);
+            }
+        } else {
+            if (currentIndex === 0) {
+                track.style.transition = 'none';
+                currentIndex = slideCount;
+                track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+                setTimeout(() => {
+                    track.style.transition = 'transform 0.5s ease-in-out';
+                    currentIndex--;
+                    track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+                }, 10);
+            } else {
+                currentIndex--;
+                track.style.transform = `translateX(-${currentIndex * slideWidth}px)`;
+            }
+        }
+
+        setTimeout(() => {
+            isTransitioning = false;
+        }, 500);
+    };
+
+    // 버튼 이벤트 리스너
+    nextButton.addEventListener('click', () => moveSlides('next'));
+    prevButton.addEventListener('click', () => moveSlides('prev'));
+
+    // 트랜지션 종료 이벤트
+    track.addEventListener('transitionend', () => {
+        isTransitioning = false;
     });
+
+    // 자동 슬라이드 (선택사항)
+    let autoSlideInterval;
+    const startAutoSlide = () => {
+        autoSlideInterval = setInterval(() => {
+            moveSlides('next');
+        }, 5000); // 5초마다 자동 슬라이드
+    };
+
+    const stopAutoSlide = () => {
+        clearInterval(autoSlideInterval);
+    };
+
+    // 마우스 호버 시 자동 슬라이드 멈춤
+    container.addEventListener('mouseenter', stopAutoSlide);
+    container.addEventListener('mouseleave', startAutoSlide);
+
+    // 자동 슬라이드 시작
+    startAutoSlide();
 });
-
-// 날씨 API 연동
-async function getWeather(city) {
-    const API_KEY = 'your_api_key';
-    try {
-        const response = await fetch(
-            `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
-        );
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('날씨 정보를 가져오는데 실패했습니다:', error);
-
-    }
-}
-
-// 날씨 위젯 업데이트
-async function updateWeatherWidget() {
-    const weatherData = await getWeather('Seoul');
-    if (weatherData) {
-        document.getElementById('weather-widget').innerHTML = `
-            <div class="weather-info">
-                <h4>서울</h4>
-                <p>${weatherData.main.temp}°C</p>
-                <p>${weatherData.weather[0].description}</p>
-                <img src="http://openweathermap.org/img/w/${weatherData.weather[0].icon}.png" alt="날씨 아이콘">
-            </div>
-        `;
-    }
-}
-
-// 페이지 로드 시 날씨 정보 업데이트
-// document.addEventListener('DOMContentLoaded', updateWeatherWidget);

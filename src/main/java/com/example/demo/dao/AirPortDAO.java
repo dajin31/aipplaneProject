@@ -1,10 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.util.MyBatisUtil;
-import com.example.demo.vo.AirRouteScheduleVO;
-import com.example.demo.vo.AirportProcessVO;
-import com.example.demo.vo.AirportVO;
-import com.example.demo.vo.PassengerVO;
+import com.example.demo.vo.*;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.ArrayList;
@@ -107,16 +104,31 @@ public class AirPortDAO implements IAirPortDAO {
     }
 
     @Override
-    public int insertPassenger(PassengerVO passengerVO) {
+    public int insertPassenger(List<PassengerVO> passengers) {
         SqlSession session = null;
         int count = 0;
         try {
             session = MyBatisUtil.getSession();
-            count = session.insert("insertPassenger",passengerVO);
+            count = session.insert("insertPassenger",passengers);
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
             session.commit();
+            if(session!=null) session.close();
+        }
+        return count;
+    }
+
+    @Override
+    public int rankDiscount(String userId) {
+        SqlSession session = null;
+        int count = 0;
+        try {
+            session = MyBatisUtil.getSession();
+            count = session.selectOne("rankDiscount",userId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
             if(session!=null) session.close();
         }
         return count;

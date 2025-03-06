@@ -130,7 +130,7 @@
 
             const totalMiles = product.unitPrice * cnt;
             document.getElementById("mile2").innerText = totalMiles.toLocaleString();
-            document.getElementById("mile3").innerText = product.unitPrice.toLocaleString();
+            document.getElementById("mile3").innerText = totalMiles.toLocaleString();
             document.getElementById("category").innerText = product.category;
 
         })

@@ -468,9 +468,9 @@
 
                     formList.push({
                         userId : userId,
-                        travelerName: travelerName,
+                        userName: travelerName,
                         fltCode: fltCode,
-                        passportNumber: passportNumber,
+                        passNum: passportNumber,
                         regNum : birthdate,
                         seatCode :seatNumber
                     })

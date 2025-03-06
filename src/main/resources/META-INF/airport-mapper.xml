@@ -91,12 +91,30 @@
 	</update>
 
 
-	<insert id="insertPassenger" >
-		INSERT INTO PASSENGER (P_NUM, USER_ID, USER_NAME, FLT_CODE, PASS_NUM, REG_NUM,SEAT_CODE)
-		VALUES
-		<foreach collection="PASSENGERS" item="p" separator=",">
-			(PASSENGER_SEQ.NEXTVAL, #{p.userId}, #{p.travelerName}, #{p.fltCode}, #{p.passportNumber}, #{p.regNum},#{seatCode})
+	<insert id="insertPassenger" parameterType="java.util.List">
+		insert into PASSENGER(P_NUM, USER_ID, USER_NAME, FLT_CODE, PASS_NUM, REG_NUM, SEAT_CODE)
+		select PASSENGER_SEQ.NEXTVAL as p_num, main_t.* from(
+		<foreach collection="list" item="passenger" separator=" union all " >
+
+			select #{passenger.userId} as user_id ,
+			#{passenger.userName}as user_name,
+			#{passenger.fltCode}as flt_code,
+			#{passenger.passNum}as pass_num,
+			#{passenger.regNum} as reg_num,
+			(SELECT SEAT_CODE FROM seat
+			WHERE seat_position like '%'|| #{passenger.seatCode}) as seat_code
+
+			from dual
 		</foreach>
+		) main_t
 	</insert>
+
+
+	<select id="rankDiscount" resultType="int">
+		SELECT mg.dc_rate
+		FROM users u
+				 JOIN mem_grade mg ON u.mem_code = mg.mem_code
+		WHERE u.user_id = #{userId}
+	</select>
 
 	</mapper>

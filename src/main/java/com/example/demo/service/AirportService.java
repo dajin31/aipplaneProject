@@ -2,10 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.dao.AirPortDAO;
 import com.example.demo.dao.IAirPortDAO;
-import com.example.demo.vo.AirRouteScheduleVO;
-import com.example.demo.vo.AirportProcessVO;
-import com.example.demo.vo.AirportVO;
-import com.example.demo.vo.PassengerVO;
+import com.example.demo.vo.*;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -53,7 +50,12 @@ public class AirportService implements IAirportService {
     }
 
     @Override
-    public int insertPassenger(PassengerVO passengerVO) {
-        return dao.insertPassenger(passengerVO);
+    public int insertPassenger(List<PassengerVO> passengers) {
+        return dao.insertPassenger(passengers);
+    }
+
+    @Override
+    public int rankDiscount(String userId) {
+        return dao.rankDiscount(userId);
     }
 }

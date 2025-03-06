@@ -56,7 +56,7 @@
             color: #0066cc;
         }
 
-        .date-info, .passenger-info, .ticket-info {
+        .date-info, .passenger-info, .ticket-info , #fltCodeCheck {
             display: flex;
             align-items: center;
             color: #333;
@@ -314,6 +314,11 @@
             <span class="rank" id="rank">일반석</span>
         </div>
 
+        <div class="ticket-info">
+            <i class="ticket-icon">항공기 코드:</i>
+            <span  id="fltCodeCheck">000</span>
+        </div>
+
         <button class="search-btn" id="backBtn">뒤로</button>
         <button class="search-btn" id="searchBtn">항공권 검색</button>
     </div>
@@ -541,10 +546,15 @@
                     const flightNumber = document.createElement('div');
                     flightNumber.classList.add('flight-number');
                     const koreanAir = document.createElement('span');
+                    const koreanAir2 = document.createElement('span');
+                    koreanAir2.textContent = flight.fltCode;
+                    // koreanAir2.style.visibility = 'hidden';
                     koreanAir.classList.add('korean-air');
+                    koreanAir2.classList.add('korean-air2');
 
                     flightNumber.appendChild(koreanAir);
-                    flightNumber.appendChild(document.createTextNode(flight.fltCode)); // 데이터 적용
+                    flightNumber.appendChild(koreanAir2);
+                    // flightNumber.appendChild(document.createTextNode(flight.fltCode)); // 데이터 적용
 
                     // detail-btn 생성
                     const detailBtn = document.createElement('button');
@@ -589,8 +599,14 @@
                     economyPrice.classList.add('price');
                     economyPrice.textContent = "253,000 원"; // 데이터 적용
 
+                    const economyFltCode = document.createElement('div');
+                    economyFltCode.textContent = flight.fltCode;
+                    economyFltCode.style.display = 'none';
+                    economyFltCode.classList.add('hiddenFltCode');
+
                     economyOption.appendChild(economyFareType);
                     economyOption.appendChild(economyPrice);
+                    economyOption.appendChild(economyFltCode);
 
                     // 비즈니스 클래스 생성
                     const businessOption = document.createElement('div');
@@ -602,8 +618,14 @@
                     businessPrice.classList.add('price');
                     businessPrice.textContent = "543,000 원"; // 데이터 적용
 
+                    const businessFltCode = document.createElement('div');
+                    businessFltCode.textContent = flight.fltCode;
+                    businessFltCode.style.display = 'none';
+                    businessFltCode.classList.add('hiddenFltCode');
+
                     businessOption.appendChild(businessFareType);
                     businessOption.appendChild(businessPrice);
+                    businessOption.appendChild(businessFltCode);
 
                     // 퍼스트 클래스 생성
                     const firstOption = document.createElement('div');
@@ -615,8 +637,14 @@
                     firstPrice.classList.add('price');
                     firstPrice.textContent = "1,500,000 원"; // 데이터 적용
 
+                    const  firstFltCode = document.createElement('div');
+                    firstFltCode.textContent = flight.fltCode;
+                    firstFltCode.style.display = 'none';
+                    firstFltCode.classList.add('hiddenFltCode');
+
                     firstOption.appendChild(firstFareType);
                     firstOption.appendChild(firstPrice);
+                    firstOption.appendChild(firstFltCode);
 
                     // price-options에 추가
                     priceOptions.appendChild(economyOption);
@@ -632,7 +660,16 @@
                     const footer = document.querySelector('.footer');
                     container.appendChild(footer);
 
-                    economyOption.addEventListener('click',()=>{
+                    economyOption.addEventListener('click',(e)=>{
+                        const hiddenFltCodeElement = e.currentTarget.querySelector(".hiddenFltCode") || e.currentTarget.parentElement.querySelector(".hiddenFltCode");
+
+
+                        const innerText = hiddenFltCodeElement.innerText;
+                        console.log(innerText)
+
+                        const fltElement = document.getElementById("fltCodeCheck");
+                        fltElement.innerText = innerText;
+
                         const rankElement = document.getElementById('rank');
                         rankElement.innerText = "이코노미";
 
@@ -655,7 +692,16 @@
                         totalNumElement.textContent = totalPrice.toLocaleString() +" 원";
 
                     })
-                    businessOption.addEventListener('click',()=>{
+                    businessOption.addEventListener('click',(e)=>{
+                        const hiddenFltCodeElement = e.currentTarget.querySelector(".hiddenFltCode") || e.currentTarget.parentElement.querySelector(".hiddenFltCode");
+
+
+                        const innerText = hiddenFltCodeElement.innerText;
+                        console.log(innerText)
+
+                        const fltElement = document.getElementById("fltCodeCheck");
+                        fltElement.innerText = innerText;
+
                         const rankElement = document.getElementById('rank');
                         rankElement.innerText = "비즈니스";
 
@@ -677,7 +723,15 @@
 
                         totalNumElement.textContent = totalPrice.toLocaleString() +" 원";
                     })
-                    firstOption.addEventListener('click',()=>{
+                    firstOption.addEventListener('click',(e)=>{
+                        const hiddenFltCodeElement = e.currentTarget.querySelector(".hiddenFltCode") || e.currentTarget.parentElement.querySelector(".hiddenFltCode");
+
+
+                        const innerText = hiddenFltCodeElement.innerText;
+                        console.log(innerText)
+
+                        const fltElement = document.getElementById("fltCodeCheck");
+                        fltElement.innerText = innerText;
                         const rankElement = document.getElementById('rank');
                         rankElement.innerText = "퍼스트";
 
@@ -698,6 +752,8 @@
                         const totalPrice = adultCount * adultPrice + childCount * childPrice;
 
                         totalNumElement.textContent = totalPrice.toLocaleString() +" 원";
+
+
                     })
 
 
@@ -714,8 +770,11 @@
         const classValue = document.getElementById('rank').innerText;  //좌석등금
         const passengerValue = checkPassenger; //몇명
 
-        const fltCode = document.querySelector(".flight-number").innerText;
         const totalPrice = document.getElementById("totalPriceNum").innerText;
+
+
+        const fltCode = document.getElementById("fltCodeCheck").innerText;
+        console.log("fltCode",fltCode)
 
         window.location.href = "seat-selection.jsp?classValue=" + encodeURIComponent(classValue) + "&passengerValue=" + encodeURIComponent(passengerValue)
             + "&start=" + encodeURIComponent(startCountry) + "&end=" + encodeURIComponent(endCountry)+ "&departDate=" + departDate +  "&returnDate=" + returnDate + "&fltCode=" + fltCode + "&totalPrice=" + totalPrice;

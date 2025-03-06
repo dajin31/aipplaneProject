@@ -1,9 +1,6 @@
 package com.example.demo.dao;
 
-import com.example.demo.vo.AirRouteScheduleVO;
-import com.example.demo.vo.AirportProcessVO;
-import com.example.demo.vo.AirportVO;
-import com.example.demo.vo.PassengerVO;
+import com.example.demo.vo.*;
 
 import java.util.List;
 
@@ -18,5 +15,7 @@ public interface IAirPortDAO {
 
     public void processReservation(AirportProcessVO airportProcessVO); // 프루시저 호출
 
-    public int insertPassenger(PassengerVO passengerVO); //승객 테이블 insert
+    public int insertPassenger(List<PassengerVO> passengers); //승객 테이블 insert
+
+    public int rankDiscount(String userId); // 승객 DC
 }

@@ -5,7 +5,7 @@ public class UsersVO {
     private String userPw;
     private String userName;
     private String userEmail;
-    private int userRegnum;
+    private String userRegnum;
     private int userMileage;
     private String userPassnum;
     private String memCode;
@@ -42,11 +42,11 @@ public class UsersVO {
         this.userEmail = userEmail;
     }
 
-    public int getUserRegnum() {
+    public String getUserRegnum() {
         return userRegnum;
     }
 
-    public void setUserRegnum(int userRegnum) {
+    public void setUserRegnum(String userRegnum) {
         this.userRegnum = userRegnum;
     }
 
@@ -81,7 +81,7 @@ public class UsersVO {
                 ", userPw='" + userPw + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userEmail='" + userEmail + '\'' +
-                ", userRegnum=" + userRegnum +
+                ", userRegnum='" + userRegnum + '\'' +
                 ", userMileage=" + userMileage +
                 ", userPassnum='" + userPassnum + '\'' +
                 ", memCode='" + memCode + '\'' +

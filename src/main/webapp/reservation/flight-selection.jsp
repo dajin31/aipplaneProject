@@ -443,14 +443,7 @@
         });
     });
 
-    // Next button functionality
-    document.querySelector('.next-btn').addEventListener('click', function() {
-        const classValue = document.getElementById('rank').innerText;
-        const passengerValue = checkPassenger;
 
-        window.location.href = "seat-selection.jsp?classValue=" + encodeURIComponent(classValue) + "&passengerValue=" + encodeURIComponent(passengerValue)
-            + "&start=" + encodeURIComponent(startCountry) + "&end=" + encodeURIComponent(endCountry);
-    });
 
     function formatFlightTime(fltTime) {
         const hours = Math.floor(fltTime / 60); // 시간을 계산합니다.
@@ -716,6 +709,17 @@
             .catch(err => console.error(err));
     })
 
+    // Next button functionality
+    document.querySelector('.next-btn').addEventListener('click', function() {
+        const classValue = document.getElementById('rank').innerText;  //좌석등금
+        const passengerValue = checkPassenger; //몇명
+
+        const fltCode = document.querySelector(".flight-number").innerText;
+        const totalPrice = document.getElementById("totalPriceNum").innerText;
+
+        window.location.href = "seat-selection.jsp?classValue=" + encodeURIComponent(classValue) + "&passengerValue=" + encodeURIComponent(passengerValue)
+            + "&start=" + encodeURIComponent(startCountry) + "&end=" + encodeURIComponent(endCountry)+ "&departDate=" + departDate +  "&returnDate=" + returnDate + "&fltCode=" + fltCode + "&totalPrice=" + totalPrice;
+    });
 
 
 </script>

@@ -80,4 +80,23 @@
 		WHERE s.FLT_CODE = #{fltCode}
 	</select>
 
+	<update id="processReservation" statementType="CALLABLE">
+		{call process_reservation(
+				#{seatCode},
+				#{totalPrice},
+				#{userId},
+				#{fltCode},
+				#{userMileage}
+			  )}
+	</update>
+
+
+	<insert id="insertPassenger" >
+		INSERT INTO PASSENGER (P_NUM, USER_ID, USER_NAME, FLT_CODE, PASS_NUM, REG_NUM,SEAT_CODE)
+		VALUES
+		<foreach collection="PASSENGERS" item="p" separator=",">
+			(PASSENGER_SEQ.NEXTVAL, #{p.userId}, #{p.travelerName}, #{p.fltCode}, #{p.passportNumber}, #{p.regNum},#{seatCode})
+		</foreach>
+	</insert>
+
 	</mapper>

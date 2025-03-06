@@ -223,8 +223,8 @@
 
 
         <div class="button-group">
-            <button class="btn btn-secondary">이전</button>
-            <button class="btn btn-primary">확인</button>
+
+            <button class="btn btn-primary" id="goNextBtn">확인</button>
         </div>
     </main>
 
@@ -233,10 +233,22 @@
         const passengerValue = decodeURIComponent(urlParams.get("passengerValue"));
         const classvalue = decodeURIComponent(urlParams.get("classValue"));
         const start = decodeURIComponent(urlParams.get("start"));
+        const end = decodeURIComponent(urlParams.get("end"));
+        const departDate =urlParams.get("departDate")
+        const returnDate = urlParams.get("returnDate")
+        const fltCode = urlParams.get("fltCode")
+        const totalPrice = urlParams.get("totalPrice")
 
+
+        let selectedList = [];
         console.log(passengerValue)
         console.log(classvalue)
         console.log(start)
+        console.log(end)
+        console.log(departDate)
+        console.log(returnDate)
+        console.log(fltCode)
+        console.log(totalPrice)
 
         const passengerCounts = passengerValue.split(',').map(item => parseInt(item.split(':')[1].trim()));
         const passengerCount = passengerCounts.reduce((acc, curr) => acc + curr, 0);
@@ -250,7 +262,7 @@
         fetch('/reservation/seatListSelect')
             .then(response => response.json())
             .then(data => {
-                console.log(data)
+                // console.log(data)
                     createSeatGrid(data);
             });
 
@@ -294,12 +306,37 @@
                             } else {
                                 seat.textContent = 'O';
                                 seat.addEventListener('click', function() {
+                                    console.dir(this)
+                                    console.log(this.classList)
+                                    let classCase = "";
+
+                                    switch (classvalue) {
+                                        case "이코노미":
+                                            classCase = "economy";
+                                            break;
+                                        case "비즈니스":
+                                            classCase ="business";
+                                            break;
+                                        case "퍼스트":
+                                            classCase ="first-class";
+                                            break;
+
+                                    }
+
+                                    console.log(classCase);
+                                    if (!this.classList.contains(classCase)) {
+                                        alert("해당 클래스가 아닙니다");
+                                        return;
+                                    }
                                     if (this.classList.contains('selected')) {
                                         this.classList.remove('selected');
+                                        selectedList.splice(this, 1);
                                     } else {
                                         const selectedSeats = document.querySelectorAll('.seat.selected');
                                         if (selectedSeats.length < passengerCount) {
                                             this.classList.add('selected');
+                                            console.log(seatPosition)
+                                            selectedList.push(seatPosition);
                                         }
                                     }
                                 });
@@ -312,6 +349,40 @@
                 }
             }
         }
+
+        document.getElementById("goNextBtn").addEventListener('click', () => {
+            console.log(selectedList)
+            console.log(passengerValue)
+            console.log(classvalue)
+            console.log(start)
+            console.log(end)
+            console.log(departDate)
+            console.log(returnDate)
+            // window.location.href =
+
+            //     회원 여부 판단후 회원이 아니면 로그인 페이지 이동
+            let loginCheck = false;
+            if (!loginCheck) {
+                const airportLogin = "/reservation/AirportLoginCheckPopup?classValue=" + encodeURIComponent(classvalue) + "&passengerValue=" + encodeURIComponent(passengerValue)
+                    + "&start=" + encodeURIComponent(start) + "&end=" + encodeURIComponent(end)+ "&departDate=" + departDate +  "&returnDate=" + returnDate + "&selectedList=" + selectedList + "&fltCode=" + fltCode + "&totalPrice=" + totalPrice;
+                const popWidth = 800;
+                const popHeigth = 300;
+
+                const options = `width=${popWidth}px, height=${popHeigth}px, top=20, left=20, resizable=no, scrollbars=yes, menubar=no, toolbar=no, location=no, directories=no, status=no`;
+
+                const popupWindow = window.open(airportLogin, 'airportLogin', options);
+
+                if (popupWindow) {
+                    console.log("로그인 팝업 오픈");
+                    popupWindow.opener = window;
+                    loginCheck = true;
+                } else {
+                    alert("아오 에러임");
+                }
+            }
+        });
+
+
     </script>
 </body>
 </html>

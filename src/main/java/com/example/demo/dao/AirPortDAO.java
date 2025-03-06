@@ -2,7 +2,9 @@ package com.example.demo.dao;
 
 import com.example.demo.util.MyBatisUtil;
 import com.example.demo.vo.AirRouteScheduleVO;
+import com.example.demo.vo.AirportProcessVO;
 import com.example.demo.vo.AirportVO;
+import com.example.demo.vo.PassengerVO;
 import org.apache.ibatis.session.SqlSession;
 
 import java.util.ArrayList;
@@ -85,5 +87,38 @@ public class AirPortDAO implements IAirPortDAO {
             if(session !=null) session.close();
         }
         return list;
+    }
+
+    @Override
+    public  void processReservation(AirportProcessVO airportProcessVO) {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtil.getSession();
+            session.update("processReservation",airportProcessVO);
+            session.commit();
+        }catch (Exception e) {
+            if (session != null) {
+                session.rollback(); // 트랜잭션 롤백
+            }
+            e.printStackTrace();
+        }finally {
+            if(session !=null) session.close();
+        }
+    }
+
+    @Override
+    public int insertPassenger(PassengerVO passengerVO) {
+        SqlSession session = null;
+        int count = 0;
+        try {
+            session = MyBatisUtil.getSession();
+            count = session.insert("insertPassenger",passengerVO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            session.commit();
+            if(session!=null) session.close();
+        }
+        return count;
     }
 }

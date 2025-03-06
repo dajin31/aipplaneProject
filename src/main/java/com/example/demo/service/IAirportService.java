@@ -1,7 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.vo.AirRouteScheduleVO;
+import com.example.demo.vo.AirportProcessVO;
 import com.example.demo.vo.AirportVO;
+import com.example.demo.vo.PassengerVO;
 
 import java.util.List;
 
@@ -13,4 +15,8 @@ public interface IAirportService {
     public List<AirRouteScheduleVO> selectScheduleList(AirRouteScheduleVO airRouteScheduleVO); //항공 스케쥴 가져오기
 
     public List<AirRouteScheduleVO> selectSceduleOne(String fltCode); //하나의 항공 스케쥴 가져오기
+
+    public void processReservation(AirportProcessVO airportProcessVO); // 프루시저 호출
+
+    public int insertPassenger(PassengerVO passengerVO); //승객 테이블 insert
 }

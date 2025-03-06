@@ -215,7 +215,6 @@
 
     <div class="booking-tabs">
         <div class="tab active">예매</div>
-        <div class="tab">마일리지 예매</div>
     </div>
 
 <%--    <div class="trip-type-tabs" style="display: flex; margin-bottom: 20px" >--%>

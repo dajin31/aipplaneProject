@@ -46,6 +46,14 @@ public class UserInsert extends HttpServlet {
                 return;
             }
 
+            // userPw 유효성 검사
+            String passwordRegex = "^(?=.*[a-zA-Z])(?=.*\\d)(?=.*\\W).{1,14}$";
+            if (!userPw.matches(passwordRegex)) {
+                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+                response.getWriter().print("{ \"result\": \"fail\", \"message\": \"비밀번호는 영문, 숫자, 특수문자를 각 1개 이상 포함하고, 14자 이하여야 합니다.\" }");
+                return;
+            }
+
             // 회원가입 서비스 호출
             UserServiceImp service = UserServiceImp.getInstance();
             UserVO newUser = new UserVO(userId, userPw, userName, userRegnum, userEmail);

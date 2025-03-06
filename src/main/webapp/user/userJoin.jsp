@@ -95,6 +95,11 @@
 		.form-group input {
 			margin-bottom: 10px;
 		}
+
+		#captchaImage {
+			margin-top: 50px; /* 원하는 값으로 조정 */
+		}
+
 	</style>
 
 
@@ -125,6 +130,9 @@
 				});
 			});
 
+			// 캡차 키 발급 및 이미지 표시
+			getCaptcha();
+
 			// 회원가입 처리
 			$("#send").on("click", () => {
 				// 입력한 모든 값 가져오기
@@ -133,10 +141,17 @@
 				const vpass = $("#pwd").val();
 				const vbir = $("#bir").val();
 				const vemail = $("#email").val();
+				const captchaValue = $("#captchaValue").val();
 
-				// 입력값 검증
+				// 입력값 검증 (캡차 제외)
 				if (!vid || !vpass || !vname || !vbir || !vemail) {
 					alert("필수 정보를 입력하세요.");
+					return;
+				}
+
+				// 캡차 입력값 검증
+				if (!captchaValue) {
+					alert("캡차를 입력하세요.");
 					return;
 				}
 
@@ -146,46 +161,93 @@
 					return;
 				}
 
-				// 전송할 데이터 구성
-				const dataObj = {
-					"userId": vid,
-					"userName": vname,
-					"userRegnum": vbir,
-					"userPw": vpass,
-					"userEmail": vemail,
-				};
+				// 캡차 입력값 검증
+				verifyCaptcha(function (isCaptchaValid) {
+					if (isCaptchaValid) {
 
-				// 서버에 데이터 전송
-				fetch("<%=request.getContextPath()%>/user/userInsert.do", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json; charset=utf-8"
-					},
-					body: JSON.stringify(dataObj)
-				})
-						.then(res => {
-							console.log(res);
-							if (!res.ok) {
-								return res.json().then(errorData => {
-									throw new Error(errorData.message || "서버 오류 발생");
+						// 전송할 데이터 구성
+						const dataObj = {
+							"userId": vid,
+							"userName": vname,
+							"userRegnum": vbir,
+							"userPw": vpass,
+							"userEmail": vemail,
+						};
+
+						// 서버에 데이터 전송
+						fetch("<%=request.getContextPath()%>/user/userInsert.do", {
+							method: "POST",
+							headers: {
+								"Content-Type": "application/json; charset=utf-8"
+							},
+							body: JSON.stringify(dataObj)
+						})
+								.then(res => {
+									console.log(res);
+									if (!res.ok) {
+										return res.json().then(errorData => {
+											throw new Error(errorData.message || "서버 오류 발생");
+										});
+									}
+									return res.json();
+								})
+								.then(data => {
+									if (data.result === "success") {
+										alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
+										location.href = "<%=request.getContextPath()%>/user/login.jsp";
+									} else {
+										$("#joinspan").html("회원가입 실패").css("color", "red");
+									}
+								})
+								.catch(err => {
+									console.log(err);
+									alert(err.message || "회원가입 중 오류 발생!");
 								});
-							}
-							return res.json();
-						})
-						.then(data => {
-							if (data.result === "success") {
-								alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
-								location.href = "<%=request.getContextPath()%>/user/login.jsp";
-							} else {
-								$("#joinspan").html("회원가입 실패").css("color", "red");
-							}
-						})
-						.catch(err => {
-							console.log(err);
-							alert(err.message || "회원가입 중 오류 발생!");
-						});
+					} else {
+						// 캡차 검증 실패 시 오류 메시지 표시
+						alert("캡차를 다시 확인해주세요.");
+						getCaptcha(); // 캡차 새로고침
+					}
+				});
 			});
 		});
+		// 캡차 키 발급 및 이미지 표시 함수
+		function getCaptcha() {
+			$.ajax({
+				url: "<%=request.getContextPath()%>/captcha/getNkey",
+				success: function(data) {
+					$("#captchaKey").val(data.key);
+					$("#captchaImage").attr("src", "<%=request.getContextPath()%>/captcha/getImage?key=" + data.key);
+				},
+				error: function(error) {
+					console.error("캡차 키 발급 실패:", error);
+				}
+			});
+		}
+
+		// 캡차 입력값 검증 함수
+		function verifyCaptcha(callback) {
+			const captchaKey = $("#captchaKey").val();
+			const captchaValue = $("#captchaValue").val();
+
+			if (!captchaKey || !captchaValue) {
+				alert("캡차를 입력해주세요.");
+				callback(false);
+				return;
+			}
+
+			$.ajax({
+				url: "<%=request.getContextPath()%>/captcha/verifyNkey?key=" + captchaKey + "&value=" + captchaValue,
+				success: function(data) {
+					callback(data.result);
+				},
+				error: function(error) {
+					console.error("캡차 검증 실패:", error);
+					alert("캡차 검증 중 오류가 발생했습니다. 다시 시도해주세요.");
+					callback(false);
+				}
+			});
+		}
 	</script>
 
 
@@ -234,6 +296,14 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label class="control-label col-sm-2">캡차 이미지</label>
+			<div class="col-sm-10">
+				<img id="captchaImage" src="" alt="캡차 이미지">
+				<input type="hidden" id="captchaKey" name="captchaKey">
+				<input type="text" id="captchaValue" name="captchaValue" placeholder="캡차 입력">
+			</div>
+		</div>
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">

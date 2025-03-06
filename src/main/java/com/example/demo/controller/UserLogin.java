@@ -76,8 +76,8 @@ public class UserLogin extends HttpServlet {
     }
 
     private static class ErrorResult {
-        private String error;
-        public ErrorResult(String error) { this.error = error; }
+        private String message;
+        public ErrorResult(String message) { this.message = message; }
     }
 }
 

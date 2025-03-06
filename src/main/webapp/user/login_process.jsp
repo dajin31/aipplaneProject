@@ -26,24 +26,18 @@
 
         // Service 객체 생성
         IUserService service = UserServiceImp.getInstance();
-        UserVO user = service.getUser(userId); // getUser()를 사용하여 사용자 정보 가져오기
+        UserVO user = service.login(userId, userPw); // login()를 사용하여 사용자 정보 가져오기
 
         // 비밀번호 비교
         JsonObject responseJson = new JsonObject();
         if (user != null) {
-            if (userPw.equals(user.getUserPw())) {  // 암호화 비교가 아닌 평문 비밀번호 비교
-                // 로그인 성공: 세션에 회원 정보 저장
-                session.setAttribute("loginUser", user);
-                responseJson.addProperty("result", "success");
-            } else {
-                // 비밀번호 불일치
-                responseJson.addProperty("result", "fail");
-                responseJson.addProperty("message", "비밀번호가 일치하지 않습니다.");
-            }
+            // 로그인 성공: 세션에 회원 정보 저장
+            session.setAttribute("loginUser", user);
+            responseJson.addProperty("result", "success");
         } else {
-            // 아이디 불일치
+            // 로그인 실패
             responseJson.addProperty("result", "fail");
-            responseJson.addProperty("message", "아이디가 존재하지 않습니다.");
+            responseJson.addProperty("message", "아이디 또는 비밀번호가 일치하지 않습니다.");
         }
 
         // JSON 응답 출력

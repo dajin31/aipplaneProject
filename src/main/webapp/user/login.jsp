@@ -134,7 +134,7 @@
                 fetch("<%=request.getContextPath()%>/user/login.do", {
                     method: "POST",
                     headers: { "Content-Type": "application/json; charset=utf-8" },
-                    body: JSON.stringify({ user_id: userId, user_pw: password }) // 'userPw' 대신 'password' 사용
+                    body: JSON.stringify({ user_id: userId, user_pw: password })
                 })
                     .then(res => res.json())
                     .then(data => {
@@ -145,9 +145,11 @@
                             alert("로그인 성공!");
                             location.href = "<%=request.getContextPath()%>/user/test.jsp";
                         } else if (data.result === "fail") {
-                            $("#loginError").text(data.message || "아이디 또는 비밀번호가 일치하지 않습니다.").addClass("error");
+                            // 로그인 실패: 서버에서 전달된 오류 메시지 표시
+                            $("#loginError").text(data.message).addClass("error");
                         } else {
-                            $("#loginError").text(data.message || "서버 오류 발생!").addClass("error"); // 서버 오류 메시지 표시
+                            // 서버 오류: 서버에서 전달된 오류 메시지 표시 또는 기본 오류 메시지 표시
+                            $("#loginError").text(data.message || "서버 오류 발생!").addClass("error");
                         }
                     })
                     .catch(err => {
@@ -155,7 +157,8 @@
                         $("#loginButton").prop("disabled", false).text("로그인");
 
                         console.error("로그인 오류:", err);
-                        $("#loginError").text("서버 오류 발생!").addClass("error");
+                        // 네트워크 오류 또는 클라이언트 측 오류: 오류 메시지 표시
+                        $("#loginError").text("로그인 처리 중 오류가 발생했습니다.").addClass("error");
                     });
             });
 

@@ -74,6 +74,11 @@ public class UserServiceImp implements IUserService {
 				logger.warn("로그인 실패: 사용자 ID={} 없음", userId);
 				return null;
 			}
+			// 비밀번호 검증 (예시: 평문 비교)
+			if (!user.getUserPw().equals(userPw)) {
+				logger.warn("로그인 실패: 사용자 ID={} 비밀번호 불일치", userId);
+				return null;
+			}
 
 			logger.info("로그인 시도: 사용자 ID={}", userId);
 			return user;

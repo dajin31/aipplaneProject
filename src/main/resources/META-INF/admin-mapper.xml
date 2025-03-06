@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="admin">
+    <select id="selectById" parameterType="map" resultType="userVo">
+        SELECT * FROM users
+        <where>
+            <if test="stype == 'userId'">
+                userId LIKE '%'||#{sword}||'%'
+            </if>
+            <if test="stype == 'userName'">
+                userName LIKE '%'||#{sword}||'%'
+            </if>
+            <if test="stype == 'userEmail'">
+                userEmail LIKE '%'||#{sword}||'%'
+            </if>
+            <if test="stype == 'userPassNum'">
+                userPassNum LIKE '%'||#{sword}||'%'
+            </if>
+            <if test="stype == 'all'">
+                (userId LIKE '%'||#{sword}||'%' OR
+                userName LIKE '%'||#{sword}||'%' OR
+                userEmail LIKE '%'||#{sword}||'%' OR
+                userPassNum LIKE '%'||#{sword}||'%')
+            </if>
+        </where>
+        ORDER BY userId
+    </select>
+
+    <select id="totalCount" parameterType="map" resultType="int">
+        SELECT COUNT(*) FROM users
+        <where>
+            <if test="stype == 'userId'">
+                userId LIKE '%'||#{sword}||'%'
+            </if>
+            <if test="stype == 'userName'">
+                userName LIKE '%'||#{sword}||'%'
+            </if>
+            <if test="stype == 'userEmail'">
+                userEmail LIKE '%'||#{sword}||'%'
+            </if>
+            <if test="stype == 'userPassNum'">
+                userPassNum LIKE '%'||#{sword}||'%'
+            </if>
+            <if test="stype == 'all'">
+                (userId LIKE '%'||#{sword}||'%' OR
+                userName LIKE '%'||#{sword}||'%' OR
+                userEmail LIKE '%'||#{sword}||'%' OR
+                userPassNum LIKE '%'||#{sword}||'%')
+            </if>
+        </where>
+    </select>
+
+    <select id="getUserById" parameterType="string" resultType="userVo">
+        SELECT * FROM users WHERE userId = #{userId}
+    </select>
+
+    <update id="updateUser" parameterType="userVo">
+        UPDATE users
+        SET userPw = #{userPw},
+            userEmail = #{userEmail},
+            userMileage = #{userMileage},
+            userPassNum = #{userPassNum},
+            userTotalmileage = #{userTotalmileage},
+            memCode = #{memCode}
+        WHERE userId = #{userId}
+    </update>
+
+    <delete id="deleteUser" parameterType="string">
+        DELETE FROM users WHERE userId = #{userId}
+    </delete>
+</mapper>

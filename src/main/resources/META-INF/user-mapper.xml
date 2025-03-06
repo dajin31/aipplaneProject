@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="user">
+
+	<!-- id 중복검사 -->
+	<select id="userIdCount" parameterType="String" resultType="int">
+		select count(*)
+		from users
+		where user_id = #{user_id}
+	</select>
+
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="com.example.demo.vo.UserVO">
+		INSERT INTO users (user_id, user_pw, user_name, user_regnum, user_email)
+		VALUES (#{userId}, #{userPw}, #{userName}, #{userRegnum}, #{userEmail})
+	</insert>
+
+	<!-- 로그인 -->
+	<select id="login" parameterType="UserVO" resultType="UserVO">
+		SELECT * FROM users WHERE user_id = #{user_id} AND user_pw = #{user_pw}
+	</select>
+
+	<!-- 비밀번호 찾기 -->
+	<select id="getUserByIdRegnumEmail" parameterType="com.example.demo.vo.UserVO" resultType="com.example.demo.vo.UserVO">
+		SELECT * FROM users WHERE user_id = #{userId} AND user_regnum = #{userRegnum} AND user_email = #{userEmail}
+	</select>
+
+	<update id="updateUserPassword" parameterType="com.example.demo.vo.UserVO">
+		UPDATE users SET user_pw = #{userPw} WHERE user_id = #{userId}
+	</update>
+
+	<!-- 사용자 정보 조회 -->
+	<select id="getUser" parameterType="String" resultType="com.example.demo.vo.UserVO">
+		SELECT
+			user_id AS userId,
+			user_pw AS userPw,
+			user_name AS userName,
+			user_email AS userEmail,
+			user_regnum AS userRegnum,
+			user_mileage AS userMileage,
+			user_passnum AS userPassnum,
+			mem_code AS memCode,
+			user_totalmileage AS userTotalMileage
+		FROM users
+		WHERE user_id = #{userId}
+	</select>
+
+</mapper>
+

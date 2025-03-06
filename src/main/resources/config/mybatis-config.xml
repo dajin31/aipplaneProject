@@ -17,6 +17,7 @@
 			<typeAlias type="com.example.demo.vo.MemVO" alias="memVO"/>
 			<typeAlias type="com.example.demo.vo.FAQBoardVO" alias="faqboardVo"/>
 			<typeAlias type="com.example.demo.vo.UserVO" alias="userVo"/>
+			<typeAlias type="com.example.demo.vo.MemGradeVO" alias="memgradeVo"/>
 	</typeAliases>
 
 
@@ -36,5 +37,6 @@
 		<mapper resource="META-INF/member-mapper.xml"/>
 		<mapper resource="META-INF/faqboard-mapper.xml"/>
 		<mapper resource="META-INF/user-mapper.xml"/>
+		<mapper resource="META-INF/memgradeVo-mapper.xml"/>
 	</mappers>
 </configuration>

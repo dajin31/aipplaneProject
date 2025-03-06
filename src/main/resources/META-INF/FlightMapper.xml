@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="flight">
+    <select id="selectFlightDetail" parameterType="airRouteScheduleVO" resultType="map">
+        SELECT
+            r.flt_code as fltCode,
+            d.cnt_name as dptCntName,
+            r.dpt_apt_code as dptAptCode,
+            r.dpt_time as dptTime,
+            a.cnt_name as arrCntName,
+            r.arr_apt_code as arrAptCode,
+            r.arr_time as arrTime,
+            s.seat_class as seatClass,
+            c.air_name as airName,
+            rd.ticket_price
+        FROM
+            air_route_schedule r
+        join
+            airport d on r.DPT_APT_CODE = d.APT_CODE
+        join
+            airport a on r.ARR_APT_CODE = a.APT_CODE
+        join
+            res_details rd on rd.flt_code = r.flt_code
+        join
+            seat s on s.seat_code = rd.seat_code
+        join
+            aircraft c on c.air_code = r.air_code
+        WHERE r.flt_code = #{fltCode}
+    </select>
+</mapper>

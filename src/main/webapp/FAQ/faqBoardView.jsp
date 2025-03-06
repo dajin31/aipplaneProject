@@ -298,8 +298,8 @@
             "faq_title": title,
             "faq_contents": contents
         };
-        console.log("faqData : ", faqData)
-        console.log("faqData.faq_id : ", faqData.faq_id)
+        // console.log("faqData : ", faqData)
+        // console.log("faqData.faq_id : ", faqData.faq_id)  확인용
 
         // 서버로 데이터 전송2
         fetch(url, {

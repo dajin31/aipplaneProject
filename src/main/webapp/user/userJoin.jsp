@@ -7,11 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Insert title here</title>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
 <script src="<%=request.getContextPath() %>/jquery-3.7.1.js"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 <script src="<%=request.getContextPath() %>/jquery.serializejson.min.js"></script>
 
@@ -22,7 +18,6 @@
 			display: flex;
 			justify-content: center;
 			align-items: center;
-			height: 100vh;
 			margin: 0;
 		}
 
@@ -44,24 +39,22 @@
 		}
 
 		.form-group {
-			margin-bottom: 20px;
+			position: relative;
 		}
 
 		.control-label {
 			font-weight: bold;
 			color: #555;
 			font-size: 1rem;
-			text-align: left;
-		}
-
-		.col-sm-2, .col-sm-3 {
-			text-align: left;
+			position: absolute;
+			top: 8px; /* 라벨 상단 위치 */
+			left: 0; /* 라벨 왼쪽 위치 */
 		}
 
 		input.form-control {
 			width: 100%;
 			padding: 12px;
-			margin-top: 8px;
+			margin-top: 50px; /* 라벨 높이만큼 여백 추가 */
 			border: 1px solid #ccc;
 			border-radius: 5px;
 			font-size: 1rem;
@@ -82,7 +75,7 @@
 		}
 
 		input[type="button"]:hover, button:hover {
-			background-color: #0056b3;
+			background-color: #007bff;
 		}
 
 		#idcheck {
@@ -139,11 +132,10 @@
 				const vname = $("#name").val();
 				const vpass = $("#pwd").val();
 				const vbir = $("#bir").val();
-				const vhp = $("#hp").val();
 				const vemail = $("#email").val();
 
 				// 입력값 검증
-				if (!vid || !vpass || !vname || !vbir || !vhp || !vemail) {
+				if (!vid || !vpass || !vname || !vbir || !vemail) {
 					alert("필수 정보를 입력하세요.");
 					return;
 				}
@@ -160,7 +152,6 @@
 					"userName": vname,
 					"userRegnum": vbir,
 					"userPw": vpass,
-					"userHp": vhp,
 					"userEmail": vemail,
 				};
 
@@ -237,18 +228,12 @@
 		</div>
 
 		<div class="form-group">
-			<label class="control-label col-sm-2" for="hp">전화번호</label>
-			<div class="col-sm-2">
-				<input type="text" name="userHp" class="form-control" id="hp" placeholder="전화번호 입력">
-			</div>
-		</div>
-
-		<div class="form-group">
 			<label class="control-label col-sm-2" for="email">이메일</label>
 			<div class="col-sm-3">
 				<input type="text" name="userEmail" class="form-control" id="email" placeholder="email 입력">
 			</div>
 		</div>
+
 
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">

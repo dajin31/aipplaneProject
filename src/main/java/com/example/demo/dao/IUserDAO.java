@@ -11,9 +11,9 @@ public interface IUserDAO {
 
 	UserVO getUser(String userId);
 
-	UserVO getUserByNameBirthEmail(String userName, String userRegnum, String userEmail);
+	UserVO getUserByIdRegnumEmail(String userId, String userRegnum, String userEmail);// 추가
 
-	UserVO getUserByIdRegnumEmail(String userId, String userRegnum, String userEmail); // 추가
+	UserVO getUserByNameRegnumEmail(String userName, String userRegnum, String userEmail);
 
 	void updateUserPassword(UserVO user); // 추가
 }

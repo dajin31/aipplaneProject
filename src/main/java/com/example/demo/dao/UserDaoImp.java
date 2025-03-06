@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.io.FileInputStream;
@@ -34,7 +35,7 @@ public class UserDaoImp implements IUserDAO {
 			user = properties.getProperty("username");
 			password = properties.getProperty("password");
 		} catch (IOException e) {
-			logger.error("db.properties 파일 로딩 오류: {}", e.getMessage());
+			logger.error("db.properties 파일 로딩 오류: {}", e.getMessage(), PROPERTIES_PATH);
 		}
 	}
 
@@ -127,32 +128,13 @@ public class UserDaoImp implements IUserDAO {
 		return user;
 	}
 
-
-	@Override
-	public UserVO getUserByNameBirthEmail(String userName, String userRegnum, String userEmail) {
-		SqlSession session = null;
-		UserVO user = null;
-		try {
-			session = MyBatisUtil.getSession();
-			user = session.selectOne("user.getUserByNameBirthEmail", new UserVO(userName, userRegnum, userEmail));
-		} catch (Exception e) {
-			logger.error("getUserByNameBirthEmail 오류: {}", e.getMessage());
-			throw new RuntimeException("회원 정보 조회 중 오류 발생", e);
-		} finally {
-			if (session != null) {
-				session.close();
-			}
-		}
-		return user;
-	}
-
 	@Override
 	public UserVO getUserByIdRegnumEmail(String userId, String userRegnum, String userEmail) {
 		SqlSession session = null;
 		UserVO user = null;
 		try {
 			session = MyBatisUtil.getSession();
-			user = session.selectOne("UserMapper.getUserByIdRegnumEmail", new UserVO(userId, userRegnum, userEmail));
+			user = session.selectOne("user.getUserByIdRegnumEmail", UserVO.createUserVOForFindPassword(userId, userRegnum, userEmail));
 		} catch (Exception e) {
 			logger.error("getUserByIdRegnumEmail 오류: {}", e.getMessage());
 			throw new RuntimeException("회원 정보 조회 중 오류 발생", e);
@@ -169,7 +151,7 @@ public class UserDaoImp implements IUserDAO {
 		SqlSession session = null;
 		try {
 			session = MyBatisUtil.getSession();
-			session.update("UserMapper.updateUserPassword", user);
+			session.update("user.updateUserPassword", user);
 			session.commit();
 		} catch (Exception e) {
 			if (session != null) {
@@ -182,5 +164,32 @@ public class UserDaoImp implements IUserDAO {
 				session.close();
 			}
 		}
+	}
+
+	@Override
+	public UserVO getUserByNameRegnumEmail(String userName, String userRegnum, String userEmail) {
+		SqlSession session = null;
+		UserVO user = null;
+		try {
+			session = MyBatisUtil.getSession();
+
+			List<UserVO> userList = session.selectList("user.getUserByNameRegnumEmail", UserVO.createUserVOForFindId(userName, userRegnum, userEmail)); // 수정: selectList 사용 및 팩토리 메서드 사용
+
+			if (userList != null && !userList.isEmpty()) {
+				user = userList.get(0); // 첫 번째 결과 사용
+				logger.info("getUserByNameRegnumEmail 결과: {}", user);
+			} else {
+				logger.debug("getUserByNameRegnumEmail 결과: 사용자를 찾을 수 없음 (null 반환)"); // 수정: debug 레벨
+			}
+
+		} catch (Exception e) {
+			logger.error("getUserByNameRegnumEmail 오류: {}", e.getMessage());
+			throw new RuntimeException("회원 정보 조회 중 오류 발생", e);
+		} finally {
+			if (session != null) {
+				session.close();
+			}
+		}
+		return user;
 	}
 }

@@ -21,13 +21,18 @@
 	</select>
 
 	<!-- 비밀번호 찾기 -->
-	<select id="getUserByIdRegnumEmail" parameterType="com.example.demo.vo.UserVO" resultType="com.example.demo.vo.UserVO">
+	<select id="getUserByIdRegnumEmail" parameterType="UserVO" resultType="UserVO">
 		SELECT * FROM users WHERE user_id = #{userId} AND user_regnum = #{userRegnum} AND user_email = #{userEmail}
 	</select>
 
 	<update id="updateUserPassword" parameterType="com.example.demo.vo.UserVO">
 		UPDATE users SET user_pw = #{userPw} WHERE user_id = #{userId}
 	</update>
+
+	<!-- 아이디 찾기 -->
+	<select id="getUserByNameRegnumEmail" parameterType="UserVO" resultType="UserVO">
+		SELECT * FROM users WHERE user_name = #{userName} AND user_regnum = #{userRegnum} AND user_email = #{userEmail}
+	</select>
 
 	<!-- 사용자 정보 조회 -->
 	<select id="getUser" parameterType="String" resultType="com.example.demo.vo.UserVO">
@@ -36,11 +41,7 @@
 			user_pw AS userPw,
 			user_name AS userName,
 			user_email AS userEmail,
-			user_regnum AS userRegnum,
-			user_mileage AS userMileage,
-			user_passnum AS userPassnum,
-			mem_code AS memCode,
-			user_totalmileage AS userTotalMileage
+			user_regnum AS userRegnum
 		FROM users
 		WHERE user_id = #{userId}
 	</select>

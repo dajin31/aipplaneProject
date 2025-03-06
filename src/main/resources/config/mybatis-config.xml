@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+		PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-	<!-- 프로퍼티스 파일을 참조해서 하도록 -->
+	<!-- 쿼리 로그 콘솔에 입력 -->
 	<properties resource="config/db.properties" />
 
 	<settings>
+		<setting name="logImpl" value="STDOUT_LOGGING"/>
+
+	<!-- 프로퍼티스 파일을 참조해서 하도록 -->
 		<setting name="jdbcTypeForNull" value="NULL" /> <!-- 이걸하면 입력을 안한건 null로 들어가는듯 -->
 		<!-- 데이터 등록시 속성값이 존재하지 않으면 예외(부적합한 열유형 111)
 			 발생함 . 이 경우 해당타입을 명시적으로 알려주던지, 
 			 아래와 같이 Null인 속성에 대해 특정값으로 자동 설정이 가능함.	 -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 
 	<typeAliases>
-			<typeAlias type="com.example.demo.vo.MemVO" alias="memVO"/>
+		<typeAlias type="com.example.demo.vo.UserVO" alias="userVO"/>
 	</typeAliases>
-
 
 	<environments default="dev">
 		<environment id="dev">
@@ -31,6 +34,6 @@
 	</environments>
 
 	<mappers>
-		<mapper resource="META-INF/member-mapper.xml"/>
+		<mapper resource="META-INF/user-mapper.xml"/>
 	</mappers>
 </configuration>

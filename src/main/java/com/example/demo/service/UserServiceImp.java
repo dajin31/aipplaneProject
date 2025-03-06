@@ -103,4 +103,15 @@ public class UserServiceImp implements IUserService {
 			throw new RuntimeException("비밀번호 업데이트 중 오류 발생", e);
 		}
 	}
+
+	@Override
+	public UserVO getUserByNameRegnumEmail(String userName, String userRegnum, String userEmail) throws Exception {
+		try {
+			return dao.getUserByNameRegnumEmail(userName, userRegnum, userEmail);
+		} catch (Exception e) {
+			logger.error("getUserByNameRegnumEmail 실행 중 오류 발생", e);
+			throw new RuntimeException("회원 정보 조회 중 오류 발생", e);
+		}
+	}
+
 }

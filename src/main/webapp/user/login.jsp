@@ -6,53 +6,63 @@
     <title>로그인</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
         }
 
         .login-container {
             width: 100%;
             max-width: 400px;
-            padding: 20px;
+            padding: 40px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            text-align: center;
         }
 
         h1 {
-            text-align: center;
-            margin-bottom: 40px;
-            font-weight: normal;
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
         }
 
         .form-group {
             margin-bottom: 20px;
+            text-align: left;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
-            color: #666;
+            color: #333;
+            font-weight: bold;
         }
 
         .form-group input {
             width: 100%;
             padding: 10px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 5px;
             box-sizing: border-box;
         }
 
         .login-button {
             width: 100%;
             padding: 12px;
-            background-color: #0056b3;
+            background-color: #007bff;
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
-            margin-bottom: 20px;
+            font-size: 16px;
+            font-weight: bold;
         }
 
         .login-button:hover {
@@ -60,15 +70,17 @@
         }
 
         .links {
+            margin-top: 15px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 15px;
         }
 
         .links a {
-            color: #666;
+            color: #007bff;
             text-decoration: none;
             font-size: 14px;
+            font-weight: bold;
         }
 
         .links a:hover {
@@ -77,8 +89,12 @@
 
         .error {
             color: red;
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: left;
         }
     </style>
+
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
@@ -165,7 +181,7 @@
         <button type="submit" class="login-button" id="loginButton">Log in</button>
         <div id="loginError" class="error"></div>
         <div class="links">
-            <a href="find_pw.jsp">아이디 찾기</a>
+            <a href="find_id.jsp">아이디 찾기</a>
             <a href="find_pw.jsp">비밀번호 찾기</a>
         </div>
     </form>

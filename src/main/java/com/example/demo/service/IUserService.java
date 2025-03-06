@@ -18,5 +18,8 @@ public interface IUserService {
 	// 비밀번호 찾기
 	UserVO getUserByIdRegnumEmail(String userId, String userRegnum, String userEmail) throws Exception;
 
+	// 아이디 찾기
+	UserVO getUserByNameRegnumEmail(String userName, String userRegnum, String userEmail) throws Exception;
+
 	void updateUserPassword(UserVO user) throws Exception;
 }

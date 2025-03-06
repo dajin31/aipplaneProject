@@ -22,14 +22,14 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     }
 
     @Override
-    public int insertBoard(Notice_BoardVO boardVO) {
+    public int insertBoard(Notice_BoardVO nboardVO) {
         int res = 0;
         SqlSession session = MyBatisUtil.getSqlSession();
 
         try{
-            System.out.println("Dao insert title : "+ boardVO.getNtc_title());
-            res = session.insert("notice.insertBoard", boardVO);
-            System.out.println(boardVO.getNtc_title());
+            System.out.println("Dao insert title : "+ nboardVO.getNtc_title());
+            res = session.insert("notice.insertBoard", nboardVO);
+            System.out.println(nboardVO.getNtc_title());
             System.out.println(res);
         }finally{
             session.commit();
@@ -39,12 +39,12 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     }
 
     @Override
-    public int updateBoard(Notice_BoardVO boardVO) {
+    public int updateBoard(Notice_BoardVO nboardVO) {
         int res = 0;
         SqlSession session = MyBatisUtil.getSqlSession();
 
         try{
-            res = session.update("notice.updateBoard", boardVO);
+            res = session.update("notice.updateBoard", nboardVO);
         }finally{
             session.commit();
             session.close();
@@ -69,17 +69,17 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 
     @Override
     public Notice_BoardVO getBoard(int ntc_board) {
-        Notice_BoardVO boardVO = null;
+        Notice_BoardVO nboardVO = null;
         SqlSession session = MyBatisUtil.getSqlSession();
 
         try{
-            boardVO = session.selectOne("notice.getBoard", ntc_board);
-            System.out.println(boardVO);
+            nboardVO = session.selectOne("notice.getBoard", ntc_board);
+            System.out.println(nboardVO);
         }finally{
             session.commit();
             session.close();
         }
-        return boardVO;
+        return nboardVO;
     }
 
 

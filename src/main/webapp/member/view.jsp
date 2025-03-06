@@ -11,8 +11,8 @@
     <%--    //<link rel="stylesheet" href="viewstyle.css">--%>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <%
-        Notice_BoardVO noticeBoardVO = (Notice_BoardVO) request.getAttribute("boardVO");
-        UserVO loginUserVO = (UserVO) session.getAttribute("loginUserVO");
+        Notice_BoardVO noticeBoardVO = (Notice_BoardVO) request.getAttribute("nboardVO");
+        UserVO loginUser = (UserVO) session.getAttribute("loginUser");
     %>
     <style>
         body {
@@ -134,7 +134,16 @@
     </script>
 </head>
 <body>
+<%
 
+    if (loginUser != null && loginUser.getUserId() != null) {
+        System.out.println("list" + loginUser.getUserId());
+        System.out.println("list" + loginUser.getMemCode());
+    } else {
+        // loginUser가 null인 경우 처리 (예: 로그인 페이지로 리다이렉트)
+        out.println("<script>console.log('loginUser is null');</script>"); // 콘솔 로그
+    }
+%>
 
 <div class="container">
     <div class="notice-header">공지사항
@@ -151,14 +160,29 @@
 
     <div class="button-container">
         <a href="/member/list.do" class="list-button">목록보기</a>
+
+<%--        <%--%>
+<%--            if(loginUser.getMemCode().equals("admin")){--%>
+<%--        %>--%>
+<%--        <button type="button"  class="list-button" > <a href="<%=request.getContextPath() %>/member/update.do?ntc_board=<%=noticeBoardVO.getNtc_board()%>" id="update">수정</a></button>--%>
+<%--        <button type="button" data-num="<%=noticeBoardVO.getNtc_board() %>" class="list-button" id="delete">삭제</button>--%>
+<%--        <%--%>
+<%--            }else{--%>
+<%--                --%>
+<%--            }--%>
+<%--        %>--%>
+
         <%
-            if(loginUserVO.getMem_code().equals("admin")){
+            if (loginUser != null && "admin".equals(loginUser.getMemCode())) {
         %>
-        <button type="button"  class="list-button" > <a href="<%=request.getContextPath() %>/member/update.do?ntc_board=<%=noticeBoardVO.getNtc_board()%>" id="update">수정</a></button>
-        <button type="button" data-num="<%=noticeBoardVO.getNtc_board() %>" class="list-button" id="delete">삭제</button>
+        <button type="button" class="list-button">
+            <a href="<%=request.getContextPath()%>/member/update.do?ntc_board=<%=noticeBoardVO.getNtc_board()%>" id="update">수정</a>
+        </button>
+        <button type="button" data-num="<%=noticeBoardVO.getNtc_board()%>" class="list-button" id="delete">삭제</button>
         <%
             }
         %>
+
     </div>
 </div>
 

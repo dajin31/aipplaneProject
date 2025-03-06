@@ -18,7 +18,7 @@
 	</sql>
 
 	<!-- 글쓰기 -->
-	<insert id="insertBoard" parameterType="boardVO" >
+	<insert id="insertBoard" parameterType="nboardVO" >
 		insert into notice_board(ntc_board, crt_time, ntc_title, ntc_contents)
 		values(NTC_BOARR_SEQ.nextval, sysdate,
 		       #{ntc_title}, #{ntc_contents}
@@ -31,14 +31,14 @@
 	</delete>
 
 	<!-- 글수정 -->
-	<update id="updateBoard" parameterType="boardVO">
+	<update id="updateBoard" parameterType="nboardVO">
 		update notice_board   set  mod_time = sysdate,  ntc_title = #{ntc_title},
 									ntc_contents = #{ntc_contents}
 		where ntc_board = #{ntc_board}
 
 	</update>
 
-	<select id="getBoard" parameterType="int" resultType="boardVO">
+	<select id="getBoard" parameterType="int" resultType="nboardVO">
 		select * from notice_board where ntc_board = #{ntc_board}
 	</select>
 
@@ -51,7 +51,7 @@
 	</select>
 
 	<!-- 페이지별 리스트 검색포함  -->
-	<select id="selectByPage" parameterType="map" resultType="boardVO">
+	<select id="selectByPage" parameterType="map" resultType="nboardVO">
 
 		select A.* from (
 		select rownum as rnum, B.*  from (

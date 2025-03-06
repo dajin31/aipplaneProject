@@ -8,8 +8,8 @@ import java.util.Map;
 
 public interface Notice_BoardService {
 
-    public int insertBoard(Notice_BoardVO boardVO); //게시물 생성
-    public int updateBoard(Notice_BoardVO boardVO); //게시물 수정
+    public int insertBoard(Notice_BoardVO nboardVO); //게시물 생성
+    public int updateBoard(Notice_BoardVO nboardVO); //게시물 수정
     public int deleteBoard(int ntc_board); //게시물 삭제
     public Notice_BoardVO getBoard(int ntc_board); //게시글 보기
 

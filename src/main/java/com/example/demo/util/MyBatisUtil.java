@@ -30,6 +30,7 @@ public class MyBatisUtil {
 
 		} catch (IOException e) {
 			// TODO: handle exception
+			throw new RuntimeException("MyBatis 설정 오류", e);
 		}
 
 	}

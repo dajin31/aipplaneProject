@@ -221,13 +221,14 @@
 
       })
 
-
-
     });
   </script>
 </head>
 <body>
-<button type="button" id="login" name="login" > <a href="<%=request.getContextPath() %>/member/login.jsp?">로그인</a></button>
+
+
+<button type="button" id="login" name="login" ><a href="<%=request.getContextPath() %>/member/login.jsp?">로그인</a></button>
+
 <%
 
   if (loginUser != null && loginUser.getUserId() != null) {
@@ -239,7 +240,6 @@
   }
 %>
 
-
 <%
   // 컨트롤러에서 보내온 자료 받기
   List<Notice_BoardVO> boardVOList = (List<Notice_BoardVO>) request.getAttribute("boardList");
@@ -247,6 +247,7 @@
 
   String sword = (String) request.getAttribute("sword");
   sword = sword == null ? "" : sword;
+
 %>
 <div class="container">
   <h1>공지사항</h1>
@@ -283,7 +284,7 @@
           <span class="notice-date"><%=boardVO.getCrt_time()%></span>
         </a>
       </div>
-  </div>
+    </div>
 <%
       }
     }

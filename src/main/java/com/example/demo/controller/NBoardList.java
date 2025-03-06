@@ -27,6 +27,8 @@ public class NBoardList extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("UTF-8");
 
+//        String adr = (String) req.getAttribute("/member/list.do");
+
         HttpSession session = req.getSession();
         UserVO loginUser = (UserVO) session.getAttribute("loginUser"); // 세션에서 로그인 사용자 정보 가져오기
 
@@ -73,6 +75,6 @@ public class NBoardList extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        doGet(req, resp);
     }
 }

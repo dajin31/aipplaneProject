@@ -203,6 +203,12 @@
     const formList = decodeURIComponent(urlParams.get("formList"));
     const selectedList = decodeURIComponent(urlParams.get("selectedList"));
     const fltCode = decodeURIComponent(urlParams.get("fltCode"));
+    const start = decodeURIComponent(urlParams.get("start"));
+    const end = decodeURIComponent(urlParams.get("end"));
+    const departDate = decodeURIComponent(urlParams.get("departDate"));
+    const returnDate = decodeURIComponent(urlParams.get("returnDate"));
+    const classvalue = decodeURIComponent(urlParams.get("classvalue"));
+    const userNameList = decodeURIComponent(urlParams.get("userNameList"));
 
     let mCheck = false;
 
@@ -211,6 +217,12 @@
     console.log(formList)
     console.log(selectedList)
     console.log(fltCode)
+    console.log(start)
+    console.log(end)
+    console.log(departDate)
+    console.log(returnDate)
+    console.log(classvalue)
+    console.log(userNameList)
 
     document.querySelector('.price-value').textContent = totalPrice;
 
@@ -322,81 +334,87 @@
 
     document.getElementById("paymentButton").addEventListener("click", async (e) => {
 
-        const innerTextValue = document.getElementById("realTotalPrice").innerText;
-        const string = innerTextValue.split(" ")[0].replace(",","");
-        const number = parseInt(string);
-        let resultCheck = false;
+        // const innerTextValue = document.getElementById("realTotalPrice").innerText;
+        // const string = innerTextValue.split(" ")[0].replace(",","");
+        // const number = parseInt(string);
+        // let resultCheck = false;
+        //
+        // console.log(number)
+        //
+        // e.preventDefault();
+        // try {
+        //     const response = await PortOne.requestPayment({
+        //         storeId: "store-8d537446-2e5f-4b3f-b293-52538bc22fbc",
+        //         channelKey: "channel-key-ff249e0c-abee-42b9-8b4a-59bbf04c2586",
+        //         paymentId: `payment-\${crypto.randomUUID()}`,
+        //         orderName: "항공권 구매",
+        //         totalAmount: number,
+        //         currency: "CURRENCY_KRW",
+        //         payMethod: "EASY_PAY",
+        //     });
+        //
+        //     console.log("결제 성공:", response);
+        //
+        // } catch (error) {
+        //     console.error("결제 실패:", error);
+        //     alert("결제 실패ㅠ")
+        // }
+        //
+        // resultCheck = true;
+        // if (resultCheck) {
+        //     alert("결제 성공");
+        //     //결제성공시 insert작업 , update작업
+        //     const totalPrice = document.getElementById("realTotalPrice").innerText;
+        //     console.log(totalPrice)
+        //
+        //     const totalPriceValue = totalPrice.split(" ")[0].replace(",","");
+        //
+        //     const useMile = document.getElementById("inputMile").value;
+        //     const myMile = document.getElementById("myMileage").innerText; //내 마일
+        //
+        //
+        //     const mileString = myMile.split(" ")[0];
+        //     const myMileValue = mileString.replace(",","");
+        //
+        //     const useMileInt = parseInt(useMile);
+        //     const myMileInt = parseInt(myMileValue);
+        //
+        //     const resultMile = (myMileInt - useMileInt);
+        //
+        //     let url = "/reservation/processReservation?seatCode=" + selectedList + "&totalPrice=" + totalPriceValue + "&userId=" + userId + "&fltCode=" + fltCode + "&userMileage=" + resultMile;
+        //
+        //     console.log(url)
+        //     fetch(url)
+        //         .then(response=>response.json())
+        //         .then(data=>{
+        //             console.log(data);
+        //         })
+        //
+        //
+        //     fetch("/reservation/insertPassenger", {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify(formList),
+        //     })
+        //         .then((response) => response.text())
+        //         .then((result) => {
+        //             console.log(result);
+        //         })
+        //         .catch((error) => {
+        //             console.error("Error:", error);
+        //         });
+        //
+        // //     //다한 다음 다음 페이지로 이동
+        //
+        // }
 
-        console.log(number)
+        const total = document.getElementById("realTotalPrice").innerText;
 
-        e.preventDefault();
-        try {
-            const response = await PortOne.requestPayment({
-                storeId: "store-8d537446-2e5f-4b3f-b293-52538bc22fbc",
-                channelKey: "channel-key-ff249e0c-abee-42b9-8b4a-59bbf04c2586",
-                paymentId: `payment-\${crypto.randomUUID()}`,
-                orderName: "항공권 구매",
-                totalAmount: number,
-                currency: "CURRENCY_KRW",
-                payMethod: "EASY_PAY",
-            });
+        let gourl = 'receiptPage.jsp?fltCode=' + fltCode + "&selectedList=" + selectedList + "&totalPrice=" + total + "&userId=" + userId +  "&start=" + start + "&end=" + end + "&departDate=" + departDate+ "&returnDate=" + returnDate+ "&classvalue=" + classvalue + "&userNameList=" +encodeURIComponent(JSON.stringify(userNameList));
 
-            console.log("결제 성공:", response);
-
-        } catch (error) {
-            console.error("결제 실패:", error);
-            alert("결제 실패ㅠ")
-        }
-
-        resultCheck = true;
-        if (resultCheck) {
-            alert("결제 성공");
-            //결제성공시 insert작업 , update작업
-            const totalPrice = document.getElementById("realTotalPrice").innerText;
-            console.log(totalPrice)
-
-            const totalPriceValue = totalPrice.split(" ")[0].replace(",","");
-
-            const useMile = document.getElementById("inputMile").value;
-            const myMile = document.getElementById("myMileage").innerText; //내 마일
-
-
-            const mileString = myMile.split(" ")[0];
-            const myMileValue = mileString.replace(",","");
-
-            const useMileInt = parseInt(useMile);
-            const myMileInt = parseInt(myMileValue);
-
-            const resultMile = (myMileInt - useMileInt);
-
-            let url = "/reservation/processReservation?seatCode=" + selectedList + "&totalPrice=" + totalPriceValue + "&userId=" + userId + "&fltCode=" + fltCode + "&userMileage=" + resultMile;
-
-            console.log(url)
-            fetch(url)
-                .then(response=>response.json())
-                .then(data=>{
-                    console.log(data);
-                })
-
-
-            fetch("/reservation/insertPassenger", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(formList),
-            })
-                .then((response) => response.text())
-                .then((result) => {
-                    console.log(result);
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                });
-
-            //다 한다음 다음 페이지로 이동
-        }
-
+        window.open(gourl);
 
     });
 

@@ -6,6 +6,7 @@ import com.example.demo.vo.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 public class AirportService implements IAirportService {
     private IAirPortDAO dao;
@@ -58,4 +59,20 @@ public class AirportService implements IAirportService {
     public int rankDiscount(String userId) {
         return dao.rankDiscount(userId);
     }
+
+    @Override
+    public List<AirCompletVO> selectAirCompletList(AirCompletVO airCompletVO) {
+        return dao.selectAirCompletList(airCompletVO);
+    }
+
+    @Override
+    public List<Map<String, Object>> findSchedulesByAirCode(AirRouteScheduleVO airRouteScheduleVO) {
+        return dao.findSchedulesByAirCode(airRouteScheduleVO);
+    }
+
+    @Override
+    public AirRouteScheduleVO findScheduleOne(AirRouteScheduleVO airRouteScheduleVO) {
+        return dao.findScheduleOne(airRouteScheduleVO);
+    }
+
 }

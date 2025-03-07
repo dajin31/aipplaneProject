@@ -322,6 +322,7 @@
     console.log(userId)
 
     let formList = [];
+    let userNameList = [];
 
     const startCountry = document.getElementById("startCountry");
     startCountry.innerText = start;
@@ -474,6 +475,9 @@
                         regNum : birthdate,
                         seatCode :seatNumber
                     })
+                    userNameList.push({
+                        userName: travelerName
+                    })
 
 
                     const koreanNameInput = passengerForm.querySelector('input[placeholder="홍길동"]');
@@ -573,7 +577,9 @@
         e.preventDefault();
         // alert('결제 페이지로 이동합니다.');
         console.log(formList)
-        window.location.href = "airportPaymentInfo.jsp?userId=" + userId + "&totalPrice=" + totalPrice + "&formList=" + encodeURIComponent(JSON.stringify(formList)) + "&selectedList=" + selectedList + "&fltCode=" + fltCode;
+        console.log(userNameList)
+        window.location.href = "airportPaymentInfo.jsp?userId=" + userId + "&totalPrice=" + totalPrice + "&formList=" + encodeURIComponent(JSON.stringify(formList)) + "&selectedList="
+            + selectedList + "&fltCode=" + fltCode + "&start=" + start + "&end=" + end + "&departDate=" + departDate+ "&returnDate=" + returnDate+ "&classvalue=" + classvalue + "&userNameList=" + encodeURIComponent(JSON.stringify(userNameList));
 
     });
 

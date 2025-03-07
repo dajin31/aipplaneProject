@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class AirPortDAO implements IAirPortDAO {
     private static IAirPortDAO dao;
@@ -132,5 +133,55 @@ public class AirPortDAO implements IAirPortDAO {
             if(session!=null) session.close();
         }
         return count;
+    }
+
+    @Override
+    public List<AirCompletVO> selectAirCompletList(AirCompletVO airCompletVO) {
+        SqlSession session = null;
+        List<AirCompletVO> list = new ArrayList<>();
+        try {
+            session = MyBatisUtil.getSession();
+            list = session.selectList("selectAirCompletList",airCompletVO);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            if(session !=null) session.close();
+        }
+        return list;
+    }
+
+    @Override
+    public List<Map<String, Object>> findSchedulesByAirCode(AirRouteScheduleVO airRouteScheduleVO) {
+        SqlSession session = null;
+        List<Map<String, Object>> list = null;
+        try {
+            session = MyBatisUtil.getSession();
+            System.out.println("airRouteScheduleVO="+airRouteScheduleVO);
+            list = session.selectList("flight.selectFlightDetail", airRouteScheduleVO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public AirRouteScheduleVO findScheduleOne(AirRouteScheduleVO airRouteScheduleVO) {
+        SqlSession session = null;
+        AirRouteScheduleVO vo = null;
+        try {
+            session = MyBatisUtil.getSession();
+            vo = session.selectOne("findScheduleOne", airRouteScheduleVO);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+        return vo;
     }
 }

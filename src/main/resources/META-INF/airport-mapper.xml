@@ -25,6 +25,18 @@
 		<result property="airName" column="AIR_NAME"/>
 	</resultMap>
 
+	<resultMap id="airCompletResultMap" type="airCompletVO">
+		<result property="airCode" column="AIR_CODE"/>
+		<result property="airName" column="AIR_NAME"/>
+		<result property="pNum" column="P_NUM"/>
+		<result property="userId" column="USER_ID"/>
+		<result property="userName" column="USER_NAME"/>
+		<result property="fltCode" column="FLT_CODE"/>
+		<result property="passNum" column="PASS_NUM"/>
+		<result property="regNum" column="REG_NUM"/>
+		<result property="seatCode" column="SEAT_CODE"/>
+	</resultMap>
+
 	<select id="selectCountyList" resultMap="airportMap">
 		select *
 		 from airport
@@ -115,6 +127,29 @@
 		FROM users u
 				 JOIN mem_grade mg ON u.mem_code = mg.mem_code
 		WHERE u.user_id = #{userId}
+	</select>
+
+	<select id="selectAirCompletList"  resultMap="airCompletResultMap">
+		with air_a as (
+			           select a.AIR_CODE , c.AIR_NAME , a.FLT_CODE
+			             from AIR_ROUTE_SCHEDULE a, AIRCRAFT c
+			            where a.AIR_CODE = c.AIR_CODE
+			              and a.FLT_CODE = #{fltCode}
+	                	),
+			 air_b as (
+				        select *
+				          from PASSENGER
+				         where USER_ID = #{userId}
+						   and user_name in
+							<foreach item="item" collection="userNames" open="(" separator="," close=")">
+									 #{item}
+							</foreach>
+				           and FLT_CODE = #{fltCode}
+			           )
+
+	                 	SELECT air_a.*, air_b.*
+	                      FROM air_b
+				          JOIN air_a ON air_a.FLT_CODE = air_b.FLT_CODE
 	</select>
 
 	</mapper>

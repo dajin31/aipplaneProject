@@ -199,6 +199,33 @@
             text-decoration: underline;
         }
     </style>
+    <script>
+        $(function (){
+
+            $('#delete').click(function() {
+                const board_id = $(this).data("num");
+                alert(board_id + " 번 글을 삭제")
+                $.ajax({
+                    url  : `<%=request.getContextPath()%>/member/delete.do`,
+                    type : 'post',
+                    data : {"board_id" : board_id},
+                    success : function(data){
+                        if(data.result>0){
+                            console.log(board_id + "번 게시글이 삭제되었습니다.");
+                            location.href = "<%=request.getContextPath()%>/member/list1_1.do";
+                        }else{
+                            console.log("게시글 삭제 오류~~")
+                        }
+
+                    },
+                    error : function(xhr){
+                        alert("상태 : " + xhr.status)
+                    },
+                    dataType : 'json'
+                });
+            });
+        })
+    </script>
     <%
         Board1_1VO boardVO = (Board1_1VO) request.getAttribute("boardVO");
         UserVO loginUser = (UserVO) session.getAttribute("loginUser");
@@ -207,7 +234,7 @@
 </head>
 <body>
 <div class="notice-board">
-    <h1 class="board-title">공지사항</h1>
+    <h1 class="board-title">1대1 문의사항</h1>
     <div class="divider"></div>
 
     <div class="notice-item">
@@ -224,6 +251,10 @@
         <div class="notice-content">
             <%=boardVO.getInd_contents()%>
         </div>
+
+        <button type="button" class="list-button">
+            <a href="<%=request.getContextPath()%>/member/update1_1.do?board_id=<%=boardVO.getBoard_id()%>" id="update">수정</a>
+        </button>
 
         <!-- 관리자 답변 영역 추가 -->
         <div class="admin-reply">

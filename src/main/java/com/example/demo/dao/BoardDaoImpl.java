@@ -53,16 +53,16 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public Board1_1VO getBoard(int board_id) {
         Board1_1VO boardVO = null;
-        int res = 0;
+//        int res = 0;
         SqlSession session = MyBatisUtil.getSqlSession();
 
         try {
-            res = session.selectOne("board1_1.getBoard", board_id);
+            return session.selectOne("board1_1.getBoard", board_id);
         } finally {
             session.commit();
             session.close();
         }
-        return boardVO;
+
     }
 
     @Override
@@ -72,6 +72,7 @@ public class BoardDaoImpl implements BoardDao {
 
         try {
             res = session.update("board1_1.updateBoard", boardVO);
+            System.out.println("update res : " + res);
         } finally {
             session.commit();
             session.close();

@@ -1,8 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.service.BoardService;
+import com.example.demo.service.BoardServiceImpl;
 import com.example.demo.service.Notice_BoardService;
 import com.example.demo.service.Notice_BoardServiceImpl;
 import com.example.demo.util.StreamData;
+import com.example.demo.vo.Board1_1VO;
 import com.example.demo.vo.Notice_BoardVO;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
@@ -24,19 +27,18 @@ public class BoardUpdate1_1 extends HttpServlet {
         resp.setContentType("application/json; charset=utf-8");
         resp.setCharacterEncoding("utf-8");
 
-        int res = Integer.parseInt(req.getParameter("ntc_board"));
+        int res = Integer.parseInt(req.getParameter("board_id"));
         System.out.println("update res="+res);
 
-        Notice_BoardService notice_boardService = Notice_BoardServiceImpl.getInstance();
-        Notice_BoardVO boardVO = notice_boardService.getBoard(res);
 
-
+        BoardService service = BoardServiceImpl.getInstance();
+        Board1_1VO boardVO = service.getBoard(res);
 
         req.setAttribute("boardVO", boardVO);
         //req.getSession()// 세션은 유지되는 거에 쓸 때 사용, 일회용이 아니여서 다른 페이2지 가도 불러올 수 있음!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ex) 로그인 할 때 저장되는 user정보 같은거
         //req.getSession().setAttribute("boardVO", boardVO);
 
-        req.getRequestDispatcher("/member/update.jsp").forward(req,resp);
+        req.getRequestDispatcher("/member/board_1_1/update1_1.jsp").forward(req,resp);
 
     }
 
@@ -52,10 +54,10 @@ public class BoardUpdate1_1 extends HttpServlet {
 
         //역직렬화 - BoardVO객체로 변환
         Gson gson = new Gson();
-        Notice_BoardVO boardVO = gson.fromJson(reqdata, Notice_BoardVO.class);
+        Board1_1VO boardVO = gson.fromJson(reqdata, Board1_1VO.class);
 
         //service객체 얻기
-        Notice_BoardService service =  Notice_BoardServiceImpl.getInstance();
+        BoardService service = BoardServiceImpl.getInstance();
 
         //service메소드 호출 - 결과값 받기
         int res = service.updateBoard(boardVO);

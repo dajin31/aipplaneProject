@@ -265,7 +265,7 @@
           <div class="notice-list">
 
   <div class="notice-item">
-    <a href="<%=request.getContextPath() %>/member/view1_1.do?user_id=<%=boardVO.getBoard_id()%>">
+    <a href="<%=request.getContextPath() %>/member/view1_1.do?board_id=<%=boardVO.getBoard_id()%>">
       <span class="notice-title"><%=boardVO.getInd_title()%></span>
       <span class="notice-date"><%=boardVO.getCrt_date()%></span>
     </a>

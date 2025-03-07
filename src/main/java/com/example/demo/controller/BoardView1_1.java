@@ -36,9 +36,10 @@ public class BoardView1_1 extends HttpServlet {
         System.out.println("res="+res);
 
         BoardService boardService = BoardServiceImpl.getInstance();
-        Board1_1VO boardVO = boardService.getBoard(res);
+        Board1_1VO boardVO = boardService.getBoard((int)res);
 
         HttpSession session = req.getSession();
+
         UserVO loginUser = (UserVO) session.getAttribute("loginUser"); // 세션에서 로그인 사용자 정보 가져오기
 
         if (loginUser != null) {

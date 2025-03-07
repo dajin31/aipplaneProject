@@ -36,16 +36,15 @@
 
 	<!-- 글수정 -->
 	<update id="updateBoard" parameterType="BoardVO">
-		update board_1_1   set  mod_time = sysdate,  ntc_title = #{ntc_title},
-									ntc_contents = #{ntc_contents}
-		where board_id = #{board_id, jdbcType=INTEGER, javaType=int}
+		update board_1_1   set  mod_date = sysdate,  ind_title = #{ind_title},
+								ind_contents = #{ind_contents}
+		where board_id = #{board_id}
 
 	</update>
 
-	<select id="getBoard" parameterType="int" resultType="BoardVO">
-		select * from board_1_1 where board_id = #{board_id, jdbcType=INTEGER, javaType=int}
+	<select id="getBoard" parameterType="int" resultType="com.example.demo.vo.Board1_1VO">
+		select * from board_1_1 where board_id = #{board_id}
 	</select>
-
 
 
 	<!-- 전체 글 갯수 구하기 -->

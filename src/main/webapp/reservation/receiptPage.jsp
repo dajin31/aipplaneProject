@@ -276,235 +276,48 @@
 
                 //
 
-                function displayFlightInfo(flights) {
-                    var container = document.getElementById('flightListInfo');
-                    // JavaScript 코드
-                    var flight = { price: 450000 }; // 예시: flight 객체 생성
 
-                    console.log(typeof flight.price); // price의 데이터 타입 출력
-
-                    // 테이블 생성
-                    var table = document.createElement('table');
-                    table.className = 'info-table';
-
-                    // 테이블 헤더 생성
-                    var thead = document.createElement('thead');
-                    var headerRow = document.createElement('tr');
-                    var headers = ['편명', '출발지', '도착지', '클래스', '기종', '가격'];
-
-                    headers.forEach(function(headerText) {
-                        var th = document.createElement('th');
-                        th.textContent = headerText;
-                        headerRow.appendChild(th);
-                    });
-
-                    thead.appendChild(headerRow);
-                    table.appendChild(thead);
-
-                    // 테이블 바디 생성
-                    var tbody = document.createElement('tbody');
-
-                    flights.forEach(function(flight) {
-                        var row = document.createElement('tr');
-
-                        // 편명
-                        var cell1 = document.createElement('td');
-                        cell1.className = 'flight-number';
-                        cell1.textContent = flight.fltCode;
-                        row.appendChild(cell1);
-
-                        // 출발지
-                        var cell2 = document.createElement('td');
-                        cell2.innerHTML = flight.dptCntName + '(' + flight.dptAptCode + ')<br>' +
-                            flight.dptDate + '<br>' +
-                            flight.dptTerminal;
-                        row.appendChild(cell2);
-
-                        // 도착지
-                        var cell3 = document.createElement('td');
-                        cell3.innerHTML = flight.arrCntName + '(' + flight.arrAptCode + ')<br>' +
-                            flight.arrDate + '<br>' +
-                            flight.arrTerminal;
-                        row.appendChild(cell3);
-
-                        // 클래스
-                        var cell4 = document.createElement('td');
-                        cell4.innerHTML = flight.seatClass + '<br>(' + flight.seatGrade + ')<br>' + flight.seatCount + '석';
-                        row.appendChild(cell4);
-
-                        // 기종
-                        var cell5 = document.createElement('td');
-                        cell5.textContent = flight.aircraft;
-                        row.appendChild(cell5);
-
-                        // 가격
-                        var cell6 = document.createElement('td');
-                        cell6.textContent = new Intl.NumberFormat('ko-KR').format(flight.price) + '원';
-                        row.appendChild(cell6);
-
-                        tbody.appendChild(row);
-                    });
-
-                    table.appendChild(tbody);
-
-                    // 테이블 푸터 (총 금액)
-                    var tfoot = document.createElement('tfoot');
-                    var footerRow = document.createElement('tr');
-
-                    var totalLabelCell = document.createElement('td');
-                    totalLabelCell.colSpan = 5;
-                    totalLabelCell.className = 'total-label';
-                    totalLabelCell.textContent = '총 결제 금액:';
-                    footerRow.appendChild(totalLabelCell);
-
-                    var totalValueCell = document.createElement('td');
-                    totalValueCell.className = 'total-price';
-                    totalValueCell.textContent = new Intl.NumberFormat('ko-KR').format(totalPrice) + '원';
-                    footerRow.appendChild(totalValueCell);
-
-                    tfoot.appendChild(footerRow);
-                    table.appendChild(tfoot);
-
-                    container.appendChild(table);
-                }
-                $(document).on('click',function() {
-                    // 항공편 정보 표시
-                    displayFlightInfo(flightList);
-
-                    // 인쇄 버튼
-                    $('#printButton').click(function() {
-                        window.print();
-                    });
-
-                    // 모달 조회 버튼 클릭
-                    $('.view-ticket').click(function() {
-                        const row = $(this).closest('tr');
-                        const passengerName = row.find('td:first').text();
-                        const fltCode = $(this).data('fltcode');
-                        if(fltCode === undefined){
-                            console.error('fltcode is undefined');
-                            return;
-                        }
-                        console.log(fltCode);
-                        // AJAX -> 서버 에서가져옴
-                        $.ajax({
-                            url: '<%=request.getContextPath()%>/reservation/detailSelectList',
-                            method: 'GET',
-                            data: "fltCode=" + fltCode,
-                            success: function(data) {
-                                console.log(data);
-                                // 모달 내용을 업데이트합니다
-                                updateModalContent(data[0], passengerName);
-                                // 모달을 표시합니다
-                                $('#flightModal').show();
-                            },
-                            error: function(err) {
-                                console.error('Error fetching flight details:', err);
-                            }
-                        });
-                    });
-
-            })
-
+        })
         })
         .catch(err=>console.error(err))
 
+            $(document).ready(function() {
 
+                // 인쇄 버튼
+                $('#printButton').click(function() {
+                    window.print();
+                });
 
+                // 모달 조회 버튼 클릭
+                $(document).on('click','.view-ticket',function() {
+                    const row = $(this).closest('tr');
+                    const passengerName = row.find('td:first').text();
+                    const fltCode = $(this).data('fltcode');
+                    if(fltCode === undefined){
+                        console.error('fltcode is undefined');
+                        return;
+                    }
+                    console.log(fltCode);
+                    // AJAX -> 서버 에서가져옴
+                    $.ajax({
+                        url: '<%=request.getContextPath()%>/reservation/detailSelectList',
+                        method: 'GET',
+                        data: "fltCode=" + fltCode,
+                        success: function(data) {
+                            console.log(data);
+                            // 모달 내용을 업데이트합니다
+                            updateModalContent(data[0], passengerName);
+                            // 모달을 표시합니다
+                            $('#flightModal').show();
+                        },
+                        error: function(err) {
+                            console.error('Error fetching flight details:', err);
+                        }
+                    });
+                });
 
-    // //
-    //
-    // function displayFlightInfo(flights) {
-    //     var container = document.getElementById('flightListInfo');
-    //     // JavaScript 코드
-    //     var flight = { price: 450000 }; // 예시: flight 객체 생성
-    //
-    //     console.log(typeof flight.price); // price의 데이터 타입 출력
-    //
-    //     // 테이블 생성
-    //     var table = document.createElement('table');
-    //     table.className = 'info-table';
-    //
-    //     // 테이블 헤더 생성
-    //     var thead = document.createElement('thead');
-    //     var headerRow = document.createElement('tr');
-    //     var headers = ['편명', '출발지', '도착지', '클래스', '기종', '가격'];
-    //
-    //     headers.forEach(function(headerText) {
-    //         var th = document.createElement('th');
-    //         th.textContent = headerText;
-    //         headerRow.appendChild(th);
-    //     });
-    //
-    //     thead.appendChild(headerRow);
-    //     table.appendChild(thead);
-    //
-    //     // 테이블 바디 생성
-    //     var tbody = document.createElement('tbody');
-    //
-    //     flights.forEach(function(flight) {
-    //         var row = document.createElement('tr');
-    //
-    //         // 편명
-    //         var cell1 = document.createElement('td');
-    //         cell1.className = 'flight-number';
-    //         cell1.textContent = flight.fltCode;
-    //         row.appendChild(cell1);
-    //
-    //         // 출발지
-    //         var cell2 = document.createElement('td');
-    //         cell2.innerHTML = flight.dptCntName + '(' + flight.dptAptCode + ')<br>' +
-    //             flight.dptDate + '<br>' +
-    //             flight.dptTerminal;
-    //         row.appendChild(cell2);
-    //
-    //         // 도착지
-    //         var cell3 = document.createElement('td');
-    //         cell3.innerHTML = flight.arrCntName + '(' + flight.arrAptCode + ')<br>' +
-    //             flight.arrDate + '<br>' +
-    //             flight.arrTerminal;
-    //         row.appendChild(cell3);
-    //
-    //         // 클래스
-    //         var cell4 = document.createElement('td');
-    //         cell4.innerHTML = flight.seatClass + '<br>(' + flight.seatGrade + ')<br>' + flight.seatCount + '석';
-    //         row.appendChild(cell4);
-    //
-    //         // 기종
-    //         var cell5 = document.createElement('td');
-    //         cell5.textContent = flight.aircraft;
-    //         row.appendChild(cell5);
-    //
-    //         // 가격
-    //         var cell6 = document.createElement('td');
-    //         cell6.textContent = new Intl.NumberFormat('ko-KR').format(flight.price) + '원';
-    //         row.appendChild(cell6);
-    //
-    //         tbody.appendChild(row);
-    //     });
-    //
-    //     table.appendChild(tbody);
-    //
-    //     // 테이블 푸터 (총 금액)
-    //     var tfoot = document.createElement('tfoot');
-    //     var footerRow = document.createElement('tr');
-    //
-    //     var totalLabelCell = document.createElement('td');
-    //     totalLabelCell.colSpan = 5;
-    //     totalLabelCell.className = 'total-label';
-    //     totalLabelCell.textContent = '총 결제 금액:';
-    //     footerRow.appendChild(totalLabelCell);
-    //
-    //     var totalValueCell = document.createElement('td');
-    //     totalValueCell.className = 'total-price';
-    //     totalValueCell.textContent = new Intl.NumberFormat('ko-KR').format(totalPrice) + '원';
-    //     footerRow.appendChild(totalValueCell);
-    //
-    //     tfoot.appendChild(footerRow);
-    //     table.appendChild(tfoot);
-    //
-    //     container.appendChild(table);
-    // }
+            })
+
 
 
 
@@ -554,74 +367,72 @@
                 $('#flightModal').hide();
             }
         });
-        ////////////////
 
-        // $('.view-ticket').click(function () {
-        //     var pNum = $(this).data('pnum');
-        //     var popupWindow = window.open('ViewTicketServlet?pNum=' + pNum, 'TicketInfo', 'width=800,height=600');
-        //     popupWindow.focus();
-        // });
 
-        // 예약 취소
-        $('.cancel-booking').click(function() {
-            var pNum = $(this).data('pnum');
-            if (confirm('정말로 예약을 취소하시겠습니까?')) {
-                $.post('CancelBookingServlet', { pNum: pNum }, function(response) {
-                    alert(response.message);
-                    if (response.success) {
-                        location.reload();
-                    }
-                });
-            }
-        });
 
-        $('.send-pdf').click(function () {
-            const row = $(this).closest('tr');
-            const passengerName = row.find('td:first').text();
-            const customerEmail = $('.email-info .value').text(); // 이메일 주소를 가져오는 방법은 실제 HTML 구조에 따라 다를 수 있습니다.
-
-            const $this = $(this);
-            $this.prop('disabled', true);
-            $this.text('전송 중...');
-
-            // 캡처할 영역 선택 (여정 정보 테이블)
-
-            const element = document.querySelector('.section');
-
-            html2canvas(element).then(canvas => {
-                // 캔버스를 이미지 데이터로 변환
-                const imageData = canvas.toDataURL('image/png');
-
-                // 서버로 전송
-                fetch('/PDFGeneratorServlet', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        imageData: imageData,
-                        passengerName: passengerName,
-                        email: customerEmail
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('PDF가 이메일로 전송되었습니다.');
-                        } else {
-                            alert('PDF 전송에 실패했습니다.');
-                        }
-                        $this.prop('disabled', false);
-                        $this.text('PDF 전송');
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('PDF 전송 중 오류가 발생했습니다.');
-                    });
+    //
+    // 예약 취소
+    $(document).on('click','.cancel-booking',function() {
+        var pNum = $(this).data('pnum');
+        if (confirm('정말로 예약을 취소하시겠습니까?')) {
+            $.post('CancelBookingServlet', { pNum: pNum }, function(response) {
+                alert(response.message);
+                if (response.success) {
+                    location.reload();
+                }
             });
-            // sendPDF 함수 호출
+        }
+    });
+
+
+    //
+    $(document).on('click', '.send-pdf', function () {
+        const row = $(this).closest('tr');
+        const passengerName = row.find('td:first').text();
+        const customerEmail = $('.email-info .value').text(); // 이메일 주소를 가져오는 방법은 실제 HTML 구조에 따라 다를 수 있습니다.
+
+        const $this = $(this);
+        $this.prop('disabled', true);
+        $this.text('전송 중...');
+
+        // 캡처할 영역 선택 (여정 정보 테이블)
+
+        const element = document.querySelector('.section');
+
+        html2canvas(element).then(canvas => {
+            // 캔버스를 이미지 데이터로 변환
+            const imageData = canvas.toDataURL('image/png');
+
+            // 서버로 전송
+            fetch('/PDFGeneratorServlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    imageData: imageData,
+                    passengerName: passengerName,
+                    email: customerEmail
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('PDF가 이메일로 전송되었습니다.');
+                    } else {
+                        alert('PDF 전송에 실패했습니다.');
+                    }
+                    $this.prop('disabled', false);
+                    $this.text('PDF 전송');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('PDF 전송 중 오류가 발생했습니다.');
+                });
         });
     });
+    //
+
 </script>
 </body>
 </html>

@@ -27,7 +27,7 @@
             </ul>
         </nav>
         <div class="util-menu">
-            <a href="#" class="login-btn">로그인</a>
+            <a href="<%=request.getContextPath()%>/login.do" class="login-btn">로그인</a>
             <select class="lang-select">
                 <option value="ko">한국어</option>
                 <option value="en">English</option>
@@ -48,7 +48,7 @@
 <%--        <div class="tab active">편도</div>--%>
 <%--    </div>--%>
 
-<form class="flight-search-form" action="flight-selection.jsp" method="POST" style="width: 1600px">
+<form class="flight-search-form" action="flight-selection.jsp" method="POST">
     <div style="display: flex; flex-wrap: wrap;">
         <div style="padding: 40px 30px 40px 30px; display: flex; align-items: center; width: 500px; margin-left: 70px ">
             <div class="location-input" style="margin-right: 20px" id="searchStart">
@@ -111,65 +111,66 @@
     <div class="recommended-flights">
         <button class="slide-button prev" aria-label="이전 항공권">&lt;</button>
         <div class="slides-container">
-            <div class="slides-track">
-                <div class="slide">
-                <img src="/images/마카오.jpg" alt="마카오">
-                <div class="slide-content">
-                    <h3>서울 (인천) - 마카오</h3>
-                    <p>편도 총액 98,200원~</p>
-                    <p>2025.04.01 - 2025.05.31</p>
-                </div>
-                </div>
-                <div class="slide">
-                    <img src="/images/싱가포르.jpg" alt="싱가포르">
+                <div class="slides-track">
+                    <div class="slide">
+                    <img src="/images/마카오.jpg" alt="마카오">
                     <div class="slide-content">
-                        <h3>부산 - 싱가포르</h3>
-                        <p>편도 총액 121,300원~</p>
+                        <h3>서울 (인천) - 마카오</h3>
+                        <p>편도 총액 98,200원~</p>
                         <p>2025.04.01 - 2025.05.31</p>
                     </div>
-                </div>
-                <div class="slide">
-                    <img src="/images/오키나와.jpg" alt="오키나와">
-                    <div class="slide-content">
-                        <h3>서울 (인천) - 오키나와(나하)</h3>
-                        <p>편도 총액 101,900원~</p>
-                        <p>2025.04.01 - 2025.05.31</p>
+                    </div>
+                    <div class="slide">
+                        <img src="/images/싱가포르.jpg" alt="싱가포르">
+                        <div class="slide-content">
+                            <h3>부산 - 싱가포르</h3>
+                            <p>편도 총액 121,300원~</p>
+                            <p>2025.04.01 - 2025.05.31</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="/images/오키나와.jpg" alt="오키나와">
+                        <div class="slide-content">
+                            <h3>서울 (인천) - 오키나와(나하)</h3>
+                            <p>편도 총액 101,900원~</p>
+                            <p>2025.04.01 - 2025.05.31</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="/images/울란바토르.jpg" alt="울란바토르">
+                        <div class="slide-content">
+                            <h3>부산 - 울란바토르</h3>
+                            <p>편도 총액 108,200원~</p>
+                            <p>2025.04.01 - 2025.05.31</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="/images/홍콩.jpg" alt="홍콩">
+                        <div class="slide-content">
+                            <h3>서울(인천) - 홍콩</h3>
+                            <p>편도 총액 108,200원~</p>
+                            <p>2025.04.01 - 2025.05.31</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="/images/바탐.jpg" alt="바탐">
+                        <div class="slide-content">
+                            <h3>서울(인천) - 바탐</h3>
+                            <p>편도 총액 126,300원~</p>
+                            <p>2025.04.01 - 2025.05.31</p>
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <img src="/images/덴파사르.jpg" alt="덴파사르">
+                        <div class="slide-content">
+                            <h3>서울(인천) - 덴파사르(발리)</h3>
+                            <p>편도 총액 186,300원~</p>
+                            <p>2025.04.01 - 2025.05.31</p>
+                        </div>
                     </div>
                 </div>
-                <div class="slide">
-                    <img src="/images/울란바토르.jpg" alt="울란바토르">
-                    <div class="slide-content">
-                        <h3>부산 - 울란바토르</h3>
-                        <p>편도 총액 108,200원~</p>
-                        <p>2025.04.01 - 2025.05.31</p>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="/images/홍콩.jpg" alt="홍콩">
-                    <div class="slide-content">
-                        <h3>서울(인천) - 홍콩</h3>
-                        <p>편도 총액 108,200원~</p>
-                        <p>2025.04.01 - 2025.05.31</p>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="/images/바탐.jpg" alt="바탐">
-                    <div class="slide-content">
-                        <h3>서울(인천) - 바탐</h3>
-                        <p>편도 총액 126,300원~</p>
-                        <p>2025.04.01 - 2025.05.31</p>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="/images/덴파사르.jpg" alt="덴파사르">
-                    <div class="slide-content">
-                        <h3>서울(인천) - 덴파사르(발리)</h3>
-                        <p>편도 총액 186,300원~</p>
-                        <p>2025.04.01 - 2025.05.31</p>
-                    </div>
-                </div>
-            </div>
-        <button class="slide-button next" aria-label="다음 항공권">&gt;</button>
+            <button class="slide-button next" aria-label="다음 항공권">&gt;</button>
+        </div>
     </div>
 </section>
 
@@ -199,7 +200,7 @@
     <div class="footer-container">
         <div class="footer-info">
             <div class="footer-logo">
-                <img src="/images/soon-logo-gray.png" alt="SOON항공사">
+                <img src="/images/SoonAirLine.png" alt="SOON항공사">
             </div>
             <div class="contact-info">
                 <p>고객센터: 1599-1500</p>
@@ -217,7 +218,7 @@
 
 
 <script>
-    // 기존 JavaScript 코드에 추가
+    console.log(document.getElementById("searchEnd"));
     document.addEventListener('DOMContentLoaded', function() {
         // 탭 전환 기능
         const tabs = document.querySelectorAll('.booking-tabs button');

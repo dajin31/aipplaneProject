@@ -31,7 +31,7 @@ public class AirPortServiceImpl implements AirPortService {
 
     @Override
     public List<AirportVO> selectCountryCategory(String cntCategory) {
-        return List.of();
+        return dao.selectCountryCategory(cntCategory);
     }
 
 

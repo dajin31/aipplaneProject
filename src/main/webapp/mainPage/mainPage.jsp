@@ -16,7 +16,7 @@
 <header class="main-header">
     <div class="header-container">
         <div class="logo">
-            <img src="/images/SoonAirLine.png" alt="SOON항공사">
+            <img src="/images/soonAirLine.png" alt="SOON항공사">
         </div>
         <nav class="main-nav">
             <ul>
@@ -27,7 +27,7 @@
             </ul>
         </nav>
         <div class="util-menu">
-            <a href="<%=request.getContextPath()%>/login.do" class="login-btn">로그인</a>
+            <a href="/login/login.jsp" class="login-btn">로그인</a>
             <select class="lang-select">
                 <option value="ko">한국어</option>
                 <option value="en">English</option>
@@ -200,7 +200,7 @@
     <div class="footer-container">
         <div class="footer-info">
             <div class="footer-logo">
-                <img src="/images/SoonAirLine.png" alt="SOON항공사">
+                <img src="/images/soonAirLine.png" alt="SOON항공사">
             </div>
             <div class="contact-info">
                 <p>고객센터: 1599-1500</p>

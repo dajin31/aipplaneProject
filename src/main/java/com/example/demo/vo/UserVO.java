@@ -45,6 +45,10 @@ public class UserVO {
         this.userEmail = userEmail;
     }
 
+    public UserVO(String userName) {
+        this.userName = userName;
+    }
+
     // Getter & Setter
     public String getUserId() { return userId; }
     public void setUserId(String userId) { this.userId = userId; }
@@ -60,7 +64,6 @@ public class UserVO {
 
     public String getUserEmail() { return userEmail; }
     public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
-
 
     @Override
     public boolean equals(Object o) {

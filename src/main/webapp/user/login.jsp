@@ -143,7 +143,11 @@
 
                         if (data.result === "success") {
                             alert("로그인 성공!");
-                            location.href = "<%=request.getContextPath()%>/user/test.jsp";
+                            // 헤더 변경
+                            $(".header-before-login").hide();
+                            $(".header-after-login").show();
+                            $(".welcome-msg").text(data.userName + "님 환영합니다.");
+                            location.href = "<%=request.getContextPath()%>/header/header.jsp";
                         } else if (data.result === "fail") {
                             // 로그인 실패: 서버에서 전달된 오류 메시지 표시
                             $("#loginError").text(data.message).addClass("error");

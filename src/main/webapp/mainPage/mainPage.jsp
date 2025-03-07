@@ -27,7 +27,11 @@
             </ul>
         </nav>
         <div class="util-menu">
+<<<<<<< HEAD
             <a href="/login/login.jsp" class="login-btn">로그인</a>
+=======
+            <a href="<%=request.getContextPath()%>/login.do" class="login-btn">로그인</a>
+>>>>>>> origin/chan
             <select class="lang-select">
                 <option value="ko">한국어</option>
                 <option value="en">English</option>
@@ -200,7 +204,11 @@
     <div class="footer-container">
         <div class="footer-info">
             <div class="footer-logo">
+<<<<<<< HEAD
                 <img src="/images/soonAirLine.png" alt="SOON항공사">
+=======
+                <img src="/images/SoonAirLine.png" alt="SOON항공사">
+>>>>>>> origin/chan
             </div>
             <div class="contact-info">
                 <p>고객센터: 1599-1500</p>

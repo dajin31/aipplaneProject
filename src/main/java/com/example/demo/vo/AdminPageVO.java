@@ -2,15 +2,15 @@ package com.example.demo.vo;
 
 public class AdminPageVO {
 	private int currentPage = 1;
-	
+
 	private int start;
 	private int end;
 	private int startPage;
 	private int endPage;
 	private int totalPage;
 	private int count;
-	
-	private static int perList = 5;		// 한 페이지에 보여줄 게시글 수
+
+	private static int perList = 10;		// 한 페이지에 보여줄 게시글 수
 	private static int perPage = 3;		// 한 페이지에 보여줄 페이지 수
 	public int getCurrentPage() {
 		return currentPage;
@@ -66,5 +66,5 @@ public class AdminPageVO {
 	public static void setPerPage(int perPage) {
 		AdminPageVO.perPage = perPage;
 	}
-	
+
 }

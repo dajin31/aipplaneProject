@@ -6,7 +6,7 @@ body {
 }
 
 .container {
-    max-width: 1500px;
+    max-width: 1200px;
     margin: 0 auto;
     background-color: #fff;
     padding: 20px;
@@ -17,6 +17,7 @@ body {
 h1 {
     color: #333;
     text-align: center;
+    margin-bottom: 20px;
 }
 
 form {
@@ -27,6 +28,20 @@ form {
 select, input[type="text"], input[type="submit"] {
     padding: 8px;
     margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
 }
 
 table {
@@ -50,6 +65,10 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
+tr:hover {
+    background-color: #f1f1f1;
+}
+
 .pagination {
     margin-top: 20px;
     text-align: center;
@@ -62,6 +81,7 @@ tr:nth-child(even) {
     transition: background-color .3s;
     border: 1px solid #ddd;
     margin: 0 4px;
+    display: inline-block;
 }
 
 .pagination a.active {
@@ -72,4 +92,28 @@ tr:nth-child(even) {
 
 .pagination a:hover:not(.active) {
     background-color: #ddd;
+}
+
+.detail-link {
+    color: blue;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.detail-link:visited {
+    color: blue;
+}
+
+.no-data {
+    text-align: center;
+    padding: 15px;
+    font-style: italic;
+    color: #999;
+}
+
+.count-info {
+    margin: 10px 0;
+    text-align: right;
+    font-size: 0.9em;
+    color: #666;
 }

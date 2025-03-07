@@ -2,14 +2,13 @@ package com.example.demo.controller;
 
 import com.example.demo.service.AdminServiceImpl;
 import com.example.demo.service.IAdminService;
-import com.example.demo.util.StreamData;
 import com.example.demo.vo.UserVO;
-import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,21 +19,28 @@ public class AdminUserUpdate extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		response.setCharacterEncoding("utf-8");
-		response.setContentType("application/json; charset=utf-8");
+		response.setContentType("application/json;charset=UTF-8");
 
-		String data = StreamData.getJsonStream(request);
-		Gson gson = new Gson();
+		HttpSession session = request.getSession();
+		// UserVO loginUser = (UserVO) session.getAttribute("loginUser");
 
-		UserVO userVo = gson.fromJson(data, UserVO.class);
+		IAdminService adminService = AdminServiceImpl.getInstance();
+		// IUserService userService = UserServiceImp.getInstance();
 
-		IAdminService service = AdminServiceImpl.getInstance();
 
-		int res = service.updateUser(userVo);
+		UserVO user = new UserVO();
+		user.setUserId(request.getParameter("userId"));
+		user.setUserPw(request.getParameter("userPw"));
+		user.setUserEmail(request.getParameter("userEmail"));
+		user.setUserMileage(Integer.parseInt(request.getParameter("userMileage")));
+		user.setUserPassNum(request.getParameter("userPassNum"));
+		user.setUserTotalMileage(Integer.parseInt(request.getParameter("userTotalMileage")));
+		user.setMemCode(request.getParameter("memCode"));
 
-		String jsonData = "{\"result\" : " + res + "}";
+		int result = adminService.updateUser(user);
+
 		PrintWriter out = response.getWriter();
-		out.write(jsonData);
-		response.flushBuffer();
+		out.print("{\"result\":" + result + "}");
+		out.flush();
 	}
 }

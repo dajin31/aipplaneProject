@@ -10,20 +10,23 @@ public interface IAdminService {
 
 	// 회원 삭제
 	public int deleteUser(String userId);
-	
+
 	// 회원 정보 수정
 	public int updateUser(UserVO user);
-	
+
 	// 회원 리스트 - 검색
 	public List<UserVO> selectById(Map<String, Object> map);
-	
+
 	// 페이지별 정보 구하기 - paging 처리를 위한 것
 	public AdminPageVO pageInfo(int page, String stype, String sword);
-	
-	// 전체 회원 수 ??
+
+	// 전체 회원 수
 	public int totalCount(Map<String, Object> map);
 
-	// 상세 회원?
+	// 회원 상세 정보 조회
 	public UserVO getUserById(String userId);
+
+	// 전체 회원 목록
+	public List<UserVO> getAllUsers();
 
 }

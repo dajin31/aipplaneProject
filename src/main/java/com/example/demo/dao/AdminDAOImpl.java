@@ -59,4 +59,12 @@ public class AdminDAOImpl implements IAdminDAO {
 		session.close();
 		return user;
 	}
+
+	@Override
+	public List<UserVO> getAllUsers() {
+		SqlSession session = MyBatisUtil.getSession();
+		List<UserVO> list = session.selectList("admin.getAllUser");
+		session.close();
+		return list;
+	}
 }

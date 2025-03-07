@@ -6,15 +6,15 @@ public class UserVO {
 	private String userName;    	// 회원 이름
 	private String userId;      	// 회원 아이디
 	private String userPw;      	// 회원 비밀번호
-    private String userEmail;   	// 회원 이메일
-    private String userRegNum;     	// 회원 주민번호
+	private String userEmail;   	// 회원 이메일
+	private String userRegNum;     	// 회원 주민번호
 	private String userPassNum; 	// 회원 여권번호
 	private int userMileage;    	// 회원 보유 마일리지
-    private int userTotalMileage;   // 회원 총 마일리지
-    private String memCode; 		// 회원 등급
+	private int userTotalMileage;   // 회원 총 마일리지
+	private String memCode; 		// 회원 등급
 
-    public UserVO() {
-    }
+	public UserVO() {
+	}
 
 	// 로그인용 생성자 (아이디와 비밀번호로 로그인 확인)
 	public UserVO(String userId, String userPw) {
@@ -22,8 +22,8 @@ public class UserVO {
 		this.userPw = userPw;
 	}
 
-	// userName, userRegnum, userEmail을 받는 생성자
-	public UserVO(String userName, String userRegnum, String userEmail) {
+	// userName, userRegNum, userEmail을 받는 생성자
+	public UserVO(String userName, String userRegNum, String userEmail) {
 		this.userName = userName;
 		this.userRegNum = userRegNum;
 		this.userEmail = userEmail;
@@ -108,12 +108,12 @@ public class UserVO {
 		this.memCode = memCode;
 	}
 
-	public int getUser_totalmileage() {
+	public int getUserTotalMileage() {
 		return userTotalMileage;
 	}
 
-	public void setUser_totalmileage(int user_totalmileage) {
-		this.userTotalMileage = user_totalmileage;
+	public void setUserTotalMileage(int userTotalMileage) {
+		this.userTotalMileage = userTotalMileage;
 	}
 
 	@Override

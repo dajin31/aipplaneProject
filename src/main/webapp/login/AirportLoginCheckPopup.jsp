@@ -197,16 +197,16 @@
     <div class="checkbox-container">
 
         <%--회원가입 페이지 구현후 연동 예정--%>
-        <a href="membership.jsp" class="find-account">회원가입 &gt;</a>
+        <a href="/login/userJoin.jsp" class="find-account">회원가입 &gt;</a>
     </div>
 
     <button type="submit" class="login-btn" id="loginBtn">로그인</button>
 
     <div class="find-links">
         <%--로그인 페이지 구현후 연동 예정--%>
-        <a href="find_id.jsp" class="find-link">아이디 찾기</a>
+        <a href="/login/find_id.jsp" class="find-link">아이디 찾기</a>
         <span class="divider">|</span>
-        <a href="find_password.jsp" class="find-link">비밀번호 찾기</a>
+        <a href="/login/find_pw.jsp" class="find-link">비밀번호 찾기</a>
     </div>
 
     <div class="social-login-text">다른 계정으로 로그인</div>

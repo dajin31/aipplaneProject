@@ -1,6 +1,6 @@
 package com.example.demo.controller.airport;
 
-import com.example.demo.service.AirPortServiceImpl;
+import com.example.demo.service.AirportServiceImpl;
 import com.example.demo.vo.AirRouteScheduleVO;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
@@ -22,7 +22,7 @@ public class AirRouteScheduleController extends HttpServlet {
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        AirPortServiceImpl service = AirPortServiceImpl.getInstance();
+        AirportServiceImpl service = AirportServiceImpl.getInstance();
         AirRouteScheduleVO airRouteScheduleVO = new AirRouteScheduleVO();
         String airCodeParam = req.getParameter("airCode");
 

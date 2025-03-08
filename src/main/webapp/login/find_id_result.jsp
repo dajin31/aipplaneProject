@@ -57,7 +57,7 @@
   <h1>아이디 찾기 결과</h1>
   <p class="message">찾은 아이디:</p>
   <p class="id-result"><%= userId != null ? userId : "아이디를 찾을 수 없습니다." %></p>
-  <a href="<%=request.getContextPath()%>/user/login.jsp" class="btn">로그인 페이지로 돌아가기</a>
+  <a href="<%=request.getContextPath()%>/login/login.jsp" class="btn">로그인 페이지로 돌아가기</a>
 </div>
 </body>
 </html>

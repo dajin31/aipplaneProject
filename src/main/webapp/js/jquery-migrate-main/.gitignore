@@ -1,0 +1,23 @@
+coverage
+CDN
+.project
+.settings
+*~
+*.diff
+*.patch
+/*.html
+.DS_Store
+.sizecache.json
+.eslintcache
+
+# Ignore built files in `dist` folder
+# Leave package.json
+/dist/*
+!/dist/package.json
+
+/external
+/node_modules
+
+# Ignore BrowserStack files
+local.log
+browserstack.err

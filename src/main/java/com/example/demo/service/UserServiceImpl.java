@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.dao.UserDAO;
 import com.example.demo.dao.UserDAOImpl;
 import com.example.demo.util.MyBatisUtil;
+import com.example.demo.vo.OrdersVO;
 import com.example.demo.vo.UserVO;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -22,6 +23,26 @@ public class UserServiceImpl implements UserService {
             service = new UserServiceImpl();
         }
         return service;
+    }
+
+    @Override
+    public int selectUser(UserVO usersVO) {
+        return dao.selectUser(usersVO);
+    }
+
+    @Override
+    public int selectMileage(String userId) {
+        return dao.selectMileage(userId);
+    }
+
+    @Override
+    public int insertOrder(OrdersVO ordersVO) {
+        return dao.insertOrder(ordersVO);
+    }
+
+    @Override
+    public int updateMileage(UserVO usersVO) {
+        return dao.updateMileage(usersVO);
     }
 
     @Override

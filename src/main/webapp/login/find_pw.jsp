@@ -95,7 +95,7 @@
               alert("임시 비밀번호를 이메일로 전송했습니다.");
               console.log(JSON.stringify(response));
               // 로그인 페이지로 이동
-              location.href = "<%=request.getContextPath()%>/user/login.jsp";
+              location.href = "<%=request.getContextPath()%>/login/login.jsp";
             } else {
               alert(response.message || "오류가 발생했습니다.");
             }

@@ -1,3 +1,4 @@
+<%@ page import="com.example.demo.vo.UserVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -5,33 +6,94 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOON항공사</title>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/header.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.5.2.js"></script>
+    <script src="/js/jquery-3.7.1.js"></script>
     <script src="/mainPage/main.js"></script>
 </head>
 <body>
+
+<%
+    UserVO userVO = (UserVO) session.getAttribute("loginUser")==null?null:(UserVO) session.getAttribute("loginUser");
+%>
+
+<%=userVO%>
+
 <!-- 헤더 -->
-<header class="main-header">
-    <div class="header-container">
+<header>
+    <div class="header-container header-before-login">
         <div class="logo">
-            <img src="/images/SoonAirLine.png" alt="SOON항공사">
+            <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
         </div>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="#" class="active">예약</a></li>
-                <li><a href="#">여행 준비</a></li>
-                <li><a href="#">서비스</a></li>
-                <li><a href="#">여행 경험</a></li>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#">예약</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<%=request.getContextPath()%>/reservation/reservation-airport.jsp">항공권 예매</a></li>
+                        <li><a href="#">예약 취소</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">마일리지</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<%=request.getContextPath()%>/mileage/mileageShop.jsp">마일리지샵</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">공지사항</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">공지사항</a></li>
+                        <li><a href="#">1:1 문의</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
-        <div class="util-menu">
-            <a href="#" class="login-btn">로그인</a>
-            <select class="lang-select">
-                <option value="ko">한국어</option>
-                <option value="en">English</option>
-            </select>
+        <div class="auth">
+            <a href="/login/userJoin.jsp" class="join-btn">회원가입</a>
+            <a href="/login/login.jsp" class="login-btn">로그인</a>
+        </div>
+    </div>
+    <div class="header-container header-after-login hidden">
+        <div class="logo">
+            <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#">예약</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<%=request.getContextPath()%>/reservation/reservation-airport.jsp">항공권 예매</a></li>
+                        <li><a href="#">예약 취소</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="/mileage/mileageShop.jsp">마일리지</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="<%=request.getContextPath()%>/mileage/mileageShop.jsp">마일리지샵</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">공지사항</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">공지사항</a></li>
+                        <li><a href="#">1:1 문의</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="user-info">
+            <a href="<%=request.getContextPath()%>/logout.do" class="logout-btn">로그아웃</a>
+            <a href="#" class="mypage-btn">마이페이지</a>
+            <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
         </div>
     </div>
 </header>
@@ -44,11 +106,7 @@
     <div class="tab active">예매</div>
 </div>
 
-<%--    <div class="trip-type-tabs" style="display: flex; margin-bottom: 20px" >--%>
-<%--        <div class="tab active">편도</div>--%>
-<%--    </div>--%>
-
-<form class="flight-search-form" action="flight-selection.jsp" method="POST">
+<form class="flight-search-form" action="/reservation/flight-selection.jsp" method="POST">
     <div style="display: flex; flex-wrap: wrap;">
         <div style="padding: 40px 30px 40px 30px; display: flex; align-items: center; width: 500px; margin-left: 70px ">
             <div class="location-input" style="margin-right: 20px" id="searchStart">
@@ -83,7 +141,7 @@
 
         <div style="padding: 40px 20px 40px 20px; align-items: center; display: flex">
             <div class="passenger " id="passengerDiv" >
-                <button class="passenger-click" id="selectPassenger" type="button" style=" margin-bottom: 10px;width: 120px;margin-top: 25px;">탑승객선택</button>
+                <button class="passenger-click" id="selectPassenger" type="button">탑승객선택</button>
                 <input type="hidden" id="checkPassengerInput" name="checkPassenger">
             </div>
             <div class="seat-input" style="margin-left: 10px">
@@ -174,6 +232,7 @@
     </div>
 </section>
 
+<script src="/mainPage/weather.js"></script>
 <!-- 여행 경험 섹션 -->
 <section class="travel-experience">
     <div class="section-container">
@@ -183,9 +242,11 @@
                 <h3>날씨 정보</h3>
                 <div id="weather-widget"></div>
             </div>
+            <!-- 호텔 예약하기 -->
             <div class="experience-card hotels">
-                <h3>호텔 예약</h3>
-                <a href="#" class="link-button">호텔 검색하기</a>
+                <div class="hotel-title"><h3>호텔 예약</h3></div>
+                <div id="map" style="width:250px;height:250px;"></div>
+                <a href="https://www.agoda.com/ko-kr/" class="link-button-hotel">추천 호텔 예약하러 가기 👈</a>
             </div>
             <div class="experience-card mileage">
                 <h3>마일리지샵</h3>
@@ -200,7 +261,7 @@
     <div class="footer-container">
         <div class="footer-info">
             <div class="footer-logo">
-                <img src="/images/soon-logo-gray.png" alt="SOON항공사">
+                <img src="/images/2.png" alt="SOON항공사">
             </div>
             <div class="contact-info">
                 <p>고객센터: 1599-1500</p>
@@ -216,10 +277,33 @@
     </div>
 </footer>
 
-
 <script>
+    $(document).ready(function() {
+        // 세션에서 로그인 상태 확인
+        const isLoggedIn = ${sessionScope.loginUser != null};
+        const userName = "${sessionScope.loginUser.userName}";
+
+        console.log(userName);
+        if (isLoggedIn) {
+            $(".header-before-login").hide();
+            $(".header-after-login").removeClass("hidden");
+            $(".welcome-msg").text(userName + "님 환영합니다.");
+        } else {
+            $(".header-before-login").show();
+            $(".header-after-login").addClass("hidden");
+        }
+
+        // 로그아웃 후 페이지 리로드
+        $(".logout-btn").click(function(event) {
+            event.preventDefault(); // 기본 링크 동작 방지
+            if (confirm("로그아웃 하시겠습니까?")) {
+                location.href = "<%=request.getContextPath()%>/logout.do";
+            }
+        });
+    });
     console.log(document.getElementById("searchEnd"));
     document.addEventListener('DOMContentLoaded', function() {
+
         // 탭 전환 기능
         const tabs = document.querySelectorAll('.booking-tabs button');
         tabs.forEach(tab => {
@@ -228,6 +312,49 @@
                 this.classList.add('active');
             });
         });
+    });
+
+</script>
+<!-- 다음 지도 api -->
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8306615f01d266edffd26c9c180c3c4"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(37.5659975, 126.9799762), // 지도의 중심좌표
+                level: 4, // 지도의 확대 레벨
+                mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
+            };
+
+        // 지도를 생성한다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 지도에 마커를 생성하고 표시한다
+        var markerPositions = [
+            new kakao.maps.LatLng(37.5653, 126.980979), //롯데 호텔
+            new kakao.maps.LatLng(37.564378, 126.980058), //웨스틴조선서울 좌표
+            new kakao.maps.LatLng(37.5649903, 126.981369) //롯데호텔 이그제큐티브
+        ];
+
+        var hotelNames = [
+            '롯데 호텔 서울',
+            '웨스틴 조선 서울',
+            '롯데 호텔 이그제큐티브'
+        ];
+
+        for (var i = 0; i < markerPositions.length; i++) {
+            var marker = new kakao.maps.Marker({
+                position: markerPositions[i],
+                map: map
+            });
+
+            (function (marker, i) {
+                kakao.maps.event.addListener(marker, 'click', function () {
+                    alert(hotelNames[i] + '을(를) 추천합니다!');
+                });
+            })(marker, i);
+        }
     });
 </script>
 </body>

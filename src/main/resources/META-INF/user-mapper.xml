@@ -2,7 +2,18 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
 
-    <resultMap id="userMap" type="userVO">
+    <resultMap  id="userMap" type="UserVO">
+        <result property="userId" column="USER_ID"/>
+        <result property="userPw" column="USER_PW"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userEmail" column="USER_EMAIL"/>
+        <result property="userRegnum" column="USER_REGNUM"/>
+        <result property="userMileage" column="USER_MILEAGE"/>
+        <result property="userPassnum" column="USER_PASSNUM"/>
+        <result property="memCode" column="MEM_CODE"/>
+    </resultMap>
+
+    <resultMap id="usersMap" type="usersVO">
         <result property="userId" column="user_id"/>
         <result property="userPw" column="user_pw"/>
         <result property="userName" column="user_name"/>
@@ -12,6 +23,7 @@
         <result property="userPassnum" column="user_passnum"/>
         <result property="memCode" column="mem_code"/>
     </resultMap>
+
     <!-- id 중복검사 -->
     <select id="userIdCount" parameterType="String" resultType="int">
         select count(*)
@@ -30,18 +42,44 @@
         SELECT * FROM users WHERE user_id = #{user_id} AND user_pw = #{user_pw}
     </select>
 
-    <!-- 비밀번호 찾기 -->
-    <select id="getUserByIdRegnumEmail" parameterType="UserVO" resultType="UserVO">
-        SELECT * FROM users WHERE user_id = #{userId} AND user_regnum = #{userRegnum} AND user_email = #{userEmail}
+    <!-- 비밀번호 찾기-->
+    <select id="getUserByIdRegnumEmail" parameterType="UserVO" resultMap="userMap">
+        SELECT USER_ID
+            , USER_PW
+            , USER_NAME
+            , USER_EMAIL
+            , USER_REGNUM
+            , USER_MILEAGE
+            , USER_PASSNUM
+            , MEM_CODE
+            , USER_TOTALMILEAGE
+        FROM users
+        WHERE user_id = #{userId}
+        AND user_regnum = #{userRegnum}
+        AND user_email = #{userEmail}
     </select>
 
     <update id="updateUserPassword" parameterType="com.example.demo.vo.UserVO">
         UPDATE users SET user_pw = #{userPw} WHERE user_id = #{userId}
     </update>
 
-    <!-- 아이디 찾기 -->
-    <select id="getUserByNameRegnumEmail" parameterType="UserVO" resultType="UserVO">
-        SELECT * FROM users WHERE user_name = #{userName} AND user_regnum = #{userRegnum} AND user_email = #{userEmail}
+    <!-- 아이디 찾기
+     List<UserVO> userList = session.selectList("user.getUserByNameRegnumEmail", userVO);
+    -->
+    <select id="getUserByNameRegnumEmail" parameterType="UserVO" resultMap="userMap">
+        SELECT USER_ID
+             , USER_PW
+             , USER_NAME
+             , USER_EMAIL
+             , USER_REGNUM
+             , USER_MILEAGE
+             , USER_PASSNUM
+             , MEM_CODE
+             , USER_TOTALMILEAGE
+        FROM users
+        WHERE USER_NAME = #{userName}
+          AND USER_REGNUM = #{userRegnum}
+          AND USER_EMAIL = #{userEmail}
     </select>
 
     <!-- 사용자 정보 조회 -->

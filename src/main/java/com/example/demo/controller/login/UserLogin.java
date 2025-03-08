@@ -48,8 +48,13 @@ public class UserLogin extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("loginUser", user);
 
+                // 응답 데이터에 사용자 이름 추가
+                JsonObject resultJson = new JsonObject();
+                resultJson.addProperty("result", "success");
+                resultJson.addProperty("userName", user.getUserName()); // getUserName() 사용
+
                 response.setStatus(HttpServletResponse.SC_OK);
-                response.getWriter().write(gson.toJson(new Result("success")));
+                response.getWriter().write(gson.toJson(resultJson));
             } else {
                 // 사용자 없음 또는 비밀번호 불일치
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -66,11 +71,6 @@ public class UserLogin extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write(gson.toJson(new ErrorResult("서버 오류 발생")));
         }
-    }
-
-    private static class Result {
-        private String result;
-        public Result(String result) { this.result = result; }
     }
 
     private static class ErrorResult {

@@ -1,6 +1,6 @@
 package com.example.demo.controller.airport;
 
-import com.example.demo.service.AirPortServiceImpl;
+import com.example.demo.service.AirportServiceImpl;
 import com.example.demo.vo.AirportVO;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
@@ -21,7 +21,7 @@ public class AirportCountryCategoryController extends HttpServlet {
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        AirPortServiceImpl service = AirPortServiceImpl.getInstance();
+        AirportServiceImpl service = AirportServiceImpl.getInstance();
 
         String cntCategory = req.getParameter("cntCategory");
 

@@ -1,12 +1,11 @@
 <%@ page language="java" contentType="application/json; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.google.gson.Gson" %>
-<%@ page import="com.example.demo.service.IUserService" %>
-<%@ page import="com.example.demo.service.UserServiceImp" %>
+<%@ page import="com.example.demo.service.UserServiceImpl" %>
 <%@ page import="com.example.demo.vo.UserVO" %>
 <%@ page import="java.io.BufferedReader" %>
 <%@ page import="java.io.IOException" %>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.google.gson.JsonObject" %>
+<%@ page import="com.google.gson.JsonObject" %><%@ page import="com.example.demo.service.UserServiceImpl"%>
 
 <%
     try {
@@ -25,7 +24,7 @@
         String userPw = jsonObject.get("user_pw").getAsString();  // 암호화된 비밀번호가 아닌 평문 비밀번호
 
         // Service 객체 생성
-        IUserService service = UserServiceImp.getInstance();
+        UserServiceImpl service = UserServiceImpl.getInstance();
         UserVO user = service.login(userId, userPw); // login()를 사용하여 사용자 정보 가져오기
 
         // 비밀번호 비교

@@ -97,7 +97,7 @@
               console.log("찾은 아이디:", response.userId);
 
               // 아이디를 결과 페이지로 넘기기 위해 쿼리 파라미터 추가
-              location.href = "<%=request.getContextPath()%>/user/find_id_result.jsp?userId=" + encodeURIComponent(response.userId);
+              location.href = "<%=request.getContextPath()%>/login/find_id_result.jsp?userId=" + encodeURIComponent(response.userId);
             } else {
               alert(response.message || "오류가 발생했습니다.");
             }

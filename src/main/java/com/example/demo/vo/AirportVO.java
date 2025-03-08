@@ -1,18 +1,16 @@
 package com.example.demo.vo;
 
 public class AirportVO {
-    private String aptCode;    // 공항 코드
-    private String aptName; // 공항 명
-    private String cntName; // 국가 명
+    private String aptCode;
+    private String aptName;
+    private String cntName;
     private String cntCategory;
 
-    public AirportVO() {
+    public String getCntCategory() {
+        return cntCategory;
     }
 
-    public AirportVO(String aptCode, String aptName, String cntName, String cntCategory) {
-        this.aptCode = aptCode;
-        this.aptName = aptName;
-        this.cntName = cntName;
+    public void setCntCategory(String cntCategory) {
         this.cntCategory = cntCategory;
     }
 
@@ -22,14 +20,6 @@ public class AirportVO {
 
     public void setAptCode(String aptCode) {
         this.aptCode = aptCode;
-    }
-
-    public String getCntCategory() {
-        return cntCategory;
-    }
-
-    public void setCntCategory(String cntCategory) {
-        this.cntCategory = cntCategory;
     }
 
     public String getAptName() {

@@ -131,7 +131,7 @@
         $("#loginButton").prop("disabled", true).text("로그인 중...");
 
         // fetch 요청
-        fetch("<%=request.getContextPath()%>/login/login.do", {
+        fetch("<%=request.getContextPath()%>/login.do", {
           method: "POST",
           headers: { "Content-Type": "application/json; charset=utf-8" },
           body: JSON.stringify({ user_id: userId, user_pw: password })
@@ -143,7 +143,8 @@
 
                   if (data.result === "success") {
                     alert("로그인 성공!");
-                    location.href = "<%=request.getContextPath()%>/login/test.jsp";
+                    // location.reload();
+                    location.href = "<%=request.getContextPath()%>/mainPage/mainPage.jsp";
                   } else if (data.result === "fail") {
                     // 로그인 실패: 서버에서 전달된 오류 메시지 표시
                     $("#loginError").text(data.message).addClass("error");

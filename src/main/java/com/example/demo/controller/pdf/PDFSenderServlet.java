@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.example.demo.controller.pdf;
 
 import com.example.demo.util.MyBatisUtil;
 import jakarta.servlet.ServletException;

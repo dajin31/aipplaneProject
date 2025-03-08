@@ -1,4 +1,4 @@
-package com.example.demo.controller; // 프로젝트의 패키지 구조에 맞게 수정하세요
+package com.example.demo.controller.airport; // 프로젝트의 패키지 구조에 맞게 수정하세요
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,12 +14,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import org.apache.ibatis.session.SqlSession;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import com.example.demo.util.MyBatisUtil;
 
 @WebServlet("/reservation/detailSelectOne")
 public class DetailSelectOneServlet extends HttpServlet {

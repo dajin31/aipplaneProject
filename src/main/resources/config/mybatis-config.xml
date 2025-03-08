@@ -38,11 +38,11 @@
 
 	<mappers>
 		<mapper resource="META-INF/member-mapper.xml"/>
-		<mapper resource="META-INF/ReservationMapper.xml"/>
 		<mapper resource="META-INF/user-mapper.xml"/>
 		<mapper resource="META-INF/airport-mapper.xml"/>
 		<mapper resource="META-INF/seat-mapper.xml"/>
 		<mapper resource="META-INF/TicketMapper.xml"/>
 		<mapper resource="META-INF/FlightMapper.xml"/>
+		<mapper resource="META-INF/user-mapper.xml"/>
 	</mappers>
 </configuration>

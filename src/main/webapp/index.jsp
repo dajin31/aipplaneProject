@@ -5,6 +5,7 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
+<%=request.getContextPath()%>
 <h1><%= "Hello World!" %>
 </h1>
 <br/>

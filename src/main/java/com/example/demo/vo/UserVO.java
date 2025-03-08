@@ -120,8 +120,8 @@ public class UserVO {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		UserVO userVO = (UserVO) o;
-		return userRegNum == userVO.userRegNum && Objects.equals(userId, userVO.userId) && Objects.equals(userPw, userVO.userPw) && Objects.equals(userName, userVO.userName) && Objects.equals(userEmail, userVO.userEmail);
+		UserVO usersVO = (UserVO) o;
+		return userRegNum == usersVO.userRegNum && Objects.equals(userId, usersVO.userId) && Objects.equals(userPw, usersVO.userPw) && Objects.equals(userName, usersVO.userName) && Objects.equals(userEmail, usersVO.userEmail);
 	}
 
 	@Override

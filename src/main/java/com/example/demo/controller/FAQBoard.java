@@ -11,8 +11,8 @@ import com.example.demo.service.IUserService;
 import com.example.demo.service.UserServiceImp;
 import com.example.demo.vo.FAQBoardVO;
 import com.example.demo.vo.FAQPageVO;
-import com.example.demo.vo.UserVO;
 
+import com.example.demo.vo.UserVO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,22 +28,12 @@ public class FAQBoard extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
-/*		UserVO ad = new UserVO();
-		ad.setMemCode("admin");							// 관리자 확인용
-		ad.setUserId("admin01");
-		HttpSession session = request.getSession();
-		session.setAttribute("admin", ad);	*/
-
         HttpSession session = request.getSession();
         UserVO loginUser = (UserVO) session.getAttribute("loginUser"); // 세션에 로그인 사용자 정보 가져오기
 
         //Controller -> Service를 호출
         IFAQBoardService fqaboardService = FAQBoardServiceImpl.getInstance();
         IUserService userService = UserServiceImp.getInstance();
-
-   /*     if (loginUser != null) {
-            request.setAttribute("loginUser", loginUser); // 로그인 사용자 정보를 요청 속성에 추가
-        }*/
 
 		int page = 1;
         if (request.getParameter("page") != null) {
@@ -62,7 +52,6 @@ public class FAQBoard extends HttpServlet {
 
         //service메소드 호출하기 -  - 페이지 처리에 필요값들을 계산
         FAQPageVO faqpageVO = fqaboardService.pageInfo(page, stype, sword);
-		//리턴값 : pvo- startPage, endPage, totalPage, start, end
 
         // 카테고리 추가
         if (faqpageVO != null) {

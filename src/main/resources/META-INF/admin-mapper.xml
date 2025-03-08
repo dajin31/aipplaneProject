@@ -107,15 +107,4 @@
         DELETE FROM users WHERE USER_ID = #{userId}
     </delete>
 
-    <!-- 모든 회원 조회
-    <select id="getAllUser" resultType="userVo">
-        SELECT
-            USER_NAME as userName,
-            USER_ID as userId,
-            USER_EMAIL as userEmail,
-            USER_PASSNUM as userPassNum
-        FROM USERS
-        ORDER BY USER_ID
-    </select>
-    -->
 </mapper>

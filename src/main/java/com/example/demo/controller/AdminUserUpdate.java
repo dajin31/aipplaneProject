@@ -22,11 +22,8 @@ public class AdminUserUpdate extends HttpServlet {
 		response.setContentType("application/json;charset=UTF-8");
 
 		HttpSession session = request.getSession();
-		// UserVO loginUser = (UserVO) session.getAttribute("loginUser");
 
 		IAdminService adminService = AdminServiceImpl.getInstance();
-		// IUserService userService = UserServiceImp.getInstance();
-
 
 		UserVO user = new UserVO();
 		user.setUserId(request.getParameter("userId"));

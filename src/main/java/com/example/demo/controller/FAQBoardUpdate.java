@@ -32,9 +32,7 @@ public class FAQBoardUpdate extends HttpServlet {
 
          FAQBoardVO faqbordVo = gson.fromJson(data, FAQBoardVO.class);
 		
-//         faqbordVo.setWip(request.getRemoteAddr());
-		
-		//service객체 얻기 
+		//service객체 얻기
 		IFAQBoardService  service = FAQBoardServiceImpl.getInstance();
 		
 		//service메소드 호출 - 결과값 얻기 

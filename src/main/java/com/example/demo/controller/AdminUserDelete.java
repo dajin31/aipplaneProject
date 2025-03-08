@@ -21,10 +21,8 @@ public class AdminUserDelete extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
 
         HttpSession session = request.getSession();
-        // UserVO loginUser = (UserVO) session.getAttribute("loginUser");
 
         IAdminService adminService = AdminServiceImpl.getInstance();
-        // IUserService userService = UserServiceImp.getInstance();
 
         String userId = request.getParameter("userId");
         int result = adminService.deleteUser(userId);

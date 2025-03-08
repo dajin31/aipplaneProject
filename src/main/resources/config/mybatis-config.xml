@@ -37,5 +37,6 @@
 		<mapper resource="META-INF/faqboard-mapper.xml"/>
 		<mapper resource="META-INF/user-mapper.xml"/>
 		<mapper resource="META-INF/admin-mapper.xml"/>
+		<mapper resource="META-INF/adminReservation-mapper.xml"/>
 	</mappers>
 </configuration>

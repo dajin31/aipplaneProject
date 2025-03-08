@@ -5,7 +5,7 @@ import com.example.demo.vo.UserVO;
 public interface IUserDAO {
     int userIdCount(String userId);
 
-    int insertUser(UserVO userVO);
+    int insertUser(UserVO usersVO);
 
     UserVO login(String userId, String userPw);
 

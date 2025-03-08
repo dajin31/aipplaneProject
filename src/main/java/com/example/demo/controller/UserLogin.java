@@ -16,7 +16,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 @WebServlet("/user/login.do")
 public class UserLogin extends HttpServlet {

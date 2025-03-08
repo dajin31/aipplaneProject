@@ -41,10 +41,10 @@
 				      #{faq_title},
 				      #{faq_contents},
 				      #{faq_category},
-				      'zzzz'
+					  #{user_id}
 				      )
     </insert>
-	
+
     <!-- FAQ 글삭제 -->
     <delete id="deleteBoard" parameterType="int">
         delete from faq_board where faq_id = #{faq_id}

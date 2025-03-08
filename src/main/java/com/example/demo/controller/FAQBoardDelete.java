@@ -25,8 +25,6 @@ public class FAQBoardDelete extends HttpServlet {
 		
 		int num = Integer.parseInt(request.getParameter("num"));
 		
-//		System.out.println(num);
-		
 		IFAQBoardService  service = FAQBoardServiceImpl.getInstance();
 		
 		int res = service.deleteFAQBoard(num);

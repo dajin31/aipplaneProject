@@ -8,11 +8,6 @@ public class FAQBoardVO {
 	private String faq_contents;	// FAQ 내용
 	private String faq_category;	// FAQ 분류(카테고리)
 	private String user_id;			// UserID (권한 구분)
-	//private UsersVO userVo;  		//
-	//private UsersVO memCode;
-	//private MemGradeVO memCode;
-	//+ 게시글 추가
-	//private String memCode;
 	public FAQBoardVO() {
 	}
 	

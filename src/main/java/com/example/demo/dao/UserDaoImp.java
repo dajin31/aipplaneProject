@@ -62,12 +62,12 @@ public class UserDaoImp implements IUserDAO {
     }
 
     @Override
-    public int insertUser(UserVO userVO) {
+    public int insertUser(UserVO usersVO) {
         SqlSession session = null;
         int count = 0;
         try {
             session = MyBatisUtil.getSession();
-            count = session.insert("user.insertUser", userVO);
+            count = session.insert("user.insertUser", usersVO);
             session.commit();
         } catch (Exception e) {
             if (session != null) {

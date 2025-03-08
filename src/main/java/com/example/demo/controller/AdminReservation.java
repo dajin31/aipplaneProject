@@ -12,23 +12,30 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
-@WebServlet("/AdminUser/AdminUserView.do")
-public class AdminUserView extends HttpServlet {
+@WebServlet("/AdminUser/AdminReservation")
+public class AdminReservation extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         HttpSession session = request.getSession();
+        // UserVO loginUser = (UserVO) session.getAttribute("loginUser");
 
         IAdminService adminService = AdminServiceImpl.getInstance();
+        // IUserService userService = UserServiceImp.getInstance();
 
         String userId = request.getParameter("userId");
         UserVO user = adminService.getUserById(userId);
 
+
         request.setAttribute("user", user);
-        request.getRequestDispatcher("/admin/adminDetail.jsp").forward(request, response);
+        // JSP로 포워딩
+        request.getRequestDispatcher("/admin/adminReservation.jsp").forward(request, response);
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doGet(request, response);
+        super.doPost(request, response);
     }
 }

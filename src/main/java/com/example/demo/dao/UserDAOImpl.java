@@ -1,6 +1,7 @@
 package com.example.demo.dao;
 
 import com.example.demo.util.MyBatisUtil;
+import com.example.demo.vo.OrdersVO;
 import com.example.demo.vo.UserVO;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -16,6 +17,7 @@ import java.util.Properties;
 public class UserDAOImpl implements UserDAO {
     private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
     private static UserDAOImpl dao;
+
     private static final String PROPERTIES_PATH = "config/db.properties";
     private String url;
     private String user;
@@ -42,6 +44,80 @@ public class UserDAOImpl implements UserDAO {
     public static UserDAOImpl getInstance() {
         if (dao == null) dao = new UserDAOImpl();
         return dao;
+    }
+
+    @Override
+    public int selectUser(UserVO usersVO) {
+        SqlSession session = null;
+        int cnt = 0;
+
+        try{
+            session = MyBatisUtil.getSession();
+            cnt = session.selectOne("selectUser", usersVO);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(session != null){
+                session.close();
+            }
+        }
+        return cnt;
+    }
+
+    @Override
+    public int selectMileage(String userId) {
+        SqlSession session = null;
+        int mile = 0;
+
+        try{
+            session = MyBatisUtil.getSession();
+            mile = session.selectOne("selectMileage", userId);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(session != null){
+                session.close();
+            }
+        }
+        return mile;
+    }
+
+    @Override
+    public int insertOrder(OrdersVO ordersVO) {
+        SqlSession session = null;
+        int cnt = 0;
+
+        try {
+            session = MyBatisUtil.getSession();
+            cnt = session.insert("insertOrder", ordersVO);
+            session.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(session != null){
+                session.close();
+            }
+        }
+        return cnt;
+    }
+
+    @Override
+    public int updateMileage(UserVO usersVO) {
+        SqlSession session = null;
+        int cnt = 0;
+
+        try {
+            session = MyBatisUtil.getSession();
+            cnt = session.update("updateMileage", usersVO);
+            session.commit();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(session != null){
+                session.close();
+            }
+        }
+        return cnt;
     }
 
     @Override

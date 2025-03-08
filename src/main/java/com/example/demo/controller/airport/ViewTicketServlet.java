@@ -2,7 +2,7 @@ package com.example.demo.controller.airport;
 
 import java.io.*;
 
-import com.example.demo.service.AirPortServiceImpl;
+import com.example.demo.service.AirportServiceImpl;
 import com.example.demo.vo.PassengerVO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +17,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 @WebServlet("/ViewTicketServlet")
 public class ViewTicketServlet extends HttpServlet {
     private SqlSessionFactory sqlSessionFactory;
-    private AirPortServiceImpl airPortService; // AirPortServiceImpl 필드 추가
+    private AirportServiceImpl airPortService; // AirPortServiceImpl 필드 추가
 
     @Override
     public void init() throws ServletException {

@@ -1,35 +1,23 @@
 package com.example.demo.vo;
 
-import com.example.demo.enums.MemName;
-
 public class MemGradeVO {
-    private int memCode;    // 회원등급 코드
-    private String memName;    // 회원등급 명
+    private String memCode;    // 회원등급 코드
     private int dcRate;     // 차감율
 
     public MemGradeVO() {
     }
 
-    public MemGradeVO(int memCode, String memName, int dcRate) {
+    public MemGradeVO(String memCode, int dcRate) {
         this.memCode = memCode;
-        this.memName = memName;
         this.dcRate = dcRate;
     }
 
-    public int getMemCode() {
+    public String getMemCode() {
         return memCode;
     }
 
-    public void setMemCode(int memCode) {
+    public void setMemCode(String memCode) {
         this.memCode = memCode;
-    }
-
-    public String getMemName() {
-        return memName;
-    }
-
-    public void setMemName(String memName) {
-        this.memName = memName;
     }
 
     public int getDcRate() {
@@ -38,5 +26,13 @@ public class MemGradeVO {
 
     public void setDcRate(int dcRate) {
         this.dcRate = dcRate;
+    }
+
+    @Override
+    public String toString() {
+        return "MemGradeVO{" +
+                "memCode='" + memCode + '\'' +
+                ", dcRate=" + dcRate +
+                '}';
     }
 }

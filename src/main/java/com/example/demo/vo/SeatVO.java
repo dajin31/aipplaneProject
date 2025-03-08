@@ -1,26 +1,11 @@
 package com.example.demo.vo;
 
 public class SeatVO {
-    private String seatCode;           // 좌석 코드
-    private String seatPosition;    // 좌석 위치
-    private String seatClass;    // 좌석 등급
-    private String seatStatus;  // 좌석 상태
-    private int airCode;    // 항공기 코드 (fk)
-
-    public SeatVO() {
-    }
-
-    public SeatVO(String seatCode) {
-        this.seatCode = seatCode;
-    }
-
-    public SeatVO(String seatCode, String seatPosition, String seatClass, String seatStatus, int airCode) {
-        this.seatCode = seatCode;
-        this.seatPosition = seatPosition;
-        this.seatClass = seatClass;
-        this.seatStatus = seatStatus;
-        this.airCode = airCode;
-    }
+    private String seatCode;
+    private String seatPosition;
+    private String seatClass;
+    private String seatStatus;
+    private int airCode;
 
     public String getSeatCode() {
         return seatCode;
@@ -54,11 +39,11 @@ public class SeatVO {
         this.seatStatus = seatStatus;
     }
 
-    public int getAircraft() {
+    public int getAirCode() {
         return airCode;
     }
 
-    public void setAircraft(int airCode) {
+    public void setAirCode(int airCode) {
         this.airCode = airCode;
     }
 

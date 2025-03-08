@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
@@ -19,11 +20,6 @@ import java.io.IOException;
 public class UserLogin extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final Logger logger = LoggerFactory.getLogger(UserLogin.class);
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/login/login.jsp").forward(req, resp);
-    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("utf-8");
@@ -52,8 +48,13 @@ public class UserLogin extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("loginUser", user);
 
+                // 응답 데이터에 사용자 이름 추가
+                JsonObject resultJson = new JsonObject();
+                resultJson.addProperty("result", "success");
+                resultJson.addProperty("userName", user.getUserName()); // getUserName() 사용
+
                 response.setStatus(HttpServletResponse.SC_OK);
-                response.getWriter().write(gson.toJson(new Result("success")));
+                response.getWriter().write(gson.toJson(resultJson));
             } else {
                 // 사용자 없음 또는 비밀번호 불일치
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -70,11 +71,6 @@ public class UserLogin extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write(gson.toJson(new ErrorResult("서버 오류 발생")));
         }
-    }
-
-    private static class Result {
-        private String result;
-        public Result(String result) { this.result = result; }
     }
 
     private static class ErrorResult {

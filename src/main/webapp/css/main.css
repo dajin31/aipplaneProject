@@ -12,46 +12,6 @@ body {
     color: #333;
 }
 
-/* 헤더 스타일 */
-.main-header {
-    background: white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-}
-
-.header-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo img {
-    height: 40px;
-}
-
-.main-nav ul {
-    display: flex;
-    list-style: none;
-    gap: 2rem;
-}
-
-.main-nav a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-}
-
-.main-nav a.active {
-    color: #2563eb;
-}
-
 /* 검색 섹션 스타일 */
 .search-section {
     background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
@@ -71,23 +31,7 @@ body {
     margin-top: 2rem;
 }
 
-.trip-type {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
 
-.trip-type button {
-    padding: 0.5rem 1rem;
-    border: none;
-    background: none;
-    cursor: pointer;
-}
-
-.trip-type button.active {
-    color: #2563eb;
-    border-bottom: 2px solid #2563eb;
-}
 
 .search-form {
     display: grid;
@@ -264,6 +208,7 @@ body {
     display: flex;
     align-items: center;
     gap: 1rem;
+    position: relative;
 }
 
 .location-code {
@@ -289,8 +234,45 @@ body {
     transition: background-color 0.3s;
 }
 
-.search-button:hover {
-    background: #1c3879;
+/* 추가: 점선 스타일 */
+.separator {
+    border-left: 1px dashed #999;
+    height: 180px; /* 점선의 높이 조정 */
+    margin: 0 20px; /* 좌우 여백 조정 */
+}
+/* 추가: 점선 스타일 */
+.separator2 {
+    border-top: 1px dashed #999; /* 가로 점선으로 변경 */
+    width: 40px; /* 점선의 너비 조정 (짧게) */
+    margin: 20px 0; /* 상하 여백 조정 */
+    height: 0; /* 높이 제거 */
+}
+
+#searchStart:hover{
+    outline: 1px solid blue;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px;
+}
+#searchEnd:hover{
+    outline: 1px solid blue;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px;
+}
+.swap-btn:hover{
+    outline: 1px solid blue;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.passenger-click{
+    background-color: white; /* 배경색을 흰색으로 설정 */
+    border: 1px solid black; /* 테두리를 검정색 1px 실선으로 설정 */
+    padding: 10px 20px; /* 버튼 내부 여백 설정 (선택 사항) */
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .recommended-section {
@@ -392,9 +374,10 @@ body {
 }
 
 .booking-container {
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 32px 15px;
     padding: 0 1rem;
+    margin-left: 120px;
 }
 
 .booking-title {
@@ -423,6 +406,7 @@ body {
     background-color: #00256c;
     color: white;
     border-radius: 4px;
+    margin-left: 40px;
 }
 .search-btn {
     width: 100%;
@@ -433,4 +417,10 @@ body {
     border-radius: 4px;
     font-size: 1.1rem;
     cursor: pointer;
+}
+.passenger-click{
+    margin-left: 10px;
+    padding: 2px;
+    padding-left: 10px;
+    padding-right: 10px;
 }

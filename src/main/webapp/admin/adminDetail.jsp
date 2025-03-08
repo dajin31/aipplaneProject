@@ -99,7 +99,7 @@
         type: 'POST',
         data: formData,
         success: function(response) {
-          console.log("응답 데이터:", response); // 디버깅용 로그
+          console.log("응답 데이터:", response); // 디버깅 로그
           if(response.result > 0) {
             alert('회원 정보가 수정되었습니다.');
             window.opener.location.reload();
@@ -109,15 +109,15 @@
           }
         },
         error: function(xhr, status, error) {
-          console.error("에러 상세 정보:", xhr.responseText); // 디버깅용 로그
-          alert('서버 오류가 발생했습니다. 내용: ' + error);
+          console.error("에러 상세 정보:", xhr.responseText); // 디버깅
+          alert('오류가 발생했습니다. ' + error);
         }
       });
     }
   }
 
   function deleteUser() {
-    if(confirm('이 회원을 삭제하시겠습니까? 삭제 후 계정을 복구할 수 없습니다.')) {
+    if(confirm('이 회원을 삭제하시겠습니까? 삭제 후 계정 복구가 불가합니다.')) {
       $.ajax({
         url: '<%=request.getContextPath()%>/AdminUser/AdminUserDelete.do',
         type: 'POST',
@@ -132,7 +132,7 @@
           }
         },
         error: function(xhr, status, error) {
-          alert('서버 오류가 발생했습니다. 내용: ' + error);
+          alert('오류가 발생했습니다.' + error);
           console.error("Error details:", xhr.responseText);
         }
       });

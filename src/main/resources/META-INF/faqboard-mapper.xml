@@ -43,28 +43,8 @@
 				      #{faq_category},
 				      'zzzz'
 				      )
-
-<!--   #{user_id}
-
-	    INSERT INTO FAQ_BOARD (FAQ_ID, CRT_DATE, FAQ_TITLE, FAQ_CONTENTS, FAQ_CATEGORY, USER_ID)
-	    SELECT
-	        #{faq_id},
-	        SYSDATE,
-	        #{faq_title},
-	        #{faq_contents},
-	        #{faq_category},
-	        #{user_id}
-	    FROM
-	        USERS u
-	    JOIN
-	        MEM_GRADE mg ON u.MEM_CODE = mg.MEM_CODE
-	    WHERE
-	        u.USER_ID = #{user_id} AND mg.MEM_CODE = 'admin'
--->
-
     </insert>
-
-
+	
     <!-- FAQ 글삭제 -->
     <delete id="deleteBoard" parameterType="int">
         delete from faq_board where faq_id = #{faq_id}

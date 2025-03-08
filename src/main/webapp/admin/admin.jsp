@@ -67,9 +67,7 @@
 			<td><%=user.getUserEmail()%></td>
 			<td><%=user.getUserPassNum() != null ? user.getUserPassNum() : ""%></td>
 			<td><a href="javascript:void(0);" onclick="openUserDetail('<%=user.getUserId()%>')" class="detail-link">상세보기</a></td>
-<%--		<td><a href="javascript:void(0);" onclick="alert('예약 현황 기능은 아직 구현되지 않았습니다.')" class="detail-link">예약 확인</a></td>--%>
 			<td><a href="javascript:void(0);" onclick="openReservation('<%=user.getUserId()%>')" class="detail-link">예약상태</a></td>
-
 		</tr>
 		<%
 				}
@@ -119,8 +117,8 @@
 	}
 	// 예약 확인 (새창)
 	function openReservation(userId){
-		var url = "adminReservation.jsp?userId=" + userId;
-		window.open(url, " ");
+		var url = '<%=request.getContextPath()%>/AdminUser/AdminReservation?userId=' + userId;
+		window.open(url, "test");
 	}
 
 	// 팝업창 위치를 화면 가운데로 설정하고 크기 고정

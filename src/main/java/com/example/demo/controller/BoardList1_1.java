@@ -1,10 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.service.*;
-import com.example.demo.vo.Board1_1VO;
-import com.example.demo.vo.Notice_BoardVO;
-import com.example.demo.vo.PageVO;
-import com.example.demo.vo.UserVO;
+import com.example.demo.vo.*;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -53,23 +50,41 @@ public class BoardList1_1 extends HttpServlet {
         map.put("end", pageVO.getEnd());
         map.put("sword", sword);
 
+        if(loginUser != null) {
+            map.put("user_id", loginUser.getUserId());
+        }
 
         List<Board1_1VO> boardList = boardService.selectByPage(map);
         List<Board1_1VO> filteredBoardList = new ArrayList<>();
+
+        List<Reply1_1VO> replyList = new ArrayList<>();
+
+        int userBoardCount=0;
 
 
 
         if (loginUser != null) {
             for (Board1_1VO boardVO : boardList) {
+                if(loginUser.getMemCode().equals("admin")){
+                    filteredBoardList.add(boardVO);
+                    replyList.add(boardService.getReply(boardVO.getBoard_id()));
+                    System.out.println("답변 리스트 여기는 컨트롤러" +replyList);
+                    userBoardCount++;
+                }
                 if (boardVO.getUser_id().equals(loginUser.getUserId())) {
                     filteredBoardList.add(boardVO);
                     System.out.println("list do : " +boardVO);
+                    replyList.add(boardService.getReply(boardVO.getBoard_id()));
+                    System.out.println("답변 리스트 여기는 컨트롤러" +replyList);
+                    userBoardCount++;
                 }
+
             }
             boardList = filteredBoardList;
         }
-
-
+        if(loginUser != null) {
+        req.setAttribute("user_id", loginUser.getUserId());}
+        req.setAttribute("replyList", replyList);;
         req.setAttribute("boardList", boardList);
         req.setAttribute("pageVO", pageVO);
         req.setAttribute("sword", sword);

@@ -18,6 +18,9 @@ public interface BoardDao {
 
     // ------------------------------------------------------
 
+    //답변 보기
+    public Reply1_1VO getReply(int board_id);
+
     // 답변 쓰기
     public int insertReply(Reply1_1VO replyVO);
 

@@ -43,6 +43,7 @@ public class BoardDaoImpl implements BoardDao {
 
         try {
             res = session.delete("board1_1.deleteBoard", board_id);
+            System.out.println("dao delete res : " + res);
         } finally {
             session.commit();
             session.close();
@@ -107,6 +108,21 @@ public class BoardDaoImpl implements BoardDao {
             session.close();
         }
         return res;
+    }
+
+    @Override
+    public Reply1_1VO getReply(int board_id) {
+        Reply1_1VO replyVO = null;
+
+        SqlSession session = MyBatisUtil.getSqlSession();
+
+        try {
+            replyVO = session.selectOne("board1_1.getReply", board_id);
+        } finally {
+            session.commit();
+            session.close();
+        }
+        return replyVO;
     }
 
     //-------------------------------------------------------------------------------------------------

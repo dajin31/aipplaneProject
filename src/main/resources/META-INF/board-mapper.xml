@@ -68,16 +68,21 @@
 		]]>
 	</select>
 
+	<!-- 댓글 보기 -->
+	<select id="getReply" resultType="replyVo"  parameterType="int" >
+		select * from reply_1_1 where board_id = #{board_id}
+	</select>
 
 	<!-- 댓글 쓰기 -->
 	<insert id="insertReply"  parameterType="replyVo">
 		insert into reply_1_1 (reply_id, crt_time, rpy_contents , board_id, user_id)
-		values( replytab_renum_seq.nextval, sysdate, #{rpy_contents}, #{board_id, jdbcType=INTEGER, javaType=int}, #{user_id, jdbcType=VARCHAR, javaType=String})
+		values( REPLY_1_1_SEQ.nextval, sysdate, #{rpy_contents}, #{board_id, jdbcType=INTEGER, javaType=int}, #{user_id, jdbcType=VARCHAR, javaType=String})
 	</insert>
 
 	<!-- 댓글수정 -->
 	<update id="updateReply" parameterType="replyVo">
-		update reply_1_1 set cont=#{cont} where reply_id = #{reply_id}
+		update reply_1_1 set mod_time= sysdate, rpy_contents = #{rpy_contents}
+		where board_id = #{board_id}
 	</update>
 
 	<!-- 댓글삭제 -->

@@ -93,6 +93,11 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public Reply1_1VO getReply(int board_id) {
+        return dao.getReply(board_id);
+    }
+
+    @Override
     public int insertReply(Reply1_1VO replyVO) {
         return dao.insertReply(replyVO);
     }

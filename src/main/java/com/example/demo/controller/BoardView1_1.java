@@ -7,6 +7,7 @@ import com.example.demo.service.Notice_BoardServiceImpl;
 import com.example.demo.util.StreamData;
 import com.example.demo.vo.Board1_1VO;
 import com.example.demo.vo.Notice_BoardVO;
+import com.example.demo.vo.Reply1_1VO;
 import com.example.demo.vo.UserVO;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
@@ -46,8 +47,10 @@ public class BoardView1_1 extends HttpServlet {
             req.setAttribute("loginUser", loginUser); // 로그인 사용자 정보를 요청 속성에 추가
         }
 
+        Reply1_1VO replyVO = boardService.getReply((int)res);
 
 
+        req.setAttribute("replyVO", replyVO);
         req.setAttribute("boardVO", boardVO);
         //req.getSession()// 세션은 유지되는 거에 쓸 때 사용, 일회용이 아니여서 다른 페이2지 가도 불러올 수 있음!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ex) 로그인 할 때 저장되는 user정보 같은거
         //req.getSession().setAttribute("boardVO", boardVO);

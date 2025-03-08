@@ -1,9 +1,6 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.example.demo.vo.Notice_BoardVO" %>
-<%@ page import="com.example.demo.vo.PageVO" %>
 <%@ page import="com.example.demo.controller.NBoardList" %>
-<%@ page import="com.example.demo.vo.Board1_1VO" %>
-<%@ page import="com.example.demo.vo.UserVO" %>
+<%@ page import="com.example.demo.vo.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -11,158 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>1:1 문의</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1 {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 30px;
-    }
-    .search-box {
-      background-color: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 24px;
-      margin-bottom: 30px;
-    }
-    .search-header {
-      display: flex;
-      align-items: center;
-    }
-    .search-title {
-      font-weight: 500;
-      margin-right: 30px;
-    }
-    .search-keyword {
-      color: #999;
-      font-size: 14px;
-    }
-    .search-form {
-      display: flex;
-      margin-top: 16px;
-    }
-    .search-input {
-      flex: 1;
-      border: none;
-      border-bottom: 2px solid #0B2161;
-      padding: 8px 0;
-      outline: none;
-    }
-    .search-button {
-      color: white;
-      margin-left: 16px;
-      padding: 8px 24px;
-      background-color: #0B2161;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .search-button:hover {
-      background-color: darkblue;
-    }
-    .notice-list {
-      border-top: 1px solid #ccc;
-    }
-    .notice-item {
-      display: flex;
-      align-items: center;
-      padding: 16px 0;
-      border-bottom: 1px solid #eee;
-      cursor: pointer;
-    }
-    .notice-item:hover {
-      background-color: #f5f5f5;
-    }
-    .notice-new {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 20px;
-      height: 20px;
-      background-color: #e60012;
-      color: white;
-      font-size: 12px;
-      font-weight: bold;
-      border-radius: 50%;
-      margin-right: 8px;
-    }
-    .notice-title {
-      flex: 1;
-      font-weight: 500;
-    }
-    .notice-category {
-      padding: 0 8px;
-      font-size: 14px;
-    }
-    .category-usage {
-      color: #0064de;
-    }
-    .category-etc {
-      color: #008000;
-    }
-    .category-fuel {
-      color: #8a2be2;
-    }
-    .category-skypass {
-      color: #ff8c00;
-    }
-    .category-partner {
-      color: #008080;
-    }
-    .notice-date {
-      margin-left: 16px;
-      font-size: 14px;
-      color: #777;
-    }
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 30px;
-    }
-    .page-button {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 2px;
-      border: none;
-      background: none;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .page-button:hover {
-      background-color: #f0f0f0;
-    }
-    .page-button.active {
-      color: #0064de;
-      font-weight: bold;
-    }
-    .page-arrow {
-      padding: 8px;
-      cursor: pointer;
-      border: none;
-      background: none;
-      border-radius: 4px;
-    }
-    .page-arrow:hover {
-      background-color: #f0f0f0;
-    }
-    .highlighted {
-      background-color: #f9f9f9;
-    }
-  </style>
+  <link rel="stylesheet" href="../../css/1_1liststyle.css">
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
   <%
     UserVO loginUser = (UserVO) session.getAttribute("loginUser");
@@ -215,9 +61,11 @@
 <%
   // 컨트롤러에서 보내온 자료 받기
   List<Board1_1VO> boardVOList = (List<Board1_1VO>) request.getAttribute("boardList");
+  List<Reply1_1VO> replyVOList = (List<Reply1_1VO>) request.getAttribute("replyList");
   PageVO pageVO = (PageVO) request.getAttribute("pageVO");
 
   String sword = (String) request.getAttribute("sword");
+  String user_id = (String) request.getAttribute("user_id");
   sword = sword == null ? "" : sword;
 %>
 
@@ -252,7 +100,7 @@
 
 
   <%
-      if (boardVOList == null || boardVOList.isEmpty()) {
+      if (boardVOList == null || boardVOList.isEmpty() || loginUser == null) {
 //    if (loginUser==null)
   %>
   <div class="notice-item" style="justify-content: center; >
@@ -260,19 +108,32 @@
           </div>
     <%
         } else {
-            for (Board1_1VO boardVO : boardVOList) {
+             for (int i = 0; i < boardVOList.size(); i++) { // 인덱스 추가
+               Board1_1VO boardVO = boardVOList.get(i);
+                Reply1_1VO replyVO = replyVOList.get(i);//
+                if (replyVO != null) { // replyVO가 null이 아닌 경우에만 getBoard_id() 호출
+          System.out.println("답변 아이딩????????????????" + replyVO.getBoard_id());
+        }
     %>
+
           <div class="notice-list">
 
   <div class="notice-item">
     <a href="<%=request.getContextPath() %>/member/view1_1.do?board_id=<%=boardVO.getBoard_id()%>">
-      <span class="notice-title"><%=boardVO.getInd_title()%></span>
+      <div class="notice-item-content"><span class="notice-title"><%=boardVO.getInd_title()%></span>
       <span class="notice-date"><%=boardVO.getCrt_date()%></span>
+      <% if (replyVO == null) { %>
+      <span class="notice-replyst">답변 전</span>
+      <% } else { %>
+      <span class="notice-replyst">답변 완료</span>
+      <% }
+      }
+      %>
+      </div>
     </a>
   </div>
 </div>
 <%
-    }
   }
 %>
 <!-- 페이지네이션 -->

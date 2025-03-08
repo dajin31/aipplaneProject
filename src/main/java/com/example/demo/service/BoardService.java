@@ -32,6 +32,8 @@ public interface BoardService {
 
     //---------------------------------------
 
+    public Reply1_1VO getReply(int board_id);
+
     //댓글쓰기
     public int insertReply(Reply1_1VO replyVO);
 

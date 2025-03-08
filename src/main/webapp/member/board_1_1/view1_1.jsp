@@ -12,207 +12,49 @@
     <title>공지사항</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script src="/js/jquery.serializejson.js"></script>
-    <style>
-        /* 전체 공지사항 컨테이너 */
-        .notice-board {
+    <link rel="stylesheet" href="../../css/1_1viewstyle.css">
 
-            max-width: 1000px;
-            margin: 0 auto;
-            font-family: 'Noto Sans KR', sans-serif;
-            color: #333;
-            line-height: 1.6;
-        }
-
-        /* 공지사항 제목 */
-        .board-title {
-            padding-top: 30px;
-            font-size: 24px;
-            /*//font-weight: bold;*/
-            margin-bottom: 15px;
-        }
-
-        /* 구분선 */
-        .divider {
-            border-bottom: 1px solid #ddd;
-            margin: 15px 0;
-        }
-
-        /* 공지 항목 */
-        .notice-item {
-            margin-bottom: 30px;
-        }
-
-        /* 공지 제목 영역 */
-        .notice-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        /* 공지 제목 */
-        .notice-title {
-            font-size: 16px;
-            font-weight: bold;
-            color: #000;
-            flex-grow: 1;
-        }
-
-        /* 공지 메타 정보 */
-        .notice-meta {
-            display: flex;
-            align-items: center;
-        }
-
-        /* 여행정보 태그 */
-        .notice-tag {
-            background-color: #f8f8f8;
-            padding: 3px 10px;
-            border-radius: 4px;
-            font-size: 13px;
-            margin-right: 10px;
-        }
-
-        /* 날짜 정보 */
-        .notice-date {
-            color: #666;
-            font-size: 14px;
-        }
-
-        /* 공지 내용 */
-        .notice-content {
-            margin-bottom: 20px;
-            line-height: 1.8;
-            border-bottom: 1px solid #ddd;
-        }
-
-        /* 공지 내용의 단락 */
-        .notice-content p {
-
-            margin-bottom: 15px;
-        }
-
-        /* 공지 내용의 리스트 */
-        .notice-content ul {
-            padding-left: 20px;
-            margin-bottom: 15px;
-        }
-
-        .notice-content li {
-            margin-bottom: 10px;
-            position: relative;
-            padding-left: 15px;
-        }
-
-        .notice-content li::before {
-            content: "•";
-            position: absolute;
-            left: 0;
-            color: #666;
-        }
-
-        /* 들여쓰기된 리스트 */
-        .notice-content li li {
-            margin-top: 8px;
-            padding-left: 15px;
-        }
-
-        .notice-content li li::before {
-            content: "-";
-        }
-
-        /* 관리자 답변 영역 */
-        .admin-reply {
-            padding-top: 50px;
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
-
-        /* 관리자 답변 헤더 */
-        .admin-reply-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #f0f0f0;
-            padding: 10px 15px;
-            border-radius: 4px 4px 0 0;
-        }
-
-        /* 관리자 답변 제목 */
-        .admin-reply-title {
-            font-weight: bold;
-        }
-
-        /* 관리자 답변 날짜 */
-        .admin-reply-date {
-            font-size: 14px;
-            color: #666;
-        }
-
-        /* 관리자 답변 내용 */
-        .admin-reply-content {
-            border: 1px solid #ddd;
-            border-top: none;
-            padding: 20px;
-            min-height: 100px;
-            background-color: #fff;
-            border-radius: 0 0 4px 4px;
-        }
-
-        /* 버튼 스타일 */
-        .button {
-            display: inline-block;
-            padding: 8px 20px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            color: #333;
-            text-decoration: none;
-            font-size: 14px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .button:hover {
-            background-color: #f5f5f5;
-        }
-
-        /* 버튼 컨테이너 */
-        .button-container {
-            text-align: right;
-            margin-top: 20px;
-        }
-
-        /* 강조 텍스트 */
-        .highlight {
-            color: #da291c; /* 대한항공 레드 컬러 */
-            font-weight: bold;
-        }
-
-        /* 링크 스타일 */
-        a {
-            color: #0056b3;
-            text-decoration: none;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-    </style>
     <script>
         $(function (){
 
+            $('#send').on('click', function (){
+                // 입력한 모든 값을 가져온다
+                const formData = $("#rform").serializeJSON();
+
+                $.ajax({
+                    url : "<%=request.getContextPath()%>/member/replywrite.do",
+                    contentType :"application/json; charset=utf-8",
+                    type : "post",
+                    data : JSON.stringify(formData),
+                    success: function(response) {
+                        console.log("답변 성공" + response)
+                        location.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("답변 생성 실패:", error);
+                        console.log(xhr);
+                        try {
+                            var errorData = JSON.parse(xhr.responseText);
+                            alert("새 글 생성 실패: " + errorData.message);
+                        } catch (e) {
+                            alert("새 글 생성 실패. 서버 오류 발생.");
+                        }
+                    }
+                })
+            })
+
             $('#delete').click(function() {
-                const board_id = $(this).data("num");
+                const board_id = $(this).data("board_id");
+                console.log(board_id)
                 alert(board_id + " 번 글을 삭제")
                 $.ajax({
-                    url  : `<%=request.getContextPath()%>/member/delete.do`,
-                    type : 'post',
+                    url  : "<%=request.getContextPath()%>/member/delete1_1.do",
+                    type : "post",
                     data : {"board_id" : board_id},
                     success : function(data){
                         if(data.result>0){
                             console.log(board_id + "번 게시글이 삭제되었습니다.");
-                            location.href = "<%=request.getContextPath()%>/member/list1_1.do";
+                            history.back();
                         }else{
                             console.log("게시글 삭제 오류~~")
                         }
@@ -224,12 +66,43 @@
                     dataType : 'json'
                 });
             });
+
+
+            $('#rpydelete').click(function() {
+                const board_id = $(this).data("board_id");
+                alert(board_id + " 답변 삭제")
+                $.ajax({
+                    url  : "<%=request.getContextPath()%>/member/replydelete.do",
+                    type : "post",
+                    data : {"board_id" : board_id},
+                    success : function(data){
+                        if(data.result>0){
+                            console.log(board_id + "번 게시물 답변이 삭제되었습니다.");
+                            history.back();
+                        }else{
+                            console.log("답변 삭제 오류~~")
+                        }
+
+                    },
+                    error : function(xhr){
+                        alert("상태 : " + xhr.status)
+                    },
+                    dataType : 'json'
+                });
+            });
+
         })
+
+        $('#updatesend').on('click', function (){
+            location.href = "/member/replyupdate.do"
+        })
+
+
     </script>
     <%
         Board1_1VO boardVO = (Board1_1VO) request.getAttribute("boardVO");
         UserVO loginUser = (UserVO) session.getAttribute("loginUser");
-//        Reply1_1VO replyVO = (Reply1_1VO) request.getSession("replyVO");
+         Reply1_1VO replyVO = (Reply1_1VO) request.getAttribute("replyVO");
     %>
 </head>
 <body>
@@ -252,28 +125,75 @@
             <%=boardVO.getInd_contents()%>
         </div>
 
+        <%
+            if(loginUser.getUserId().equals(boardVO.getUser_id())){
+        %>
+        <div class="button-container">
         <button type="button" class="list-button">
             <a href="<%=request.getContextPath()%>/member/update1_1.do?board_id=<%=boardVO.getBoard_id()%>" id="update">수정</a>
         </button>
 
+            <button type="button" id="delete" data-board_id="<%=boardVO.getBoard_id()%>">삭제</button>
+
+        </div>
+        <%
+            }
+        %>
+
+        <%
+            if (loginUser.getMemCode().equals("admin") && replyVO == null){
+        %>
         <!-- 관리자 답변 영역 추가 -->
+        <form id="rform">
         <div class="admin-reply">
+            <input type="hidden" id="board_id" name="board_id" value="<%=boardVO.getBoard_id()%>">
+            <input type="hidden" id="user_id" name="user_id" value="<%=loginUser.getUserId()%>">
             <div class="admin-reply-header">
-                <div class="admin-reply-title">관리자 답변 내용</div>
+                <div class="admin-reply-title">관리자 답변</div>
                 <div class="admin-reply-date">2025.02.25</div>
             </div>
             <div class="admin-reply-content">
-                <p>안녕하세요, 대한항공입니다.</p>
-                <p>전자입국신고 관련하여 추가 정보를 안내해 드립니다.</p>
-                <p>모바일 앱을 통한 신고도 가능하며, 앱스토어 또는 구글 플레이에서 'Korea e-Travel'을 검색하여 설치하실 수 있습니다.</p>
-                <p>추가 문의사항이 있으시면 고객센터(1588-2001)로 연락 주시기 바랍니다.</p>
-                <p>감사합니다.</p>
+                <textarea class="form-control" id="rpy_contents" name="rpy_contents" cols="100=" rows="15"></textarea>
+            </div>
+        </div>
+        <div class="button-container">
+            <button type="button" id="send" class="button" >등록</button>
+        </div>
+        </form>
+        <%
+            }
+            if(replyVO != null){
+        %>
+        <div class="admin-reply">
+            <div class="admin-reply-header">
+                <div class="admin-reply-title">관리자 답변</div>
+                <div class="admin-reply-date"><%=replyVO.getCrt_time()%></div>
+            </div>
+            <div class="admin-reply-content">
+              <%=replyVO.getRpy_contents()%>
             </div>
         </div>
 
+        <%
+            }
+        %>
+        <%
+            if (loginUser.getMemCode().equals("admin") && replyVO != null){
+        %>
         <div class="button-container">
-            <a href="#" class="button">목록보기</a>
+            <button type="button" id="updatesend" class="button" >
+                <a href="<%=request.getContextPath()%>/member/replyupdate.do?board_id=<%=boardVO.getBoard_id()%>" id="updatebtn">답변 수정</a>
+            </button>
         </div>
+        <div class="button-container">
+            <button type="button" id="rpydelete" class="button" data-board_id="<%=boardVO.getBoard_id()%>">답변 삭제</button>
+        </div>
+        <%
+            }
+        %>
+
+
+        <a href="<%=request.getContextPath()%>/member/list1_1.do" class="button">목록보기</a>
     </div>
 </div>
 </body>

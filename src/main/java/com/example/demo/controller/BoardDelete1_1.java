@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import com.example.demo.service.BoardService;
+import com.example.demo.service.BoardServiceImpl;
 import com.example.demo.service.Notice_BoardService;
 import com.example.demo.service.Notice_BoardServiceImpl;
 import jakarta.servlet.ServletException;
@@ -22,12 +24,13 @@ public class BoardDelete1_1 extends HttpServlet {
         resp.setContentType("application/json; charset=UTF-8");
 
         //게시글 아이디 가져옴
-        int id = Integer.parseInt(req.getParameter("ntc_board")); //jsp랑 이름 맞추기
+        int id = Integer.parseInt(req.getParameter("board_id")); //jsp랑 이름 맞추기
+        System.out.println("delete id:"+id);
 
-        Notice_BoardService notice_boardService = Notice_BoardServiceImpl.getInstance();
-
+        BoardService boardService = BoardServiceImpl.getInstance();
         //서비스에서 id삭제
-        int res = (int)notice_boardService.deleteBoard(id);
+
+        int res = (int)boardService.deleteBoard(id);
 
         String jsonData =
                 """

@@ -424,3 +424,25 @@ body {
     padding-left: 10px;
     padding-right: 10px;
 }
+/*호텔 예약하기 스타일 */
+.hotels {
+    display: flex; /* 추가 */
+    flex-direction: column; /* 추가 */
+    align-items: center; /* 추가 */
+}
+
+.hotel-title {
+    align-self: flex-start; /* 수정 */
+}
+
+#map {
+    align-self: center; /* 추가 */
+}
+
+.link-button-hotel {
+    align-self: center;
+    text-decoration: none; /* 밑줄 제거 */
+    color: #333; /* 텍스트 색상 변경 */
+    /* 필요에 따라 추가 스타일 설정 */
+
+}

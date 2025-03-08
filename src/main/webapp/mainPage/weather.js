@@ -1,5 +1,6 @@
 // 날씨 API 키와 엔드포인트 설정
-const WEATHER_API_KEY = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst\n'; // 이미 가지고 있는 API 키로 교체하세요
+const WEATHER_API_KEY = 'wlyAJBWheYEKlFs%2FbQKAmZYp1G%2FTDKpex1PIM%2BeLUtDj95XJmHUmYTer9tpQVR46BrFawvMAGwQzZoL7SXj0DQ%3D%3D'; // 이미 가지고 있는 API 키로 교체하세요
+const WEATHER_API_BASE_URL = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst';
 const WEATHER_API_ENDPOINT = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0';
 
 // 날씨 정보를 표시할 요소
@@ -74,7 +75,7 @@ function fetchWeatherData(nx = '60', ny = '127') { // 기본값은 서울
     console.log('fetchWeatherData() 함수 실행됨'); // 추가
     // CORS 이슈를 피하기 위해 프록시 서버를 사용하거나, 서버 측에서 API를 호출하는 것이 좋습니다.
     // 여기서는 직접 호출하는 방식으로 예시를 작성합니다.
-    const url = `${WEATHER_API_ENDPOINT}?serviceKey=${WEATHER_API_KEY}&numOfRows=60&pageNo=1&dataType=JSON&base_date=${baseDate}&base_time=${baseTime}&nx=${nx}&ny=${ny}`;
+    const url = `/weather?nx=${nx}&ny=${ny}`;
 
     // 날씨 데이터 가져오기
     fetch(url)
@@ -86,7 +87,7 @@ function fetchWeatherData(nx = '60', ny = '127') { // 기본값은 서울
         })
         .then(data => {
             // API 응답 확인
-            if (data.response.header.resultCode !== '00') {
+            if (data.error) {
                 throw new Error(data.response.header.resultMsg || 'API 오류');
             }
 
@@ -245,8 +246,12 @@ document.addEventListener('DOMContentLoaded', function()  {
         }
         weatherContent.innerHTML = `
             <div class="error">
-                날씨 API 키가 설정되지 않았습니다.<br>
-                weather.js 파일에서 WEATHER_API_KEY 값을 설정해주세요.
+                <h2>날씨 정보를 불러올 수 없습니다.</h2>
+                <p>날씨 API 키가 설정되지 않았습니다.</p>
+                <p><strong>weather.js 파일에서 WEATHER_API_KEY 값을 설정해주세요.</strong></p>
+                <p>예시:</p>
+                <pre><code>const WEATHER_API_KEY = 'YOUR_API_KEY';</code></pre>
+                <p>API 키는 <a href="https://openweathermap.org/api" target="_blank">OpenWeatherMap</a> 웹사이트에서 발급받을 수 있습니다.</p>
             </div>
         `;
         return;

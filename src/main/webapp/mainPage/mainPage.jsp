@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="/css/header.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://code.jquery.com/jquery-migrate-3.5.2.js"></script>
     <script src="/js/jquery-3.7.1.js"></script>
     <script src="/mainPage/main.js"></script>
 </head>
@@ -231,6 +232,7 @@
     </div>
 </section>
 
+<script src="/mainPage/weather.js"></script>
 <!-- 여행 경험 섹션 -->
 <section class="travel-experience">
     <div class="section-container">
@@ -240,9 +242,11 @@
                 <h3>날씨 정보</h3>
                 <div id="weather-widget"></div>
             </div>
+            <!-- 호텔 예약하기 -->
             <div class="experience-card hotels">
-                <h3>호텔 예약</h3>
-                <a href="#" class="link-button">호텔 검색하기</a>
+                <div class="hotel-title"><h3>호텔 예약</h3></div>
+                <div id="map" style="width:250px;height:250px;"></div>
+                <a href="https://www.agoda.com/ko-kr/" class="link-button-hotel">추천 호텔 예약하러 가기 👈</a>
             </div>
             <div class="experience-card mileage">
                 <h3>마일리지샵</h3>
@@ -273,7 +277,6 @@
     </div>
 </footer>
 
-<script src="/mainPage/weather.js"></script>
 <script>
     $(document).ready(function() {
         // 세션에서 로그인 상태 확인
@@ -311,6 +314,48 @@
         });
     });
 
+</script>
+<!-- 다음 지도 api -->
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8306615f01d266edffd26c9c180c3c4"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            mapOption = {
+                center: new kakao.maps.LatLng(37.5659975, 126.9799762), // 지도의 중심좌표
+                level: 4, // 지도의 확대 레벨
+                mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
+            };
+
+        // 지도를 생성한다
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        // 지도에 마커를 생성하고 표시한다
+        var markerPositions = [
+            new kakao.maps.LatLng(37.5653, 126.980979), //롯데 호텔
+            new kakao.maps.LatLng(37.564378, 126.980058), //웨스틴조선서울 좌표
+            new kakao.maps.LatLng(37.5649903, 126.981369) //롯데호텔 이그제큐티브
+        ];
+
+        var hotelNames = [
+            '롯데 호텔 서울',
+            '웨스틴 조선 서울',
+            '롯데 호텔 이그제큐티브'
+        ];
+
+        for (var i = 0; i < markerPositions.length; i++) {
+            var marker = new kakao.maps.Marker({
+                position: markerPositions[i],
+                map: map
+            });
+
+            (function (marker, i) {
+                kakao.maps.event.addListener(marker, 'click', function () {
+                    alert(hotelNames[i] + '을(를) 추천합니다!');
+                });
+            })(marker, i);
+        }
+    });
 </script>
 </body>
 </html>

@@ -14,7 +14,7 @@ import java.util.Scanner;
 
 @WebServlet("/weather")
 public class WeatherServlet extends HttpServlet {
-    private static final String API_KEY = System.getenv("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst\n");
+    private static final String API_KEY = System.getenv("wlyAJBWheYEKlFs%2FbQKAmZYp1G%2FTDKpex1PIM%2BeLUtDj95XJmHUmYTer9tpQVR46BrFawvMAGwQzZoL7SXj0DQ%3D%3D");
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String nx = request.getParameter("nx");

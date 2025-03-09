@@ -24,4 +24,8 @@ public interface IUsersDAO {
     UserVO getUserByNameRegnumEmail(String userName, String userRegnum, String userEmail);
 
     void updateUserPassword(UserVO user); // 추가
+
+
+//    마이페이지
+     public UserVO getmyUser(String userId);
 }

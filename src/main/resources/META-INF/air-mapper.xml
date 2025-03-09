@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="air">
+	
+	<!--  환불정보?
+	<select id="getAirrefund" resultType="airVO" parameterType="airVO">
+		select * from payment 
+		where user_id = #{user_id}
+		and res_code = #{res_code}
+	</select> -->
+	
+	<!--  예약 정보 목록 불러오기
+	서브쿼리 : 로그인 한 고객의 예약 내역을 모두 검색하여 IN 연산으로 처리함
+	 -->
+	 <resultMap type="airVO" id="airMap">
+	 	<result column="P_NUM" property="pNum" />
+    <result column="USER_NAME" property="userName" />
+    <result column="PASS_NUM" property="passNum" />
+    <result column="REG_NUM" property="regNum" />
+    <result column="USER_ID" property="userId" />
+    <result column="SEAT_CODE" property="seatCode" />
+    <result column="FLT_CODE" property="fltCode" />
+    <result column="DPT_DATE" property="dptDate" />
+    <result column="ARR_DATE" property="arrDate" />
+    <result column="DPT_TIME" property="dptTime" />
+    <result column="ARR_TIME" property="arrTime" />
+    <result column="FLT_TIME" property="fltTime" />
+    <result column="AIR_CODE" property="airCode" />
+    <result column="DPT_APT_CODE" property="dptAptCode" />
+    <result column="ARR_APT_CODE" property="arrAptCode" />
+    <result column="AIR_NAME" property="airName" />
+    <result column="AIR_CLASS" property="airClass" />
+    <result column="TO_APT_NAME" property="toAptName" />
+    <result column="TO_CNT_NAME" property="toCntName" />
+    <result column="TO_CNT_CATEGORY" property="toCntCategory" />
+    <result column="FROM_APT_NAME" property="fromAptName" />
+    <result column="FROM_CNT_NAME" property="fromCntName" />
+    <result column="FROM_CNT_CATEGORY" property="fromCntCategory" />
+    <result column="PAY_CODE" property="payCode" />
+    <result column="PAY_AMOUNT" property="payAmount" />
+    <result column="RES_CODE" property="resCode" />
+    <result column="PTYPE_CODE" property="ptypeCode" />
+    <result column="RES_DATE" property="resDate" />
+    <result column="TOTAL_PRICE" property="totalPrice" />
+    <result column="TICKET_PRICE" property="ticketPrice" />
+    <result column="RES_STATUS" property="resStatus" />
+    <result column="SEAT_POSITION" property="seatPosition" />
+    <result column="SEAT_CLASS" property="seatClass" />
+    <result column="SEAT_STATUS" property="seatStatus" />
+	 </resultMap>
+	 
+	<select id="getResCodeList" resultType="airVO" parameterType="airVO">
+		with AIR_A as (
+    select P.P_NUM, P.USER_NAME, P.PASS_NUM, P.REG_NUM, P.USER_ID, P.SEAT_CODE, AR.*, AI.AIR_NAME, AI.AIR_CLASS, 
+        AP1.APT_NAME TO_APT_NAME, AP1.CNT_NAME TO_CNT_NAME, AP1.CNT_CATEGORY TO_CNT_CATEGORY, 
+        AP2.APT_NAME FROM_APT_NAME, AP2.CNT_NAME FROM_CNT_NAME, AP2.CNT_CATEGORY FROM_CNT_CATEGORY
+    from (SELECT * FROM PASSENGER WHERE USER_ID = #{user_id} AND ROWNUM = 1) P 
+            INNER JOIN air_route_schedule AR ON ( P.FLT_CODE=AR.FLT_CODE)
+            INNER JOIN AIRCRAFT AI ON (AR.AIR_CODE=AI.AIR_CODE)
+            INNER JOIN AIRPORT AP1 ON (AR.DPT_APT_CODE=AP1.APT_CODE)
+            INNER JOIN AIRPORT AP2 ON (AR.ARR_APT_CODE=AP2.APT_CODE)
+        where P.USER_ID = #{user_id} 
+        and   P.FLT_CODE IN(SELECT FLT_CODE FROM PASSENGER WHERE USER_ID = #{user_id} )
+    ),
+    PAY_A AS (
+        SELECT PAY.*, RES.RES_DATE, RES.TOTAL_PRICE, RES.TICKET_PRICE, RES.RES_STATUS, RES.USER_ID,
+                RD.FLT_CODE, RD.SEAT_CODE, S.SEAT_POSITION, S.SEAT_CLASS, S.SEAT_STATUS,S.AIR_CODE
+                
+        FROM PAYMENT PAY 
+            INNER JOIN RESERVATION RES ON ( PAY.RES_CODE = RES.RES_CODE)
+            INNER JOIN RES_DETAILS RD ON (RES.RES_CODE = RD.RES_CODE)
+            INNER JOIN SEAT S ON (RD.SEAT_CODE=S.SEAT_CODE)
+        WHERE RES.USER_ID = #{user_id}
+    )
+    SELECT AIR_A.*, PAY_A.*  FROM AIR_A
+            INNER JOIN PAY_A ON AIR_A.AIR_CODE = PAY_A.AIR_CODE
+
+	</select>
+	
+	<!--  예약 정보 상세 불러오기 -->
+	<select id="getResCode" resultType="airVO" parameterType="airVO">
+		with AIR_A as (
+    select P.P_NUM, P.USER_NAME, P.PASS_NUM, P.REG_NUM, P.USER_ID, P.SEAT_CODE, AR.*, AI.AIR_NAME, AI.AIR_CLASS, 
+        AP1.APT_NAME TO_APT_NAME, AP1.CNT_NAME TO_CNT_NAME, AP1.CNT_CATEGORY TO_CNT_CATEGORY, 
+        AP2.APT_NAME FROM_APT_NAME, AP2.CNT_NAME FROM_CNT_NAME, AP2.CNT_CATEGORY FROM_CNT_CATEGORY
+    from PASSENGER P 
+            INNER JOIN air_route_schedule AR ON ( P.FLT_CODE=AR.FLT_CODE)
+            INNER JOIN AIRCRAFT AI ON (AR.AIR_CODE=AI.AIR_CODE)
+            INNER JOIN AIRPORT AP1 ON (AR.DPT_APT_CODE=AP1.APT_CODE)
+            INNER JOIN AIRPORT AP2 ON (AR.ARR_APT_CODE=AP2.APT_CODE)
+        where P.USER_ID = #{user_id} and P.FLT_CODE = #{flt_code}
+    ),
+    PAY_A AS (
+        SELECT PAY.*, RES.RES_DATE, RES.TOTAL_PRICE, RES.TICKET_PRICE, RES.RES_STATUS, RES.USER_ID,
+                RD.FLT_CODE, RD.SEAT_CODE, S.SEAT_POSITION, S.SEAT_CLASS, S.SEAT_STATUS,S.AIR_CODE
+                
+        FROM PAYMENT PAY 
+            INNER JOIN RESERVATION RES ON ( PAY.RES_CODE = RES.RES_CODE)
+            INNER JOIN RES_DETAILS RD ON (RES.RES_CODE = RD.RES_CODE)
+            INNER JOIN SEAT S ON (RD.SEAT_CODE=S.SEAT_CODE)
+        WHERE RES.USER_ID = #{user_id}
+    )
+    SELECT AIR_A.*, PAY_A.*  FROM AIR_A
+            INNER JOIN PAY_A ON AIR_A.AIR_CODE = PAY_A.AIR_CODE
+
+	</select>
+	
+	<!--환불 순서1) 마일리지 업데이트(결제한 마일리지 돌려주기) -->
+	<update id="updateUserMileage" parameterType="airVO">
+    update users u
+    set u.user_mileage = u.user_mileage + (
+        select sum(p.pay_amount)
+        from payment p
+        where p.ptype_code = 2
+        and p.res_code in (
+            select r.res_code
+            from reservation r
+            where r.user_id = #{user_id}
+        )
+    )
+    where u.user_id = #{user_id}
+	</update>
+	
+	<!-- 환불 순서2)예약정보 res_details테이블 삭제하기  -->
+	<delete id="getAirCancel1" parameterType="airVO">
+		delete from res_details
+		where res_code = #{res_code}
+	</delete>
+	
+	<!-- 환불 순서3)예약정보 payment테이블 삭제하기  -->
+	<delete id="getAirCancel2" parameterType="airVO">
+		delete from payment
+		where res_code = #{res_code}
+	</delete>
+	
+	<!-- 환불 순서4)예약정보 reservation테이블 삭제하기  -->
+	<delete id="getAirCancel3" parameterType="airVO">
+		delete from reservation
+		where user_id = #{user_id}
+		and res_code = #{res_code}
+	</delete>
+	</mapper>

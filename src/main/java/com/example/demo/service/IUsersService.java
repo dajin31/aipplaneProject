@@ -30,4 +30,6 @@ public interface IUsersService {
     UserVO getUserByNameRegnumEmail(String userName, String userRegnum, String userEmail) throws Exception;
 
     void updateUserPassword(UserVO user) throws Exception;
+
+    public UserVO getmyUser(String userId);
 }

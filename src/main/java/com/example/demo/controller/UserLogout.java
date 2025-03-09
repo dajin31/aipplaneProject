@@ -16,6 +16,6 @@ public class UserLogout extends HttpServlet {
         if (session != null) {
             session.invalidate(); //세션 무효화
         }
-        response.sendRedirect(request.getContextPath() + "/header/header.jsp");
+        response.sendRedirect(request.getContextPath() + "/mainPage/mainPage.jsp");
     }
 }

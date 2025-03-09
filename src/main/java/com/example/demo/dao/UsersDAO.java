@@ -289,4 +289,20 @@ public class UsersDAO implements IUsersDAO{
             }
         }
     }
+
+    @Override
+    public UserVO getmyUser(String userId) {
+        SqlSession session = MyBatisUtil.getSession();
+        UserVO userVO = null;
+
+        try {
+            userVO = session.selectOne("user.getmyUser", userId); // namespace 사용
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        System.out.println(userVO);
+        return userVO;
+    }
 }

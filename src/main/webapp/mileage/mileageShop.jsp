@@ -1,3 +1,4 @@
+<%@ page import="com.example.demo.vo.UserVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -129,12 +130,25 @@
     </style>
 </head>
 <body>
+<%
+    // 세션에서 로그인한 사용자 정보 가져오기
+    UserVO user = (UserVO) session.getAttribute("loginUser");
+    String username = (user != null) ? user.getUserName() : ""; // null 처리
+    String userId = (user != null) ? user.getUserId() : ""; // null 처리
+    if (user != null) {
+        System.out.println("로그인한 사용자: " + username);
+    } else {
+        System.out.println("로그인한 사용자가 없습니다.");
+    }
+%>
+
 <div class="container">
     <div class="search-section">
         <div class="search-bar">
             <input type="text" class="search-input" placeholder="검색어를 입력하세요">
             <button class="search-button">검색</button>
         </div>
+        <button class="order-button" id="goBackHome">뒤로</button>
         <button class="order-button" id="goOrderDetail">주문내역</button>
     </div>
 
@@ -158,6 +172,19 @@
 
 <script>
     let isLogin = false;
+
+    let username = "<%= username %>";
+    let userIdValue = "<%= userId %>";
+    console.log("로그인한 사용자 이름:", username);
+    console.log("로그인한 사용자 아이디:", userIdValue);
+
+    // username이 null 또는 빈 문자열인 경우 처리
+    if (!username) {
+        console.log("사용자가 로그인하지 않았습니다.");
+    }
+    if (username) {
+        isLogin = true;
+    }
 
     document.querySelectorAll('.tab').forEach(tab => {
         tab.addEventListener('click', () => {
@@ -394,14 +421,23 @@
     });
 
     document.getElementById("goOrderDetail").addEventListener('click',()=>{
+        // console.log(session.getAttribute("loginUser"));
         if (!isLogin) {
-            alert("로그인하세요")
-            return;
+            // alert("로그인하세요")
+            // return;
+            window.location.href = "../user/login.jsp"
+        }
+        if (isLogin) {
+            const userId = userIdValue;
+            console.log(userId);
+            window.location.href='/mileage/goOrdersList?userId=' + userId;
         }
 
-        const prodId = product.prodId;
-        console.log(prodId);
-        window.location.href='/mileage/mileageDetail?prodId=' + prodId;
+
+    })
+
+    document.getElementById("goBackHome").addEventListener("click",()=>{
+        window.location.href = '../mainPage/mainPage.jsp';
     })
 </script>
 </body>

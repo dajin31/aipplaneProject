@@ -144,4 +144,9 @@ public class UsersService implements IUsersService {
             throw new RuntimeException("비밀번호 업데이트 중 오류 발생", e);
         }
     }
+
+    @Override
+    public UserVO getmyUser(String userId) {
+        return dao.getmyUser(userId);
+    }
 }

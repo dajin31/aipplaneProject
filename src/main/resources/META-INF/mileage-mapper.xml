@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="mileage">
+	<!-- 회원마일리지 사용내역 
+	map{user_id=test,startDate=2025-03-01,endDate=2025-03-30}
+	-->
+	<select id="getMileageUse" resultType="mileageVO" parameterType="mileageVO">
+		select * from orders 
+		where user_id = #{user_id}
+		and order_date BETWEEN #{startDate} AND #{endDate}
+	</select>
+	<!-- 회원마일리지 적립내역(임시확인용) -->
+	<select id="getMileageAdd" resultType="mileageVO" parameterType="mileageVO">
+		select * from orders 
+		where user_id = #{user_id}
+		and order_date BETWEEN #{startDate} AND #{endDate}
+	</select>
+	<!-- 회원마일리지 전체내역(임시확인용) -->
+	<select id="getMileageHistroy" resultType="mileageVO" parameterType="mileageVO">
+		select * from orders 
+		where user_id = #{user_id}
+		and order_date BETWEEN #{startDate} AND #{endDate}
+	</select>
+	
+	</mapper>

@@ -24,6 +24,8 @@
 			<typeAlias type="com.example.demo.vo.AirRouteScheduleVO" alias="airRouteScheduleVO"/>
 			<typeAlias type="com.example.demo.vo.SeatVO" alias="seatVO"/>
 			<typeAlias type="com.example.demo.vo.AirCompletVO" alias="airCompletVO"/>
+			<typeAlias type="com.example.demo.vo.MileageVO" alias="mileageVO"/>
+			<typeAlias type="com.example.demo.vo.AirVO" alias="AirVO"/>
 	</typeAliases>
 
 
@@ -46,5 +48,7 @@
 		<mapper resource="META-INF/airport-mapper.xml"/>
 		<mapper resource="META-INF/seat-mapper.xml"/>
 		<mapper resource="META-INF/FlightMapper.xml"/>
+		<mapper resource="META-INF/mileage-mapper.xml"/>
+		<mapper resource="META-INF/air-mapper.xml"/>
 	</mappers>
 </configuration>

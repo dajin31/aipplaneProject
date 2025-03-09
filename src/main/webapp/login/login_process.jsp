@@ -5,7 +5,7 @@
 <%@ page import="java.io.BufferedReader" %>
 <%@ page import="java.io.IOException" %>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.google.gson.JsonObject" %><%@ page import="com.example.demo.service.UserServiceImpl"%>
+<%@ page import="com.google.gson.JsonObject" %>
 
 <%
     try {

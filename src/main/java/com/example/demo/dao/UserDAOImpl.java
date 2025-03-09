@@ -17,7 +17,6 @@ import java.util.Properties;
 public class UserDAOImpl implements UserDAO {
     private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
     private static UserDAOImpl dao;
-
     private static final String PROPERTIES_PATH = "config/db.properties";
     private String url;
     private String user;
@@ -47,39 +46,41 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public int selectUser(UserVO usersVO) {
+    public int selectUser(UserVO userVO) {
         SqlSession session = null;
         int cnt = 0;
 
-        try{
+        try {
             session = MyBatisUtil.getSession();
-            cnt = session.selectOne("selectUser", usersVO);
-        }catch (Exception e){
+            cnt = session.selectOne("selectUser", userVO);
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
         return cnt;
+
     }
 
     @Override
     public int selectMileage(String userId) {
         SqlSession session = null;
-        int mile = 0;
+        int mileage = 0;
 
-        try{
+        try {
             session = MyBatisUtil.getSession();
-            mile = session.selectOne("selectMileage", userId);
-        }catch (Exception e){
+            mileage = session.selectOne("selectMileage", userId);
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
-        return mile;
+        return mileage;
+
     }
 
     @Override
@@ -102,22 +103,23 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public int updateMileage(UserVO usersVO) {
+    public int updateMileage(UserVO userVO) {
         SqlSession session = null;
         int cnt = 0;
 
         try {
             session = MyBatisUtil.getSession();
-            cnt = session.update("updateMileage", usersVO);
+            cnt = session.update("updateMileage", userVO);
             session.commit();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-        }finally {
-            if(session != null){
+        } finally {
+            if (session != null) {
                 session.close();
             }
         }
         return cnt;
+
     }
 
     @Override
@@ -249,8 +251,20 @@ public class UserDAOImpl implements UserDAO {
         try {
             session = MyBatisUtil.getSession();
 
-            List<UserVO> userList = session.selectList("user.getUserByNameRegnumEmail", UserVO.createUserVOForFindId(userName, userRegnum, userEmail)); // 수정: selectList 사용 및 팩토리 메서드 사용
+            //UserVO{userId='null', userPw='null', userName='    ', userRegnum=000711, userEmail='jieun_won@naver.com'}
+            System.out.println("개똥이 : " + UserVO.createUserVOForFindId(userName, userRegnum, userEmail));
+            //SELECT * FROM users WHERE user_name = {userName}
+            // AND user_regnum = {userRegnum}
+            // AND user_email = {userEmail}
+            UserVO userVO = new UserVO();
+            userVO.setUserName(userName);
+            userVO.setUserRegnum(userRegnum);
+            userVO.setUserEmail(userEmail);
+            System.out.println("userVO : " + userVO);
 
+            List<UserVO> userList = session.selectList("user.getUserByNameRegnumEmail", userVO); // 수정: selectList 사용 및 팩토리 메서드 사용
+            //userList : [null, null, null, null, null]
+            System.out.println("userList : " + userList);
             if (userList != null && !userList.isEmpty()) {
                 user = userList.get(0); // 첫 번째 결과 사용
                 logger.info("getUserByNameRegnumEmail 결과: {}", user);

@@ -25,6 +25,19 @@
         <result property="airName" column="AIR_NAME"/>
     </resultMap>
 
+    <resultMap id="airCompletResultMap" type="airCompletVO">
+        <result property="airCode" column="AIR_CODE"/>
+        <result property="airName" column="AIR_NAME"/>
+        <result property="pNum" column="P_NUM"/>
+        <result property="userId" column="USER_ID"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="fltCode" column="FLT_CODE"/>
+        <result property="passNum" column="PASS_NUM"/>
+        <result property="regNum" column="REG_NUM"/>
+        <result property="seatCode" column="SEAT_CODE"/>
+    </resultMap>
+
+
     <select id="selectCountyList" resultMap="airportMap">
         select *
         from airport
@@ -49,6 +62,95 @@
                 </otherwise>
             </choose>
         </where>
+    </select>
+
+    <select id="selectScheduleList" resultMap="airRouteScheduleMap">
+        select *
+        from air_route_schedule
+        where dpt_apt_code = #{dptAptCode}
+          and arr_apt_code = #{arrAptCode}
+        order by DPT_TIME
+    </select>
+
+    <select id="selectSceduleOne" resultMap="airRouteScheduleMap">
+        WITH air_a AS (
+            SELECT CNT_NAME, APT_CODE
+            FROM AIRPORT
+        ),
+             air_b AS (
+                 SELECT CNT_NAME, APT_CODE , APT_NAME
+                 FROM AIRPORT
+             ),
+             air_c as (
+                 select AIR_CODE , AIR_NAME
+                 from AIRCRAFT
+             )
+        SELECT s.*, air_a.CNT_NAME AS 출발_국가, air_b.CNT_NAME AS 도착_국가 , air_b.APT_NAME as 도착_항공 , air_c.AIR_NAME
+        FROM AIR_ROUTE_SCHEDULE s
+                 LEFT JOIN air_a ON s.DPT_APT_CODE = air_a.APT_CODE
+                 LEFT JOIN air_b ON s.ARR_APT_CODE = air_b.APT_CODE
+                 LEFT JOIN air_c ON s.AIR_CODE = air_c.AIR_CODE
+        WHERE s.FLT_CODE = #{fltCode}
+    </select>
+
+    <update id="processReservation" statementType="CALLABLE">
+        {call process_reservation(
+                #{seatCode},
+                #{totalPrice},
+                #{userId},
+                #{fltCode},
+                #{userMileage}
+              )}
+    </update>
+
+
+    <insert id="insertPassenger" parameterType="java.util.List">
+        insert into PASSENGER(P_NUM, USER_ID, USER_NAME, FLT_CODE, PASS_NUM, REG_NUM, SEAT_CODE)
+        select PASSENGER_SEQ.NEXTVAL as p_num, main_t.* from(
+        <foreach collection="list" item="passenger" separator=" union all " >
+
+            select #{passenger.userId} as user_id ,
+            #{passenger.userName}as user_name,
+            #{passenger.fltCode}as flt_code,
+            #{passenger.passNum}as pass_num,
+            #{passenger.regNum} as reg_num,
+            (SELECT SEAT_CODE FROM seat
+            WHERE seat_position like '%'|| #{passenger.seatCode}) as seat_code
+
+            from dual
+        </foreach>
+        ) main_t
+    </insert>
+
+
+    <select id="rankDiscount" resultType="int">
+        SELECT mg.dc_rate
+        FROM users u
+                 JOIN mem_grade mg ON u.mem_code = mg.mem_code
+        WHERE u.user_id = #{userId}
+    </select>
+
+    <select id="selectAirCompletList"  resultMap="airCompletResultMap">
+        with air_a as (
+        select a.AIR_CODE , c.AIR_NAME , a.FLT_CODE
+        from AIR_ROUTE_SCHEDULE a, AIRCRAFT c
+        where a.AIR_CODE = c.AIR_CODE
+        and a.FLT_CODE = #{fltCode}
+        ),
+        air_b as (
+        select *
+        from PASSENGER
+        where USER_ID = #{userId}
+        and user_name in
+        <foreach item="item" collection="userNames" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        and FLT_CODE = #{fltCode}
+        )
+
+        SELECT air_a.*, air_b.*
+        FROM air_b
+        JOIN air_a ON air_a.FLT_CODE = air_b.FLT_CODE
     </select>
 
     <select id="findSchedulesByAirCode" resultMap="airRouteScheduleMap">

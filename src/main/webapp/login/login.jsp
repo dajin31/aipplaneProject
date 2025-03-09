@@ -136,37 +136,39 @@
           headers: { "Content-Type": "application/json; charset=utf-8" },
           body: JSON.stringify({ user_id: userId, user_pw: password })
         })
-                .then(res => res.json())
-                .then(data => {
-                  // 로딩 표시 제거
-                  $("#loginButton").prop("disabled", false).text("로그인");
+        .then(res => res.json())
+        .then(data => {
+          // 로딩 표시 제거
+          $("#loginButton").prop("disabled", false).text("로그인");
 
-                  if (data.result === "success") {
-                    alert("로그인 성공!");
-                    // location.reload();
-                    location.href = "<%=request.getContextPath()%>/mainPage/mainPage.jsp";
-                  } else if (data.result === "fail") {
-                    // 로그인 실패: 서버에서 전달된 오류 메시지 표시
-                    $("#loginError").text(data.message).addClass("error");
-                  } else {
-                    // 서버 오류: 서버에서 전달된 오류 메시지 표시 또는 기본 오류 메시지 표시
-                    $("#loginError").text(data.message || "서버 오류 발생!").addClass("error");
-                  }
-                })
-                .catch(err => {
-                  // 로딩 표시 제거
-                  $("#loginButton").prop("disabled", false).text("로그인");
+          if (data.result === "success") {
+            alert("로그인 성공!");
+            $(".header-before-login").hide();
+            $(".header-after-login").show();
+            $(".welcome-msg").text(data.userName + "님 환영합니다.");
+            location.href = "<%=request.getContextPath()%>/mainPage/mainPage.jsp";
+          } else if (data.result === "fail") {
+            // 로그인 실패: 서버에서 전달된 오류 메시지 표시
+            $("#loginError").text(data.message).addClass("error");
+          } else {
+            // 서버 오류: 서버에서 전달된 오류 메시지 표시 또는 기본 오류 메시지 표시
+            $("#loginError").text(data.message || "서버 오류 발생!").addClass("error");
+          }
+        })
+        .catch(err => {
+          // 로딩 표시 제거
+          $("#loginButton").prop("disabled", false).text("로그인");
 
-                  console.error("로그인 오류:", err);
-                  // 네트워크 오류 또는 클라이언트 측 오류: 오류 메시지 표시
-                  $("#loginError").text("로그인 처리 중 오류가 발생했습니다.").addClass("error");
-                });
+          console.error("로그인 오류:", err);
+          // 네트워크 오류 또는 클라이언트 측 오류: 오류 메시지 표시
+          $("#loginError").text("로그인 처리 중 오류가 발생했습니다.").addClass("error");
+        });
       });
-
     });
 
 
   </script>
+
 </head>
 <body>
 <div class="login-container">

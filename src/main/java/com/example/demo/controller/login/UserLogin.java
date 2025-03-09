@@ -25,6 +25,7 @@ public class UserLogin extends HttpServlet {
         request.setCharacterEncoding("utf-8");
         response.setContentType("application/json; charset=utf-8");
 
+
         Gson gson = new Gson();
 
         try {
@@ -60,7 +61,10 @@ public class UserLogin extends HttpServlet {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().write(gson.toJson(new ErrorResult("아이디 또는 비밀번호가 일치하지 않습니다.")));
             }
-
+        } catch (NullPointerException | ClassCastException e) {
+            logger.error("JSON 파싱 오류: ", e);
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+            response.getWriter().write(gson.toJson(new ErrorResult("잘못된 요청입니다.")));
         } catch (IllegalArgumentException e) {
             logger.error("로그인 처리 중 오류 발생: ", e);
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);

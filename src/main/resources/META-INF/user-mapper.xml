@@ -13,22 +13,36 @@
         <result property="memCode" column="MEM_CODE"/>
     </resultMap>
 
-    <resultMap id="usersMap" type="usersVO">
-        <result property="userId" column="user_id"/>
-        <result property="userPw" column="user_pw"/>
-        <result property="userName" column="user_name"/>
-        <result property="userEmail" column="user_email"/>
-        <result property="userRegnum" column="user_regnum"/>
-        <result property="userMileage" column="user_mileage"/>
-        <result property="userPassnum" column="user_passnum"/>
-        <result property="memCode" column="mem_code"/>
-    </resultMap>
+    <!-- id , pw확인 -->
+    <select id="selectUser" resultType="int">
+        select count(*)
+        from users
+        where user_id = #{userId}
+          and user_pw = #{userPw}
+    </select>
+
+    <select id="selectMileage" resultType="int">
+        select user_mileage
+        from users
+        where user_id = #{userId}
+    </select>
+
+    <insert id="insertOrder" parameterType="ordersVO">
+        insert into orders (ORDER_ID, ORDER_AMT, USER_ID, PROD_ID, ORDER_QTY)
+        VALUES ('ORD-' || TO_CHAR(SYSDATE, 'YYYYMMDD') || '-' || order_seq.NEXTVAL, #{orderAmt}, #{userId}, #{prodId},#{orderQty})
+    </insert>
+
+    <update id="updateMileage">
+        UPDATE users
+        SET user_mileage = #{userMileage}
+        WHERE user_id = #{userId}
+    </update>
 
     <!-- id 중복검사 -->
     <select id="userIdCount" parameterType="String" resultType="int">
         select count(*)
         from users
-        where user_id = #{user_id}
+        where user_id = #{userId}
     </select>
 
     <!-- 회원가입 -->
@@ -38,8 +52,8 @@
     </insert>
 
     <!-- 로그인 -->
-    <select id="login" parameterType="UserVO" resultType="UserVO">
-        SELECT * FROM users WHERE user_id = #{user_id} AND user_pw = #{user_pw}
+    <select id="login" parameterType="UserVO" resultMap="userMap">
+        SELECT * FROM users WHERE USER_ID = #{user_id} AND USER_PW = #{user_pw}
     </select>
 
     <!-- 비밀번호 찾기-->
@@ -85,11 +99,11 @@
     <!-- 사용자 정보 조회 -->
     <select id="getUser" parameterType="String" resultType="com.example.demo.vo.UserVO">
         SELECT
-            user_id AS userId,
-            user_pw AS userPw,
-            user_name AS userName,
-            user_email AS userEmail,
-            user_regnum AS userRegnum
+            USER_ID AS userId,
+            USER_PW AS userPw,
+            USER_NAME AS userName,
+            USER_EMAIL AS userEmail,
+            USER_REGNUM AS userRegnum
         FROM users
         WHERE user_id = #{userId}
     </select>

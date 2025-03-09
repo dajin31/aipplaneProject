@@ -166,6 +166,7 @@
             <span class="label">이메일:</span>
             <span class="value">chanzz0518@gmail.com</span>
         </div>
+        <span><a href="/images/2.png" download="2.png">첨부파일 다운로드</a></span>
     </div>
 </div>
 

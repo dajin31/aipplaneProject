@@ -134,6 +134,7 @@ function renderWeatherInfo(weatherData) {
         return;
     }
 
+
     const parsedData = parseWeatherData(weatherData);
     console.log('Final parsed data:', parsedData); // 디버깅을 위한 로그
 

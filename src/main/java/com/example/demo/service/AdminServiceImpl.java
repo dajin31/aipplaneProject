@@ -100,8 +100,4 @@ public class AdminServiceImpl implements IAdminService {
 		return dao.getUserById(userId);
 	}
 
-	@Override
-	public List<UserVO> getAllUsers() {
-		return dao.getAllUsers();
-	}
 }

@@ -35,7 +35,7 @@ public class AdminUser extends HttpServlet {
 		String stype = request.getParameter("stype");
 		String sword = request.getParameter("sword");
 
-		// 페이지 정보 계산
+		// 페이징
 		AdminPageVO pageVO = adminService.pageInfo(page, stype, sword);
 
 		// 검색 조건 맵 생성
@@ -48,7 +48,7 @@ public class AdminUser extends HttpServlet {
 		// 회원 목록 조회
 		List<UserVO> userList = adminService.selectById(map);
 
-		// 요청 속성 설정
+		// 요청 속성
 		request.setAttribute("userList", userList);
 		request.setAttribute("pageVO", pageVO);
 		request.setAttribute("stype", stype);

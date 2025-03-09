@@ -26,7 +26,4 @@ public interface IAdminService {
 	// 회원 상세 정보 조회
 	public UserVO getUserById(String userId);
 
-	// 전체 회원 목록
-	public List<UserVO> getAllUsers();
-
 }

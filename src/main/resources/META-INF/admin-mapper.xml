@@ -37,7 +37,7 @@
                 USER_EMAIL LIKE '%'||#{sword}||'%' OR
                 USER_PASSNUM LIKE '%'||#{sword}||'%')
             </if>
-        and MEM_CODE != 'admin'
+            and MEM_CODE != 'admin'
         </where>
         ORDER BY USER_ID
         ) B

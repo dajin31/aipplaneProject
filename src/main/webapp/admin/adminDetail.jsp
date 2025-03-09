@@ -84,7 +84,7 @@
     window.resizeTo(width, height);
     window.moveTo(left, top);
 
-    // 크기 조정 핸들러 제거 (크기 조정 자체를 막음)
+    // 크기 조정 핸들러 제거 (외않되)
     document.documentElement.style.overflow = 'hidden';
     document.body.style.overflow = 'hidden';
   };

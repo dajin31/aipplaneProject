@@ -59,7 +59,7 @@
 			List<UserVO> userList = (List<UserVO>)request.getAttribute("userList");
 			if(userList != null && !userList.isEmpty()) {
 				for(UserVO user : userList) {
-					if(user != null) { // null 체크 추가
+					if(user != null) {
 		%>
 		<tr>
 			<td><%=user.getUserName()%></td>

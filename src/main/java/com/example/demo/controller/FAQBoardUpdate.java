@@ -19,35 +19,35 @@ import jakarta.servlet.http.HttpServletResponse;
 @WebServlet("/FAQBoard/FAQBoardUpdate.do")
 public class FAQBoardUpdate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json; charset=utf-8");
-		
+
 		//요청시 데이터 - title, contents, category
 		String data = StreamData.getJsonStream(request);
 		Gson  gson = new Gson();
 
-         FAQBoardVO faqbordVo = gson.fromJson(data, FAQBoardVO.class);
-		
+		FAQBoardVO faqbordVo = gson.fromJson(data, FAQBoardVO.class);
+
 		//service객체 얻기
 		IFAQBoardService  service = FAQBoardServiceImpl.getInstance();
-		
+
 		//service메소드 호출 - 결과값 얻기 
 		int res = service.updateFAQBoard(faqbordVo);
-		
-		String jsonData = 
+
+		String jsonData =
 				"""
 					 {
 					    "result"  : %d
 					 }
 				""".formatted(res);
-		    
-			PrintWriter out = response.getWriter();
-			out.write(jsonData);
-			response.flushBuffer();
+
+		PrintWriter out = response.getWriter();
+		out.write(jsonData);
+		response.flushBuffer();
 	}
 
 }

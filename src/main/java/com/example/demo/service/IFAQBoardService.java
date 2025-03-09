@@ -26,5 +26,4 @@ public interface IFAQBoardService {
 	//페이지별 정보구하기 - 페이지 처리 를 위한 정보 -
 	public FAQPageVO  pageInfo(int page, String stype, String sword);
 	
-
 }

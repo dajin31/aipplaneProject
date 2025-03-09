@@ -21,5 +21,5 @@ public interface IFAQBoardDAO {
 	
 	//전체 게시글 갯수 구하기
 	public int totalCount(Map<String, Object> map) ;
-	
+
 }

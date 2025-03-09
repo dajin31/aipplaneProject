@@ -248,36 +248,6 @@
         document.getElementById('faqModal').style.display = 'none';
     }
 
-    // FAQ 수정
-    <%--document.getElementById('editForm').onsubmit = function(e) {--%>
-    <%--    e.preventDefault();--%>
-    <%--    var formData = new FormData(this);--%>
-    <%--    var object = {};--%>
-    <%--    formData.forEach((value, key) => {object[key] = value});--%>
-    <%--    var json = JSON.stringify(object);--%>
-
-    <%--    fetch('<%=request.getContextPath()%>/FAQBoard/FAQBoardUpdate.do', {--%>
-    <%--        method: 'POST',--%>
-    <%--        headers: {--%>
-    <%--            'Content-Type': 'application/json'--%>
-    <%--        },--%>
-    <%--        body: json--%>
-    <%--    })--%>
-    <%--        .then(response => response.json())--%>
-    <%--        .then(data => {--%>
-    <%--            if(data.result > 0) {--%>
-    <%--                alert('FAQ가 성공적으로 수정되었습니다.');--%>
-    <%--                location.reload();--%>
-    <%--            } else {--%>
-    <%--                alert('FAQ 수정에 실패했습니다.');--%>
-    <%--            }--%>
-    <%--        })--%>
-    <%--        .catch(error => {--%>
-    <%--            console.error('Error:', error);--%>
-    <%--            alert('오류가 발생했습니다.');--%>
-    <%--        });--%>
-    <%--}--%>
-
     // 서버로 데이터 전송
     function handleSubmit(event) {
         event.preventDefault();
@@ -298,8 +268,6 @@
             "faq_title": title,
             "faq_contents": contents
         };
-        // console.log("faqData : ", faqData)
-        // console.log("faqData.faq_id : ", faqData.faq_id)  확인용
 
         // 서버로 데이터 전송2
         fetch(url, {

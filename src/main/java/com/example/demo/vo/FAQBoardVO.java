@@ -10,9 +10,9 @@ public class FAQBoardVO {
 	private String user_id;			// UserID (권한 구분)
 	public FAQBoardVO() {
 	}
-	
+
 	public FAQBoardVO(int faq_id, String crt_date, String faq_title, String faq_contents, String faq_category,
-			String user_id) {
+					  String user_id) {
 		super();
 		this.faq_id = faq_id;
 		this.crt_date = crt_date;
@@ -21,7 +21,7 @@ public class FAQBoardVO {
 		this.faq_category = faq_category;
 		this.user_id = user_id;
 	}
-	
+
 	public int getFaq_id() {
 		return faq_id;
 	}
@@ -75,5 +75,5 @@ public class FAQBoardVO {
 		return "FAQBoardVO [faq_id=" + faq_id + ", crt_date=" + crt_date + ", faq_title=" + faq_title
 				+ ", faq_contents=" + faq_contents + ", faq_category=" + faq_category + ", user_id=" + user_id + "]";
 	}
-	
+
 }

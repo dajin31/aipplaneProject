@@ -65,11 +65,6 @@ public class FAQBoardServiceImpl implements IFAQBoardService {
 		
 		// 전체페이지 수 구하기
 		int totalPage = (int)Math.ceil((double)count  /  FAQPageVO.getPerList());
-		 //전송된 page 가  7(마지막페이지)이었고 거기 1개의 데이타가 있었고 선택하여 지운다면 
-		 //totalPage = 6이 될것임
-		 //삭제후 다시 list가 출력될 때 7페이지가 아닌 6페이지로 보여져야 돨것을 감안하여  
-		 //currentPage(전송된page값)가 7이었다 하더라도 7페이지가 없어지므로 6페이지로 출력
-		 //page의 값을 6으로 설정 - 만약  전송된 데이타 page가 7이고 다시구한 totalPage가 6이라면
 		if(page > totalPage ) page = totalPage;
 		
 		//start, end 구하기  19 21-

@@ -30,7 +30,6 @@ public class FAQBoardWrite extends HttpServlet {
 
 		String reqdata = StreamData.getJsonStream(request);
 
-		// FAQBoardWrite->reqdata : { "category": "reservation", "title": "ㅇ", "contents": "ㄴ"}
 		System.out.println("FAQBoardWrite->reqdata : " + reqdata);
 
 		// FAQBoardVO객체로 변환 (역직렬화)

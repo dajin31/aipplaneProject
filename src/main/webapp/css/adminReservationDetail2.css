@@ -1,0 +1,156 @@
+/*!* 기본 스타일 *!*/
+/*body {*/
+/*    font-family: Arial, sans-serif;*/
+/*    background-color: #f4f4f4;*/
+/*    margin: 0;*/
+/*    padding: 20px;*/
+/*}*/
+
+/*.container {*/
+/*    max-width: 1200px;*/
+/*    margin: 0 auto;*/
+/*    background-color: #fff;*/
+/*    padding: 20px;*/
+/*    border-radius: 5px;*/
+/*    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);*/
+/*}*/
+
+/*h1 {*/
+/*    color: #333;*/
+/*    text-align: center;*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+/*h2 {*/
+/*    font-size: 18px;*/
+/*    color: #333;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+/*h3 {*/
+/*    font-size: 16px;*/
+/*    color: #333;*/
+/*    margin-top: 20px;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+
+/*!* 예약 정보 스타일 *!*/
+/*.reservation-info {*/
+/*    margin-bottom: 20px;*/
+/*    padding: 10px;*/
+/*    background-color: #f9f9f9;*/
+/*    border-radius: 5px;*/
+/*}*/
+
+/*.reservation-info p {*/
+/*    margin: 5px 0;*/
+/*}*/
+
+/*!* 테이블 스타일 *!*/
+/*.passenger-table {*/
+/*    width: 100%;*/
+/*    border-collapse: collapse;*/
+/*    margin-top: 20px;*/
+/*}*/
+
+/*.passenger-table th,*/
+/*.passenger-table td {*/
+/*    border: 1px solid #ddd;*/
+/*    padding: 10px;*/
+/*    text-align: left;*/
+/*}*/
+
+/*.passenger-table th {*/
+/*    background-color: #f2f2f2;*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*.passenger-info {*/
+/*    font-weight: normal;*/
+/*}*/
+
+/*!* 입력 필드 스타일 *!*/
+/*.date-time-container {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    gap: 5px;*/
+/*}*/
+
+/*.date-input,*/
+/*.time-input,*/
+/*.select-input {*/
+/*    padding: 5px;*/
+/*    border: 1px solid #ddd;*/
+/*    border-radius: 3px;*/
+/*    width: 140px;*/
+/*}*/
+
+/*!* 버튼 스타일 *!*/
+/*.action-buttons {*/
+/*    display: flex;*/
+/*    gap: 5px;*/
+/*}*/
+
+/*.update-btn,*/
+/*.delete-btn {*/
+/*    padding: 5px 10px;*/
+/*    border: none;*/
+/*    border-radius: 3px;*/
+/*    cursor: pointer;*/
+/*    font-size: 12px;*/
+/*}*/
+
+/*.update-btn {*/
+/*    background-color: #4caf50;*/
+/*    color: white;*/
+/*}*/
+
+/*.delete-btn {*/
+/*    background-color: #f44336;*/
+/*    color: white;*/
+/*}*/
+
+/*.button-container {*/
+/*    text-align: center;*/
+/*    margin-top: 20px;*/
+/*}*/
+
+/*button {*/
+/*    padding: 8px 15px;*/
+/*    background-color: #4caf50;*/
+/*    color: white;*/
+/*    border: none;*/
+/*    border-radius: 4px;*/
+/*    cursor: pointer;*/
+/*    font-size: 14px;*/
+/*    margin: 0 2px;*/
+/*}*/
+
+/*!* 메시지 스타일 *!*/
+/*.error-message {*/
+/*    color: #d9534f;*/
+/*    text-align: center;*/
+/*    padding: 15px;*/
+/*    margin-bottom: 20px;*/
+/*    background-color: #f2dede;*/
+/*    border-radius: 5px;*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*.success-message {*/
+/*    color: #3c763d;*/
+/*    text-align: center;*/
+/*    padding: 15px;*/
+/*    margin-bottom: 20px;*/
+/*    background-color: #dff0d8;*/
+/*    border-radius: 5px;*/
+/*    font-weight: bold;*/
+/*}*/
+
+/*.no-data {*/
+/*    text-align: center;*/
+/*    padding: 20px;*/
+/*    color: #666;*/
+/*    font-style: italic;*/
+/*}*/
+

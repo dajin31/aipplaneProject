@@ -1,8 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="adminReservation">
+    <!-- 회원의 예약 현황 조회 (중복 제거) -->
+    <select id="getUserReservations" parameterType="string" resultType="com.example.demo.vo.AdminReservationVO">
+        SELECT DISTINCT
+            p.USER_ID AS userId,
+            ars.FLT_CODE AS fltCode,
+            dpt.APT_CODE AS dptAptCode,
+            dpt.APT_NAME AS dptAptName,
+            arr.APT_CODE AS arrAptCode,
+            arr.APT_NAME AS arrAptName,
+            ac.AIR_CODE AS airCode,
+            ac.AIR_NAME AS airName,
+            (SELECT COUNT(*)
+             FROM PASSENGER sub_p
+             WHERE sub_p.FLT_CODE = ars.FLT_CODE
+               AND sub_p.USER_ID = #{userId}) AS passengerCount,
+            ars.DPT_DATE AS dptDate,
+            ars.DPT_TIME AS dptTime,
+            ars.ARR_DATE AS arrDate,
+            ars.ARR_TIME AS arrTime
+        FROM
+            PASSENGER p
+                JOIN
+            AIR_ROUTE_SCHEDULE ars ON p.FLT_CODE = ars.FLT_CODE
+                JOIN
+            AIRPORT dpt ON ars.DPT_APT_CODE = dpt.APT_CODE
+                JOIN
+            AIRPORT arr ON ars.ARR_APT_CODE = arr.APT_CODE
+                JOIN
+            AIRCRAFT ac ON ars.AIR_CODE = ac.AIR_CODE
+        WHERE
+            p.USER_ID = #{userId}
+        GROUP BY
+            p.USER_ID,
+            ars.FLT_CODE,
+            dpt.APT_CODE,
+            dpt.APT_NAME,
+            arr.APT_CODE,
+            arr.APT_NAME,
+            ac.AIR_CODE,
+            ac.AIR_NAME,
+            ars.DPT_DATE,
+            ars.DPT_TIME,
+            ars.ARR_DATE,
+            ars.ARR_TIME
+        ORDER BY
+            ars.DPT_DATE, ars.DPT_TIME
+    </select>
 
+    <!-- 예약 상세 정보 조회 (승객 목록) -->
+    <select id="getReservationPassengers" parameterType="map" resultType="com.example.demo.vo.AdminReservationVO">
+        SELECT
+            p.P_NUM AS pNum,
+            p.USER_ID AS userId,
+            p.USER_NAME AS userName,
+            p.PASS_NUM AS passNum,
+            p.SEAT_CODE AS seatCode,
+            SUBSTR(p.SEAT_CODE, 1, 1) AS seatClass,
+            SUBSTR(p.SEAT_CODE, 2) AS seatPosition,
+            ars.FLT_CODE AS fltCode,
+            dpt.APT_CODE AS dptAptCode,
+            dpt.APT_NAME AS dptAptName,
+            arr.APT_CODE AS arrAptCode,
+            arr.APT_NAME AS arrAptName,
+            ac.AIR_CODE AS airCode,
+            ac.AIR_NAME AS airName,
+            ars.DPT_DATE AS dptDate,
+            ars.DPT_TIME AS dptTime,
+            ars.ARR_DATE AS arrDate,
+            ars.ARR_TIME AS arrTime
+        FROM
+            PASSENGER p
+                JOIN
+            AIR_ROUTE_SCHEDULE ars ON p.FLT_CODE = ars.FLT_CODE
+                JOIN
+            AIRPORT dpt ON ars.DPT_APT_CODE = dpt.APT_CODE
+                JOIN
+            AIRPORT arr ON ars.ARR_APT_CODE = arr.APT_CODE
+                JOIN
+            AIRCRAFT ac ON ars.AIR_CODE = ac.AIR_CODE
+        WHERE
+            p.USER_ID = #{userId}
+          AND p.FLT_CODE = #{fltCode}
+        ORDER BY
+            p.P_NUM
+    </select>
 
-    
+    <!-- 승객 정보 수정 -->
+    <update id="updatePassenger" parameterType="com.example.demo.vo.AdminReservationVO">
+        UPDATE PASSENGER
+        SET
+            SEAT_CODE = #{seatClass} || #{seatPosition}
+        WHERE
+            P_NUM = #{pNum}
+    </update>
 
+    <!-- 승객 정보 삭제 -->
+    <delete id="deletePassenger" parameterType="int">
+        DELETE FROM PASSENGER
+        WHERE P_NUM = #{pNum}
+    </delete>
+
+    <!-- 좌석 등급 목록 조회 -->
+    <select id="getSeatClasses" resultType="map">
+        SELECT DISTINCT
+            SUBSTR(SEAT_CODE, 1, 1) AS value,
+            CASE
+                WHEN SUBSTR(SEAT_CODE, 1, 1) = 'F' THEN '퍼스트 클래스'
+                WHEN SUBSTR(SEAT_CODE, 1, 1) = 'B' THEN '비즈니스 클래스'
+                WHEN SUBSTR(SEAT_CODE, 1, 1) = 'E' THEN '이코노미 클래스'
+                ELSE SUBSTR(SEAT_CODE, 1, 1)
+        END AS label
+        FROM SEAT
+        ORDER BY value
+    </select>
+
+    <!-- 특정 날짜의 출발 시간 목록 조회 -->
+    <select id="getDepartureTimes" parameterType="map" resultType="map">
+        SELECT
+            TO_CHAR(DPT_TIME, 'HH24:MI') AS value,
+            TO_CHAR(DPT_TIME, 'HH24:MI') AS label
+        FROM
+            AIR_ROUTE_SCHEDULE
+        WHERE
+            TO_CHAR(DPT_DATE, 'YYYY-MM-DD') = #{dptDate}
+          AND FLT_CODE = #{fltCode}
+        ORDER BY
+            DPT_TIME
+    </select>
+
+    <!-- 특정 출발 일시에 해당하는 도착 일시 조회 -->
+    <select id="getArrivalDateTime" parameterType="map" resultType="map">
+        SELECT
+            TO_CHAR(ARR_DATE, 'YYYY-MM-DD') AS arrDate,
+            TO_CHAR(ARR_TIME, 'HH24:MI') AS arrTime
+        FROM
+            AIR_ROUTE_SCHEDULE
+        WHERE
+            TO_CHAR(DPT_DATE, 'YYYY-MM-DD') = #{dptDate}
+          AND TO_CHAR(DPT_TIME, 'HH24:MI') = #{dptTime}
+          AND FLT_CODE = #{fltCode}
+    </select>
+
+    <!-- 특정 항공편의 빈 좌석 위치 목록 조회 (현재 승객의 좌석도 포함) -->
+    <select id="getAvailableSeatPositions" parameterType="map" resultType="map">
+        SELECT
+            SUBSTR(seat.SEAT_CODE, 2) AS value,
+            SUBSTR(seat.SEAT_CODE, 2) AS label
+        FROM
+            SEAT seat
+        WHERE
+            SUBSTR(seat.SEAT_CODE, 1, 1) = #{seatClass}
+          AND seat.AIR_CODE = (
+            SELECT AIR_CODE FROM AIR_ROUTE_SCHEDULE WHERE FLT_CODE = #{fltCode}
+            )
+          AND (
+            NOT EXISTS (
+            SELECT 1
+            FROM PASSENGER p
+            WHERE p.SEAT_CODE = seat.SEAT_CODE
+          AND p.FLT_CODE = #{fltCode}
+            )
+           OR
+            EXISTS (
+            SELECT 1
+            FROM PASSENGER p
+            WHERE p.SEAT_CODE = seat.SEAT_CODE
+          AND p.FLT_CODE = #{fltCode}
+          AND p.P_NUM = #{pNum}
+            )
+            )
+        ORDER BY
+            value
+    </select>
 </mapper>
+

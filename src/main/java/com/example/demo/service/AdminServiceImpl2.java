@@ -94,7 +94,7 @@
 //        return dao.totalCount(map);
 //    }
 //
-//    //상세 회원?
+//    // admin 제외 회원
 //    @Override
 //    public UserVO getUserById(String userId) {
 //        return dao.getUserById(userId);

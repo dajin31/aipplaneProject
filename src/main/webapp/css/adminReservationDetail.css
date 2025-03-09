@@ -1,0 +1,105 @@
+/* 최소한의 간결한 CSS */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+h1,
+h2,
+h3 {
+    color: #333;
+}
+
+.reservation-info {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.passenger-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.passenger-table th,
+.passenger-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.passenger-table th {
+    background-color: #f2f2f2;
+}
+
+.date-time-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.date-input,
+.time-input,
+.select-input {
+    padding: 5px;
+    width: 140px;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 5px;
+}
+
+.update-btn,
+.delete-btn {
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.update-btn {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+}
+
+.delete-btn {
+    background-color: #f44336;
+    color: white;
+    border: none;
+}
+
+.error-message,
+.success-message,
+.no-data {
+    padding: 10px;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.error-message {
+    background-color: #f2dede;
+    color: #a94442;
+}
+
+.success-message {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 10px;
+}
+
+button {
+    padding: 8px 15px;
+    cursor: pointer;
+}
+

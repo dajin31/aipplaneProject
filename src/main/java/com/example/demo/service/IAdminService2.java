@@ -23,7 +23,7 @@
 //    // 전체 회원 수
 //    public int totalCount(Map<String, Object> map);
 //
-//    // 조회할 회원 정보
+//    // 회원 상세 정보 조회
 //    public UserVO getUserById(String userId);
 //
 //    // 전체 회원 목록

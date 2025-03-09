@@ -18,10 +18,8 @@
 //
 //    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        HttpSession session = request.getSession();
-//        // UserVO loginUser = (UserVO) session.getAttribute("loginUser");
 //
 //        IAdminService adminService = AdminServiceImpl.getInstance();
-//        // IUserService userService = UserServiceImp.getInstance();
 //
 //        String userId = request.getParameter("userId");
 //        UserVO user = adminService.getUserById(userId);

@@ -22,10 +22,8 @@
 //
 //    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //        HttpSession session = request.getSession();
-//        // UserVO loginUser = (UserVO) session.getAttribute("loginUser");
 //
 //        IAdminService adminService = AdminServiceImpl.getInstance();
-//        // IUserService userService = UserServiceImp.getInstance();
 //
 //        // 페이징 처리
 //        int page = 1;

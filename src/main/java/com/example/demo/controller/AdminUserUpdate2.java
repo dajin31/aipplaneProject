@@ -22,11 +22,8 @@
 //        response.setContentType("application/json;charset=UTF-8");
 //
 //        HttpSession session = request.getSession();
-//        // UserVO loginUser = (UserVO) session.getAttribute("loginUser");
 //
 //        IAdminService adminService = AdminServiceImpl.getInstance();
-//        // IUserService userService = UserServiceImp.getInstance();
-//
 //
 //        UserVO user = new UserVO();
 //        user.setUserId(request.getParameter("userId"));
@@ -34,7 +31,7 @@
 //        user.setUserEmail(request.getParameter("userEmail"));
 //        user.setUserMileage(Integer.parseInt(request.getParameter("userMileage")));
 //        user.setUserPassNum(request.getParameter("userPassNum"));
-//        user.setUserTotalMileage(Integer.parseInt(request.getParameter("userTotalMileage"))); // 변경: userTotalmileage -> userTotalMileage
+//        user.setUserTotalMileage(Integer.parseInt(request.getParameter("userTotalMileage")));
 //        user.setMemCode(request.getParameter("memCode"));
 //
 //        int result = adminService.updateUser(user);

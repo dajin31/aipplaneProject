@@ -13,8 +13,6 @@
     <link rel="stylesheet" href="/css/header.css">
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    <script src="https://code.jquery.com/jquery-migrate-3.5.2.js"></script>
-    <script src="/js/jquery-3.7.1.js"></script>
     <script src="/mainPage/main.js"></script>
 </head>
 <body>
@@ -232,15 +230,16 @@
     </div>
 </section>
 
-<script src="/mainPage/weather.js"></script>
+
 <!-- 여행 경험 섹션 -->
 <section class="travel-experience">
     <div class="section-container">
-        <h2>여행을 위한 경험</h2>
+        <h2 style="margin-left: 100px;">여행을 위한 경험</h2>
         <div class="experience-grid">
-            <div class="experience-card weather">
-                <h3>날씨 정보</h3>
-                <div id="weather-widget"></div>
+            <div class="weather-container">
+                <div id="weatherResult">
+                    <%--날씨 정보 표시란--%>
+                </div>
             </div>
             <!-- 호텔 예약하기 -->
             <div class="experience-card hotels">
@@ -250,7 +249,7 @@
             </div>
             <div class="experience-card mileage">
                 <h3>마일리지샵</h3>
-                <a href="#" class="link-button">마일리지 사용하기</a>
+                <a href="/mileage/mileageShop.jsp" class="link-button">마일리지 사용하기</a>
             </div>
         </div>
     </div>
@@ -315,8 +314,8 @@
     });
 
 </script>
+
 <!-- 다음 지도 api -->
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8306615f01d266edffd26c9c180c3c4"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
 
@@ -357,5 +356,7 @@
         }
     });
 </script>
+<script src="/dapi.kakao.com/v2/maps/sdk.js?appkey=e8306615f01d266edffd26c9c180c3c4"></script>
+<script src="/mainPage/weather.js"></script>
 </body>
 </html>

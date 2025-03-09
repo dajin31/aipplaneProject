@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+
+    <resultMap id="productMap" type="prodVO">
+        <result property="prodId" column="prod_id"/>
+        <result property="prodName" column="prod_name"/>
+        <result property="unitPrice" column="unit_price"/>
+        <result property="stockQty" column="stock_qty"/>
+        <result property="category" column="category"/>
+        <result property="detail" column="detail"/>
+        <result property="ingredientca" column="ingredientca"/>
+        <result property="use" column="use"/>
+    </resultMap>
+
+    <resultMap id="ordersMap" type="ordersVO">
+        <result property="orderId" column="order_id"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="orderAmt" column="order_amt"/>
+        <result property="userId" column="user_id"/>
+        <result property="prodId" column="prod_id"/>
+        <result property="orderQty" column="order_qty"/>
+        <result property="prodName" column="prod_name"/>
+    </resultMap>
+
+    <select id="selectAllProduct" resultMap="productMap">
+        select *
+        from product
+    </select>
+
+    <select id="selectMakeupProduct" resultMap="productMap">
+        select *
+        from product
+        where category = '화장품'
+    </select>
+
+    <select id="selectGroceryProduct" resultMap="productMap">
+        select *
+        from product
+        where category = '잡화/주얼리'
+    </select>
+
+    <select id="selectFoodProduct" resultMap="productMap">
+        select *
+        from product
+        where category = '식품'
+    </select>
+
+
+    <select id="selectAllCnt" resultType="int">
+        select count(*)
+        from product
+    </select>
+
+
+    <select id="selectSearchList" resultMap="productMap">
+        select *
+        from product
+        where PROD_NAME like '%' || #{prodName} || '%'
+    </select>
+
+    <select id="selectDetailList" resultMap="productMap">
+        select *
+        from product
+        where prod_id = #{prodId}
+    </select>
+
+    <select id="selectUserOrders" resultMap="ordersMap">
+        SELECT  o.order_id,o.order_date,o.order_amt,o.prod_id,o.order_qty,p.prod_name
+        FROM orders o
+                 JOIN product p ON o.prod_id = p.prod_id
+        WHERE o.user_id =#{userId}
+        ORDER BY o.order_id DESC
+    </select>
+</mapper>

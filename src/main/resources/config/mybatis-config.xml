@@ -15,13 +15,14 @@
 
 	<typeAliases>
 			<typeAlias type="com.example.demo.vo.MemVO" alias="memVO"/>
-			<typeAlias type="com.example.demo.vo.ReservationVO" alias="resVO"/>
 			<typeAlias type="com.example.demo.vo.UserVO" alias="UserVO"/>
-			<typeAlias type="com.example.demo.vo.UserVO" alias="usersVO"/>
 			<typeAlias type="com.example.demo.vo.AirportVO" alias="airportVO"/>
 			<typeAlias type="com.example.demo.vo.AirRouteScheduleVO" alias="airRouteScheduleVO"/>
 			<typeAlias type="com.example.demo.vo.SeatVO" alias="seatVO"/>
 			<typeAlias type="com.example.demo.vo.PassengerVO" alias="PassengerVO"/>
+			<typeAlias type="com.example.demo.vo.OrdersVO" alias="ordersVO"/>
+			<typeAlias type="com.example.demo.vo.ProductVO" alias="prodVO"/>
+			<typeAlias type="com.example.demo.vo.AirCompletVO" alias="airCompletVO"/>
 	</typeAliases>
 
 
@@ -44,5 +45,6 @@
 		<mapper resource="META-INF/TicketMapper.xml"/>
 		<mapper resource="META-INF/FlightMapper.xml"/>
 		<mapper resource="META-INF/user-mapper.xml"/>
+		<mapper resource="META-INF/product-mapper.xml"/>
 	</mappers>
 </configuration>

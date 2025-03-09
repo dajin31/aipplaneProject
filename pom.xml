@@ -127,6 +127,10 @@
                 <configuration>
                     <source>15</source>
                     <target>15</target>
+                    <compilerArgs>
+                        <arg>--add-opens</arg>
+                        <arg>java.xml/com.sun.org.apache.xerces.internal.dom=com.google.gson</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
         </plugins>

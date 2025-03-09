@@ -1,265 +1,218 @@
-// 날씨 API 키와 엔드포인트 설정
-const WEATHER_API_KEY = 'wlyAJBWheYEKlFs%2FbQKAmZYp1G%2FTDKpex1PIM%2BeLUtDj95XJmHUmYTer9tpQVR46BrFawvMAGwQzZoL7SXj0DQ%3D%3D'; // 이미 가지고 있는 API 키로 교체하세요
-const WEATHER_API_BASE_URL = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst';
-const WEATHER_API_ENDPOINT = 'http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0';
+async function fetchWeatherFromServer(nx, ny) {
+    try {
+        const response = await fetch(`/weather?nx=${nx}&ny=${ny}`);
+        if (!response.ok) throw new Error("서버 응답 오류: " + response.status);
+        const data = await response.json();
 
-// 날씨 정보를 표시할 요소
-const weatherContent = document.getElementById('weather-widget');
+        if (data.error) {
+            throw new Error(data.error);
+        }
 
-// 현재 날짜와 시간 정보 생성 함수
-function getCurrentDateAndTime() {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, '0');
-    const day = String(now.getDate()).padStart(2, '0');
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-
-    // API 요청에 필요한 날짜 형식 (YYYYMMDD)
-    const baseDate = `${year}${month}${day}`;
-
-    // API 요청에 필요한 시간 형식 (HHMM)
-    // 매 시간 30분에 API가 업데이트되므로, 현재 시간이 30분 이전이면 이전 시간 데이터를 요청
-    let baseHour = hours;
-    if (minutes < 30) {
-        baseHour = (hours - 1 + 24) % 24;
+        return data;
+    } catch (error) {
+        console.error("날씨 데이터를 가져오는 중 오류 발생:", error);
     }
-    const baseTime = `${String(baseHour).padStart(2, '0')}30`;
-
-    return { baseDate, baseTime };
 }
 
-// 날씨 아이콘 선택 함수
-function getWeatherIcon(skyCondition, precipitationType) {
-    const sky = parseInt(skyCondition);
-    const pty = parseInt(precipitationType);
+// 날씨 데이터 파싱 함수
+function parseWeatherData(data) {
+    console.log('Raw weather data:', data); // 디버깅 로그
 
-    if (pty === 1) return '🌧️'; // 비
-    if (pty === 2) return '🌨️'; // 비/눈
-    if (pty === 3) return '❄️'; // 눈
-    if (pty === 4) return '🌦️'; // 소나기
-    if (pty === 5) return '🌧️'; // 빗방울
-    if (pty === 6) return '🌨️'; // 빗방울/눈날림
-    if (pty === 7) return '❄️'; // 눈날림
+    if (!data || !data.weather || !data.weather.items || !data.weather.items.item) {
+        console.error('날씨 데이터 구조 오류', data);
+        return null;
+    }
 
-    if (sky === 1) return '☀️'; // 맑음
-    if (sky === 3) return '⛅'; // 구름많음
-    if (sky === 4) return '☁️'; // 흐림
+    // ! items 배열 -> 배열 변환함
+    const items = Array.isArray(data.weather.items.item)
+        ? data.weather.items.item
+        : [data.weather.items.item];
 
-    return '🌈'; // 기본값
-}
+    console.log('Parsed items:', items);
 
-// 날씨 상태 텍스트 변환 함수
-function getWeatherDescription(skyCondition, precipitationType) {
-    const sky = parseInt(skyCondition);
-    const pty = parseInt(precipitationType);
-
-    if (pty === 1) return '비';
-    if (pty === 2) return '비/눈';
-    if (pty === 3) return '눈';
-    if (pty === 4) return '소나기';
-    if (pty === 5) return '빗방울';
-    if (pty === 6) return '빗방울/눈날림';
-    if (pty === 7) return '눈날림';
-
-    if (sky === 1) return '맑음';
-    if (sky === 3) return '구름많음';
-    if (sky === 4) return '흐림';
-
-    return '알 수 없음';
-}
-
-// 날씨 데이터 가져오기
-function fetchWeatherData(nx = '60', ny = '127') { // 기본값은 서울
-    const { baseDate, baseTime } = getCurrentDateAndTime();
-    console.log('fetchWeatherData() 함수 실행됨'); // 추가
-    // CORS 이슈를 피하기 위해 프록시 서버를 사용하거나, 서버 측에서 API를 호출하는 것이 좋습니다.
-    // 여기서는 직접 호출하는 방식으로 예시를 작성합니다.
-    const url = `/weather?nx=${nx}&ny=${ny}`;
-
-    // 날씨 데이터 가져오기
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('날씨 데이터를 가져오는데 실패했습니다.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // API 응답 확인
-            if (data.error) {
-                throw new Error(data.response.header.resultMsg || 'API 오류');
-            }
-
-            // 날씨 데이터 처리
-            processWeatherData(data.response.body.items.item);
-        })
-        .catch(error => {
-            console.error('날씨 API 오류:', error);
-            weatherContent.innerHTML = `
-                <div class="error">
-                    날씨 정보를 불러올 수 없습니다.<br>
-                    ${error.message}
-                </div>
-            `;
-        });
-}
-
-// 날씨 데이터 처리 함수
-function processWeatherData(items) {
-    // 카테고리별로 데이터 추출
-    const weatherData = {
-        temperature: '0',
-        skyCondition: '1',
-        precipitation: '0',
-        humidity: '0',
-        precipitationType: '0',
-        windSpeed: '0'
+    const result = {
+        baseDate: items[0]?.baseDate,
+        baseTime: items[0]?.baseTime,
+        temperature: null,
+        humidity: null,
+        windSpeed: null,
+        skyCondition: null,
+        precipitation: null
     };
 
+    // 카테고리별 데이터 추출
     items.forEach(item => {
-        switch (item.category) {
-            case 'T1H': // 기온
-                weatherData.temperature = item.fcstValue;
+        switch(item.category) {
+            case "TMP": // 기온 (1시간 기온)
+            case "T1H": // 기온
+                result.temperature = item.fcstValue;
                 break;
-            case 'SKY': // 하늘상태
-                weatherData.skyCondition = item.fcstValue;
+            case "REH": // 습도
+                result.humidity = item.fcstValue;
                 break;
-            case 'RN1': // 1시간 강수량
-                weatherData.precipitation = item.fcstValue;
+            case "WSD": // 풍속
+                result.windSpeed = item.fcstValue;
                 break;
-            case 'REH': // 습도
-                weatherData.humidity = item.fcstValue;
+            case "SKY": // 하늘상태
+                result.skyCondition = getSkyCondition(item.fcstValue);
                 break;
-            case 'PTY': // 강수형태
-                weatherData.precipitationType = item.fcstValue;
-                break;
-            case 'WSD': // 풍속
-                weatherData.windSpeed = item.fcstValue;
+            case "PTY": // 강수형태
+                result.precipitation = getPrecipitationType(item.fcstValue);
                 break;
         }
     });
-
-    // 날씨 정보 표시
-    displayWeatherInfo(weatherData);
+    console.log('Parsed result:', result); // 디버깅을 위한 로그
+    return result;
 }
 
-// 날씨 정보 표시 함수
-function displayWeatherInfo(weatherData) {
-    const icon = getWeatherIcon(weatherData.skyCondition, weatherData.precipitationType);
-    const description = getWeatherDescription(weatherData.skyCondition, weatherData.precipitationType);
-
-    weatherContent.innerHTML = `
-        <div class="weather-icon">${icon}</div>
-        <div class="weather-temp">${weatherData.temperature}°C</div>
-        <div class="weather-desc">${description}</div>
-        <div class="weather-details">
-            <div class="weather-detail">습도: ${weatherData.humidity}%</div>
-            <div class="weather-detail">강수량: ${weatherData.precipitation}mm</div>
-            <div class="weather-detail">풍속: ${weatherData.windSpeed}m/s</div>
-        </div>
-    `;
-}
-
-// 위도/경도를 기상청 격자 좌표로 변환하는 함수
-function convertToGrid(lat, lng) {
-    const RE = 6371.00877; // 지구 반경(km)
-    const GRID = 5.0; // 격자 간격(km)
-    const SLAT1 = 30.0; // 투영 위도1(degree)
-    const SLAT2 = 60.0; // 투영 위도2(degree)
-    const OLON = 126.0; // 기준점 경도(degree)
-    const OLAT = 38.0; // 기준점 위도(degree)
-    const XO = 43; // 기준점 X좌표(GRID)
-    const YO = 136; // 기준점 Y좌표(GRID)
-
-    const DEGRAD = Math.PI / 180.0;
-    const RADDEG = 180.0 / Math.PI;
-
-    const re = RE / GRID;
-    const slat1 = SLAT1 * DEGRAD;
-    const slat2 = SLAT2 * DEGRAD;
-    const olon = OLON * DEGRAD;
-    const olat = OLAT * DEGRAD;
-
-    let sn = Math.tan(Math.PI * 0.25 + slat2 * 0.5) / Math.tan(Math.PI * 0.25 + slat1 * 0.5);
-    sn = Math.log(Math.cos(slat1) / Math.cos(slat2)) / Math.log(sn);
-    let sf = Math.tan(Math.PI * 0.25 + slat1 * 0.5);
-    sf = Math.pow(sf, sn) * Math.cos(slat1) / sn;
-    let ro = Math.tan(Math.PI * 0.25 + olat * 0.5);
-    ro = re * sf / Math.pow(ro, sn);
-
-    let ra = Math.tan(Math.PI * 0.25 + (lat) * DEGRAD * 0.5);
-    ra = re * sf / Math.pow(ra, sn);
-    let theta = lng * DEGRAD - olon;
-    if (theta > Math.PI) theta -= 2.0 * Math.PI;
-    if (theta < -Math.PI) theta += 2.0 * Math.PI;
-    theta *= sn;
-
-    const nx = Math.floor(ra * Math.sin(theta) + XO + 0.5);
-    const ny = Math.floor(ro - ra * Math.cos(theta) + YO + 0.5);
-
-    return { nx, ny };
-}
-
-// 주요 도시 격자 좌표
-const cityGrids = {
-    '서울': { nx: 60, ny: 127 },
-    '부산': { nx: 98, ny: 76 },
-    '대구': { nx: 89, ny: 90 },
-    '인천': { nx: 55, ny: 124 },
-    '광주': { nx: 58, ny: 74 },
-    '대전': { nx: 67, ny: 100 },
-    '울산': { nx: 102, ny: 84 },
-    '세종': { nx: 66, ny: 103 },
-    '제주': { nx: 52, ny: 38 }
-};
-
-// 현재 위치 기반 날씨 정보 가져오기 (선택적)
-function getWeatherByCurrentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            position => {
-                const { latitude, longitude } = position.coords;
-                const gridCoords = convertToGrid(latitude, longitude);
-                fetchWeatherData(gridCoords.nx, gridCoords.ny);
-            },
-            error => {
-                console.error('위치 정보를 가져올 수 없습니다:', error);
-                // 기본값으로 서울 날씨 정보 가져오기
-                fetchWeatherData();
-            }
-        );
-    } else {
-        // 위치 정보를 지원하지 않는 브라우저는 서울 날씨 정보 가져오기
-        fetchWeatherData();
+// 하늘상태 텍스트 변환
+function getSkyCondition(value) {
+    switch(value) {
+        case "1": return "맑음";
+        case "3": return "구름많음";
+        case "4": return "흐림";
+        default: return "알 수 없음";
     }
 }
 
-// 페이지 로드 시 날씨 정보 가져오기
-document.addEventListener('DOMContentLoaded', function()  {
-    // API 키가 설정되었는지 확인
-    if (WEATHER_API_KEY === 'wlyAJBWheYEKlFs%2FbQKAmZYp1G%2FTDKpex1PIM%2BeLUtDj95XJmHUmYTer9tpQVR46BrFawvMAGwQzZoL7SXj0DQ%3D%3D') {
-        const element = document.getElementById('weather-widget'); // 또는 document.querySelector('.someClass');
-        if (!element) {
-            console.error('Element with ID/class "weather-widget" not found.');
-            return; // 요소가 없으면 더 이상 진행하지 않음
-        }
-        weatherContent.innerHTML = `
-            <div class="error">
-                <h2>날씨 정보를 불러올 수 없습니다.</h2>
-                <p>날씨 API 키가 설정되지 않았습니다.</p>
-                <p><strong>weather.js 파일에서 WEATHER_API_KEY 값을 설정해주세요.</strong></p>
-                <p>예시:</p>
-                <pre><code>const WEATHER_API_KEY = 'YOUR_API_KEY';</code></pre>
-                <p>API 키는 <a href="https://openweathermap.org/api" target="_blank">OpenWeatherMap</a> 웹사이트에서 발급받을 수 있습니다.</p>
+// 강수형태 텍스트 변환
+function getPrecipitationType(value) {
+    switch(value) {
+        case "0": return "없음";
+        case "1": return "비";
+        case "2": return "비/눈";
+        case "3": return "눈";
+        case "4": return "소나기";
+        default: return "알 수 없음";
+    }
+}
+
+// 날씨 아이콘 선택
+function getWeatherIcon(weatherData) {
+    if (!weatherData) return "☁️";
+
+    if (weatherData.precipitation && weatherData.precipitation !== "없음") {
+        if (weatherData.precipitation === "눈") return "❄️";
+        if (weatherData.precipitation === "비/눈") return "🌨️";
+        return "🌧️";
+    }
+
+    if (weatherData.skyCondition === "맑음") {
+        return "☀️";
+    }
+
+    if (weatherData.skyCondition === "구름많음") {
+        return "⛅";
+    }
+
+    return "☁️";
+}
+
+// 날짜 포맷팅
+function formatDate(dateStr, timeStr) {
+    if (!dateStr || !timeStr) return "";
+
+    const year = dateStr.substring(0, 4);
+    const month = dateStr.substring(4, 6);
+    const day = dateStr.substring(6, 8);
+    const hour = timeStr.substring(0, 2);
+    const minute = timeStr.substring(2, 4);
+
+    return `${year}년 ${month}월 ${day}일 ${hour}:${minute}`;
+}
+
+// 날씨 정보 렌더링 함수
+function renderWeatherInfo(weatherData) {
+    const weatherContainer = document.getElementById("weatherResult");
+
+    if (!weatherData) {
+        weatherContainer.innerHTML = `
+            <div class="weather-error">
+                <p>날씨 데이터를 가져오지 못했습니다.</p>
             </div>
         `;
         return;
     }
 
-    // 날씨 정보 가져오기 (서울 기본값)
-    fetchWeatherData();
+    const parsedData = parseWeatherData(weatherData);
+    console.log('Final parsed data:', parsedData); // 디버깅을 위한 로그
 
-    // 또는 현재 위치 기반 날씨 정보 가져오기 (선택적)
-    // getWeatherByCurrentLocation();
+    if (!parsedData) {
+        weatherContainer.innerHTML = `
+            <div class="weather-error">
+                <p>날씨 데이터를 파싱하지 못했습니다.</p>
+            </div>
+        `;
+        return;
+    }
+
+    // 온도 표시 부분을 수정
+    const temperature = parsedData.temperature
+        ? parseFloat(parsedData.temperature).toFixed(1)
+        : '--';
+
+    const weatherIcon = getWeatherIcon(parsedData);
+    const formattedDate = formatDate(parsedData.baseDate, parsedData.baseTime);
+
+    weatherContainer.innerHTML = `
+        <div class="weather-card">
+            <div class="weather-header">
+                <h3>날씨 정보</h3>
+                <span class="weather-date">${formatDate(parsedData.baseDate, parsedData.baseTime)}</span>
+            </div>
+            <div class="weather-body">
+                <div class="weather-main">
+                    <div class="weather-icon">${getWeatherIcon(parsedData)}</div>
+                    <div class="weather-temp">
+                        <span class="temp-value">${temperature}</span>
+                        <span class="temp-unit">°C</span>
+                    </div>
+                    <div class="weather-desc">
+                        ${parsedData.skyCondition || '정보 없음'}
+                        ${parsedData.precipitation && parsedData.precipitation !== "없음"
+        ? ` / ${parsedData.precipitation}`
+        : ''}
+                    </div>
+                </div>
+                <div class="weather-location">
+                    <p>서울</p>
+                    <p class="location-coords">nx: 60, ny: 127</p>
+                </div>
+            </div>
+            <div class="weather-details">
+                <div class="weather-detail-item">
+                    <div class="detail-icon">💧</div>
+                    <div class="detail-info">
+                        <span class="detail-label">습도</span>
+                        <span class="detail-value">${parsedData.humidity ? `${parsedData.humidity}%` : '15%'}</span>
+                    </div>
+                </div>
+                <div class="weather-detail-item">
+                    <div class="detail-icon">🌬️</div>
+                    <div class="detail-info">
+                        <span class="detail-label">풍속</span>
+                        <span class="detail-value">${parsedData.windSpeed ? `${parsedData.windSpeed} m/s` : '--'}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// 페이지 로드 시 자동으로 날씨 데이터 가져오기
+document.addEventListener("DOMContentLoaded", async () => {
+    const defaultNx = "60";  // 기본 X 좌표값 (예: 서울)
+    const defaultNy = "127"; // 기본 Y 좌표값 (예: 서울)
+
+    // 로딩 상태 표시
+    const weatherContainer = document.getElementById("weatherResult");
+    weatherContainer.innerHTML = `
+        <div class="weather-loading">
+            <p>날씨 정보를 불러오는 중...</p>
+        </div>
+    `;
+
+    const weatherData = await fetchWeatherFromServer(defaultNx, defaultNy);
+    renderWeatherInfo(weatherData);
 });
+

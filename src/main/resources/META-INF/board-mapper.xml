@@ -5,7 +5,7 @@
 	<sql id="dynamicCondition">
 		<where>
 			<choose>
-				<when test="user_id != null and user_id !=''">
+				<when test="user_id != null and user_id !='' and user_id != 'admin01'">
 					(
 					    user_id = #{user_id, jdbcType=VARCHAR, javaType=String}
 					)

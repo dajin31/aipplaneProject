@@ -6,6 +6,7 @@ import com.example.demo.util.StreamData;
 import com.example.demo.vo.Notice_BoardVO;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,8 +16,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/member/write.do")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, // 1MB
+        maxFileSize = 1024 * 1024 * 10,      // 10MB
+        maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class NBoardWrite extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private static final String UPLOAD_DIRECTORY = "uploads"; // 파일 저장 디렉토리
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 

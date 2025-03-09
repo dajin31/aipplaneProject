@@ -101,6 +101,29 @@
     }
   </style>
   <script>
+
+      $(document).ready(function() {
+          // 세션에서 로그인 상태 확인
+          const isLoggedIn = ${sessionScope.loginUser != null};
+          const userName = "${sessionScope.loginUser.userName}";
+
+          if (isLoggedIn) {
+              $(".header-before-login").hide();
+              $(".header-after-login").removeClass("hidden");
+              $(".welcome-msg").text(userName + "님 환영합니다.");
+          } else {
+              $(".header-before-login").show();
+              $(".header-after-login").addClass("hidden");
+          }
+
+          // 로그아웃 후 페이지 리로드
+          $(".logout-btn").click(function(event) {
+              event.preventDefault(); // 기본 링크 동작 방지
+              if (confirm("로그아웃 하시겠습니까?")) {
+                  location.href = "<%=request.getContextPath()%>/user/logout.do";
+              }
+          });
+      });
     $(function (){
 
       $('#send').on('click', function (){
@@ -109,9 +132,10 @@
 
         $.ajax({
           url : "<%=request.getContextPath()%>/member/write.do",
-          contentType :"application/json; charset=utf-8",
           type : "post",
           data : JSON.stringify(formData),
+          contentType: false, // multipart/form-data를 사용
+          processData : false,  // : false, // 데이터를 query string으로 변환하지 않음
           success: function(response) {
             console.log("새 글 생성 성공" + response)
             location.href = "/member/list.do";
@@ -179,7 +203,9 @@
     <div class="notice-header">
       <div class="notice-title"><h3>공지사항 등록</h3>제목  <input type="text" class="form-control" id="ntc_title" name="ntc_title"></div>
       <div class="notice-info">
-<%--        <span class="category-label"><input type="file" name="file_origin_name">파일 이름 : <input type="text" id="file_name" name="file_name"> </span>--%>
+          <div class="notice-info">
+              <input type="file" name="file">
+          </div>
       </div>
     </div>
 

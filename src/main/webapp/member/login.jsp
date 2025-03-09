@@ -100,6 +100,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script>
         $(document).ready(function() {
+
+
+
+
             // 유효성 검사 초기화
             $("#id").on("input", function () {
                 $("#idError").text("").removeClass("error");

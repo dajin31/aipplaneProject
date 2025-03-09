@@ -185,3 +185,155 @@ a {
 a:hover {
     text-decoration: underline;
 }
+
+header {
+    background-color: #ffffff;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 100px;
+    margin-left: 20px;
+}
+
+.nav {
+    margin-left: 20px;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around; /* 메뉴 항목 균등 배치 */
+    width: 100%;
+}
+
+.nav-item {
+    position: relative;
+    flex-grow: 1;
+    margin: 0 100px; /* 좌우 여백 추가 */
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: #000000;
+    padding: 5px 10px;
+    font-size: 20px; /* 글씨 크기 조절 */
+    font-weight: bold; /* 글씨 두께 조절 */
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ffffff;
+    z-index: 1;
+    width: 100%;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    top: calc(100% + 5px); /* 드롭다운 메뉴 위치 조정 */
+    min-width: 150px; /* 드롭다운 메뉴 최소 너비 설정 */
+    left: 50%; /* nav-item 중앙에 배치 */
+    transform: translateX(-50%); /* 중앙 정렬 */
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px; /* dropdown-menu 글씨 크기 */
+    font-weight: normal; /* dropdown-menu 글씨 두께 */
+    text-align: center;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f0f0f0;
+}
+.auth {
+    display: flex;
+    text-align: center;
+    margin-right: 50px;
+}
+
+.login-btn {
+    background-color: #fff; /* 로그인 버튼 배경색 */
+    color: #007bff; /* 로그인 버튼 글자색 */
+    padding: 10px 20px; /* 로그인 버튼 내부 여백 */
+    border: none; /* 로그인 버튼 테두리 제거 */
+    border-radius: 5px; /* 로그인 버튼 모서리 둥글게 */
+    font-size: 16px; /* dropdown-menu 글씨 크기 */
+    font-weight: bold; /* dropdown-menu 글씨 두께 */
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.join-btn {
+    background-color: #fff; /* 로그인 버튼 배경색 */
+    color: #007bff; /* 로그인 버튼 글자색 */
+    padding: 10px 20px; /* 회원가입 버튼 내부 여백 */
+    border: none; /* 회원가입 버튼 테두리 제거 */
+    border-radius: 5px; /* 회원가입 버튼 모서리 둥글게 */
+    font-size: 16px; /* dropdown-menu 글씨 크기 */
+    font-weight: bold; /* dropdown-menu 글씨 두께 */
+    text-decoration: none;
+
+}
+
+.login-btn:hover {
+    background-color: #007bff; /* 마우스 호버 시 로그인 버튼 배경색 */
+    color: #fff; /* 마우스 호버 시 로그인 버튼 글자색 */
+}
+
+.join-btn:hover {
+    background-color: #007bff; /* 마우스 호버 시 회원가입 버튼 배경색 */
+    color: #fff; /* 마우스 호버 시 회원가입 버튼 글자색 */
+}
+
+/* 여기서부터는 로그인 후 헤더 */
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.logout-btn, .mypage-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.welcome-msg {
+    margin-left: 20px;
+}
+
+.header-after-login.hidden {
+    display: none;
+}

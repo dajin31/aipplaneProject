@@ -11,6 +11,9 @@
 
 <script src="<%=request.getContextPath() %>/<script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 	<script type="text/javascript">
+
+
+
 		let i=0;
 		let u=0;
 		$(function(){

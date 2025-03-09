@@ -14,6 +14,28 @@
     UserVO loginUser = (UserVO) session.getAttribute("loginUser");
   %>
   <script>
+    $(document).ready(function() {
+      // 세션에서 로그인 상태 확인
+      const isLoggedIn = ${sessionScope.loginUser != null};
+      const userName = "${sessionScope.loginUser.userName}";
+
+      if (isLoggedIn) {
+        $(".header-before-login").hide();
+        $(".header-after-login").removeClass("hidden");
+        $(".welcome-msg").text(userName + "님 환영합니다.");
+      } else {
+        $(".header-before-login").show();
+        $(".header-after-login").addClass("hidden");
+      }
+
+      // 로그아웃 후 페이지 리로드
+      $(".logout-btn").click(function(event) {
+        event.preventDefault(); // 기본 링크 동작 방지
+        if (confirm("로그아웃 하시겠습니까?")) {
+          location.href = "<%=request.getContextPath()%>/user/logout.do";
+        }
+      });
+    });
     $(function() {
       // 페이지 번호 클릭 이벤트
       $(document).on('click', '.pageno', function() {
@@ -58,6 +80,87 @@
   </script>
 </head>
 <body>
+
+
+
+<header>
+  <div class="header-container header-before-login">
+    <div class="logo">
+      <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#">예약</a>
+          <ul class="dropdown-menu">
+            <li><a href="reservation.jsp">항공권 예매</a></li>
+            <li><a href="reservation.jsp">예약 취소</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">마일리지</a>
+          <ul class="dropdown-menu">
+            <li><a href="mileage.jsp">마일리지샵</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">공지사항</a>
+          <ul class="dropdown-menu">
+            <li><a href="notice.jsp">공지사항</a></li>
+            <li><a href="qna.jsp">1:1 문의</a></li>
+            <li><a href="faq.jsp">FAQ</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="auth">
+      <a href="/user/userJoin.jsp" class="join-btn">회원가입</a>
+      <a href="/user/login.jsp" class="login-btn">로그인</a>
+    </div>
+  </div>
+  <div class="header-container header-after-login hidden">
+    <div class="logo">
+      <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#">예약</a>
+          <ul class="dropdown-menu">
+            <li><a href="reservation.jsp">항공권 예매</a></li>
+            <li><a href="reservation.jsp">예약 취소</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">마일리지</a>
+          <ul class="dropdown-menu">
+            <li><a href="mileage.jsp">마일리지샵</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">공지사항</a>
+          <ul class="dropdown-menu">
+            <li><a href="notice.jsp">공지사항</a></li>
+            <li><a href="qna.jsp">1:1 문의</a></li>
+            <li><a href="faq.jsp">FAQ</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="user-info">
+      <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
+      <a href="/user/mypage.jsp" class="mypage-btn">마이페이지</a>
+      <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+
+
 <%
   // 컨트롤러에서 보내온 자료 받기
   List<Board1_1VO> boardVOList = (List<Board1_1VO>) request.getAttribute("boardList");
@@ -69,16 +172,6 @@
   sword = sword == null ? "" : sword;
 %>
 
-<button type="button" id="login" name="login" > <a href="<%=request.getContextPath() %>/member/login.jsp?">로그인</a></button>
-
-<%
-  if(loginUser != null){
-    System.out.println("1_1 list "+loginUser.getUserId());
-  }else{
-    System.out.println("loginUser== null");
-
-  }
-%>
 
 <div class="container">
   <h1>1:1 문의</h1>
@@ -139,7 +232,7 @@
 <!-- 페이지네이션 -->
 <div class="pagination">
   <%
-    if (pageVO != null) { // pageVO가 null이 아닌 경우에만 처리
+    if (pageVO != null || !boardVOList.isEmpty() || boardVOList != null) { // pageVO가 null이 아닌 경우에만 처리
       if (pageVO.getStartPage() > 1) {
   %>
   <button type="button" class="page-arrow" id="prev">이전</button>

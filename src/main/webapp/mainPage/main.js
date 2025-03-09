@@ -190,6 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("클릭")
     })
 
+
     document.getElementById("swapBtn").addEventListener("click", () => {
         const startCity = document.getElementById("startCountry");
         const endCity = document.getElementById("endCountry");

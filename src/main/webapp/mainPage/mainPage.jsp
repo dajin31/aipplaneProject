@@ -8,11 +8,11 @@
     <title>SOON항공사</title>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+<%--    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">--%>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/header.css">
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<%--    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>--%>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="/mainPage/main.js"></script>
 </head>
 <body>
@@ -112,6 +112,7 @@
                 <span style="display: block; font-size: 40px" id="startCountry">제주</span>
                 <input type="hidden" name="startCountry" id="startCountryInput" > <%--폼으로 날릴 출발지 값--%>
             </div>
+
             <div class="separator2"></div>
             <button type="button" class="swap-btn" id="swapBtn">⇄</button>
             <div class="separator2"></div>
@@ -312,11 +313,9 @@
             });
         });
     });
-
-</script>
-
+    
 <!-- 다음 지도 api -->
-<script>
+
     document.addEventListener('DOMContentLoaded', function() {
 
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
@@ -356,7 +355,7 @@
         }
     });
 </script>
-<script src="/dapi.kakao.com/v2/maps/sdk.js?appkey=e8306615f01d266edffd26c9c180c3c4"></script>
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8306615f01d266edffd26c9c180c3c4"></script>
 <script src="/mainPage/weather.js"></script>
 </body>
 </html>

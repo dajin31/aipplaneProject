@@ -10,97 +10,13 @@
     <title>공지사항</title>
     <%--    //<link rel="stylesheet" href="viewstyle.css">--%>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+    <link rel="stylesheet" href="../css/viewstyle.css">
     <%
         Notice_BoardVO noticeBoardVO = (Notice_BoardVO) request.getAttribute("nboardVO");
         UserVO loginUser = (UserVO) session.getAttribute("loginUser");
     %>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-            line-height: 1.6;
-        }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        }
-
-        .notice-header {
-            margin-top: 10px;
-            margin-bottom: 30px;
-            border-bottom: 1px solid #A4A4A4;
-            padding-bottom: 20px;
-        }
-
-        .notice-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .notice-info {
-            display: flex;
-            justify-content: flex-end;
-            color: #666;
-            font-size: 14px;
-        }
-
-        .notice-content {
-            margin-bottom: 40px;
-            min-height: 200px;
-        }
-
-        .notice-content ul {
-            padding-left: 20px;
-            margin: 10px 0;
-        }
-
-        .notice-content li {
-            margin-bottom: 8px;
-        }
-
-        .button-container {
-            display: flex;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        .list-button {
-            padding: 8px 24px;
-            background-color: #fff;
-            border: 1px solid #0064de;
-            color: #0064de;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            text-decoration: none;
-        }
-
-        .list-button:hover {
-            background-color: #f8f9fa;
-        }
-
-        .category-label {
-            display: inline-block;
-            padding: 4px 8px;
-            background-color: #f8f9fa;
-            color: #0064de;
-            border-radius: 4px;
-            font-size: 14px;
-            margin-right: 10px;
-        }
-
-        .bullet-point {
-            color: #0064de;
-            margin-right: 5px;
-        }
     </style>
 
 
@@ -155,8 +71,80 @@
             });
         })
     </script>
+
 </head>
 <body>
+<header>
+    <div class="header-container header-before-login">
+        <div class="logo">
+            <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#">예약</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="reservation.jsp">항공권 예매</a></li>
+                        <li><a href="reservation.jsp">예약 취소</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">마일리지</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="mileage.jsp">마일리지샵</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">공지사항</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="notice.jsp">공지사항</a></li>
+                        <li><a href="qna.jsp">1:1 문의</a></li>
+                        <li><a href="faq.jsp">FAQ</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="auth">
+            <a href="/user/userJoin.jsp" class="join-btn">회원가입</a>
+            <a href="/user/login.jsp" class="login-btn">로그인</a>
+        </div>
+    </div>
+    <div class="header-container header-after-login hidden">
+        <div class="logo">
+            <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#">예약</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="reservation.jsp">항공권 예매</a></li>
+                        <li><a href="reservation.jsp">예약 취소</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">마일리지</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="mileage.jsp">마일리지샵</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">공지사항</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="notice.jsp">공지사항</a></li>
+                        <li><a href="qna.jsp">1:1 문의</a></li>
+                        <li><a href="faq.jsp">FAQ</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="user-info">
+            <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
+            <a href="/user/mypage.jsp" class="mypage-btn">마이페이지</a>
+            <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
+        </div>
+    </div>
+</header>
 <%
 
     if (loginUser != null && loginUser.getUserId() != null) {
@@ -169,11 +157,27 @@
 %>
 
 <div class="container">
-    <div class="notice-header">공지사항
+    <div class="notice-header">
+        <div class="notice-board">공지사항</div>
         <div class="notice-title"><%=noticeBoardVO.getNtc_title()%></div>
         <div class="notice-info">
-            <span class="category-label">카테고리?</span>
+            <%
+                if(noticeBoardVO.getFile_name()!=null){
+            %>
+<%--            <span>첨부 파일: <a href="/member/view.do?ntc_board=<%=noticeBoardVO.getNtc_board()%>&action=download"><%=noticeBoardVO.getFile_name()%></a>--%>
+<%--            </span>--%>
+
+<%--            <span>첨부 파일: <a href="<%=request.getContextPath()%>/member/view.do?ntc_board=<%=noticeBoardVO.getNtc_board()%>&action=download"><%=noticeBoardVO.getFile_name()%></a> </span>--%>
+<%--            <span><a href="/images/" download="2.png"></a>첨부파일</span>--%>
+<%--&lt;%&ndash;            <span>첨부 파일: <a href="/images/<%=noticeBoardVO.getFile_name()%>" download="<%=noticeBoardVO.getFile_name()%>"></a></span>&ndash;%&gt;--%>
+<%--            <span><a href="2.png" download="2.png"></a>첨부파일</span>--%>
+<%--           <span>첨부 파일: <a href="/images/회원가입.png" download="회원가입.png"></a></span>--%>
+            <%
+            }
+            %>
+
             <%=noticeBoardVO.getCrt_time()%>
+
         </div>
     </div>
 

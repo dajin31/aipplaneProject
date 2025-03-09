@@ -11,94 +11,11 @@
   <%--    //<link rel="stylesheet" href="viewstyle.css">--%>
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
   <script src="/js/jquery.serializejson.js"></script>
+  <link rel="stylesheet" href="../css/viewstyle.css">
 
 
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background-color: #f5f5f5;
-      line-height: 1.6;
-    }
 
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      background-color: #fff;
-      padding: 40px;
-      border-radius: 8px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-
-    .notice-header {
-      margin-bottom: 30px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 20px;
-    }
-
-    .notice-title {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .notice-info {
-      display: flex;
-      justify-content: flex-end;
-      color: #666;
-      font-size: 14px;
-    }
-
-    .notice-content {
-      margin-bottom: 40px;
-      min-height: 200px;
-    }
-
-    .notice-content ul {
-      padding-left: 20px;
-      margin: 10px 0;
-    }
-
-    .notice-content li {
-      margin-bottom: 8px;
-    }
-
-    .button-container {
-      display: flex;
-      justify-content: center;
-      margin-top: 30px;
-    }
-
-    .list-button {
-      padding: 8px 24px;
-      background-color: #fff;
-      border: 1px solid #0064de;
-      color: #0064de;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 14px;
-      text-decoration: none;
-    }
-
-    .list-button:hover {
-      background-color: #f8f9fa;
-    }
-
-    .category-label {
-      display: inline-block;
-      padding: 4px 8px;
-      background-color: #f8f9fa;
-      color: #0064de;
-      border-radius: 4px;
-      font-size: 14px;
-      margin-right: 10px;
-    }
-
-    .bullet-point {
-      color: #0064de;
-      margin-right: 5px;
-    }
   </style>
   <script>
 
@@ -128,12 +45,12 @@
 
       $('#send').on('click', function (){
         // 입력한 모든 값을 가져온다
-        const formData = $('#wform').serializeJSON();
+        const formData = new FormData($('#wform')[0]); // FormData 객체 생성
 
         $.ajax({
           url : "<%=request.getContextPath()%>/member/write.do",
           type : "post",
-          data : JSON.stringify(formData),
+          data : formData,
           contentType: false, // multipart/form-data를 사용
           processData : false,  // : false, // 데이터를 query string으로 변환하지 않음
           success: function(response) {
@@ -197,6 +114,78 @@
   </script>
 </head>
 <body>
+
+<header>
+  <div class="header-container header-before-login">
+    <div class="logo">
+      <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#">예약</a>
+          <ul class="dropdown-menu">
+            <li><a href="reservation.jsp">항공권 예매</a></li>
+            <li><a href="reservation.jsp">예약 취소</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">마일리지</a>
+          <ul class="dropdown-menu">
+            <li><a href="mileage.jsp">마일리지샵</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">공지사항</a>
+          <ul class="dropdown-menu">
+            <li><a href="notice.jsp">공지사항</a></li>
+            <li><a href="qna.jsp">1:1 문의</a></li>
+            <li><a href="faq.jsp">FAQ</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="auth">
+      <a href="/user/userJoin.jsp" class="join-btn">회원가입</a>
+      <a href="/user/login.jsp" class="login-btn">로그인</a>
+    </div>
+  </div>
+  <div class="header-container header-after-login hidden">
+    <div class="logo">
+      <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#">예약</a>
+          <ul class="dropdown-menu">
+            <li><a href="reservation.jsp">항공권 예매</a></li>
+            <li><a href="reservation.jsp">예약 취소</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">마일리지</a>
+          <ul class="dropdown-menu">
+            <li><a href="mileage.jsp">마일리지샵</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">공지사항</a>
+          <ul class="dropdown-menu">
+            <li><a href="notice.jsp">공지사항</a></li>
+            <li><a href="qna.jsp">1:1 문의</a></li>
+            <li><a href="faq.jsp">FAQ</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="user-info">
+      <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
+      <a href="/user/mypage.jsp" class="mypage-btn">마이페이지</a>
+      <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
+    </div>
+  </div>
+</header>
 
 <form id="wform" enctype="multipart/form-data">
   <div class="container">

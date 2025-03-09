@@ -11,170 +11,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>공지사항</title>
-  <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      background-color: #f9f9f9;
-      margin: 0;
-      padding: 0;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-    h1 {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 30px;
-    }
-    .search-box {
-      background-color: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 8px;
-      padding: 24px;
-      margin-bottom: 30px;
-    }
-    .search-header {
-      display: flex;
-      align-items: center;
-    }
-    .search-title {
-      font-weight: 500;
-      margin-right: 30px;
-    }
-    .search-keyword {
-      color: #999;
-      font-size: 14px;
-    }
-    .search-form {
-      display: flex;
-      margin-top: 16px;
-    }
-    .search-input {
-      flex: 1;
-      border: none;
-      border-bottom: 2px solid #0B2161;
-      padding: 8px 0;
-      outline: none;
-    }
-    .search-button {
-      color: white;
-      margin-left: 16px;
-      padding: 8px 24px;
-      background-color: #0B2161;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .search-button:hover {
-      background-color: darkblue;
-    }
-    .notice-list {
-      border-top: 1px solid #ccc;
-    }
-    .register-btn {
-      color: white;
-      margin-left: 16px;
-      padding: 8px 24px;
-      background-color: #0B2161;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    .notice-item {
-      display: flex;
-      align-items: center;
-      padding: 16px 0;
-      border-bottom: 1px solid #eee;
-      cursor: pointer;
-    }
-    .notice-item:hover {
-      background-color: #f5f5f5;
-    }
-    .notice-new {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 20px;
-      height: 20px;
-      background-color: #e60012;
-      color: white;
-      font-size: 12px;
-      font-weight: bold;
-      border-radius: 50%;
-      margin-right: 8px;
-    }
-    .notice-title {
-      flex: 1;
-      font-weight: 500;
-    }
-    .notice-category {
-      padding: 0 8px;
-      font-size: 14px;
-    }
-    .category-usage {
-      color: #0064de;
-    }
-    .category-etc {
-      color: #008000;
-    }
-    .category-fuel {
-      color: #8a2be2;
-    }
-    .category-skypass {
-      color: #ff8c00;
-    }
-    .category-partner {
-      color: #008080;
-    }
-    .notice-date {
-      margin-left: 16px;
-      font-size: 14px;
-      color: #777;
-    }
-    .pagination {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-top: 30px;
-    }
-    .page-button {
-      width: 32px;
-      height: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 2px;
-      border: none;
-      background: none;
-      cursor: pointer;
-      border-radius: 4px;
-    }
-    .page-button:hover {
-      background-color: #f0f0f0;
-    }
-    .page-button.active {
-      color: #0064de;
-      font-weight: bold;
-    }
-    .page-arrow {
-      padding: 8px;
-      cursor: pointer;
-      border: none;
-      background: none;
-      border-radius: 4px;
-    }
-    .page-arrow:hover {
-      background-color: #f0f0f0;
-    }
-    .highlighted {
-      background-color: #f9f9f9;
-    }
-  </style>
+
+  <link rel="stylesheet" href="../css/style.css">
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
   <%
-      UserVO loginUser = (UserVO) session.getAttribute("loginUser");
+    UserVO loginUser = (UserVO) session.getAttribute("loginUser");
 
   %>
   <script>
@@ -201,6 +42,10 @@
       });
     });
     $(function() {
+
+
+
+
       // 페이지 번호 클릭 이벤트
       $(document).on('click', '.pageno', function() {
         $('#page').val(parseInt($(this).text()));
@@ -226,18 +71,18 @@
       });
 
       // 공지사항 등록 버튼 클릭 이벤트
-    <%--  $('#write').click(function() {--%>
-    <%--    <%--%>
-    <%--    if(loginUser.getUserId() == null){%>--%>
-    <%--      alert("로그인 하세요")--%>
-    <%--    <%}else if(!loginUser.getMem_code().equals("admin")){%>--%>
-    <%--      alert("권한이 없습니다");--%>
-    <%--    <%}else{%>--%>
-    <%--      location.href = "write.jsp";--%>
-    <%--    <%}%>--%>
-    <%--  });--%>
+      <%--  $('#write').click(function() {--%>
+      <%--    <%--%>
+      <%--    if(loginUser.getUserId() == null){%>--%>
+      <%--      alert("로그인 하세요")--%>
+      <%--    <%}else if(!loginUser.getMem_code().equals("admin")){%>--%>
+      <%--      alert("권한이 없습니다");--%>
+      <%--    <%}else{%>--%>
+      <%--      location.href = "write.jsp";--%>
+      <%--    <%}%>--%>
+      <%--  });--%>
 
-    <%--});--%>
+      <%--});--%>
       $('#write').click(function(){
         location.href = "write.jsp"
 
@@ -249,18 +94,77 @@
 <body>
 
 
-<button type="button" id="login" name="login" ><a href="<%=request.getContextPath() %>/member/login.jsp?">로그인</a></button>
-
-<%
-
-  if (loginUser != null && loginUser.getUserId() != null) {
-    System.out.println("list" + loginUser.getUserId());
-    System.out.println("list" + loginUser.getMemCode());
-  } else {
-    // loginUser가 null인 경우 처리 (예: 로그인 페이지로 리다이렉트)
-    out.println("<script>console.log('loginUser is null');</script>"); // 콘솔 로그
-  }
-%>
+<header>
+  <div class="header-container header-before-login">
+    <div class="logo">
+      <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#">예약</a>
+          <ul class="dropdown-menu">
+            <li><a href="reservation.jsp">항공권 예매</a></li>
+            <li><a href="reservation.jsp">예약 취소</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">마일리지</a>
+          <ul class="dropdown-menu">
+            <li><a href="mileage.jsp">마일리지샵</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">공지사항</a>
+          <ul class="dropdown-menu">
+            <li><a href="notice.jsp">공지사항</a></li>
+            <li><a href="qna.jsp">1:1 문의</a></li>
+            <li><a href="faq.jsp">FAQ</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="auth">
+      <a href="/user/userJoin.jsp" class="join-btn">회원가입</a>
+      <a href="<%=request.getContextPath() %>/member/login.jsp" class="login-btn">로그인</a>
+    </div>
+  </div>
+  <div class="header-container header-after-login hidden">
+    <div class="logo">
+      <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#">예약</a>
+          <ul class="dropdown-menu">
+            <li><a href="reservation.jsp">항공권 예매</a></li>
+            <li><a href="reservation.jsp">예약 취소</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">마일리지</a>
+          <ul class="dropdown-menu">
+            <li><a href="mileage.jsp">마일리지샵</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">공지사항</a>
+          <ul class="dropdown-menu">
+            <li><a href="notice.jsp">공지사항</a></li>
+            <li><a href="qna.jsp">1:1 문의</a></li>
+            <li><a href="faq.jsp">FAQ</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="user-info">
+      <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
+      <a href="/user/mypage.jsp" class="mypage-btn">마이페이지</a>
+      <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
+    </div>
+  </div>
+</header>
 
 <%
   // 컨트롤러에서 보내온 자료 받기
@@ -299,17 +203,17 @@
     %>
 
 
-    <div class="notice-list">
-      <div class="notice-item">
-        <a href="<%=request.getContextPath() %>/member/view.do?ntc_board=<%=boardVO.getNtc_board()%>">
-          <span class="notice-title"><%=boardVO.getNtc_title()%></span>
-          <span class="notice-date"><%=boardVO.getCrt_time()%></span>
-        </a>
-      </div>
+          <div class="notice-list">
+  <a href="<%=request.getContextPath() %>/member/view.do?ntc_board=<%=boardVO.getNtc_board()%>">
+    <div class="notice-item">
+      <span class="notice-title"><%=boardVO.getNtc_title()%></span>
+      <span class="notice-date"><%=boardVO.getCrt_time()%></span>
     </div>
+  </a>
+</div>
 <%
-      }
     }
+  }
 %>
 <!-- 페이지네이션 -->
 <div class="pagination">

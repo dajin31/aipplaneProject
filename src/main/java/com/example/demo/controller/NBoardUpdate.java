@@ -6,17 +6,23 @@ import com.example.demo.util.StreamData;
 import com.example.demo.vo.Notice_BoardVO;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
+import java.util.UUID;
 
 @WebServlet("/member/update.do")
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, // 1MB
+        maxFileSize = 1024 * 1024 * 10,      // 10MB
+        maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class NBoardUpdate extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private static final String UPLOAD_DIRECTORY = "uploads"; // 파일 저장 디렉토리
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException { //화면 띄우기
@@ -46,13 +52,47 @@ public class NBoardUpdate extends HttpServlet {
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        //요청시 전송데이타 받기 - cont, renum - vo에 저장
-        String reqdata = StreamData.getJsonStream(req);
-        System.out.println("reqdata = "+reqdata);
+        // 폼 데이터 가져오기 (수정됨)
+        int ntc_board = Integer.parseInt(req.getParameter("ntc_board"));
+        String ntc_title = req.getParameter("ntc_title");
+        String ntc_contents = req.getParameter("ntc_contents");
 
-        //역직렬화 - BoardVO객체로 변환
-        Gson gson = new Gson();
-        Notice_BoardVO nboardVO = gson.fromJson(reqdata, Notice_BoardVO.class);
+        String file_name = null;
+        String file_path = null;
+        long file_size = 0;
+
+        try {
+            // 파일 업로드 처리 (수정됨)
+            Part filePart = req.getPart("file");
+            if (filePart != null && filePart.getSize() > 0) {
+                file_name = filePart.getSubmittedFileName();
+                file_path = req.getServletContext().getRealPath("") + File.separator + UPLOAD_DIRECTORY + File.separator + UUID.randomUUID().toString() + "_" + file_name;
+                file_size = filePart.getSize();
+
+                File uploadedFile = new File(file_path);
+                try (InputStream fileContent = filePart.getInputStream();
+                     FileOutputStream outputStream = new FileOutputStream(uploadedFile)) {
+                    byte[] buffer = new byte[1024];
+                    int bytesRead;
+                    while ((bytesRead = fileContent.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // Notice_BoardVO 객체 생성 및 데이터 설정 (수정됨)
+        Notice_BoardVO nboardVO = new Notice_BoardVO();
+
+        nboardVO.setNtc_board(ntc_board);
+        nboardVO.setNtc_title(ntc_title);
+        nboardVO.setNtc_contents(ntc_contents);
+        nboardVO.setFile_name(file_name);
+        nboardVO.setFile_path(file_path);
+        nboardVO.setFile_size(file_size);
+
 
         //service객체 얻기
         Notice_BoardService service =  Notice_BoardServiceImpl.getInstance();

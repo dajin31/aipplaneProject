@@ -1,0 +1,337 @@
+@charset "UTF-8";
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    font-weight: 500;
+}
+a {
+    text-decoration: none; /* 모든 a 태그의 밑줄 제거 */
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 150px; /* 헤더 높이만큼 margin-top 추가 */
+}
+h1 {
+    font-size: 40px;
+    margin-bottom: 30px;
+}
+.search-box {
+    height: 100px;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 30px;
+}
+.search-header {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.search-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin-right: 30px;
+}
+.search-keyword {
+    color: #999;
+    font-size: 14px;
+}
+.search-form {
+    display: flex;
+    margin-top: 16px;
+}
+.search-input {
+    flex: 1;
+    border: none;
+    border-bottom: 1px solid #007bff;
+    padding: 8px 0;
+    outline: none;
+}
+.search-input:hover {
+    border: 1px solid #007bff;
+    transition: border 0.2s ease; /* transition 속성 추가 */
+}
+.search-button {
+    color: white;
+    margin-left: 16px;
+    padding: 8px 24px;
+    background-color: #007bff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.search-button:hover {
+    background-color: #007bff;
+}
+.notice-list {
+    padding-left: 20px;
+    padding-right: 20px;
+    border-top: 1px solid #ccc;
+    position: relative;
+}
+.register-btn {
+    color: white;
+    margin-left: 16px;
+    padding: 8px 24px;
+    background-color: #007bff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.notice-item {
+    display: flex;
+    align-items: center;
+    padding: 20px 20px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+.notice-item:hover {
+    background-color: #f5f5f5;
+}
+.notice-new {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background-color: #e60012;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+.notice-title {
+    color: black;
+    text-decoration: none;
+    flex: 1;
+    font-weight: 500;
+}
+.notice-title a {
+    text-decoration: none; /* a 태그의 밑줄 제거 */
+    color: inherit; /* 부모 요소의 색상 상속 */
+}
+.notice-category {
+    padding: 0 8px;
+    font-size: 14px;
+}
+.category-usage {
+    color: #0064de;
+}
+.category-etc {
+    color: #008000;
+}
+.category-fuel {
+    color: #8a2be2;
+}
+.category-skypass {
+    color: #ff8c00;
+}
+.category-partner {
+    color: #008080;
+}
+.notice-date {
+    position: absolute;
+    right: 0;
+
+    font-size: 14px;
+    color: #777;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+.page-button {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 2px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.page-button:hover {
+    background-color: #f0f0f0;
+}
+.page-button.active {
+    color: #0064de;
+    font-weight: bold;
+}
+.page-arrow {
+    padding: 8px;
+    cursor: pointer;
+    border: none;
+    background: none;
+    border-radius: 4px;
+}
+.page-arrow:hover {
+    background-color: #f0f0f0;
+}
+.highlighted {
+    background-color: #f9f9f9;
+}
+
+header {
+    background-color: #ffffff;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 100px;
+    margin-left: 20px;
+}
+
+.nav {
+    margin-left: 20px;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around; /* 메뉴 항목 균등 배치 */
+    width: 100%;
+}
+
+.nav-item {
+    position: relative;
+    flex-grow: 1;
+    margin: 0 100px; /* 좌우 여백 추가 */
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: #000000;
+    padding: 5px 10px;
+    font-size: 20px; /* 글씨 크기 조절 */
+    font-weight: bold; /* 글씨 두께 조절 */
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ffffff;
+    z-index: 1;
+    width: 100%;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    top: calc(100% + 5px); /* 드롭다운 메뉴 위치 조정 */
+    min-width: 150px; /* 드롭다운 메뉴 최소 너비 설정 */
+    left: 50%; /* nav-item 중앙에 배치 */
+    transform: translateX(-50%); /* 중앙 정렬 */
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px; /* dropdown-menu 글씨 크기 */
+    font-weight: normal; /* dropdown-menu 글씨 두께 */
+    text-align: center;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f0f0f0;
+}
+.auth {
+    display: flex;
+    text-align: center;
+    margin-right: 50px;
+}
+
+.login-btn {
+    background-color: #fff; /* 로그인 버튼 배경색 */
+    color: #007bff; /* 로그인 버튼 글자색 */
+    padding: 10px 20px; /* 로그인 버튼 내부 여백 */
+    border: none; /* 로그인 버튼 테두리 제거 */
+    border-radius: 5px; /* 로그인 버튼 모서리 둥글게 */
+    font-size: 16px; /* dropdown-menu 글씨 크기 */
+    font-weight: bold; /* dropdown-menu 글씨 두께 */
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.join-btn {
+    background-color: #fff; /* 로그인 버튼 배경색 */
+    color: #007bff; /* 로그인 버튼 글자색 */
+    padding: 10px 20px; /* 회원가입 버튼 내부 여백 */
+    border: none; /* 회원가입 버튼 테두리 제거 */
+    border-radius: 5px; /* 회원가입 버튼 모서리 둥글게 */
+    font-size: 16px; /* dropdown-menu 글씨 크기 */
+    font-weight: bold; /* dropdown-menu 글씨 두께 */
+    text-decoration: none;
+
+}
+
+.login-btn:hover {
+    background-color: #007bff; /* 마우스 호버 시 로그인 버튼 배경색 */
+    color: #fff; /* 마우스 호버 시 로그인 버튼 글자색 */
+}
+
+.join-btn:hover {
+    background-color: #007bff; /* 마우스 호버 시 회원가입 버튼 배경색 */
+    color: #fff; /* 마우스 호버 시 회원가입 버튼 글자색 */
+}
+
+/* 여기서부터는 로그인 후 헤더 */
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.logout-btn, .mypage-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.welcome-msg {
+    margin-left: 20px;
+}
+
+.header-after-login.hidden {
+    display: none;
+}

@@ -13,7 +13,7 @@ public class Notice_BoardVO {
     private String file_name; //파일 이름
     private String file_origin_name; //파일 원래 이름
     private String file_path; //파일경로
-    private Float file_size; //파일 크기
+    private long file_size; //파일 크기
     private String user_id;
 
     public Notice_BoardVO() {
@@ -22,7 +22,7 @@ public class Notice_BoardVO {
 
     public Notice_BoardVO(int ntc_board, String crt_time, String mod_time, String ntc_title,
                           String ntc_contents, Boolean board_deleted, String file_name, String file_origin_name,
-                          String file_path, Float file_size, String user_id) {
+                          String file_path, long file_size, String user_id) {
         this.ntc_board = ntc_board;
         this.crt_time = crt_time;
         this.mod_time = mod_time;
@@ -109,11 +109,11 @@ public class Notice_BoardVO {
         this.file_path = file_path;
     }
 
-    public Float getFile_size() {
+    public long getFile_size() {
         return file_size;
     }
 
-    public void setFile_size(Float file_size) {
+    public void setFile_size(long file_size) {
         this.file_size = file_size;
     }
 

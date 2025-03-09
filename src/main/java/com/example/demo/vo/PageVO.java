@@ -12,7 +12,7 @@ public class PageVO {
     private int totalPage;
     private int count;
 
-    private static int perList = 4; //게시글 수
+    private static int perList = 10; //게시글 수
     private static int perPage = 5; //페이지 수
 
     public int getCurrentPage() {

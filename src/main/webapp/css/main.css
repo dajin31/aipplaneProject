@@ -280,6 +280,10 @@ body {
     position: relative;
     padding: 0 80px;
 }
+.recommended-title{
+    margin-top: 100px;
+    margin-left: 240px;
+}
 
 .slides-container {
     display: flex;
@@ -598,4 +602,106 @@ body {
         margin-bottom: 10px;
     }
 }
+h2 {
+    font-size: 22px;
+    font-weight: bold;
+    margin: 25px 0 15px;
+    color: #333;
+}
 
+.announcement-list {
+    border-top: 1px solid #e0e0e0;
+    margin-bottom: 40px;
+}
+
+.announcement-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.announcement-title {
+    font-weight: 500;
+}
+
+.announcement-date {
+    color: #777;
+}
+#noticeArea{
+    margin: 100px;
+}
+/* 기본 카드 스타일 */
+.mileage-shop {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+/* 헤더 스타일 (날씨 위젯의 날씨 정보 부분처럼) */
+.mileage-shop-header {
+    background: #e6f0fa;
+    border-radius: 10px 10px 0 0;
+    padding: 10px;
+    color: #2c3e50;
+}
+
+.mileage-shop-header h2 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+/* 아이콘 및 주요 정보 스타일 */
+.mileage-shop-main {
+    padding: 20px 0;
+}
+
+.mileage-shop-main .icon {
+    font-size: 2.5em; /* 아이콘 크기, 날씨 아이콘 대신 사용할 수 있음 */
+    color: #f1c40f; /* 노란색 태양 아이콘 느낌 */
+}
+
+.mileage-shop-main .value {
+    font-size: 2em;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.mileage-shop-main .location {
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
+
+/* 추가 정보 (습도, 풍속 등) */
+.mileage-shop-details {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #7f8c8d;
+}
+
+.mileage-shop-details div {
+    text-align: center;
+}
+
+/* 링크 버튼 스타일 */
+.mileage-shop-link {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #3498db;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.mileage-shop-link:hover {
+    background: #2980b9;
+}

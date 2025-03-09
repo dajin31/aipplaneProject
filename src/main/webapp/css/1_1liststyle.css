@@ -1,14 +1,15 @@
 @charset "UTF-8";
 
 body {
+
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     background-color: #f9f9f9;
     margin: 0;
-    padding: 0;
+    padding-top: 150px;
 }
-h1 {
-    font-weight: 500;
-}
+
+
+
 a {
     text-decoration: none; /* 모든 a 태그의 밑줄 제거 */
 }
@@ -16,27 +17,24 @@ a {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    margin-top: 150px; /* 헤더 높이만큼 margin-top 추가 */
 }
 h1 {
-    font-size: 40px;
+    font-size: 24px;
+    font-weight: bold;
     margin-bottom: 30px;
 }
 .search-box {
-    height: 100px;
     background-color: #fff;
     border: 1px solid #e0e0e0;
-    border-radius: 20px;
+    border-radius: 8px;
     padding: 24px;
     margin-bottom: 30px;
 }
 .search-header {
-    padding: 10px;
     display: flex;
     align-items: center;
 }
 .search-title {
-    font-size: 20px;
     font-weight: 500;
     margin-right: 30px;
 }
@@ -51,45 +49,29 @@ h1 {
 .search-input {
     flex: 1;
     border: none;
-    border-bottom: 1px solid #007bff;
+    border-bottom: 2px solid #0B2161;
     padding: 8px 0;
     outline: none;
-}
-.search-input:hover {
-    border: 1px solid #007bff;
-    transition: border 0.2s ease; /* transition 속성 추가 */
 }
 .search-button {
     color: white;
     margin-left: 16px;
     padding: 8px 24px;
-    background-color: #007bff;
+    background-color: #0B2161;
     border: 1px solid #ccc;
     border-radius: 4px;
     cursor: pointer;
 }
 .search-button:hover {
-    background-color: #007bff;
+    background-color: darkblue;
 }
 .notice-list {
-    padding-left: 20px;
-    padding-right: 20px;
     border-top: 1px solid #ccc;
-    position: relative;
-}
-.register-btn {
-    color: white;
-    margin-left: 16px;
-    padding: 8px 24px;
-    background-color: #007bff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    cursor: pointer;
 }
 .notice-item {
     display: flex;
     align-items: center;
-    padding: 20px 20px;
+    padding: 16px 0;
     border-bottom: 1px solid #eee;
     cursor: pointer;
 }
@@ -110,14 +92,8 @@ h1 {
     margin-right: 8px;
 }
 .notice-title {
-    color: black;
-    text-decoration: none;
     flex: 1;
     font-weight: 500;
-}
-.notice-title a {
-    text-decoration: none; /* a 태그의 밑줄 제거 */
-    color: inherit; /* 부모 요소의 색상 상속 */
 }
 .notice-category {
     padding: 0 8px;
@@ -139,9 +115,7 @@ h1 {
     color: #008080;
 }
 .notice-date {
-    position: absolute;
-    right: 0;
-
+    margin-left: 16px;
     font-size: 14px;
     color: #777;
 }
@@ -193,6 +167,7 @@ header {
     top: 0;
     left: 0;
     z-index: 100;
+
 }
 
 .header-container {

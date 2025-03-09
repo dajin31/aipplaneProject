@@ -107,4 +107,24 @@
         FROM users
         WHERE user_id = #{userId}
     </select>
+    <!--	마이페이지-->
+    <update id="getUpdateUser" parameterType="UserVO">
+        update users set user_email=#{user_email}
+        where user_id = #{user_id} and user_pw = #{user_pw}
+    </update>
+
+    <!-- 회원 탈퇴 -->
+    <delete id="getDeleteUser" parameterType="UserVO">
+        delete from users
+        where user_id = #{user_id} and user_pw = #{user_pw}
+    </delete>
+
+    <!-- 회원비밀번호 변경 -->
+    <update id="getUpdatePassUser" parameterType="UserVO">
+        update users set user_pw=#{new_pw}
+        where user_id = #{user_id} and user_pw = #{user_pw}
+    </update>
+
+    <select id="getmyUser" resultType="com.example.demo.vo.UserVO" parameterType="String">
+        select * from users where user_id=#{userId} </select>
 </mapper>

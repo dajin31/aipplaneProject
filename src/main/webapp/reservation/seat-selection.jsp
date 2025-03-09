@@ -1,3 +1,4 @@
+<%@ page import="com.example.demo.vo.UserVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -322,6 +323,17 @@
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <body class="airplane-background">
+<%
+    // 세션에서 로그인한 사용자 정보 가져오기
+    UserVO user = (UserVO) session.getAttribute("loginUser");
+    String username = (user != null) ? user.getUserName() : ""; // null 처리
+    String userId = (user != null) ? user.getUserId() : ""; // null 처리
+    if (user != null) {
+        System.out.println("로그인한 사용자: " + username);
+    } else {
+        System.out.println("로그인한 사용자가 없습니다.");
+    }
+%>
 <header>
     <div class="header-container header-before-login">
         <div class="logo">
@@ -442,6 +454,20 @@
     </main>
 
     <script>
+        let isLogin = false;
+        let username = "<%= username %>";
+        let userIdValue = "<%= userId %>";
+        console.log("로그인한 사용자 이름:", username);
+        console.log("로그인한 사용자 아이디:", userIdValue);
+
+        // username이 null 또는 빈 문자열인 경우 처리
+        if (!username) {
+            console.log("사용자가 로그인하지 않았습니다.");
+        }
+        if (username) {
+            isLogin = true;
+        }
+
         $(document).ready(function() {
             // 세션에서 로그인 상태 확인
             const isLoggedIn = ${sessionScope.loginUser != null};
@@ -594,11 +620,9 @@
             console.log(end)
             console.log(departDate)
             console.log(returnDate)
-            // window.location.href =
 
             //     회원 여부 판단후 회원이 아니면 로그인 페이지 이동
-            let loginCheck = false;
-            if (!loginCheck) {
+            if (!isLogin) {
                 const airportLogin = "/reservation/AirportLoginCheckPopup?classValue=" + encodeURIComponent(classvalue) + "&passengerValue=" + encodeURIComponent(passengerValue)
                     + "&start=" + encodeURIComponent(start) + "&end=" + encodeURIComponent(end)+ "&departDate=" + departDate +  "&returnDate=" + returnDate + "&selectedList=" + selectedList + "&fltCode=" + fltCode + "&totalPrice=" + totalPrice;
                 const popWidth = 800;
@@ -612,6 +636,24 @@
                     console.log("로그인 팝업 오픈");
                     popupWindow.opener = window;
                     loginCheck = true;
+                } else {
+                    alert("아오 에러임");
+                }
+            }
+
+            if (isLogin) {
+                const airportPayment="/reservation/travelInfoPayment?classValue=" + encodeURIComponent(classvalue) + "&passengerValue=" + encodeURIComponent(passengerValue)
+                    + "&start=" + encodeURIComponent(start) + "&end=" + encodeURIComponent(end)+ "&departDate=" + departDate +  "&returnDate=" + returnDate + "&selectedList=" + selectedList + "&fltCode=" + fltCode + "&totalPrice=" + totalPrice + "&userId=" + userIdValue;
+                const popWidth = 800;
+                const popHeigth = 300;
+
+                const options = `width=${popWidth}px, height=${popHeigth}px, top=20, left=20, resizable=no, scrollbars=yes, menubar=no, toolbar=no, location=no, directories=no, status=no`;
+
+                const popupWindow = window.open(airportPayment, 'airportPayment', options);
+
+                if (popupWindow) {
+                    console.log("결제 팝업 오픈");
+                    popupWindow.opener = window;
                 } else {
                     alert("아오 에러임");
                 }

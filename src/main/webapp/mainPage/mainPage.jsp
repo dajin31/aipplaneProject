@@ -8,10 +8,8 @@
     <title>SOON항공사</title>
     <link rel="icon" href="data:;base64,iVBORw0KGgo=">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-<%--    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">--%>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/header.css">
-<%--    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>--%>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="/mainPage/main.js"></script>
 </head>
@@ -32,24 +30,24 @@
         <nav class="nav">
             <ul class="nav-list">
                 <li class="nav-item">
-                    <a href="#">예약</a>
+                    <a href="/reservation/reservation-airport.jsp">예약</a>
                     <ul class="dropdown-menu">
                         <li><a href="<%=request.getContextPath()%>/reservation/reservation-airport.jsp">항공권 예매</a></li>
                         <li><a href="#">예약 취소</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#">마일리지</a>
+                    <a href="/mileage/mileageShop.jsp">마일리지</a>
                     <ul class="dropdown-menu">
                         <li><a href="<%=request.getContextPath()%>/mileage/mileageShop.jsp">마일리지샵</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#">공지사항</a>
+                    <a href="<%=request.getContextPath()%>/member/list.do">공지사항</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">공지사항</a></li>
-                        <li><a href="#">1:1 문의</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="<%=request.getContextPath()%>/member/list.do">공지사항</a></li>
+                        <li><a href="<%=request.getContextPath()%>/member/list1_1.do">1:1 문의</a></li>
+                        <li><a href="<%=request.getContextPath()%>/FAQBoard">FAQ</a></li>
                     </ul>
                 </li>
             </ul>
@@ -66,7 +64,7 @@
         <nav class="nav">
             <ul class="nav-list">
                 <li class="nav-item">
-                    <a href="#">예약</a>
+                    <a href="/reservation/reservation-airport.jsp">예약</a>
                     <ul class="dropdown-menu">
                         <li><a href="<%=request.getContextPath()%>/reservation/reservation-airport.jsp">항공권 예매</a></li>
                         <li><a href="#">예약 취소</a></li>
@@ -79,18 +77,18 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#">공지사항</a>
+                    <a href="<%=request.getContextPath()%>/member/list.do">공지사항</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">공지사항</a></li>
-                        <li><a href="#">1:1 문의</a></li>
-                        <li><a href="#">FAQ</a></li>
+                        <li><a href="<%=request.getContextPath()%>/member/list.do">공지사항</a></li>
+                        <li><a href="<%=request.getContextPath()%>/member/list1_1.do">1:1 문의</a></li>
+                        <li><a href="<%=request.getContextPath()%>/FAQBoard">FAQ</a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
         <div class="user-info">
             <a href="<%=request.getContextPath()%>/logout.do" class="logout-btn">로그아웃</a>
-            <a href="#" class="mypage-btn">마이페이지</a>
+            <a href="/myPage/mypage.jsp" class="mypage-btn">마이페이지</a>
             <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
         </div>
     </div>
@@ -164,6 +162,7 @@
 <div class="logo2">
     <img src="/images/main1.jpg" alt="메인 배경">
 </div>
+<h2 class="recommended-title">추천 항공편</h2>
 <section class="recommended-section">
     <div class="recommended-flights">
         <button class="slide-button prev" aria-label="이전 항공권">&lt;</button>
@@ -231,6 +230,29 @@
     </div>
 </section>
 
+<section id="noticeArea">
+    <h2>공지사항</h2>
+    <div class="notice-list">
+        <div class="announcement-list">
+            <div class="announcement-item">
+                <div class="announcement-title">국내선 유류할증료 (2025년 4월)</div>
+                <div class="announcement-date">2025.03.05.</div>
+            </div>
+            <div class="announcement-item">
+                <div class="announcement-title">스카이패스 / 액티런트 보딩패스 제휴 종료 (파라다이스시티)</div>
+                <div class="announcement-date">2025.03.04.</div>
+            </div>
+            <div class="announcement-item">
+                <div class="announcement-title">로스앤젤레스 공항 라운지 변경</div>
+                <div class="announcement-date">2025.02.28.</div>
+            </div>
+            <div class="announcement-item">
+                <div class="announcement-title">보조배터리 기내 반입 및 보관 방법</div>
+                <div class="announcement-date">2025.02.25.</div>
+            </div>
+        </div>
+    </div>
+</section>
 
 <!-- 여행 경험 섹션 -->
 <section class="travel-experience">
@@ -248,9 +270,20 @@
                 <div id="map" style="width:250px;height:250px;"></div>
                 <a href="https://www.agoda.com/ko-kr/" class="link-button-hotel">추천 호텔 예약하러 가기 👈</a>
             </div>
-            <div class="experience-card mileage">
-                <h3>마일리지샵</h3>
-                <a href="/mileage/mileageShop.jsp" class="link-button">마일리지 사용하기</a>
+            <div class="mileage-shop">
+                <div class="mileage-shop-header">
+                    <h2>마일리지샵</h2>
+                </div>
+                <div class="mileage-shop-main">
+                    <div class="icon">🎁</div> <!-- 아이콘은 상황에 맞게 변경 가능 -->
+                    <div class="value">500</div> <!-- 마일리지 수치 -->
+                    <div class="location">사용 가능</div>
+                </div>
+                <div class="mileage-shop-details">
+                    <div>포인트: 60</div>
+                    <div>남은: 127</div>
+                </div>
+                <a href="/mileage/mileageShop.jsp" class="mileage-shop-link">바로가기</a>
             </div>
         </div>
     </div>

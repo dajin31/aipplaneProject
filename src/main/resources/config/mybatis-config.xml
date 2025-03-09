@@ -23,6 +23,11 @@
 			<typeAlias type="com.example.demo.vo.OrdersVO" alias="ordersVO"/>
 			<typeAlias type="com.example.demo.vo.ProductVO" alias="prodVO"/>
 			<typeAlias type="com.example.demo.vo.AirCompletVO" alias="airCompletVO"/>
+			<typeAlias type="com.example.demo.vo.AirVO" alias="AirVO"/>
+			<typeAlias type="com.example.demo.vo.Notice_BoardVO" alias="nboardVO"/>
+			<typeAlias type="com.example.demo.vo.Board1_1VO" alias="BoardVO"/>
+			<typeAlias type="com.example.demo.vo.Reply1_1VO" alias="replyVo"/>
+			<typeAlias type="com.example.demo.vo.FAQBoardVO" alias="faqboardVo"/>
 	</typeAliases>
 
 
@@ -46,5 +51,10 @@
 		<mapper resource="META-INF/FlightMapper.xml"/>
 		<mapper resource="META-INF/user-mapper.xml"/>
 		<mapper resource="META-INF/product-mapper.xml"/>
+		<mapper resource="META-INF/air-mapper.xml"/>
+		<mapper resource="META-INF/notice-mapper.xml"/>
+		<mapper resource="META-INF/board-mapper.xml"/>
+		<mapper resource="META-INF/faqboard-mapper.xml"/>
+
 	</mappers>
 </configuration>

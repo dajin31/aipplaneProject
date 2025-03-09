@@ -1,0 +1,213 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page import="java.sql.*" %>
+<%@ page import="com.example.demo.vo.Notice_BoardVO" %>
+<%@ page import="com.example.demo.vo.UserVO" %>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>공지사항</title>
+  <%--    //<link rel="stylesheet" href="viewstyle.css">--%>
+  <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
+  <script src="/js/jquery.serializejson.js"></script>
+  <link rel="stylesheet" href="/css/viewstyle.css">
+
+
+  <style>
+
+  </style>
+  <script>
+
+      $(document).ready(function() {
+          // 세션에서 로그인 상태 확인
+          const isLoggedIn = ${sessionScope.loginUser != null};
+          const userName = "${sessionScope.loginUser.userName}";
+
+          if (isLoggedIn) {
+              $(".header-before-login").hide();
+              $(".header-after-login").removeClass("hidden");
+              $(".welcome-msg").text(userName + "님 환영합니다.");
+          } else {
+              $(".header-before-login").show();
+              $(".header-after-login").addClass("hidden");
+          }
+
+          // 로그아웃 후 페이지 리로드
+          $(".logout-btn").click(function(event) {
+              event.preventDefault(); // 기본 링크 동작 방지
+              if (confirm("로그아웃 하시겠습니까?")) {
+                  location.href = "<%=request.getContextPath()%>/user/logout.do";
+              }
+          });
+      });
+    $(function (){
+
+      $('#send').on('click', function (){
+        // 입력한 모든 값을 가져온다
+        const formData = new FormData($('#wform')[0]); // FormData 객체 생성
+
+        $.ajax({
+          url : "<%=request.getContextPath()%>/member/write.do",
+          type : "post",
+          data : formData,
+          contentType: false, // multipart/form-data를 사용
+          processData : false,  // : false, // 데이터를 query string으로 변환하지 않음
+          success: function(response) {
+            console.log("새 글 생성 성공" + response)
+            location.href = "/member/list.do";
+          },
+          error: function(xhr, status, error) {
+            console.error("새 글 생성 실패:", error);
+            console.log(xhr);
+            try {
+              var errorData = JSON.parse(xhr.responseText);
+              alert("새 글 생성 실패: " + errorData.message);
+            } catch (e) {
+              alert("새 글 생성 실패. 서버 오류 발생.");
+            }
+          }
+        })
+      })
+
+
+      <%--$('#send').on('click', function (){--%>
+      <%--  const formData = new FormData();--%>
+
+      <%--  formData.append('ntc_title', $('#ntc_title').val());--%>
+      <%--  formData.append('ntc_contents', $('#ntc_contents').val());--%>
+
+      <%--  const fileInput = $('input[name="file_origin_name"]')[0];--%>
+
+      <%--  if (fileInput.files.length > 0) {--%>
+      <%--    const file = fileInput.files[0];--%>
+
+      <%--    formData.append('file_name', );--%>
+      <%--    formData.append('original_file_name', file.name); // 파일 원래 이름--%>
+      <%--    formData.append('file_size', file.size); // 파일 크기--%>
+
+      <%--  }--%>
+      <%--  $.ajax({--%>
+      <%--    url : "<%=request.getContextPath()%>/member/write.do",--%>
+      <%--    contentType :"application/json; charset=utf-8",--%>
+      <%--    type : "post",--%>
+      <%--    data : JSON.stringify(formData),--%>
+      <%--    success: function(response) {--%>
+      <%--      console.log("새 글 생성 성공" + response)--%>
+      <%--      location.href = "/member/list.do";--%>
+      <%--    },--%>
+      <%--    error: function(xhr, status, error) {--%>
+      <%--      console.error("새 글 생성 실패:", error);--%>
+      <%--      console.log(xhr);--%>
+      <%--      try {--%>
+      <%--        var errorData = JSON.parse(xhr.responseText);--%>
+      <%--        alert("새 글 생성 실패: " + errorData.message);--%>
+      <%--      } catch (e) {--%>
+      <%--        alert("새 글 생성 실패. 서버 오류 발생.");--%>
+      <%--      }--%>
+      <%--    }--%>
+      <%--  })--%>
+      <%--})--%>
+
+
+    })
+  </script>
+</head>
+<body>
+
+<header>
+  <div class="header-container header-before-login">
+    <div class="logo">
+      <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#">예약</a>
+          <ul class="dropdown-menu">
+            <li><a href="reservation.jsp">항공권 예매</a></li>
+            <li><a href="reservation.jsp">예약 취소</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">마일리지</a>
+          <ul class="dropdown-menu">
+            <li><a href="mileage.jsp">마일리지샵</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">공지사항</a>
+          <ul class="dropdown-menu">
+            <li><a href="notice.jsp">공지사항</a></li>
+            <li><a href="qna.jsp">1:1 문의</a></li>
+            <li><a href="faq.jsp">FAQ</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="auth">
+      <a href="/user/userJoin.jsp" class="join-btn">회원가입</a>
+      <a href="/user/login.jsp" class="login-btn">로그인</a>
+    </div>
+  </div>
+  <div class="header-container header-after-login hidden">
+    <div class="logo">
+      <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="#">예약</a>
+          <ul class="dropdown-menu">
+            <li><a href="reservation.jsp">항공권 예매</a></li>
+            <li><a href="reservation.jsp">예약 취소</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">마일리지</a>
+          <ul class="dropdown-menu">
+            <li><a href="mileage.jsp">마일리지샵</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">공지사항</a>
+          <ul class="dropdown-menu">
+            <li><a href="notice.jsp">공지사항</a></li>
+            <li><a href="qna.jsp">1:1 문의</a></li>
+            <li><a href="faq.jsp">FAQ</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <div class="user-info">
+      <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
+      <a href="/user/mypage.jsp" class="mypage-btn">마이페이지</a>
+      <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
+    </div>
+  </div>
+</header>
+
+<form id="wform" enctype="multipart/form-data">
+  <div class="container">
+    <div class="notice-header">
+      <div class="notice-title"><h3>공지사항 등록</h3>제목  <input type="text" class="form-control" id="ntc_title" name="ntc_title"></div>
+      <div class="notice-info">
+          <div class="notice-info">
+              <input type="file" name="file">
+          </div>
+      </div>
+    </div>
+
+    <div class="notice-content">내용<br>
+      <textarea class="form-control" id="ntc_contents" name="ntc_contents" cols="100" rows="30"></textarea>
+    </div>
+
+    <div class="button-container">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">닫기</button>
+      <button type="button" class="btn btn-primary" id="send">등록</button>
+    </div>
+  </div>
+
+</form>
+</body>
+</html>

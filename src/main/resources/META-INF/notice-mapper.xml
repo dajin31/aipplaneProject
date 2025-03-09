@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="notice">
+	<!-- 동적쿼리  -->
+	<sql id="dynamicCondition">
+		<where>
+			<choose>
+				<when test="sword != ''">
+					(
+					ntc_title like  '%'||#{sword}||'%'
+					or
+					ntc_contents like  '%'||#{sword}||'%'
+					)
+				</when>
+
+			</choose>
+		</where>
+	</sql>
+
+	<!-- 글쓰기 -->
+	<insert id="insertBoard" parameterType="nboardVO" >
+		insert into notice_board(ntc_board, crt_time, ntc_title, ntc_contents, file_name, file_path, file_size)
+		values(NTC_BOARR_SEQ.nextval, sysdate,
+		       #{ntc_title}, #{ntc_contents}, #{file_name}, #{file_path}, #{file_size}
+			  )
+	</insert>
+
+	<!-- 글삭제 -->
+	<delete id="deleteBoard" parameterType="int">
+		delete from notice_board where ntc_board = #{ntc_board}
+	</delete>
+
+	<!-- 글수정 -->
+	<update id="updateBoard" parameterType="nboardVO">
+		update notice_board   set  mod_time = sysdate,  ntc_title = #{ntc_title},
+									ntc_contents = #{ntc_contents},
+									file_name =#{file_name},
+								   file_path =#{file_path},
+								   file_size =#{file_size},
+		where ntc_board = #{ntc_board}
+
+	</update>
+
+	<select id="getBoard" parameterType="int" resultType="nboardVO">
+		select * from notice_board where ntc_board = #{ntc_board}
+	</select>
+
+
+
+	<!-- 전체 글 갯수 구하기 -->
+	<select id="totalCount" resultType="int" parameterType="map">
+		select count(*) from notice_board
+		<include refid="dynamicCondition"/>
+	</select>
+
+	<!-- 페이지별 리스트 검색포함  -->
+	<select id="selectByPage" parameterType="map" resultType="nboardVO">
+
+		select A.* from (
+		select rownum as rnum, B.*  from (
+		select * from notice_board
+		<include refid="dynamicCondition"/>
+		order by ntc_board desc) B
+		<![CDATA[
+		   where rownum <= #{end} ) A
+		where A.rnum >=#{start}
+		]]>
+	</select>
+
+	<select id="getRecentNotices" resultType="com.example.demo.vo.Notice_BoardVO">
+		SELECT * FROM notice_board
+		ORDER BY CRT_TIME DESC
+			LIMIT #{limit}
+	</select>
+
+	</mapper>

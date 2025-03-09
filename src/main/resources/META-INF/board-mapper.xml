@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="board1_1">
+    <!-- 동적쿼리  -->
+    <sql id="dynamicCondition">
+        <where>
+            <choose>
+                <when test="user_id != null and user_id !='' and user_id != 'admin01'">
+                    (
+                    user_id = #{user_id, jdbcType=VARCHAR, javaType=String}
+                    )
+                </when>
+                <when test="sword != ''">
+                    (
+                    ind_title like  '%'||#{sword}||'%'
+                    or
+                    ind_contents like  '%'||#{sword}||'%'
+                    )
+                </when>
+
+            </choose>
+        </where>
+    </sql>
+
+    <!-- 글쓰기 -->
+    <insert id="insertBoard" parameterType="BoardVO" >
+        insert into board_1_1(board_id, crt_date, ind_title, ind_contents, user_id)
+        values(BOARD_1_1_SEQ.nextval, sysdate, #{ind_title}, #{ind_contents}, #{user_id, jdbcType=VARCHAR, javaType=String}
+              )
+    </insert>
+
+    <!-- 글삭제 -->
+    <delete id="deleteBoard" parameterType="int">
+        delete from board_1_1 where board_id = #{board_id, jdbcType=INTEGER, javaType=int}
+    </delete>
+
+    <!-- 글수정 -->
+    <update id="updateBoard" parameterType="BoardVO">
+        update board_1_1   set  mod_date = sysdate,  ind_title = #{ind_title},
+                                ind_contents = #{ind_contents}
+        where board_id = #{board_id}
+
+    </update>
+
+    <select id="getBoard" parameterType="int" resultType="com.example.demo.vo.Board1_1VO">
+        select * from board_1_1 where board_id = #{board_id}
+    </select>
+
+
+    <!-- 전체 글 갯수 구하기 -->
+
+    <select id="totalCount" resultType="int" parameterType="map">
+        select count(*) from board_1_1
+        <include refid="dynamicCondition"/>
+    </select>
+
+    <!-- 페이지별 리스트 검색포함  -->
+    <select id="selectByPage" parameterType="map" resultType="BoardVO">
+
+        select A.* from (
+        select rownum as rnum, B.*  from (
+        select * from board_1_1
+        <include refid="dynamicCondition"/>
+        order by board_id desc) B
+        <![CDATA[
+		   where rownum <= #{end} ) A
+		where A.rnum >=#{start}
+		]]>
+    </select>
+
+    <!-- 댓글 보기 -->
+    <select id="getReply" resultType="replyVo"  parameterType="int" >
+        select * from reply_1_1 where board_id = #{board_id}
+    </select>
+
+    <!-- 댓글 쓰기 -->
+    <insert id="insertReply"  parameterType="replyVo">
+        insert into reply_1_1 (reply_id, crt_time, rpy_contents , board_id, user_id)
+        values( REPLY_1_1_SEQ.nextval, sysdate, #{rpy_contents}, #{board_id, jdbcType=INTEGER, javaType=int}, #{user_id, jdbcType=VARCHAR, javaType=String})
+    </insert>
+
+    <!-- 댓글수정 -->
+    <update id="updateReply" parameterType="replyVo">
+        update reply_1_1 set mod_time= sysdate, rpy_contents = #{rpy_contents}
+        where board_id = #{board_id}
+    </update>
+
+    <!-- 댓글삭제 -->
+    <delete id="deleteReply" parameterType="int">
+        delete from reply_1_1  where reply_id =#{reply_id}
+    </delete>
+
+
+</mapper>

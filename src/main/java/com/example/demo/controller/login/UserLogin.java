@@ -75,6 +75,7 @@ public class UserLogin extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             response.getWriter().write(gson.toJson(new ErrorResult("서버 오류 발생")));
         }
+
     }
 
     private static class ErrorResult {

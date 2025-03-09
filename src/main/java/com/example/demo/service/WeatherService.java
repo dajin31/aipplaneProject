@@ -14,7 +14,7 @@ public class WeatherService {
                 + "?serviceKey=" + SERVICE_KEY
                 + "&dataType=JSON"
                 + "&pageNo=1"
-                + "&numOfRows=10"
+                + "&numOfRows=60"
                 + "&base_date=" + baseDate
                 + "&base_time=" + baseTime
                 + "&nx=" + nx

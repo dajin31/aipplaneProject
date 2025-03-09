@@ -296,7 +296,7 @@ public class UsersDAO implements IUsersDAO{
         UserVO userVO = null;
 
         try {
-            userVO = session.selectOne("user.getmyUser", userId); // namespace 사용
+            userVO = session.selectOne("users.getmyUser", userId); // namespace 사용
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

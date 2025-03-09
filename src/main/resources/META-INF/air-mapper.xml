@@ -48,6 +48,25 @@
     <result column="SEAT_CLASS" property="seatClass" />
     <result column="SEAT_STATUS" property="seatStatus" />
 	 </resultMap>
+
+    <resultMap id="myReservationMap" type="myReservationVO">
+        <id property="resCode" column="RES_CODE" />
+        <result property="resDate" column="RES_DATE" />
+        <result property="ticketPrice" column="TICKET_PRICE" />
+        <result property="userId" column="USER_ID" />
+        <result property="dptDate" column="DPT_DATE" />
+        <result property="arrDate" column="ARR_DATE" />
+        <result property="startCountry" column="출발_국가" />
+        <result property="endCountry" column="도착_국가" />
+        <result property="fltCode" column="FLT_CODE" />
+        <result property="userName" column="USER_NAME" />
+        <result property="seatCode" column="SEAT_CODE" />
+        <result property="dptTime" column="DPT_TIME" />
+        <result property="arrTime" column="ARR_TIME" />
+        <result property="fltTime" column="FLT_TIME" />
+        <result property="dptCntName" column="출발_국가"/>
+        <result property="arrCntName" column="도착_국가"/>
+    </resultMap>
 	 
 	<select id="getResCodeList" resultType="airVO" parameterType="airVO">
 		with AIR_A as (
@@ -139,4 +158,58 @@
 		where user_id = #{user_id}
 		and res_code = #{res_code}
 	</delete>
+
+
+<!--    다진이 짠거-->
+    <select id="selectMyReservation" parameterType="String" resultMap="myReservationMap">
+        SELECT
+            r.RES_CODE,
+            r.RES_DATE,
+            r.TICKET_PRICE,
+            r.USER_ID,
+            ars.DPT_DATE,
+            ars.ARR_DATE,
+            dpt_apt.CNT_NAME AS 출발_국가,
+            arr_apt.CNT_NAME AS 도착_국가
+        FROM
+            RESERVATION r
+                JOIN
+            RES_DETAILS rd ON r.RES_CODE = rd.RES_CODE
+                JOIN
+            AIR_ROUTE_SCHEDULE ars ON rd.FLT_CODE = ars.FLT_CODE
+                JOIN
+            AIRPORT dpt_apt ON ars.DPT_APT_CODE = dpt_apt.APT_CODE
+                JOIN
+            AIRPORT arr_apt ON ars.ARR_APT_CODE = arr_apt.APT_CODE
+        WHERE
+            r.USER_ID = #{userId}
+        order by  r.RES_CODE desc
+    </select>
+
+    <select id="selectMyReservationDetail"  parameterType="String" resultMap="myReservationMap">
+        SELECT
+            p.FLT_CODE,
+            p.USER_ID,
+            p.USER_NAME,
+            p.PASS_NUM,
+            p.REG_NUM,
+            p.SEAT_CODE,
+            ars.DPT_DATE,
+            ars.ARR_DATE,
+            ars.DPT_TIME,
+            ars.ARR_TIME,
+            ars.FLT_TIME,
+            dpt_apt.CNT_NAME AS 출발_국가,
+            arr_apt.CNT_NAME AS 도착_국가
+        FROM
+            PASSENGER p
+                JOIN
+            AIR_ROUTE_SCHEDULE ars ON p.FLT_CODE = ars.FLT_CODE
+                JOIN
+            AIRPORT dpt_apt ON ars.DPT_APT_CODE = dpt_apt.APT_CODE
+                JOIN
+            AIRPORT arr_apt ON ars.ARR_APT_CODE = arr_apt.APT_CODE
+        WHERE
+            p.USER_ID = #{userId}
+    </select>
 	</mapper>

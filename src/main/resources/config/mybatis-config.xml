@@ -26,6 +26,7 @@
 			<typeAlias type="com.example.demo.vo.AirCompletVO" alias="airCompletVO"/>
 			<typeAlias type="com.example.demo.vo.MileageVO" alias="mileageVO"/>
 			<typeAlias type="com.example.demo.vo.AirVO" alias="AirVO"/>
+			<typeAlias type="com.example.demo.vo.MyReservationVO" alias="myReservationVO"/>
 	</typeAliases>
 
 

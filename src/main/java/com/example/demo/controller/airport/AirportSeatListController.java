@@ -1,5 +1,6 @@
 package com.example.demo.controller.airport;
 
+import com.example.demo.service.SeatService;
 import com.example.demo.service.SeatServiceImpl;
 import com.example.demo.vo.SeatVO;
 import com.google.gson.Gson;
@@ -20,7 +21,7 @@ public class AirportSeatListController extends HttpServlet {
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        SeatServiceImpl service = SeatServiceImpl.getInstance();
+        SeatService service = SeatServiceImpl.getInstance();
 
         List<SeatVO> vos = service.selectSeatList();
 

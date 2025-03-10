@@ -167,7 +167,7 @@
         <div class="divider"></div>
 
         <div class="notice-content">
-            <%=boardVO.getInd_contents()%>
+            <%=boardVO.getInd_contents().replaceAll("(\r\n|\r|\n)","<br>")%>
         </div>
 
         <%
@@ -221,7 +221,7 @@
                 <div class="admin-reply-date"><%=replyVO.getCrt_time()%></div>
             </div>
             <div class="admin-reply-content">
-              <%=replyVO.getRpy_contents()%>
+              <%=replyVO.getRpy_contents().replaceAll("(\r\n|\r|\n)","<br>")%>
             </div>
         </div>
 

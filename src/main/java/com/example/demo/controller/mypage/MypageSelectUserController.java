@@ -26,9 +26,6 @@ public class MypageSelectUserController extends HttpServlet {
 
         UserVO userVO = service.getmyUser(userId);
 
-        System.out.println("userId=" + userId);
-
-
         Gson gson = new Gson();
 
         String json = gson.toJson(userVO);

@@ -10,8 +10,8 @@ public class UserVO {
     private String userRegnum;
     private int userMileage;
     private int userTotalMileage;
-    private String userPassNum;
-    private String memCode = "";
+    private String userPassnum;
+    private String memCode;
 
     private int user_mileage;
     private String user_passnum;
@@ -23,7 +23,7 @@ public class UserVO {
     public UserVO() {
     }
 
-    public UserVO(String userId, String userPw, String userName, String userEmail, String userRegnum, int userMileage, int userTotalMileage, String userPassNum, String memCode) {
+    public UserVO(String userId, String userPw, String userName, String userEmail, String userRegnum, int userMileage, int userTotalMileage, String userPassnum, String memCode) {
         this.userId = userId;
         this.userPw = userPw;
         this.userName = userName;
@@ -31,7 +31,7 @@ public class UserVO {
         this.userRegnum = userRegnum;
         this.userMileage = userMileage;
         this.userTotalMileage = userTotalMileage;
-        this.userPassNum = userPassNum;
+        this.userPassnum = userPassnum;
         this.memCode = memCode;
     }
 
@@ -164,11 +164,11 @@ public class UserVO {
     }
 
     public String getUserPassNum() {
-        return userPassNum;
+        return userPassnum;
     }
 
-    public void setUserPassNum(String userPassNum) {
-        this.userPassNum = userPassNum;
+    public void setUserPassNum(String userPassnum) {
+        this.userPassnum = userPassnum;
     }
 
     public String getMemCode() {
@@ -202,7 +202,7 @@ public class UserVO {
                 ", userRegnum='" + userRegnum + '\'' +
                 ", userMileage=" + userMileage +
                 ", userTotalMileage=" + userTotalMileage +
-                ", userPassNum='" + userPassNum + '\'' +
+                ", userPassNum='" + userPassnum + '\'' +
                 ", memCode='" + memCode + '\'' +
                 '}';
     }

@@ -343,7 +343,7 @@
 <header>
     <div class="header-container header-before-login">
         <div class="logo">
-            <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+            <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
         </div>
         <nav class="nav">
             <ul class="nav-list">
@@ -363,21 +363,21 @@
                 <li class="nav-item">
                     <a href="#">공지사항</a>
                     <ul class="dropdown-menu">
-                        <li><a href="notice.jsp">공지사항</a></li>
-                        <li><a href="qna.jsp">1:1 문의</a></li>
-                        <li><a href="faq.jsp">FAQ</a></li>
+                        <li><a href="<%=request.getContextPath()%>/member/list.do">공지사항</a></li>
+                        <li><a href="<%=request.getContextPath()%>/member/list1_1.do">1:1 문의</a></li>
+                        <li><a href="<%=request.getContextPath()%>/FAQBoard">FAQ</a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
         <div class="auth">
-            <a href="/user/userJoin.jsp" class="join-btn">회원가입</a>
-            <a href="/user/login.jsp" class="login-btn">로그인</a>
+            <a href="/login/userJoin.jsp" class="join-btn">회원가입</a>
+            <a href="/login/login.jsp" class="login-btn">로그인</a>
         </div>
     </div>
     <div class="header-container header-after-login hidden">
         <div class="logo">
-            <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+            <a href="<%=request.getContextPath()%>/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
         </div>
         <nav class="nav">
             <ul class="nav-list">
@@ -395,17 +395,17 @@
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a href="#">공지사항</a>
+                    <a href="<%=request.getContextPath()%>/member/list.do">공지사항</a>
                     <ul class="dropdown-menu">
-                        <li><a href="notice.jsp">공지사항</a></li>
-                        <li><a href="qna.jsp">1:1 문의</a></li>
-                        <li><a href="faq.jsp">FAQ</a></li>
+                        <li><a href="<%=request.getContextPath()%>/member/list.do">공지사항</a></li>
+                        <li><a href="<%=request.getContextPath()%>/member/list1_1.do">1:1 문의</a></li>
+                        <li><a href="<%=request.getContextPath()%>/FAQBoard">FAQ</a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
         <div class="user-info">
-            <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
+            <a href="<%=request.getContextPath()%>/logout.do" class="logout-btn">로그아웃</a>
             <a href="/myPage/mypage.jsp" class="mypage-btn">마이페이지</a>
             <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
         </div>
@@ -481,7 +481,7 @@
 
 </main>
 <div >
-    <img style="background-size: auto 100%" src="booking-visual--pc.jpg">
+    <img style="background-size: auto 100%" src="/images/main1.jpg">
 </div>
 <script>
 
@@ -503,7 +503,7 @@
         $(".logout-btn").click(function(event) {
             event.preventDefault(); // 기본 링크 동작 방지
             if (confirm("로그아웃 하시겠습니까?")) {
-                location.href = "<%=request.getContextPath()%>/user/logout.do";
+                location.href = "<%=request.getContextPath()%>/logout.do";
             }
         });
     });

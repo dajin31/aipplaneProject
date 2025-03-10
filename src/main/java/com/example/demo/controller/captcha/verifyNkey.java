@@ -1,4 +1,4 @@
-package com.example.demo.controller.captcha;
+package com.example.demo.captcha;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

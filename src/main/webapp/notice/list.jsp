@@ -12,7 +12,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>공지사항</title>
 
-  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/1_1liststyle.css">
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
   <%
     UserVO loginUser = (UserVO) session.getAttribute("loginUser");

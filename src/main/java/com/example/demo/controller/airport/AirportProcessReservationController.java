@@ -1,5 +1,6 @@
 package com.example.demo.controller.airport;
 
+import com.example.demo.service.AirportService;
 import com.example.demo.service.AirportServiceImpl;
 import com.example.demo.vo.AirportProcessVO;
 import jakarta.servlet.ServletException;
@@ -32,7 +33,7 @@ public class AirportProcessReservationController extends HttpServlet {
         airportProcessVO.setUserMileage(userMileage);
 
 
-        AirportServiceImpl service = AirportServiceImpl.getInstance();
+        AirportService service = AirportServiceImpl.getInstance();
 
 
 

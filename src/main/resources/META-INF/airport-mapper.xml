@@ -37,7 +37,6 @@
         <result property="seatCode" column="SEAT_CODE"/>
     </resultMap>
 
-
     <select id="selectCountyList" resultMap="airportMap">
         select *
         from airport
@@ -151,34 +150,6 @@
         SELECT air_a.*, air_b.*
         FROM air_b
         JOIN air_a ON air_a.FLT_CODE = air_b.FLT_CODE
-    </select>
-
-    <select id="findSchedulesByAirCode" resultMap="airRouteScheduleMap">
-        select *
-        from air_route_schedule
-        where air_code = #{airCode}
-        order by DPT_TIME
-    </select>
-
-    <select id="findScheduleOne" resultMap="airRouteScheduleMap">
-        WITH air_a AS (
-            SELECT CNT_NAME, APT_CODE
-            FROM AIRPORT
-        ),
-             air_b AS (
-                 SELECT CNT_NAME, APT_CODE , APT_NAME
-                 FROM AIRPORT
-             ),
-             air_c as (
-                 select AIR_CODE , AIR_NAME
-                 from AIRCRAFT
-             )
-        SELECT s.*, air_a.CNT_NAME AS 출발_국가, air_b.CNT_NAME AS 도착_국가 , air_b.APT_NAME as 도착_항공 , air_c.AIR_NAME
-        FROM AIR_ROUTE_SCHEDULE s
-                 LEFT JOIN air_a ON s.DPT_APT_CODE = air_a.APT_CODE
-                 LEFT JOIN air_b ON s.ARR_APT_CODE = air_b.APT_CODE
-                 LEFT JOIN air_c ON s.AIR_CODE = air_c.AIR_CODE
-        WHERE s.FLT_CODE = #{fltCode}
     </select>
 
 </mapper>

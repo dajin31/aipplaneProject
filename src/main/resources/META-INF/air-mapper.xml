@@ -159,6 +159,7 @@
           and res_code = #{res_code}
     </delete>
 
+
     <!--    다진이 짠거-->
     <select id="selectMyReservation" parameterType="String" resultMap="myReservationMap">
         SELECT

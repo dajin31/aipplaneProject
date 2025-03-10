@@ -17,7 +17,8 @@ import java.io.PrintWriter;
 
 @WebServlet("/userFindId")
 public class UserFindId extends HttpServlet {
-    private final UserService userService = UserServiceImpl.getInstance();
+    private UserService userService = UserServiceImpl.getInstance();
+
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -86,4 +87,3 @@ public class UserFindId extends HttpServlet {
         out.flush();
     }
 }
-

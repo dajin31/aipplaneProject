@@ -6,21 +6,8 @@ public class PassengerVO {
     private String userName;
     private int fltCode;
     private String passNum;
-    private String regNum;
+    private int regNum;
     private String seatCode;
-
-    public PassengerVO() {
-    }
-
-    public PassengerVO(int pNum, String userId, String userName, int fltCode, String passNum, String regNum, String seatCode) {
-        this.pNum = pNum;
-        this.userId = userId;
-        this.userName = userName;
-        this.fltCode = fltCode;
-        this.passNum = passNum;
-        this.regNum = regNum;
-        this.seatCode = seatCode;
-    }
 
     public int getpNum() {
         return pNum;
@@ -62,11 +49,11 @@ public class PassengerVO {
         this.passNum = passNum;
     }
 
-    public String getRegNum() {
+    public int getRegNum() {
         return regNum;
     }
 
-    public void setRegNum(String regNum) {
+    public void setRegNum(int regNum) {
         this.regNum = regNum;
     }
 
@@ -86,7 +73,7 @@ public class PassengerVO {
                 ", userName='" + userName + '\'' +
                 ", fltCode=" + fltCode +
                 ", passNum='" + passNum + '\'' +
-                ", regNum='" + regNum + '\'' +
+                ", regNum=" + regNum +
                 ", seatCode='" + seatCode + '\'' +
                 '}';
     }

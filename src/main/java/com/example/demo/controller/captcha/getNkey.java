@@ -1,4 +1,11 @@
-package com.example.demo.controller.captcha;
+package com.example.demo.captcha;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,13 +16,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/captcha/getNkey")
 public class getNkey extends jakarta.servlet.http.HttpServlet {

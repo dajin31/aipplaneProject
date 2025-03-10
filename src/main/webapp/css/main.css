@@ -677,7 +677,6 @@ h2 {
     color: #7f8c8d;
 }
 
-/* 추가 정보 (습도, 풍속 등) */
 .mileage-shop-details {
     display: flex;
     justify-content: space-around;

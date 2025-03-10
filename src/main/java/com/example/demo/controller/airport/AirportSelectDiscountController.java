@@ -1,5 +1,6 @@
 package com.example.demo.controller.airport;
 
+import com.example.demo.service.AirportService;
 import com.example.demo.service.AirportServiceImpl;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
@@ -18,7 +19,7 @@ public class AirportSelectDiscountController extends HttpServlet {
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        AirportServiceImpl service = AirportServiceImpl.getInstance();
+        AirportService service = AirportServiceImpl.getInstance();
 
         String userId = req.getParameter("userId");
 

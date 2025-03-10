@@ -399,269 +399,269 @@
             </ul>
         </nav>
         <div class="user-info">
-            <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
-            <a href="/myPage/mypage.jsp" class="mypage-btn">마이페이지</a>
+            <a href="<%=request.getContextPath()%>/logout.do" class="logout-btn">로그아웃</a>
+            <a href="/login/mypage.jsp" class="mypage-btn">마이페이지</a>
             <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
         </div>
     </div>
 </header>
 
-    <main class="main-content" style="margin-top: 180px">
-        <h1>좌석선택</h1>
+<main class="main-content" style="margin-top: 180px">
+    <h1>좌석선택</h1>
 
-        <section class="flight-info">
-            <div class="flight-type">가는편</div>
-            <div class="departure-info" id="startCountry">출발국가명</div>
+    <section class="flight-info">
+        <div class="flight-type">가는편</div>
+        <div class="departure-info" id="startCountry">출발국가명</div>
+    </section>
+
+    <div class="airplane-container">
+        <div ></div>
+        <section class="seat-map" style="margin-left: 150px">
+            <div class="seat-legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #fef3c7;"></div>
+                    <span>퍼스트</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #dbeafe;"></div>
+                    <span>비즈니스</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #dcfce7;"></div>
+                    <span>이코노미</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background-color: #e5e7eb;"></div>
+                    <span>예약불가</span>
+                </div>
+            </div>
+
+            <div class="seat-grid" id="seatGrid">
+                <!-- 좌석은 JavaScript로 동적 생성됨 -->
+            </div>
         </section>
+    </div>
 
-        <div class="airplane-container">
-            <div ></div>
-            <section class="seat-map" style="margin-left: 150px">
-                <div class="seat-legend">
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: #fef3c7;"></div>
-                        <span>퍼스트</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: #dbeafe;"></div>
-                        <span>비즈니스</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: #dcfce7;"></div>
-                        <span>이코노미</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-color" style="background-color: #e5e7eb;"></div>
-                        <span>예약불가</span>
-                    </div>
-                </div>
+    <div class="passenger-info" id="passengerNum">
 
-                <div class="seat-grid" id="seatGrid">
-                    <!-- 좌석은 JavaScript로 동적 생성됨 -->
-                </div>
-            </section>
-        </div>
-
-        <div class="passenger-info" id="passengerNum">
-
-        </div>
+    </div>
 
 
-        <div class="button-group">
+    <div class="button-group">
 
-            <button class="btn btn-primary" id="goNextBtn">확인</button>
-        </div>
-    </main>
+        <button class="btn btn-primary" id="goNextBtn">확인</button>
+    </div>
+</main>
 
-    <script>
-        let isLogin = false;
-        let username = "<%= username %>";
-        let userIdValue = "<%= userId %>";
-        console.log("로그인한 사용자 이름:", username);
-        console.log("로그인한 사용자 아이디:", userIdValue);
+<script>
+    let isLogin = false;
+    let username = "<%= username %>";
+    let userIdValue = "<%= userId %>";
+    console.log("로그인한 사용자 이름:", username);
+    console.log("로그인한 사용자 아이디:", userIdValue);
 
-        // username이 null 또는 빈 문자열인 경우 처리
-        if (!username) {
-            console.log("사용자가 로그인하지 않았습니다.");
-        }
-        if (username) {
-            isLogin = true;
+    // username이 null 또는 빈 문자열인 경우 처리
+    if (!username) {
+        console.log("사용자가 로그인하지 않았습니다.");
+    }
+    if (username) {
+        isLogin = true;
+    }
+
+    $(document).ready(function() {
+        // 세션에서 로그인 상태 확인
+        const isLoggedIn = ${sessionScope.loginUser != null};
+        const userName = "${sessionScope.loginUser.userName}";
+
+        if (isLoggedIn) {
+            $(".header-before-login").hide();
+            $(".header-after-login").removeClass("hidden");
+            $(".welcome-msg").text(userName + "님 환영합니다.");
+        } else {
+            $(".header-before-login").show();
+            $(".header-after-login").addClass("hidden");
         }
 
-        $(document).ready(function() {
-            // 세션에서 로그인 상태 확인
-            const isLoggedIn = ${sessionScope.loginUser != null};
-            const userName = "${sessionScope.loginUser.userName}";
-
-            if (isLoggedIn) {
-                $(".header-before-login").hide();
-                $(".header-after-login").removeClass("hidden");
-                $(".welcome-msg").text(userName + "님 환영합니다.");
-            } else {
-                $(".header-before-login").show();
-                $(".header-after-login").addClass("hidden");
+        // 로그아웃 후 페이지 리로드
+        $(".logout-btn").click(function(event) {
+            event.preventDefault(); // 기본 링크 동작 방지
+            if (confirm("로그아웃 하시겠습니까?")) {
+                location.href = "<%=request.getContextPath()%>/logout.do";
             }
+        });
+    });
 
-            // 로그아웃 후 페이지 리로드
-            $(".logout-btn").click(function(event) {
-                event.preventDefault(); // 기본 링크 동작 방지
-                if (confirm("로그아웃 하시겠습니까?")) {
-                    location.href = "<%=request.getContextPath()%>/user/logout.do";
-                }
-            });
+    const urlParams = new URLSearchParams(window.location.search);
+    const passengerValue = decodeURIComponent(urlParams.get("passengerValue"));
+    const classvalue = decodeURIComponent(urlParams.get("classValue"));
+    const start = decodeURIComponent(urlParams.get("start"));
+    const end = decodeURIComponent(urlParams.get("end"));
+    const departDate =urlParams.get("departDate")
+    const returnDate = urlParams.get("returnDate")
+    const fltCode = urlParams.get("fltCode")
+    const totalPrice = urlParams.get("totalPrice")
+
+
+    let selectedList = [];
+    console.log(passengerValue)
+    console.log(classvalue)
+    console.log(start)
+    console.log(end)
+    console.log(departDate)
+    console.log(returnDate)
+    console.log(fltCode)
+    console.log(totalPrice)
+
+    const passengerCounts = passengerValue.split(',').map(item => parseInt(item.split(':')[1].trim()));
+    const passengerCount = passengerCounts.reduce((acc, curr) => acc + curr, 0);
+
+    console.log(passengerCount)
+    const elementById = document.getElementById("passengerNum");
+    elementById.textContent = passengerValue;
+
+    const startElement = document.getElementById("startCountry");
+    startElement.textContent = start;
+    fetch('/reservation/seatListSelect')
+        .then(response => response.json())
+        .then(data => {
+            // console.log(data)
+            createSeatGrid(data);
         });
 
-        const urlParams = new URLSearchParams(window.location.search);
-        const passengerValue = decodeURIComponent(urlParams.get("passengerValue"));
-        const classvalue = decodeURIComponent(urlParams.get("classValue"));
-        const start = decodeURIComponent(urlParams.get("start"));
-        const end = decodeURIComponent(urlParams.get("end"));
-        const departDate =urlParams.get("departDate")
-        const returnDate = urlParams.get("returnDate")
-        const fltCode = urlParams.get("fltCode")
-        const totalPrice = urlParams.get("totalPrice")
+
+    function createSeatGrid(seatData) {
+        const seatGrid = document.getElementById('seatGrid');
+        seatGrid.innerHTML = '';
+
+        const rows = 6;
+        const cols = 12;
+
+        // 열(A, B, C...)을 처리하는 바깥쪽 루프
+        for (let j = 0; j < rows; j++) {
+            // 행(1, 2, 3...)을 처리하는 안쪽 루프
+            for (let i = 0; i < cols; i++) {
+                const seat = document.createElement('div');
+                seat.className = 'seat';
 
 
-        let selectedList = [];
+                const seatPosition = (i + 1).toString().padStart(2, '0') + String.fromCharCode(65 + j);
+
+                const seatInfo = seatData.find(item => item.seatPosition === seatPosition);
+                // console.log("seatPosition:", seatPosition, "seatInfo:", seatInfo);
+
+                if (seatInfo) {
+                    // 좌석 클래스 할당
+                    const colLetter = seatPosition.charAt(2);
+                    if (colLetter === 'A') {
+                        seat.classList.add('first-class');
+                    } else if (colLetter === 'B' || colLetter === 'C' || colLetter === 'D') {
+                        seat.classList.add('business');
+                    } else if (colLetter === 'E' || colLetter === 'F') {
+                        seat.classList.add('economy');
+                    } else {
+                        seat.classList.add('economy');
+                    }
+
+                    if (seatInfo.seatStatus === '1') {
+                        seat.classList.add('occupied');
+                        seat.textContent = 'X';
+                    } else {
+                        seat.textContent = 'O';
+                        seat.addEventListener('click', function() {
+                            console.dir(this)
+                            console.log(this.classList)
+                            let classCase = "";
+
+                            switch (classvalue) {
+                                case "이코노미":
+                                    classCase = "economy";
+                                    break;
+                                case "비즈니스":
+                                    classCase ="business";
+                                    break;
+                                case "퍼스트":
+                                    classCase ="first-class";
+                                    break;
+
+                            }
+
+                            console.log(classCase);
+                            if (!this.classList.contains(classCase)) {
+                                alert("해당 클래스가 아닙니다");
+                                return;
+                            }
+                            if (this.classList.contains('selected')) {
+                                this.classList.remove('selected');
+                                selectedList.splice(this, 1);
+                            } else {
+                                const selectedSeats = document.querySelectorAll('.seat.selected');
+                                if (selectedSeats.length < passengerCount) {
+                                    this.classList.add('selected');
+                                    console.log(seatPosition)
+                                    selectedList.push(seatPosition);
+                                }
+                            }
+                        });
+                    }
+                } else {
+                    seat.textContent = '?';
+                }
+
+                seatGrid.appendChild(seat);
+            }
+        }
+    }
+
+    document.getElementById("goNextBtn").addEventListener('click', () => {
+        console.log(selectedList)
         console.log(passengerValue)
         console.log(classvalue)
         console.log(start)
         console.log(end)
         console.log(departDate)
         console.log(returnDate)
-        console.log(fltCode)
-        console.log(totalPrice)
 
-        const passengerCounts = passengerValue.split(',').map(item => parseInt(item.split(':')[1].trim()));
-        const passengerCount = passengerCounts.reduce((acc, curr) => acc + curr, 0);
+        //     회원 여부 판단후 회원이 아니면 로그인 페이지 이동
 
-        console.log(passengerCount)
-        const elementById = document.getElementById("passengerNum");
-        elementById.textContent = passengerValue;
+        if (!isLogin) {
+            const airportLogin = "/reservation/AirportLoginCheckPopup?classValue=" + encodeURIComponent(classvalue) + "&passengerValue=" + encodeURIComponent(passengerValue)
+                + "&start=" + encodeURIComponent(start) + "&end=" + encodeURIComponent(end)+ "&departDate=" + departDate +  "&returnDate=" + returnDate + "&selectedList=" + selectedList + "&fltCode=" + fltCode + "&totalPrice=" + totalPrice;
+            const popWidth = 800;
+            const popHeigth = 300;
 
-        const startElement = document.getElementById("startCountry");
-        startElement.textContent = start;
-        fetch('/reservation/seatListSelect')
-            .then(response => response.json())
-            .then(data => {
-                // console.log(data)
-                    createSeatGrid(data);
-            });
+            const options = `width=${popWidth}px, height=${popHeigth}px, top=20, left=20, resizable=no, scrollbars=yes, menubar=no, toolbar=no, location=no, directories=no, status=no`;
 
+            const popupWindow = window.open(airportLogin, 'airportLogin', options);
 
-        function createSeatGrid(seatData) {
-                const seatGrid = document.getElementById('seatGrid');
-                seatGrid.innerHTML = '';
-
-                const rows = 6;
-                const cols = 12;
-
-                // 열(A, B, C...)을 처리하는 바깥쪽 루프
-                for (let j = 0; j < rows; j++) {
-                    // 행(1, 2, 3...)을 처리하는 안쪽 루프
-                    for (let i = 0; i < cols; i++) {
-                        const seat = document.createElement('div');
-                        seat.className = 'seat';
-
-
-                        const seatPosition = (i + 1).toString().padStart(2, '0') + String.fromCharCode(65 + j);
-
-                        const seatInfo = seatData.find(item => item.seatPosition === seatPosition);
-                        // console.log("seatPosition:", seatPosition, "seatInfo:", seatInfo);
-
-                        if (seatInfo) {
-                            // 좌석 클래스 할당
-                            const colLetter = seatPosition.charAt(2);
-                            if (colLetter === 'A') {
-                                seat.classList.add('first-class');
-                            } else if (colLetter === 'B' || colLetter === 'C' || colLetter === 'D') {
-                                seat.classList.add('business');
-                            } else if (colLetter === 'E' || colLetter === 'F') {
-                                seat.classList.add('economy');
-                            } else {
-                                seat.classList.add('economy');
-                            }
-
-                            if (seatInfo.seatStatus === '1') {
-                                seat.classList.add('occupied');
-                                seat.textContent = 'X';
-                            } else {
-                                seat.textContent = 'O';
-                                seat.addEventListener('click', function() {
-                                    console.dir(this)
-                                    console.log(this.classList)
-                                    let classCase = "";
-
-                                    switch (classvalue) {
-                                        case "이코노미":
-                                            classCase = "economy";
-                                            break;
-                                        case "비즈니스":
-                                            classCase ="business";
-                                            break;
-                                        case "퍼스트":
-                                            classCase ="first-class";
-                                            break;
-
-                                    }
-
-                                    console.log(classCase);
-                                    if (!this.classList.contains(classCase)) {
-                                        alert("해당 클래스가 아닙니다");
-                                        return;
-                                    }
-                                    if (this.classList.contains('selected')) {
-                                        this.classList.remove('selected');
-                                        selectedList.splice(this, 1);
-                                    } else {
-                                        const selectedSeats = document.querySelectorAll('.seat.selected');
-                                        if (selectedSeats.length < passengerCount) {
-                                            this.classList.add('selected');
-                                            console.log(seatPosition)
-                                            selectedList.push(seatPosition);
-                                        }
-                                    }
-                                });
-                            }
-                    } else {
-                        seat.textContent = '?';
-                    }
-
-                    seatGrid.appendChild(seat);
-                }
+            if (popupWindow) {
+                console.log("로그인 팝업 오픈");
+                popupWindow.opener = window;
+                loginCheck = true;
+            } else {
+                alert("아오 에러임");
             }
         }
 
-        document.getElementById("goNextBtn").addEventListener('click', () => {
-            console.log(selectedList)
-            console.log(passengerValue)
-            console.log(classvalue)
-            console.log(start)
-            console.log(end)
-            console.log(departDate)
-            console.log(returnDate)
+        if (isLogin) {
+            const airportPayment="/reservation/travelInfoPayment?classValue=" + encodeURIComponent(classvalue) + "&passengerValue=" + encodeURIComponent(passengerValue)
+                + "&start=" + encodeURIComponent(start) + "&end=" + encodeURIComponent(end)+ "&departDate=" + departDate +  "&returnDate=" + returnDate + "&selectedList=" + selectedList + "&fltCode=" + fltCode + "&totalPrice=" + totalPrice + "&userId=" + userIdValue;
+            const popWidth = 800;
+            const popHeigth = 300;
 
-            //     회원 여부 판단후 회원이 아니면 로그인 페이지 이동
+            const options = `width=${popWidth}px, height=${popHeigth}px, top=20, left=20, resizable=no, scrollbars=yes, menubar=no, toolbar=no, location=no, directories=no, status=no`;
 
-            if (!isLogin) {
-                const airportLogin = "/reservation/AirportLoginCheckPopup?classValue=" + encodeURIComponent(classvalue) + "&passengerValue=" + encodeURIComponent(passengerValue)
-                    + "&start=" + encodeURIComponent(start) + "&end=" + encodeURIComponent(end)+ "&departDate=" + departDate +  "&returnDate=" + returnDate + "&selectedList=" + selectedList + "&fltCode=" + fltCode + "&totalPrice=" + totalPrice;
-                const popWidth = 800;
-                const popHeigth = 300;
+            const popupWindow = window.open(airportPayment, 'airportPayment', options);
 
-                const options = `width=${popWidth}px, height=${popHeigth}px, top=20, left=20, resizable=no, scrollbars=yes, menubar=no, toolbar=no, location=no, directories=no, status=no`;
-
-                const popupWindow = window.open(airportLogin, 'airportLogin', options);
-
-                if (popupWindow) {
-                    console.log("로그인 팝업 오픈");
-                    popupWindow.opener = window;
-                    loginCheck = true;
-                } else {
-                    alert("아오 에러임");
-                }
+            if (popupWindow) {
+                console.log("결제 팝업 오픈");
+                popupWindow.opener = window;
+            } else {
+                alert("아오 에러임");
             }
-
-            if (isLogin) {
-                const airportPayment="/reservation/travelInfoPayment?classValue=" + encodeURIComponent(classvalue) + "&passengerValue=" + encodeURIComponent(passengerValue)
-                    + "&start=" + encodeURIComponent(start) + "&end=" + encodeURIComponent(end)+ "&departDate=" + departDate +  "&returnDate=" + returnDate + "&selectedList=" + selectedList + "&fltCode=" + fltCode + "&totalPrice=" + totalPrice + "&userId=" + userIdValue;
-                const popWidth = 800;
-                const popHeigth = 300;
-
-                const options = `width=${popWidth}px, height=${popHeigth}px, top=20, left=20, resizable=no, scrollbars=yes, menubar=no, toolbar=no, location=no, directories=no, status=no`;
-
-                const popupWindow = window.open(airportPayment, 'airportPayment', options);
-
-                if (popupWindow) {
-                    console.log("결제 팝업 오픈");
-                    popupWindow.opener = window;
-                } else {
-                    alert("아오 에러임");
-                }
-            }
-        });
+        }
+    });
 
 
-    </script>
+</script>
 </body>
 </html>

@@ -2,17 +2,6 @@
 <!DOCTYPE mapper   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="user">
 
-    <resultMap  id="userMap" type="UserVO">
-        <result property="userId" column="USER_ID"/>
-        <result property="userPw" column="USER_PW"/>
-        <result property="userName" column="USER_NAME"/>
-        <result property="userEmail" column="USER_EMAIL"/>
-        <result property="userRegnum" column="USER_REGNUM"/>
-        <result property="userMileage" column="USER_MILEAGE"/>
-        <result property="userPassnum" column="USER_PASSNUM"/>
-        <result property="memCode" column="MEM_CODE"/>
-    </resultMap>
-
     <resultMap id="usersMap" type="usersVO">
         <result property="userId" column="user_id"/>
         <result property="userPw" column="user_pw"/>
@@ -22,6 +11,17 @@
         <result property="userMileage" column="user_mileage"/>
         <result property="userPassnum" column="user_passnum"/>
         <result property="memCode" column="mem_code"/>
+    </resultMap>
+
+    <resultMap type="UserVO" id="userMap">
+        <result property="userId" column="USER_ID"/>
+        <result property="userPw" column="USER_PW"/>
+        <result property="userName" column="USER_NAME"/>
+        <result property="userEmail" column="USER_EMAIL"/>
+        <result property="userRegnum" column="USER_REGNUM"/>
+        <result property="userMileage" column="USER_MILEAGE"/>
+        <result property="userPassnum" column="USER_PASSNUM"/>
+        <result property="memCode" column="MEM_CODE"/>
     </resultMap>
     <!-- id , pw확인 -->
     <select id="selectUser" resultType="int">
@@ -58,13 +58,13 @@
     </select>
 
     <!-- 회원가입 -->
-    <insert id="insertUser" parameterType="UserVO">
+    <insert id="insertUser" parameterType="com.example.demo.vo.UserVO">
         INSERT INTO users (user_id, user_pw, user_name, user_regnum, user_email)
         VALUES (#{userId}, #{userPw}, #{userName}, #{userRegnum}, #{userEmail})
     </insert>
 
     <!-- 로그인 -->
-    <select id="login" parameterType="UserVO" resultType="UserVO">
+    <select id="login" parameterType="UserVO" resultMap="userMap">
         SELECT * FROM users WHERE user_id = #{user_id} AND user_pw = #{user_pw}
     </select>
 

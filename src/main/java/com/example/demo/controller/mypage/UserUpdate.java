@@ -49,8 +49,9 @@ public class UserUpdate extends HttpServlet{
 		//userVO{user_pw=1234,user_email=te22@.com}
 		UserVO userVO = gson.fromJson(data, UserVO.class);
 
-		//service객체 얻기 
+		//service객체 얻기
 		//인터페이스		객체		구현클래스
+
 		UserService service = UserServiceImpl.getInstance();
 
 		//service메소드 호출 - 결과값 얻기 

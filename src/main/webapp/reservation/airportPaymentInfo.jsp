@@ -148,25 +148,25 @@
 
     <div class="mileage-section">
         <p class="mileage-title">마일리지 조회 및 적용</p>
-            <div class="mileage-input-group">
-                <input type="text" name="memberId" class="mileage-input" placeholder="회원 ID 입력">
-                <button type="submit" class="search-button">
-                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </button>
-            </div>
+        <div class="mileage-input-group">
+            <input type="text" name="memberId" class="mileage-input" placeholder="회원 ID 입력">
+            <button type="submit" class="search-button">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+        </div>
 
         <div class="price-row">
             <span class="price-label">사용 가능 마일리지</span>
             <span class="price-value" id="myMileage">마일</span>
         </div>
 
-            <div class="mileage-input-group">
-                <input type="number" name="useMileage" id="inputMile" class="mileage-input" placeholder="사용할 마일리지 입력" max="999999">
-                <button type="submit" class="search-button" id="useMileage">적용</button>
-            </div>
+        <div class="mileage-input-group">
+            <input type="number" name="useMileage" id="inputMile" class="mileage-input" placeholder="사용할 마일리지 입력" max="999999">
+            <button type="submit" class="search-button" id="useMileage">적용</button>
+        </div>
 
 
         <div class="price-row">
@@ -187,7 +187,7 @@
         <span id="realTotalPrice">원</span>
     </div>
 
-        <button type="submit" class="pay-button" id="paymentButton">결제하기</button>
+    <button type="submit" class="pay-button" id="paymentButton">결제하기</button>
 
 
     <p class="terms">
@@ -287,7 +287,7 @@
 
 
         const strValue = totalPrice.split(" ")[0].replace(",","");
-         const toTalNum = parseInt(strValue);
+        const toTalNum = parseInt(strValue);
         // document.getElementById("realTotalPrice").textContent = (toTalNum - useMileInt).toLocaleString() + " 원";
 
         const url = "/reservation/selectDiscount?userId=" + userId;
@@ -326,85 +326,14 @@
                 }
             })
             .catch(err => console.error(err));
+
+
+
     })
+
 
     document.getElementById("paymentButton").addEventListener("click", async (e) => {
 
-        // const innerTextValue = document.getElementById("realTotalPrice").innerText;
-        // const string = innerTextValue.split(" ")[0].replace(",","");
-        // const number = parseInt(string);
-        // let resultCheck = false;
-        //
-        // console.log(number)
-        //
-        // e.preventDefault();
-        // try {
-        //     const response = await PortOne.requestPayment({
-        //         storeId: "store-8d537446-2e5f-4b3f-b293-52538bc22fbc",
-        //         channelKey: "channel-key-ff249e0c-abee-42b9-8b4a-59bbf04c2586",
-        //         paymentId: `payment-\${crypto.randomUUID()}`,
-        //         orderName: "항공권 구매",
-        //         totalAmount: number,
-        //         currency: "CURRENCY_KRW",
-        //         payMethod: "EASY_PAY",
-        //     });
-        //
-        //     console.log("결제 성공:", response);
-        //
-        // } catch (error) {
-        //     console.error("결제 실패:", error);
-        //     alert("결제 실패ㅠ")
-        // }
-        //
-        // resultCheck = true;
-        // if (resultCheck) {
-        //     alert("결제 성공");
-        //     //결제성공시 insert작업 , update작업
-        //     const totalPrice = document.getElementById("realTotalPrice").innerText;
-        //     console.log(totalPrice)
-        //
-        //     const totalPriceValue = totalPrice.split(" ")[0].replace(",","");
-        //
-        //     const useMile = document.getElementById("inputMile").value;
-        //     const myMile = document.getElementById("myMileage").innerText; //내 마일
-        //
-        //
-        //     const mileString = myMile.split(" ")[0];
-        //     const myMileValue = mileString.replace(",","");
-        //
-        //     const useMileInt = parseInt(useMile);
-        //     const myMileInt = parseInt(myMileValue);
-        //
-        //     const resultMile = (myMileInt - useMileInt);
-        //
-        //     let url = "/reservation/processReservation?seatCode=" + selectedList + "&totalPrice=" + totalPriceValue + "&userId=" + userId + "&fltCode=" + fltCode + "&userMileage=" + resultMile;
-        //
-        //     console.log(url)
-        //     fetch(url)
-        //         .then(response=>response.json())
-        //         .then(data=>{
-        //             console.log(data);
-        //         })
-        //
-        //
-        //     fetch("/reservation/insertPassenger", {
-        //         method: "POST",
-        //         headers: {
-        //             "Content-Type": "application/json",
-        //         },
-        //         body: JSON.stringify(formList),
-        //     })
-        //         .then((response) => response.text())
-        //         .then((result) => {
-        //             console.log(result);
-        //         })
-        //         .catch((error) => {
-        //             console.error("Error:", error);
-        //         });
-        //
-        // //     //다한 다음 다음 페이지로 이동
-        //
-        // }
         const innerTextValue = document.getElementById("realTotalPrice").innerText;
         const string = innerTextValue.split(" ")[0].replace(",","");
         const number = parseInt(string);
@@ -483,15 +412,12 @@
         //     //다한 다음 다음 페이지로 이동
 
 
-
         const total = document.getElementById("realTotalPrice").innerText;
 
         let gourl = 'receiptPage.jsp?fltCode=' + fltCode + "&selectedList=" + selectedList + "&totalPrice=" + total + "&userId=" + userId +  "&start=" + start + "&end=" + end + "&departDate=" + departDate+ "&returnDate=" + returnDate+ "&classvalue=" + classvalue + "&userNameList=" +encodeURIComponent(JSON.stringify(userNameList));
 
         window.open(gourl);
-
     }
-
 </script>
 </body>
 </html>

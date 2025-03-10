@@ -1,6 +1,6 @@
 package com.example.demo.controller.airport;
 
-
+import com.example.demo.service.AirportService;
 import com.example.demo.service.AirportServiceImpl;
 import com.example.demo.vo.AirCompletVO;
 import com.google.gson.Gson;
@@ -48,7 +48,7 @@ public class AirCompletListController extends HttpServlet {
         }
 
 
-        AirportServiceImpl service = AirportServiceImpl.getInstance();
+        AirportService service = AirportServiceImpl.getInstance();
 
         AirCompletVO airCompletVO = new AirCompletVO();
 
@@ -67,6 +67,6 @@ public class AirCompletListController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            doGet(req, resp);
+        doGet(req, resp);
     }
 }

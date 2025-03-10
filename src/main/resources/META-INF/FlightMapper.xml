@@ -15,15 +15,15 @@
             rd.ticket_price
         FROM
             air_route_schedule r
-        join
+                join
             airport d on r.DPT_APT_CODE = d.APT_CODE
-        join
+                join
             airport a on r.ARR_APT_CODE = a.APT_CODE
-        join
+                join
             res_details rd on rd.flt_code = r.flt_code
-        join
+                join
             seat s on s.seat_code = rd.seat_code
-        join
+                join
             aircraft c on c.air_code = r.air_code
         WHERE r.flt_code = #{fltCode}
     </select>

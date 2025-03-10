@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserVO login(String userId, String userPw) {
         try {
-            UserVO user = dao.getUser(userId);
+            UserVO user = dao.login(userId,userPw);
             if (user == null) {
                 logger.warn("로그인 실패: 사용자 ID={} 없음", userId);
                 return null;

@@ -1,5 +1,6 @@
 package com.example.demo.controller.airport;
 
+import com.example.demo.service.AirportService;
 import com.example.demo.service.AirportServiceImpl;
 import com.example.demo.vo.PassengerVO;
 import com.google.gson.Gson;
@@ -58,7 +59,7 @@ public class AirportInsertPassengerController extends HttpServlet {
 
         System.out.println("Received passengers: " + passengers);
 
-        AirportServiceImpl service = AirportServiceImpl.getInstance();
+        AirportService service = AirportServiceImpl.getInstance();
 
         int cnt = service.insertPassenger(passengers);
 

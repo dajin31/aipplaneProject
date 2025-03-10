@@ -6,7 +6,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -16,14 +15,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>여정 정보</title>
+    <link rel="stylesheet" href="/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/pdfSender.css">
 </head>
+<style>
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    th {
+        background-color: #2a4db7;
+        color: white;
+        padding: 10px;
+        text-align: center;
+    }
+    td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ddd;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    .total {
+        text-align: right;
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .total-amount {
+        color: #ff0000;
+    }
+</style>
 <body>
+
 <div class="container">
     <!-- 헤더 -->
     <div class="header">
-        <img src="/images/2.png" alt="SOON 항공사 로고" class="logo">
+        <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
     </div>
 
     <!-- 단계 네비게이션 -->
@@ -60,57 +89,41 @@
     <div class="section">
         <h3 class="section-title">여정정보</h3>
         <div id="flightInfoContainer">
-            <%
-                List<Map<String, Object>> flightList = new ArrayList<>();
-                Map<String, Object> flight1 = new HashMap<>();
-                flight1.put("fltCode", "KE706");
-                flight1.put("dptAptCode", "NRT");
-                flight1.put("dptCntName", "도쿄/나리타");
-                flight1.put("arrAptCode", "ICN");
-                flight1.put("arrCntName", "서울/인천");
-                flight1.put("dptTime", "09:00");
-                flight1.put("arrTime", "11:00");
-                flight1.put("airline", "대한항공");
-                flight1.put("seatClass", "일반석");
-                flight1.put("price", "1350000");
-                flight1.put("aircraft", "A330-200");
-                flight1.put("dptDate", "2023.12.01");
-                flight1.put("dptTerminal", "터미널 1");
-                flight1.put("arrDate", "2023.12.01");
-                flight1.put("arrTerminal", "터미널 2");
-                flight1.put("seatGrade", "Q");
-                flight1.put("seatCount", "3");
-                flightList.add(flight1);
+            <table>
+                <thead>
+                <tr>
+                    <th>편명</th>
+                    <th>출발지</th>
+                    <th>도착지</th>
+                    <th>클래스</th>
+                    <th>기종</th>
+                    <th>가격</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td id="fltCodeValue">KE706</td>
+                    <td >
+                        <p id="startCountry">도쿄/나리타(NRT)</p>
+                        <p id="departDate">2023.12.01</p>
+                    </td>
+                    <td >
+                        <p id="endCountry">도쿄/나리타(NRT)</p>
+                        <p id="returnDate">2023.12.01</p>
+                    </td>
+                    <td>
+                        <p id="classvalue">일반석</p>
+                        <p id="numCount"></p>
+                    </td>
+                    <td id="airName">A330-200</td>
+                    <td id="tdTotalPrice">1,350,000원</td>
+                </tr>
+                </tbody>
+            </table>
 
-                Map<String, Object> flight2 = new HashMap<>();
-                flight2.put("fltCode", "KE124");
-                flight2.put("dptAptCode", "ICN");
-                flight2.put("dptCntName", "서울/인천");
-                flight2.put("arrAptCode", "NRT");
-                flight2.put("arrCntName", "도쿄/나리타");
-                flight2.put("dptTime", "09:00");
-                flight2.put("arrTime", "11:00");
-                flight2.put("airline", "대한항공");
-                flight2.put("seatClass", "일반석");
-                flight2.put("price", "1440000");
-                flight2.put("aircraft", "A330-200");
-                flight2.put("dptDate", "2023.12.05");
-                flight2.put("dptTerminal", "터미널 2");
-                flight2.put("arrDate", "2023.12.05");
-                flight2.put("arrTerminal", "터미널 1");
-                flight2.put("seatGrade", "L");
-                flight2.put("seatCount", "3");
-                flightList.add(flight2);
-
-                ObjectMapper objectMapper = new ObjectMapper();
-                String flightListJson = objectMapper.writeValueAsString(flightList);
-
-                // 총 가격 계산
-                int totalPrice = 0;
-                for (Map<String, Object> flight : flightList) {
-                    totalPrice += Integer.parseInt(flight.get("price").toString());
-                }
-            %>
+            <div class="total">
+                총 결제 금액: <span class="total-amount" id="totalPrice">2,790,000원</span>
+            </div>
             <div id="flightListInfo"></div>
         </div>
     </div>
@@ -122,42 +135,24 @@
             <thead>
             <tr>
                 <th>탑승객 이름</th>
-                <th>회원번호</th>
-                <th>항공권번호</th>
+                <th>회원 아이디</th>
+                <th>예약 번호</th>
                 <th>예약 상태</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-                <td>김예찬</td>
-                <td>KE123456789</td>
-                <td>18012345678</td>
-                <td class="action-buttons">
-                    <button class="btn btn-view view-ticket" data-fltcode="1020">조회</button>
-                    <button class="btn btn-pdf send-pdf" data-pnum="1">PDF 전송</button>
-                    <button class="btn btn-cancel cancel-booking" data-pnum="1">취소</button>
-                </td>
-            </tr>
-            <tr>
-                <td>고예림</td>
-                <td>KE987654321</td>
-                <td>18098765432</td>
-                <td class="action-buttons">
-                    <button class="btn btn-view view-ticket" data-fltcode="1020">조회</button>
-                    <button class="btn btn-pdf send-pdf" data-pnum="2">PDF 전송</button>
-                    <button class="btn btn-cancel cancel-booking" data-pnum="2">취소</button>
-                </td>
-            </tr>
-            <tr>
-                <td>김태경</td>
-                <td>KE123456522</td>
-                <td>18012345671</td>
-                <td class="action-buttons">
-                    <button class="btn btn-view view-ticket" data-fltcode="1020">조회</button>
-                    <button class="btn btn-pdf send-pdf" data-pnum="3">PDF 전송</button>
-                    <button class="btn btn-cancel cancel-booking" data-pnum="3">취소</button>
-                </td>
-            </tr>
+            <tbody id="tbodyValue">
+
+            <%--            <tr>--%>
+            <%--                <td>김예찬</td>--%>
+            <%--                <td>KE123456789</td>--%>
+            <%--                <td>18012345678</td>--%>
+            <%--                <td class="action-buttons">--%>
+            <%--                    <button class="btn btn-view view-ticket" data-fltcode="1020">조회</button>--%>
+            <%--                    <button class="btn btn-pdf send-pdf" data-pnum="1">PDF 전송</button>--%>
+            <%--                    <button class="btn btn-cancel cancel-booking" data-pnum="1">취소</button>--%>
+            <%--                </td>--%>
+            <%--            </tr>--%>
+
             </tbody>
         </table>
 
@@ -166,7 +161,6 @@
             <span class="label">이메일:</span>
             <span class="value">chanzz0518@gmail.com</span>
         </div>
-        <span><a href="/images/2.png" download="2.png">첨부파일 다운로드</a></span>
     </div>
 </div>
 
@@ -183,112 +177,119 @@
 
 
 <script>
-    var flightList = JSON.parse('<%=flightListJson%>');
-    var totalPrice = <%= totalPrice %>;
 
-    function displayFlightInfo(flights) {
-        var container = document.getElementById('flightListInfo');
-        // JavaScript 코드
-        var flight = { price: 450000 }; // 예시: flight 객체 생성
+    const urlParam =  new URLSearchParams(window.location.search);
+    const fltCode = urlParam.get('fltCode');
+    const selectedList = urlParam.get('selectedList');
+    const totalPrice = urlParam.get('totalPrice');
+    const userId = urlParam.get('userId');
+    const start = urlParam.get("start");
+    const end = urlParam.get("end");
+    const departDate = urlParam.get("departDate");
+    const returnDate = urlParam.get("returnDate");
+    const classvalue = urlParam.get("classvalue");
+    const userNameList = decodeURIComponent(urlParam.get("userNameList")) ;
 
-        console.log(typeof flight.price); // price의 데이터 타입 출력
+    console.log(fltCode)
+    console.log(selectedList)
+    console.log(totalPrice)
+    console.log(userId)
+    console.log(start)
+    console.log(end)
+    console.log(departDate)
+    console.log(returnDate)
+    console.log(classvalue)
 
-        // 테이블 생성
-        var table = document.createElement('table');
-        table.className = 'info-table';
+    const strings = userNameList.substring(1,userNameList.length-1);
+    console.log(strings)
 
-        // 테이블 헤더 생성
-        var thead = document.createElement('thead');
-        var headerRow = document.createElement('tr');
-        var headers = ['편명', '출발지', '도착지', '클래스', '기종', '가격'];
 
-        headers.forEach(function(headerText) {
-            var th = document.createElement('th');
-            th.textContent = headerText;
-            headerRow.appendChild(th);
-        });
 
-        thead.appendChild(headerRow);
-        table.appendChild(thead);
+    document.getElementById("tdTotalPrice").textContent = totalPrice;
+    document.getElementById("totalPrice").textContent = totalPrice;
+    document.getElementById("fltCodeValue").textContent = fltCode;
+    document.getElementById("startCountry").textContent = start;
+    document.getElementById("endCountry").textContent = end;
+    document.getElementById("departDate").textContent = departDate;
+    document.getElementById("returnDate").textContent = returnDate;
+    document.getElementById("classvalue").textContent = classvalue;
 
-        // 테이블 바디 생성
-        var tbody = document.createElement('tbody');
+    //도착국가명 , 출발국가명 , count , 항공기 기종 명
+    let fetchUrlValue = "/reservation/selectAirCompletList?fltCode=" + encodeURIComponent(fltCode) + "&userId=" + encodeURIComponent(userId) + "&userName=" +encodeURIComponent(strings);
+    fetch(fetchUrlValue,{
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    })
+        .then(response=>response.json())
+        .then(data=>{
+            console.log(data)
+            const totalNum = data.length;
 
-        flights.forEach(function(flight) {
-            var row = document.createElement('tr');
+            document.getElementById("numCount").textContent = totalNum + "석";
 
-            // 편명
-            var cell1 = document.createElement('td');
-            cell1.className = 'flight-number';
-            cell1.textContent = flight.fltCode;
-            row.appendChild(cell1);
+            const airName = data[0].airName;
+            document.getElementById("airName").textContent = airName;
 
-            // 출발지
-            var cell2 = document.createElement('td');
-            cell2.innerHTML = flight.dptCntName + '(' + flight.dptAptCode + ')<br>' +
-                flight.dptDate + '<br>' +
-                flight.dptTerminal;
-            row.appendChild(cell2);
+            const elementById = document.getElementById("tbodyValue");
+            elementById.innerHTML = '';
 
-            // 도착지
-            var cell3 = document.createElement('td');
-            cell3.innerHTML = flight.arrCntName + '(' + flight.arrAptCode + ')<br>' +
-                flight.arrDate + '<br>' +
-                flight.arrTerminal;
-            row.appendChild(cell3);
+            data.forEach(item=>{
+                const row = document.createElement('tr');
 
-            // 클래스
-            var cell4 = document.createElement('td');
-            cell4.innerHTML = flight.seatClass + '<br>(' + flight.seatGrade + ')<br>' + flight.seatCount + '석';
-            row.appendChild(cell4);
+                const nameCell = document.createElement('td');
+                nameCell.textContent = item.userName;
+                row.appendChild(nameCell);
 
-            // 기종
-            var cell5 = document.createElement('td');
-            cell5.textContent = flight.aircraft;
-            row.appendChild(cell5);
+                const idCell = document.createElement('td');
+                idCell.textContent = item.userId;
+                row.appendChild(idCell);
 
-            // 가격
-            var cell6 = document.createElement('td');
-            cell6.textContent = new Intl.NumberFormat('ko-KR').format(flight.price) + '원';
-            row.appendChild(cell6);
+                const ticketCell = document.createElement('td');
+                ticketCell.textContent = item.pNum;
+                row.appendChild(ticketCell);
 
-            tbody.appendChild(row);
-        });
+                const actionsCell = document.createElement('td');
+                actionsCell.className = 'action-buttons';
 
-        table.appendChild(tbody);
+                const viewButton = document.createElement('button');
+                viewButton.className = 'btn btn-view view-ticket';
+                viewButton.textContent = '조회';
+                viewButton.dataset.fltcode = fltCode;
+                actionsCell.appendChild(viewButton);
 
-        // 테이블 푸터 (총 금액)
-        var tfoot = document.createElement('tfoot');
-        var footerRow = document.createElement('tr');
+                const pdfButton = document.createElement('button');
+                pdfButton.className = 'btn btn-pdf send-pdf';
+                pdfButton.textContent = 'PDF 전송';
+                pdfButton.dataset.pnum =item.pNum;
+                actionsCell.appendChild(pdfButton);
+                //
+                const cancelButton = document.createElement('button');
+                cancelButton.className = 'btn btn-cancel cancel-booking';
+                cancelButton.textContent = '취소';
+                cancelButton.dataset.pnum = item.pNum;
+                actionsCell.appendChild(cancelButton);
 
-        var totalLabelCell = document.createElement('td');
-        totalLabelCell.colSpan = 5;
-        totalLabelCell.className = 'total-label';
-        totalLabelCell.textContent = '총 결제 금액:';
-        footerRow.appendChild(totalLabelCell);
+                row.appendChild(actionsCell);
+                elementById.appendChild(row)
 
-        var totalValueCell = document.createElement('td');
-        totalValueCell.className = 'total-price';
-        totalValueCell.textContent = new Intl.NumberFormat('ko-KR').format(totalPrice) + '원';
-        footerRow.appendChild(totalValueCell);
+                //
 
-        tfoot.appendChild(footerRow);
-        table.appendChild(tfoot);
 
-        container.appendChild(table);
-    }
+            })
+        })
+        .catch(err=>console.error(err))
 
     $(document).ready(function() {
-        // 항공편 정보 표시
-        displayFlightInfo(flightList);
 
         // 인쇄 버튼
         $('#printButton').click(function() {
             window.print();
         });
 
-        // 조회 버튼 클릭
-        $('.view-ticket').click(function() {
+        // 모달 조회 버튼 클릭
+        $(document).on('click','.view-ticket',function() {
             const row = $(this).closest('tr');
             const passengerName = row.find('td:first').text();
             const fltCode = $(this).data('fltcode');
@@ -299,7 +300,7 @@
             console.log(fltCode);
             // AJAX -> 서버 에서가져옴
             $.ajax({
-                url: '<%=request.getContextPath()%>/reservation/detailSelectOne',
+                url: '<%=request.getContextPath()%>/reservation/detailSelectList',
                 method: 'GET',
                 data: "fltCode=" + fltCode,
                 success: function(data) {
@@ -315,10 +316,15 @@
             });
         });
 
-// 모달 내용을 업데이트하는 함수
-        function updateModalContent(flight, passengerName) {
-            console.log("flight",flight);
-            const content = `
+    })
+
+
+
+
+    // 모달 내용을 업데이트하는 함수
+    function updateModalContent(flight, passengerName) {
+        console.log("flight",flight);
+        const content = `
         <h3>\${passengerName}님의 항공편 정보</h3>
         <table>
             <tr>
@@ -347,88 +353,86 @@
             </tr>
         </table>
         `;
-            $('#modalContent').html(content);
-        }
+        $('#modalContent').html(content);
+    }
 
-// 모달 닫기 버튼 이벤트
-        $('.close').click(function() {
+    // 모달 닫기 버튼 이벤트
+    $('.close').click(function() {
+        $('#flightModal').hide();
+    });
+
+    // 모달 외부 클릭 시 닫기
+    $(window).click(function(event) {
+        if ($(event.target).is('#flightModal')) {
             $('#flightModal').hide();
-        });
+        }
+    });
 
-// 모달 외부 클릭 시 닫기
-        $(window).click(function(event) {
-            if ($(event.target).is('#flightModal')) {
-                $('#flightModal').hide();
-            }
-        });
-        ////////////////
 
-        // $('.view-ticket').click(function () {
-        //     var pNum = $(this).data('pnum');
-        //     var popupWindow = window.open('ViewTicketServlet?pNum=' + pNum, 'TicketInfo', 'width=800,height=600');
-        //     popupWindow.focus();
-        // });
 
-        // 예약 취소
-        $('.cancel-booking').click(function() {
-            var pNum = $(this).data('pnum');
-            if (confirm('정말로 예약을 취소하시겠습니까?')) {
-                $.post('CancelBookingServlet', { pNum: pNum }, function(response) {
-                    alert(response.message);
-                    if (response.success) {
-                        location.reload();
-                    }
-                });
-            }
-        });
-
-        $('.send-pdf').click(function () {
-            const row = $(this).closest('tr');
-            const passengerName = row.find('td:first').text();
-            const customerEmail = $('.email-info .value').text(); // 이메일 주소를 가져오는 방법은 실제 HTML 구조에 따라 다를 수 있습니다.
-
-            const $this = $(this);
-            $this.prop('disabled', true);
-            $this.text('전송 중...');
-
-            // 캡처할 영역 선택 (여정 정보 테이블)
-
-            const element = document.querySelector('.section');
-
-            html2canvas(element).then(canvas => {
-                // 캔버스를 이미지 데이터로 변환
-                const imageData = canvas.toDataURL('image/png');
-
-                // 서버로 전송
-                fetch('/PDFGeneratorServlet', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        imageData: imageData,
-                        passengerName: passengerName,
-                        email: customerEmail
-                    })
-                })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            alert('PDF가 이메일로 전송되었습니다.');
-                        } else {
-                            alert('PDF 전송에 실패했습니다.');
-                        }
-                        $this.prop('disabled', false);
-                        $this.text('PDF 전송');
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert('PDF 전송 중 오류가 발생했습니다.');
-                    });
+    //
+    // 예약 취소
+    $(document).on('click','.cancel-booking',function() {
+        var pNum = $(this).data('pnum');
+        if (confirm('정말로 예약을 취소하시겠습니까?')) {
+            $.post('CancelBookingServlet', { pNum: pNum }, function(response) {
+                alert(response.message);
+                if (response.success) {
+                    location.reload();
+                }
             });
-            // sendPDF 함수 호출
+        }
+    });
+
+
+    //
+    $(document).on('click', '.send-pdf', function () {
+        const row = $(this).closest('tr');
+        const passengerName = row.find('td:first').text();
+        const customerEmail = $('.email-info .value').text(); // 이메일 주소를 가져오는 방법은 실제 HTML 구조에 따라 다를 수 있습니다.
+
+        const $this = $(this);
+        $this.prop('disabled', true);
+        $this.text('전송 중...');
+
+        // 캡처할 영역 선택 (여정 정보 테이블)
+
+        const element = document.querySelector('.section');
+
+        html2canvas(element).then(canvas => {
+            // 캔버스를 이미지 데이터로 변환
+            const imageData = canvas.toDataURL('image/png');
+
+            // 서버로 전송
+            fetch('/PDFGeneratorServlet', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    imageData: imageData,
+                    passengerName: passengerName,
+                    email: customerEmail
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('PDF가 이메일로 전송되었습니다.');
+                    } else {
+                        alert('PDF 전송에 실패했습니다.');
+                    }
+                    $this.prop('disabled', false);
+                    $this.text('PDF 전송');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('PDF 전송 중 오류가 발생했습니다.');
+                });
         });
     });
+    //
+
 </script>
 </body>
 </html>

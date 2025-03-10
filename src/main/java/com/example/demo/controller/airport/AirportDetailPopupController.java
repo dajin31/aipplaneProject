@@ -28,4 +28,3 @@ public class AirportDetailPopupController extends HttpServlet {
         out.println("</body></html>");
     }
 }
-

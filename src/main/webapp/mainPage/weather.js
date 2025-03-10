@@ -14,6 +14,7 @@ async function fetchWeatherFromServer(nx, ny) {
     }
 }
 
+
 // 날씨 데이터 파싱 함수
 function parseWeatherData(data) {
     console.log('Raw weather data:', data); // 디버깅 로그

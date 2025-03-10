@@ -76,6 +76,7 @@ public class BoardList1_1 extends HttpServlet {
             for (Board1_1VO boardVO : boardList) {
                 if (loginUser.getMemCode().equals("admin")) {
                     filteredBoardList.add(boardVO);
+                    System.out.println("관리자 컨트롤러 : " +boardVO);
                     replyList.add(boardService.getReply(boardVO.getBoard_id()));
                 } else if (boardVO.getUser_id().equals(loginUser.getUserId())) {
                     filteredBoardList.add(boardVO);

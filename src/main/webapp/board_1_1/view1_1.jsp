@@ -160,6 +160,8 @@
         <div class="notice-header">
             <div class="notice-title"><%=boardVO.getInd_title()%></div>
             <div class="notice-meta">
+                <div class="notice-user">회원ID : <%=boardVO.getUser_id()%> | </div>
+                &nbsp;
                 <div class="notice-date"><%=boardVO.getCrt_date()%></div>
             </div>
         </div>

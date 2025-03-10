@@ -157,15 +157,13 @@
   <!-- 카테고리 추가 -->
   <div class="category-tabs">
     <a href="FAQBoard?category=all" class="category-tab <%= currentCategory.equals("all") ? "active" : "" %>">전체</a>
-    <a href="FAQBoard?category=reservation" class="category-tab <%= currentCategory.equals("reservation") ? "active" : "" %>">예약</a>
-    <a href="FAQBoard?category=mileage" class="category-tab <%= currentCategory.equals("mileage") ? "active" : "" %>">마일리지</a>
-    <a href="FAQBoard?category=baggage" class="category-tab <%= currentCategory.equals("baggage") ? "active" : "" %>">수하물</a>
-    <a href="FAQBoard?category=service" class="category-tab <%= currentCategory.equals("service") ? "active" : "" %>">기타 서비스</a>
-    <a href="FAQBoard?category=refund" class="category-tab <%= currentCategory.equals("refund") ? "active" : "" %>">환불</a>
-    <a href="FAQBoard?category=reservationChange" class="category-tab <%= currentCategory.equals("reservationChange") ? "active" : "" %>">예약변경</a>
+    <a href="FAQBoard?category=memberShip" class="category-tab <%= currentCategory.equals("memberShip") ? "active" : "" %>">멤버십</a>
     <a href="FAQBoard?category=redeemMileage" class="category-tab <%= currentCategory.equals("redeemMileage") ? "active" : "" %>">마일리지 사용</a>
-    <a href="FAQBoard?category=checkIn" class="category-tab <%= currentCategory.equals("checkIn") ? "active" : "" %>">체크인</a>
-    <a href="FAQBoard?category=home" class="category-tab <%= currentCategory.equals("home") ? "active" : "" %>">귀환</a>
+    <a href="FAQBoard?category=mileageCollect" class="category-tab <%= currentCategory.equals("mileageCollect") ? "active" : "" %>">마일리지 적립</a>
+    <a href="FAQBoard?category=reservation" class="category-tab <%= currentCategory.equals("reservation") ? "active" : "" %>">예약/좌석배정</a>
+    <a href="FAQBoard?category=ticket" class="category-tab <%= currentCategory.equals("ticket") ? "active" : "" %>">항공권</a>
+    <a href="FAQBoard?category=homePage" class="category-tab <%= currentCategory.equals("homePage") ? "active" : "" %>">홈페이지 이용</a>
+    <a href="FAQBoard?category=etc" class="category-tab <%= currentCategory.equals("etc") ? "active" : "" %>">기타</a>
   </div>
 
   <div class="faq-list">
@@ -173,15 +171,13 @@
       <%
         String categoryDisplayName = "";
         if (currentCategory.equals("all")) categoryDisplayName = "전체";
-        else if (currentCategory.equals("reservation")) categoryDisplayName = "예약";
-        else if (currentCategory.equals("mileage")) categoryDisplayName = "마일리지";
-        else if (currentCategory.equals("baggage")) categoryDisplayName = "수하물";
-        else if (currentCategory.equals("service")) categoryDisplayName = "기타 서비스";
-        else if (currentCategory.equals("refund")) categoryDisplayName = "환불";
-        else if (currentCategory.equals("reservationChange")) categoryDisplayName = "예약변경";
+        else if (currentCategory.equals("memberShip")) categoryDisplayName = "멤버십";
         else if (currentCategory.equals("redeemMileage")) categoryDisplayName = "마일리지 사용";
-        else if (currentCategory.equals("checkIn")) categoryDisplayName = "체크인";
-        else if (currentCategory.equals("home")) categoryDisplayName = "귀환";
+        else if (currentCategory.equals("mileageCollect")) categoryDisplayName = "마일리지 적립";
+        else if (currentCategory.equals("reservation")) categoryDisplayName = "예약/좌석배정";
+        else if (currentCategory.equals("ticket")) categoryDisplayName = "항공권";
+        else if (currentCategory.equals("homePage")) categoryDisplayName = "홈페이지 이용";
+        else if (currentCategory.equals("etc")) categoryDisplayName = "기타";
       %>
       <% if (!sword.isEmpty()) { %>
       검색 : <%= sword %> (<%= totalCount %>)
@@ -262,15 +258,13 @@
       <div class="form-group">
         <label for="category">카테고리</label>
         <select id="category" name="category" required>
-          <option value="reservation">예약</option>
-          <option value="mileage">마일리지</option>
-          <option value="baggage">수하물</option>
-          <option value="service">기타 서비스</option>
-          <option value="refund">환불</option>
-          <option value="reservationChange">예약변경</option>
+          <option value="memberShip">멤버십</option>
           <option value="redeemMileage">마일리지 사용</option>
-          <option value="checkIn">체크인</option>
-          <option value="home">귀환</option>
+          <option value="mileageCollect">마일리지 적립</option>
+          <option value="reservation">예약/좌석배정</option>
+          <option value="ticket">항공권</option>
+          <option value="homePage">홈페이지 이용</option>
+          <option value="etc">기타</option>
         </select>
       </div>
       <div class="form-group">

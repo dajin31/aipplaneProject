@@ -450,3 +450,6 @@ header {
 .header-after-login.hidden {
     display: none;
 }
+.head-mileage{
+    text-align: center;
+}

@@ -59,6 +59,6 @@
 		<mapper resource="META-INF/board-mapper.xml"/>
 		<mapper resource="META-INF/faqboard-mapper.xml"/>
 		<mapper resource="META-INF/mileage-mapper.xml"/>
-
+		<mapper resource="META-INF/admin-mapper.xml"/>
 	</mappers>
 </configuration>

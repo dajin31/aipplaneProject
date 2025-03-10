@@ -11,7 +11,6 @@
 <body>
 <div class="container">
     <h2>회원 상세 정보</h2>
-
     <form id="userDetailForm">
         <input type="hidden" id="userId" name="userId" value="${user.userId}">
 
@@ -24,7 +23,7 @@
         </div>
 
         <div class="form-group readonly">
-            <label>생년월일: ${user.userRegNum}</label>
+            <label>생년월일: ${user.userRegnum}</label>
         </div>
 
         <div class="form-group">
@@ -62,7 +61,7 @@
         </div>
 
         <div class="button-group">
-            <button type="button" onclick="updateUser()">수정</button>
+            <button type="button" onclick="updateUser()" class="modify">수정</button>
             <button type="button" onclick="deleteUser()" class="delete">삭제</button>
             <button type="button" onclick="window.close()" class="cancel">취소</button>
         </div>
@@ -73,8 +72,8 @@
     // 팝업창 위치를 화면 가운데로 설정하고 크기 고정
     window.onload = function() {
         // 팝업창 크기 설정
-        const width = 650;
-        const height = 800;
+        const width = 695;
+        const height = 1100;
 
         // 화면 중앙에 위치시키기
         const left = (window.screen.width - width) / 2;
@@ -84,7 +83,7 @@
         window.resizeTo(width, height);
         window.moveTo(left, top);
 
-        // 크기 조정 핸들러 제거 (크기 조정 자체를 막음)
+        // 크기 조정 핸들러 제거 (외않되)
         document.documentElement.style.overflow = 'hidden';
         document.body.style.overflow = 'hidden';
     };

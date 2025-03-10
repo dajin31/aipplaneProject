@@ -84,7 +84,7 @@
 
       <%--});--%>
       $('#write').click(function(){
-        location.href = "write.jsp"
+        location.href = "/notice/write.jsp"
 
       })
 
@@ -92,41 +92,38 @@
   </script>
 </head>
 <body>
-
-
 <header>
   <div class="header-container header-before-login">
     <div class="logo">
-      <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+      <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
     </div>
     <nav class="nav">
       <ul class="nav-list">
         <li class="nav-item">
-          <a href="#">예약</a>
+          <a href="/reservation/reservation-airport.jsp">예약</a>
           <ul class="dropdown-menu">
-            <li><a href="reservation.jsp">항공권 예매</a></li>
-            <li><a href="reservation.jsp">예약 취소</a></li>
+            <li><a href="<%=request.getContextPath()%>/reservation/reservation-airport.jsp">항공권 예매</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#">마일리지</a>
+          <a href="/mileage/mileageShop.jsp">마일리지</a>
           <ul class="dropdown-menu">
-            <li><a href="mileage.jsp">마일리지샵</a></li>
+            <li><a href="<%=request.getContextPath()%>/mileage/mileageShop.jsp">마일리지샵</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#">공지사항</a>
+          <a href="<%=request.getContextPath()%>/member/list.do">공지사항</a>
           <ul class="dropdown-menu">
-            <li><a href="notice.jsp">공지사항</a></li>
-            <li><a href="/board_1_1/list1_1.jsp">1:1 문의</a></li>
-            <li><a href="/FAQ/faqBoardView.jsp">FAQ</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/list.do">공지사항</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/list1_1.do">1:1 문의</a></li>
+            <li><a href="<%=request.getContextPath()%>/FAQBoard">FAQ</a></li>
           </ul>
         </li>
       </ul>
     </nav>
     <div class="auth">
       <a href="/login/userJoin.jsp" class="join-btn">회원가입</a>
-      <a href="<%=request.getContextPath() %>/member/login.jsp" class="login-btn">로그인</a>
+      <a href="/login/login.jsp" class="login-btn">로그인</a>
     </div>
   </div>
   <div class="header-container header-after-login hidden">
@@ -138,28 +135,27 @@
         <li class="nav-item">
           <a href="/reservation/reservation-airport.jsp">예약</a>
           <ul class="dropdown-menu">
-            <li><a href="/reservation/reservation.jsp">항공권 예매</a></li>
-            <li><a href="reservation.jsp">예약 취소</a></li>
+            <li><a href="<%=request.getContextPath()%>/reservation/reservation-airport.jsp">항공권 예매</a></li>
           </ul>
         </li>
         <li class="nav-item">
           <a href="/mileage/mileageShop.jsp">마일리지</a>
           <ul class="dropdown-menu">
-            <li><a href="/mileage/mileageShop.jsp">마일리지샵</a></li>
+            <li><a href="<%=request.getContextPath()%>/mileage/mileageShop.jsp">마일리지샵</a></li>
           </ul>
         </li>
         <li class="nav-item">
           <a href="<%=request.getContextPath()%>/member/list.do">공지사항</a>
           <ul class="dropdown-menu">
             <li><a href="<%=request.getContextPath()%>/member/list.do">공지사항</a></li>
-            <li><a href="/board_1_1/list1_1.jsp">1:1 문의</a></li>
-            <li><a href="/FAQ/faqBoardView.jsp">FAQ</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/list1_1.do">1:1 문의</a></li>
+            <li><a href="<%=request.getContextPath()%>/FAQBoard">FAQ</a></li>
           </ul>
         </li>
       </ul>
     </nav>
     <div class="user-info">
-      <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
+      <a href="<%=request.getContextPath()%>/logout.do" class="logout-btn">로그아웃</a>
       <a href="/myPage/mypage.jsp" class="mypage-btn">마이페이지</a>
       <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
     </div>

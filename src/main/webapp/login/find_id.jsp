@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/header.css">
   <title>아이디 찾기</title>
   <style>
     body {
@@ -120,6 +121,9 @@
 
 </head>
 <body>
+<div class="logo">
+  <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
+</div>
 <div class="container">
   <h1>아이디 찾기</h1>
   <form id="findIdForm">

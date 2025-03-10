@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <link rel="stylesheet" href="/css/header.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>비밀번호 찾기</title>
   <style>
@@ -118,7 +119,11 @@
 
 </head>
 <body>
+<div class="logo">
+  <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
+</div>
 <div class="container">
+
   <h1>비밀번호 찾기</h1>
   <form id="findPwForm">
     <label for="user_id">아이디</label>

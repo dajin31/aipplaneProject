@@ -19,6 +19,8 @@
 
 <%
     UserVO userVO = (UserVO) session.getAttribute("loginUser")==null?null:(UserVO) session.getAttribute("loginUser");
+
+    boolean isAdmin = userVO != null && userVO.getMemCode().equals("admin");
 %>
 
 <%=userVO%>
@@ -36,7 +38,6 @@
                     <a href="/reservation/reservation-airport.jsp">예약</a>
                     <ul class="dropdown-menu">
                         <li><a href="<%=request.getContextPath()%>/reservation/reservation-airport.jsp">항공권 예매</a></li>
-                        <li><a href="#">예약 취소</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -70,7 +71,6 @@
                     <a href="/reservation/reservation-airport.jsp">예약</a>
                     <ul class="dropdown-menu">
                         <li><a href="<%=request.getContextPath()%>/reservation/reservation-airport.jsp">항공권 예매</a></li>
-                        <li><a href="#">예약 취소</a></li>
                     </ul>
                 </li>
                 <li class="nav-item">
@@ -97,12 +97,16 @@
     </div>
 </header>
 <br><br>
+
 <main class="booking-container">
 <%--예약 섹션--%>
 <h1 style="font-size: 30px" class="booking-title">항공권 예매</h1>
 
 <div class="booking-tabs">
     <div class="tab active">예매</div>
+    <% if (isAdmin) {%>
+    <a href="<%=request.getContextPath()%>/admin/admin.jsp" class="tab admin">관리자용</a>
+    <% } %>
 </div>
 
 <form class="flight-search-form" action="/reservation/flight-selection.jsp" method="POST">
@@ -234,29 +238,32 @@
 </section>
 
 <section id="noticeArea">
-    <h2>공지사항</h2>
+    <div class="ntc">
+        <h2>공지사항</h2>
+    </div>
     <div class="notice-list">
         <div class="announcement-list">
             <div class="announcement-item">
-                <div class="announcement-title">국내선 유류할증료 (2025년 4월)</div>
-                <div class="announcement-date">2025.03.05.</div>
+                <div class="announcement-title"><a href="<%=request.getContextPath()%>/member/view.do?ntc_board=163">스카이패스 회원 할인/엑설런트 보딩패스 제휴 종료</a></div>
+                <div class="announcement-date">2025-03-10 23:32:01</div>
             </div>
             <div class="announcement-item">
-                <div class="announcement-title">스카이패스 / 액티런트 보딩패스 제휴 종료 (파라다이스시티)</div>
-                <div class="announcement-date">2025.03.04.</div>
+                <div class="announcement-title"><a href="<%=request.getContextPath()%>/member/view.do?ntc_board=163">미주지역 서비스센터 대표번호 전화연결 불가 안내</a></div>
+                <div class="announcement-date">2025-03-10 23:31:36</div>
             </div>
             <div class="announcement-item">
-                <div class="announcement-title">로스앤젤레스 공항 라운지 변경</div>
-                <div class="announcement-date">2025.02.28.</div>
+                <div class="announcement-title"><a href="<%=request.getContextPath()%>/member/view.do?ntc_board=163">SOON항공 국제선 브랜드 운임 개편 계획 안내</a></div>
+                <div class="announcement-date">2025-03-10 23:29:40</div>
             </div>
             <div class="announcement-item">
-                <div class="announcement-title">보조배터리 기내 반입 및 보관 방법</div>
-                <div class="announcement-date">2025.02.25.</div>
+                <div class="announcement-title"><a href="<%=request.getContextPath()%>/member/view.do?ntc_board=163">보조배터리 기내 반입 및 보관 방법</a></div>
+                <div class="announcement-date">2025-03-10 23:24:04</div>
             </div>
         </div>
     </div>
 </section>
 
+<!-- 여행 경험 섹션 -->
 <!-- 여행 경험 섹션 -->
 <section class="travel-experience">
     <div class="section-container">
@@ -279,14 +286,8 @@
                 </div>
                 <div class="mileage-shop-main">
                     <div class="icon">🎁</div> <!-- 아이콘은 상황에 맞게 변경 가능 -->
-                    <div class="value">500</div> <!-- 마일리지 수치 -->
-                    <div class="location">사용 가능</div>
                 </div>
-                <div class="mileage-shop-details">
-                    <div>포인트: 60</div>
-                    <div>남은: 127</div>
-                </div>
-                <a href="/mileage/mileageShop.jsp" class="mileage-shop-link">바로가기</a>
+                <a href="/mileage/mileageShop.jsp" class="mileage-shop-link">마일리지샵 바로가기 👈</a> <!-- 여기 수정 완료~! -->
             </div>
         </div>
     </div>
@@ -297,7 +298,7 @@
     <div class="footer-container">
         <div class="footer-info">
             <div class="footer-logo">
-                <img src="/images/2.png" alt="SOON항공사">
+                <img src="/images/newLogo.png" alt="SOON항공사">
             </div>
             <div class="contact-info">
                 <p>고객센터: 1599-1500</p>

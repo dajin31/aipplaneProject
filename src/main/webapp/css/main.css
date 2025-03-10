@@ -76,7 +76,6 @@ body {
 }
 
 .experience-card {
-    padding: 2rem;
     border-radius: 10px;
     background: white;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -142,9 +141,9 @@ body {
 
 .booking-tabs {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    border-bottom: 1px solid #eee;
+    justify-content: space-between; /* 양쪽 끝으로 정렬 */
+    align-items: center;
+    gap: 10px;
 }
 
 .booking-tabs button {
@@ -383,9 +382,28 @@ body {
 }
 
 .booking-tabs {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    display: flex; /* 요소를 수평으로 나란히 배치 */
+    justify-content: flex-start; /* 기본적으로 왼쪽 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    gap: 10px; /* 버튼 간 간격 */
+}
+
+.tab {
+    padding: 10px 20px; /* 버튼 내부 여백 */
+    background-color: #0055A4; /* 이미지에서 보이는 파란색 기반 */
+    color: white;
+    text-decoration: none; /* 링크의 밑줄 제거 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    cursor: pointer; /* 마우스 오버 시 포인터 표시 */
+}
+
+.tab.active {
+    background-color: #003D7A; /* 활성화된 상태의 색상 (선택 사항) */
+}
+
+/* 관리자용 버튼을 오른쪽으로 이동 */
+.admin {
+    margin-left: auto; /* 왼쪽 여백을 자동으로 채워 오른쪽으로 밀어냄 */
 }
 
 .flight-search-form {
@@ -394,10 +412,7 @@ body {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-.tab {
-    padding: 1rem 2rem;
-    cursor: pointer;
-}
+
 
 .tab.active {
     background-color: #00256c;
@@ -421,26 +436,56 @@ body {
     padding-left: 10px;
     padding-right: 10px;
 }
-/*호텔 예약하기 스타일 */
+/* 호텔 예약하기 스타일 */ /*여기서부터 css수정 완료!*/
 .hotels {
-    display: flex; /* 추가 */
-    flex-direction: column; /* 추가 */
-    align-items: center; /* 추가 */
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4ecfb 100%);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .hotel-title {
-    align-self: flex-start; /* 수정 */
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #5b86e5 0%, #36d1dc 100%);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.hotel-title h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 #map {
-    align-self: center; /* 추가 */
+    padding: 20px;
+    align-self: center;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .link-button-hotel {
     align-self: center;
-    text-decoration: none; /* 밑줄 제거 */
-    color: #2563eb; /* 텍스트 색상 변경 */
-    /* 필요에 따라 추가 스타일 설정 */
+    text-decoration: none;
+    color: #2563eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 /* 날씨 정보 스타일 */
@@ -602,16 +647,21 @@ body {
         margin-bottom: 10px;
     }
 }
+/*여기서부터 css수정 완료!*/
 h2 {
     font-size: 22px;
     font-weight: bold;
     margin: 25px 0 15px;
-    color: #333;
+    color: #ffffff;
 }
+/*----------------------------------------*/
 
 .announcement-list {
     border-top: 1px solid #e0e0e0;
     margin-bottom: 40px;
+}
+.ntc h2{
+    color: black;
 }
 
 .announcement-item {
@@ -625,83 +675,130 @@ h2 {
     font-weight: 500;
 }
 
+.announcement-title > a {
+    text-decoration: none;
+    color: black;
+}
+
 .announcement-date {
     color: #777;
 }
 #noticeArea{
     margin: 100px;
 }
-/* 기본 카드 스타일 */
+/* 마일리지샵 카드 스타일 */ /*여기서부터 css수정 완료!*/
 .mileage-shop {
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    width: 300px;
-    text-align: center;
-    font-family: Arial, sans-serif;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e4ecfb 100%);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    font-family: 'Noto Sans KR', sans-serif;
     color: #333;
+    text-align: left;
 }
 
-/* 헤더 스타일 (날씨 위젯의 날씨 정보 부분처럼) */
+/* 마일리지샵 헤더 스타일 */
 .mileage-shop-header {
-    background: #e6f0fa;
-    border-radius: 10px 10px 0 0;
-    padding: 10px;
-    color: #2c3e50;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #5b86e5 0%, #36d1dc 100%);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 15px 15px 0 0;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .mileage-shop-header h2 {
     margin: 0;
-    font-size: 1.2em;
+    font-size: 18px;
+    font-weight: 500;
 }
 
-/* 아이콘 및 주요 정보 스타일 */
+/* 마일리지샵 주요 정보 스타일 */
 .mileage-shop-main {
-    padding: 20px 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .mileage-shop-main .icon {
-    font-size: 2.5em; /* 아이콘 크기, 날씨 아이콘 대신 사용할 수 있음 */
-    color: #f1c40f; /* 노란색 태양 아이콘 느낌 */
+    font-size: 131px;
+    color: #f1c40f;
+    margin-bottom: 0;
 }
 
 .mileage-shop-main .value {
-    font-size: 2em;
-    font-weight: bold;
+    font-size: 36px;
+    font-weight: 700;
     color: #2c3e50;
+    line-height: 1;
 }
 
 .mileage-shop-main .location {
-    font-size: 0.9em;
+    font-size: 16px;
     color: #7f8c8d;
+    margin-top: 0;
 }
 
+/* 마일리지샵 세부 정보 스타일 */
 .mileage-shop-details {
     display: flex;
-    justify-content: space-around;
-    margin-top: 10px;
-    font-size: 0.9em;
-    color: #7f8c8d;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 15px 20px;
+    justify-content: space-between;
 }
 
 .mileage-shop-details div {
-    text-align: center;
+    text-align: left;
+    flex: 1;
+    display: flex;
+    align-items: center;
 }
 
+.mileage-shop-details div .detail-icon {
+    font-size: 24px;
+    margin-right: 10px;
+}
+
+.mileage-shop-details div .detail-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.mileage-shop-details div .detail-label {
+    font-size: 12px;
+    color: #777;
+}
+
+.mileage-shop-details div .detail-value {
+    font-size: 16px;
+    font-weight: 500;
+}
 
 /* 링크 버튼 스타일 */
 .mileage-shop-link {
-    display: inline-block;
-    margin-top: 15px;
-    padding: 10px 20px;
-    background: #3498db;
-    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0;
+    padding: 15px 20px;
+    background: transparent;
+    color: #2563eb;
     text-decoration: none;
-    border-radius: 5px;
-    transition: background 0.3s;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0;
+    transition: none;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .mileage-shop-link:hover {
-    background: #2980b9;
+    background: none;
 }
+/*-------------------------------------------------------*/

@@ -3,6 +3,7 @@
     <html>
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="/css/header.css">
         <title>상품상세</title>
         <style>
             * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -82,6 +83,11 @@
         </style>
     </head>
     <body>
+    <div class="head-mileage">
+        <div class="logo">
+            <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
+        </div>
+    </div>
     <div class="container">
         <div class="product-grid">
 

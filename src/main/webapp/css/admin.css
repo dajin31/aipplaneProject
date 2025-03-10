@@ -1,44 +1,57 @@
-@charset "UTF-8";
+/* Base styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    padding-top: 130px; /* 헤더 고정으로 인해 추가한 패딩 */
 }
 
 .container {
+    display: block;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 0 auto !important; /* 중복되는 margin-top 제거 */
     background-color: #fff;
-    padding: 20px;
+    padding: 30px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 헤더가 고정되어 있다면 추가 */
+body {
+    padding-top: 130px;
 }
 
 h1 {
     color: #333;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    font-size: 28px;
+    font-weight: bold;
 }
 
 form {
-    margin-bottom: 20px;
+    margin-bottom: 30px;
     text-align: center;
 }
 
-select, input[type="text"], input[type="submit"] {
-    padding: 8px;
+select,
+input[type="text"],
+input[type="submit"] {
+    padding: 10px 15px;
     margin: 5px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 14px;
 }
 
 input[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #4caf50;
     color: white;
     border: none;
     cursor: pointer;
-    border-radius: 4px;
+    font-weight: bold;
+    padding: 10px 20px;
 }
 
 input[type="submit"]:hover {
@@ -49,17 +62,20 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
 }
 
-th, td {
+th,
+td {
     border: 1px solid #ddd;
-    padding: 12px;
+    padding: 12px 15px;
     text-align: left;
 }
 
 th {
     background-color: #f2f2f2;
     font-weight: bold;
+    color: #333;
 }
 
 tr:nth-child(even) {
@@ -71,28 +87,30 @@ tr:hover {
 }
 
 .pagination {
-    margin-top: 20px;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin: 30px 0;
 }
 
 .pagination a {
-    color: #333;
-    padding: 8px 16px;
+    padding: 8px 12px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    color: #007bff;
     text-decoration: none;
-    transition: background-color .3s;
-    border: 1px solid #ddd;
-    margin: 0 4px;
-    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .pagination a.active {
-    background-color: #4CAF50;
+    background-color: #007bff;
     color: white;
-    border: 1px solid #4CAF50;
+    border: 1px solid #007bff;
 }
 
 .pagination a:hover:not(.active) {
-    background-color: #ddd;
+    background-color: #f8f9fa;
 }
 
 .detail-link {
@@ -107,13 +125,16 @@ tr:hover {
 
 .no-data {
     text-align: center;
-    padding: 15px;
-    font-style: italic;
-    color: #999;
+    padding: 40px 20px;
+    color: #666;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin: 20px 0;
 }
 
 .count-info {
-    margin: 10px 0;
+    margin: 10px 0 20px;
     text-align: right;
     font-size: 0.9em;
     color: #666;

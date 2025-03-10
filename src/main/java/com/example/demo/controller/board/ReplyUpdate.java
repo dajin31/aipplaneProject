@@ -50,7 +50,7 @@ public class ReplyUpdate extends HttpServlet {
         req.setAttribute("boardVO", boardVO);
 
 
-        req.getRequestDispatcher("/member/board_1_1/rpyupdate1_1.jsp").forward(req,resp);
+        req.getRequestDispatcher("/board_1_1/rpyupdate1_1.jsp").forward(req,resp);
 
     }
 

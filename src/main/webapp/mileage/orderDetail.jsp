@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/header.css">
     <title>Order Items</title>
     <style>
         * {
@@ -72,6 +73,11 @@
     </style>
 </head>
 <body>
+<div class="head-mileage">
+    <div class="logo">
+        <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
+    </div>
+</div>
 <div class="container">
 <h1>주문내역</h1>
     <a href="/mileage/mileageShop.jsp" class="back-button">마일리지 샵으로 돌아가기</a>

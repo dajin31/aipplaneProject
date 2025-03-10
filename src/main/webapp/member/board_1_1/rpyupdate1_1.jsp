@@ -193,8 +193,6 @@
     </div>
 </form>
 
-
-
     <a href="<%=request.getContextPath()%>/member/list1_1.do" class="button">목록보기</a>
   </div>
 </div>

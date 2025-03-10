@@ -47,7 +47,7 @@
                 const formData = new FormData($('#wform')[0]); // FormData 객체 생성
 
                 $.ajax({
-                    url : "<%=request.getContextPath()%>/member/write.do",
+                    url : "<%=request.getContextPath()%>/member/update.do",
                     type : "post",
                     data : formData,
                     contentType: false, // multipart/form-data를 사용

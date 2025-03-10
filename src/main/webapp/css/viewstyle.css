@@ -165,7 +165,33 @@ header {
     justify-content: space-around; /* 메뉴 항목 균등 배치 */
     width: 100%;
 }
+.btn-btn-secondary{
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #fff;
+    border: 1.5px solid #0056b3;
+    border-radius: 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
 
+.btn-btn-primary{
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #fff;
+    border: 1.5px solid #0056b3;
+    border-radius: 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
 .nav-item {
     position: relative;
     flex-grow: 1;

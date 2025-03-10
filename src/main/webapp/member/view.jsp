@@ -182,7 +182,7 @@
     </div>
 
     <div class="notice-content">
-        <%=noticeBoardVO.getNtc_contents()%>
+        <%=noticeBoardVO.getNtc_contents().replaceAll("(\r\n|\r|\n)","<br>")%>
     </div>
 
     <div class="button-container">

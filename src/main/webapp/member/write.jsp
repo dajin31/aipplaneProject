@@ -203,8 +203,8 @@
     </div>
 
     <div class="button-container">
-      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="close">닫기</button>
-      <button type="button" class="btn btn-primary" id="send">등록</button>
+      <button type="button" class="btn-btn-secondary" data-bs-dismiss="modal" id="close">닫기</button>
+      <button type="button" class="btn-btn-primary" id="send">등록</button>
     </div>
   </div>
 

@@ -155,20 +155,14 @@
         <div class="notice-header">
             <div class="notice-title">제목 : <input type="text" id="ind_title" name="ind_title"></div>
             <div class="notice-meta">
-                <div class="notice-tag">문의 종류 : <select name="stype">
-                    <option value="">예약</option>
-                    <option value="">마일리지</option>
-                    <option value="">변경/환불</option>
-                    <option value="">예약/좌석배정</option>
-                </select></div>
-                <div class="notice-date">2025.02.24</div>
+
             </div>
         </div>
 
         <div class="divider"></div>
 
         <div class="notice-content">
-            <textarea class="form-control" id="ind_contents" name="ind_contents" cols="100" rows="30">내용</textarea>
+            <textarea class="form-control" id="ind_contents" name="ind_contents" cols="100" rows="30"></textarea>
         </div>
 
         <div class="button-container">

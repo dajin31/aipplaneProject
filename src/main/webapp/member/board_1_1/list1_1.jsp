@@ -176,7 +176,14 @@
 
 
 <div class="container">
+  <%
+    if(loginUser != null && !("admin").equals(loginUser.getMemCode())){
+  %>
   <button class="register-btn" id="write">문의 등록</button>
+  <%
+    }
+  %>
+
   <h1>1:1 문의  </h1>
 
   <!-- 검색 영역 -->

@@ -51,21 +51,27 @@ public class NBoardView extends HttpServlet {
         String action = req.getParameter("action");
         if ("download".equals(action) && nboardVO.getFile_path() != null) {
             downloadFile(req, resp, nboardVO);
-        }
+        }else {
 
 
             req.setAttribute("nboardVO", nboardVO);
-        //req.getSession()// 세션은 유지되는 거에 쓸 때 사용, 일회용이 아니여서 다른 페이2지 가도 불러올 수 있음!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ex) 로그인 할 때 저장되는 user정보 같은거
-        //req.getSession().setAttribute("boardVO", boardVO);
+            //req.getSession()// 세션은 유지되는 거에 쓸 때 사용, 일회용이 아니여서 다른 페이2지 가도 불러올 수 있음!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ex) 로그인 할 때 저장되는 user정보 같은거
+            //req.getSession().setAttribute("boardVO", boardVO);
 
 
-        req.getRequestDispatcher("/member/view.jsp").forward(req,resp);
+            req.getRequestDispatcher("/member/view.jsp").forward(req, resp);
+        }
     }
 
     private void downloadFile(HttpServletRequest req, HttpServletResponse resp, Notice_BoardVO nboardVO) throws IOException {
-        String filePath = nboardVO.getFile_path();
-        File downloadFile = new File(filePath);
+        String relativePath = "/images/" + nboardVO.getFile_name();
+        String absolutePath = req.getServletContext().getRealPath(relativePath);
+        System.out.println("파일 실제 경로: " + absolutePath);
 
+        //String filePath = nboardVO.getFile_path();
+        File downloadFile = new File(absolutePath);
+
+        System.out.println("downloadFile.exists() ==> " + downloadFile.exists());
         if (downloadFile.exists()) {
 //            resp.setContentType("application/octet-stream");
 //            resp.setContentLength((int) downloadFile.length());

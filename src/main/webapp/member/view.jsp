@@ -164,8 +164,8 @@
             <%
                 if(noticeBoardVO.getFile_name()!=null){
             %>
-<%--            <span>첨부 파일: <a href="/member/view.do?ntc_board=<%=noticeBoardVO.getNtc_board()%>&action=download"><%=noticeBoardVO.getFile_name()%></a>--%>
-<%--            </span>--%>
+            <span>첨부 파일: <a href="/member/view.do?ntc_board=<%=noticeBoardVO.getNtc_board()%>&action=download"><%=noticeBoardVO.getFile_name()%></a>
+            </span>
 
 <%--            <span>첨부 파일: <a href="<%=request.getContextPath()%>/member/view.do?ntc_board=<%=noticeBoardVO.getNtc_board()%>&action=download"><%=noticeBoardVO.getFile_name()%></a> </span>--%>
 <%--            <span><a href="/images/" download="2.png"></a>첨부파일</span>--%>
@@ -213,6 +213,8 @@
 
     </div>
 </div>
+<div class="list-bbtn">
 <a href="/member/list.do" class="list-button">목록보기</a>
+</div>
 </body>
 </html>

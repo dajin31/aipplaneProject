@@ -12,7 +12,7 @@
     <title>공지사항</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script src="/js/jquery.serializejson.js"></script>
-    <link rel="stylesheet" href="../../css/1_1viewstyle.css">
+    <link rel="stylesheet" href="/css/1_1viewstyle.css">
 
     <script>
         $(document).ready(function() {
@@ -81,25 +81,18 @@
         <div class="notice-header">
             <div class="notice-title">제목 : <input type="text" id="ind_title" name="ind_title"></div>
             <div class="notice-meta">
-                <div class="notice-tag">문의 종류 : <select name="stype">
-                    <option value="">예약</option>
-                    <option value="">마일리지</option>
-                    <option value="">변경/환불</option>
-                    <option value="">예약/좌석배정</option>
-                </select></div>
-                <div class="notice-date">2025.02.24</div>
             </div>
         </div>
 
         <div class="divider"></div>
 
         <div class="notice-content">
-            <textarea class="form-control" id="ind_contents" name="ind_contents" cols="100" rows="30">내용</textarea>
+            <textarea class="form-control" id="ind_contents" name="ind_contents" cols="100" rows="30"></textarea>
         </div>
 
         <div class="button-container">
             <button type="button" id="send" class="button">등록</button>
-            <a href="/member/board_1_1/list1_1.jsp" class="button">목록보기</a>
+            <a href="/board_1_1/list1_1.jsp" class="button">목록보기</a>
         </div>
     </div>
 </div>

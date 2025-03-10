@@ -5,6 +5,7 @@ import com.example.demo.dao.UserDAOImpl;
 import com.example.demo.util.MyBatisUtil;
 import com.example.demo.vo.OrdersVO;
 import com.example.demo.vo.UserVO;
+import com.example.demo.vo.UsersVO;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,21 +13,21 @@ import org.slf4j.LoggerFactory;
 public class UserServiceImpl implements UserService {
     private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
     private UserDAO dao;
-    private static UserServiceImpl service;
+
+    private static UserServiceImpl usersService;
 
     private UserServiceImpl() {
         dao = UserDAOImpl.getInstance();
     }
 
-    public static UserServiceImpl getInstance() {
-        if (service == null) {
-            service = new UserServiceImpl();
+    public static UserService getInstance() {
+        if (usersService == null) {
+            usersService = new UserServiceImpl();
         }
-        return service;
+        return usersService;
     }
-
     @Override
-    public int selectUser(UserVO usersVO) {
+    public int selectUser(UsersVO usersVO) {
         return dao.selectUser(usersVO);
     }
 
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int updateMileage(UserVO usersVO) {
+    public int updateMileage(UsersVO usersVO) {
         return dao.updateMileage(usersVO);
     }
 
@@ -55,6 +56,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     public int insertUser(UserVO user) {
         int result = 0;
         SqlSession session = MyBatisUtil.getSession();
@@ -88,6 +90,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     public UserVO login(String userId, String userPw) {
         try {
             UserVO user = dao.getUser(userId);
@@ -121,6 +124,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserVO getUserByNameRegnumEmail(String userName, String userRegnum, String userEmail) throws Exception {
+        try {
+            return dao.getUserByNameRegnumEmail(userName, userRegnum, userEmail);
+        } catch (Exception e) {
+            logger.error("getUserByNameRegnumEmail 실행 중 오류 발생", e);
+            throw new RuntimeException("회원 정보 조회 중 오류 발생", e);
+        }
+    }
+
+    @Override
     public void updateUserPassword(UserVO user) throws Exception {
         try {
             dao.updateUserPassword(user);
@@ -131,13 +144,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserVO getUserByNameRegnumEmail(String userName, String userRegnum, String userEmail) throws Exception {
-        try {
-            return dao.getUserByNameRegnumEmail(userName, userRegnum, userEmail);
-        } catch (Exception e) {
-            logger.error("getUserByNameRegnumEmail 실행 중 오류 발생", e);
-            throw new RuntimeException("회원 정보 조회 중 오류 발생", e);
-        }
+    public UserVO getmyUser(String userId) {
+        return dao.getmyUser(userId);
     }
 
+    @Override
+    public int updatePassUser(UserVO userVO) {
+        return dao.updatePassUser(userVO);
+    }
+
+    @Override
+    public int updateUser(UserVO userVO) {
+        return dao.updateUser(userVO);
+    }
 }

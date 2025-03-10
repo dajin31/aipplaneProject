@@ -13,6 +13,16 @@
         <result property="memCode" column="MEM_CODE"/>
     </resultMap>
 
+    <resultMap id="usersMap" type="usersVO">
+        <result property="userId" column="user_id"/>
+        <result property="userPw" column="user_pw"/>
+        <result property="userName" column="user_name"/>
+        <result property="userEmail" column="user_email"/>
+        <result property="userRegnum" column="user_regnum"/>
+        <result property="userMileage" column="user_mileage"/>
+        <result property="userPassnum" column="user_passnum"/>
+        <result property="memCode" column="mem_code"/>
+    </resultMap>
     <!-- id , pw확인 -->
     <select id="selectUser" resultType="int">
         select count(*)
@@ -38,58 +48,50 @@
         WHERE user_id = #{userId}
     </update>
 
+    <!--	-->
+
     <!-- id 중복검사 -->
     <select id="userIdCount" parameterType="String" resultType="int">
         select count(*)
         from users
-        where user_id = #{userId}
+        where user_id = #{user_id}
     </select>
 
     <!-- 회원가입 -->
-    <insert id="insertUser" parameterType="com.example.demo.vo.UserVO">
+    <insert id="insertUser" parameterType="UserVO">
         INSERT INTO users (user_id, user_pw, user_name, user_regnum, user_email)
         VALUES (#{userId}, #{userPw}, #{userName}, #{userRegnum}, #{userEmail})
     </insert>
 
     <!-- 로그인 -->
-    <select id="login" parameterType="UserVO" resultMap="userMap">
-        SELECT * FROM users WHERE USER_ID = #{user_id} AND USER_PW = #{user_pw}
+    <select id="login" parameterType="UserVO" resultType="UserVO">
+        SELECT * FROM users WHERE user_id = #{user_id} AND user_pw = #{user_pw}
     </select>
 
-    <!-- 비밀번호 찾기-->
-    <select id="getUserByIdRegnumEmail" parameterType="UserVO" resultMap="userMap">
+    <!-- 비밀번호 찾기 -->
+    <select id="getUserByIdRegnumEmail" parameterType="UserVO"  resultMap="userMap">
         SELECT USER_ID
-            , USER_PW
-            , USER_NAME
-            , USER_EMAIL
-            , USER_REGNUM
-            , USER_MILEAGE
-            , USER_PASSNUM
-            , MEM_CODE
-            , USER_TOTALMILEAGE
+             , USER_PW
+             , USER_NAME
+             , USER_EMAIL
+             , USER_REGNUM
         FROM users
         WHERE user_id = #{userId}
-        AND user_regnum = #{userRegnum}
-        AND user_email = #{userEmail}
+          AND user_regnum = #{userRegnum}
+          AND user_email = #{userEmail}
     </select>
 
     <update id="updateUserPassword" parameterType="com.example.demo.vo.UserVO">
         UPDATE users SET user_pw = #{userPw} WHERE user_id = #{userId}
     </update>
 
-    <!-- 아이디 찾기
-     List<UserVO> userList = session.selectList("user.getUserByNameRegnumEmail", userVO);
-    -->
+    <!-- 아이디 찾기 -->
     <select id="getUserByNameRegnumEmail" parameterType="UserVO" resultMap="userMap">
         SELECT USER_ID
              , USER_PW
              , USER_NAME
              , USER_EMAIL
              , USER_REGNUM
-             , USER_MILEAGE
-             , USER_PASSNUM
-             , MEM_CODE
-             , USER_TOTALMILEAGE
         FROM users
         WHERE USER_NAME = #{userName}
           AND USER_REGNUM = #{userRegnum}
@@ -99,30 +101,32 @@
     <!-- 사용자 정보 조회 -->
     <select id="getUser" parameterType="String" resultType="com.example.demo.vo.UserVO">
         SELECT
-            USER_ID AS userId,
-            USER_PW AS userPw,
-            USER_NAME AS userName,
-            USER_EMAIL AS userEmail,
-            USER_REGNUM AS userRegnum
+            user_id AS userId,
+            user_pw AS userPw,
+            user_name AS userName,
+            user_email AS userEmail,
+            user_regnum AS userRegnum
         FROM users
         WHERE user_id = #{userId}
     </select>
+
+
     <!--	마이페이지-->
-    <update id="getUpdateUser" parameterType="UserVO">
-        update users set user_email=#{user_email}
-        where user_id = #{user_id} and user_pw = #{user_pw}
+    <update id="getUpdateUser" parameterType="userVo">
+        update users set user_email=#{userEmail}
+        where user_id = #{userId} and user_pw = #{userPw}
     </update>
 
     <!-- 회원 탈퇴 -->
-    <delete id="getDeleteUser" parameterType="UserVO">
+    <delete id="getDeleteUser" parameterType="userVo">
         delete from users
         where user_id = #{user_id} and user_pw = #{user_pw}
     </delete>
 
     <!-- 회원비밀번호 변경 -->
-    <update id="getUpdatePassUser" parameterType="UserVO">
+    <update id="getUpdatePassUser" parameterType="userVo">
         update users set user_pw=#{new_pw}
-        where user_id = #{user_id} and user_pw = #{user_pw}
+        where user_id = #{userId} and user_pw = #{userPw}
     </update>
 
     <select id="getmyUser" resultType="com.example.demo.vo.UserVO" parameterType="String">

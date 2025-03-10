@@ -2,6 +2,7 @@ package com.example.demo.controller.nboard;
 
 import com.example.demo.service.Notice_BoardService;
 import com.example.demo.service.Notice_BoardServiceImpl;
+import com.example.demo.service.UserService;
 import com.example.demo.service.UserServiceImpl;
 import com.example.demo.vo.Notice_BoardVO;
 import com.example.demo.vo.PageVO;
@@ -45,7 +46,7 @@ public class NBoardList extends HttpServlet {
         sword = sword == null ? "" : sword;
 
         Notice_BoardService notice_boardService = Notice_BoardServiceImpl.getInstance();
-        UserServiceImpl userService = UserServiceImpl.getInstance();
+        UserService userService = UserServiceImpl.getInstance();
 
 
         PageVO pageVO = notice_boardService.pageInfo(page, sword);
@@ -75,7 +76,7 @@ public class NBoardList extends HttpServlet {
         req.setAttribute("pageVO", pageVO);
         req.setAttribute("sword", sword);
 
-        req.getRequestDispatcher("/nboard/list.jsp").forward(req, resp);
+        req.getRequestDispatcher("/notice/list.jsp").forward(req, resp);
 
     }
 

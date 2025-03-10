@@ -5,7 +5,7 @@
 <%@ page import="java.io.BufferedReader" %>
 <%@ page import="java.io.IOException" %>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="com.google.gson.JsonObject" %>
+<%@ page import="com.google.gson.JsonObject" %><%@ page import="com.example.demo.service.UserService"%>
 
 <%
     try {
@@ -24,7 +24,7 @@
         String userPw = jsonObject.get("user_pw").getAsString();  // 암호화된 비밀번호가 아닌 평문 비밀번호
 
         // Service 객체 생성
-        UserServiceImpl service = UserServiceImpl.getInstance();
+        UserService service = UserServiceImpl.getInstance();
         UserVO user = service.login(userId, userPw); // login()를 사용하여 사용자 정보 가져오기
 
         // 비밀번호 비교

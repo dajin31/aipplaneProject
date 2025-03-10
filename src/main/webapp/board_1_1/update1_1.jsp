@@ -12,7 +12,7 @@
     <title>공지사항</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script src="/js/jquery.serializejson.js"></script>
-    <link rel="stylesheet" href="../../css/1_1viewstyle.css">
+    <link rel="stylesheet" href="/css/1_1viewstyle.css">
 <%
     Board1_1VO boardVO = (Board1_1VO) request.getAttribute("boardVO");
 %>
@@ -86,7 +86,6 @@
                 <input type="hidden" id="board_id" name="board_id" value="<%=boardVO.getBoard_id()%>">
                 <div class="notice-title">제목 : <input type="text" id="ind_title" name="ind_title" value="<%=boardVO.getInd_title()%>"></div>
                 <div class="notice-meta">
-                    <div class="notice-tag">여행정보</div>
                     <div class="notice-date"><%=boardVO.getCrt_date()%></div>
                 </div>
             </div>
@@ -100,7 +99,7 @@
             <%
                 if(loginUser.getUserId().equals(boardVO.getUser_id())){
             %>
-            <button type="button" id="send" class="button">수정 등록</button>
+            <button type="button" id="send" class="button">수정</button>
             <%
                 }
             %>

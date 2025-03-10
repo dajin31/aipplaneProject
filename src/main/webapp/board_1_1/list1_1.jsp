@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.example.demo.controller.NBoardList" %>
+<%@ page import="com.example.demo.controller.board.*" %>
 <%@ page import="com.example.demo.vo.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,7 +8,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>1:1 문의</title>
-  <link rel="stylesheet" href="../../css/1_1liststyle.css">
+  <link rel="stylesheet" href="/css/1_1liststyle.css">
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
   <%
     UserVO loginUser = (UserVO) session.getAttribute("loginUser");
@@ -87,70 +87,70 @@
 <header>
   <div class="header-container header-before-login">
     <div class="logo">
-      <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+      <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
     </div>
     <nav class="nav">
       <ul class="nav-list">
         <li class="nav-item">
-          <a href="#">예약</a>
+          <a href="/reservation/receiptPage.jsp">예약</a>
           <ul class="dropdown-menu">
-            <li><a href="reservation.jsp">항공권 예매</a></li>
+            <li><a href="/reservation/reservation.jsp">항공권 예매</a></li>
             <li><a href="reservation.jsp">예약 취소</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#">마일리지</a>
+          <a href="/mileage/mileageShop.jsp">마일리지</a>
           <ul class="dropdown-menu">
-            <li><a href="mileage.jsp">마일리지샵</a></li>
+            <li><a href="/mileage/mileage.jsp">마일리지샵</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#">공지사항</a>
+          <a href="<%=request.getContextPath()%>/member/list.do">공지사항</a>
           <ul class="dropdown-menu">
-            <li><a href="notice.jsp">공지사항</a></li>
-            <li><a href="qna.jsp">1:1 문의</a></li>
-            <li><a href="faq.jsp">FAQ</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/list.do">공지사항</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/list1_1.do">1:1 문의</a></li>
+            <li><a href="<%=request.getContextPath()%>/FAQBoard">FAQ</a></li>
           </ul>
         </li>
       </ul>
     </nav>
     <div class="auth">
-      <a href="/user/userJoin.jsp" class="join-btn">회원가입</a>
-      <a href="<%=request.getContextPath() %>/member/login.jsp" class="login-btn">로그인</a>
+      <a href="/login/userJoin.jsp" class="join-btn">회원가입</a>
+      <a href="<%=request.getContextPath() %>/member/list1_1.do" class="login-btn">로그인</a>
     </div>
   </div>
   <div class="header-container header-after-login hidden">
     <div class="logo">
-      <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+      <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
     </div>
     <nav class="nav">
       <ul class="nav-list">
         <li class="nav-item">
-          <a href="#">예약</a>
+          <a href="/reservation/receiptPage.jsp">예약</a>
           <ul class="dropdown-menu">
-            <li><a href="reservation.jsp">항공권 예매</a></li>
+            <li><a href="/reservation/reservation.jsp">항공권 예매</a></li>
             <li><a href="reservation.jsp">예약 취소</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#">마일리지</a>
+          <a href="/mileage/mileageShop.jsp">마일리지</a>
           <ul class="dropdown-menu">
-            <li><a href="mileage.jsp">마일리지샵</a></li>
+            <li><a href="/mileage/mileage.jsp">마일리지샵</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#">공지사항</a>
+          <a href="<%=request.getContextPath()%>/member/list.do">공지사항</a>
           <ul class="dropdown-menu">
-            <li><a href="notice.jsp">공지사항</a></li>
-            <li><a href="qna.jsp">1:1 문의</a></li>
-            <li><a href="faq.jsp">FAQ</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/list.do">공지사항</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/list1_1.do">1:1 문의</a></li>
+            <li><a href="<%=request.getContextPath()%>/FAQBoard">FAQ</a></li>
           </ul>
         </li>
       </ul>
     </nav>
     <div class="user-info">
       <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
-      <a href="/user/mypage.jsp" class="mypage-btn">마이페이지</a>
+      <a href="/myPage/mypage.jsp" class="mypage-btn">마이페이지</a>
       <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
     </div>
   </div>
@@ -176,6 +176,13 @@
 
 
 <div class="container">
+  <%
+    if(loginUser != null && !("admin").equals(loginUser.getMemCode())){
+  %>
+  <button class="register-btn" id="write">문의 등록</button>
+  <%
+    }
+  %>
   <h1>1:1 문의</h1>
 
   <!-- 검색 영역 -->
@@ -209,26 +216,27 @@
                 if (replyVO != null) { // replyVO가 null이 아닌 경우에만 getBoard_id() 호출
           System.out.println("답변 아이딩????????????????" + replyVO.getBoard_id());
         }
+
     %>
 
           <div class="notice-list">
 
-  <div class="notice-item">
-    <a href="<%=request.getContextPath() %>/member/view1_1.do?board_id=<%=boardVO.getBoard_id()%>">
-      <div class="notice-item-content"><span class="notice-title"><%=boardVO.getInd_title()%></span>
+  <a href="<%=request.getContextPath() %>/member/view1_1.do?board_id=<%=boardVO.getBoard_id()%>">
+    <div class="notice-item">
+      <span class="notice-title"><%=boardVO.getInd_title()%></span>
       <span class="notice-date"><%=boardVO.getCrt_date()%></span>
       <% if (replyVO == null) { %>
       <span class="notice-replyst">답변 전</span>
       <% } else { %>
       <span class="notice-replyst">답변 완료</span>
       <% }
-      }
+
       %>
-      </div>
-    </a>
-  </div>
+    </div>
+  </a>
 </div>
 <%
+    }
   }
 %>
 <!-- 페이지네이션 -->
@@ -265,12 +273,6 @@
     }
   %>
 </div>
-
-
-
-<button class="register-btn" id="write">문의 등록</button>
-
-
 
 </body>
 </html>

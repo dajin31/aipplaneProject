@@ -2,11 +2,8 @@ package com.example.demo.controller.board;
 
 import com.example.demo.service.BoardService;
 import com.example.demo.service.BoardServiceImpl;
-import com.example.demo.service.Notice_BoardService;
-import com.example.demo.service.Notice_BoardServiceImpl;
 import com.example.demo.util.StreamData;
 import com.example.demo.vo.Board1_1VO;
-import com.example.demo.vo.Notice_BoardVO;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -38,7 +35,7 @@ public class BoardUpdate1_1 extends HttpServlet {
         //req.getSession()// 세션은 유지되는 거에 쓸 때 사용, 일회용이 아니여서 다른 페이2지 가도 불러올 수 있음!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! ex) 로그인 할 때 저장되는 user정보 같은거
         //req.getSession().setAttribute("boardVO", boardVO);
 
-        req.getRequestDispatcher("/member/board_1_1/update1_1.jsp").forward(req,resp);
+        req.getRequestDispatcher("/board_1_1/update1_1.jsp").forward(req,resp);
 
     }
 

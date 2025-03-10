@@ -1,240 +1,227 @@
 @charset "UTF-8";
 
-html,
-body {
-    padding: 0;
+/* Base styles */
+* {
     margin: 0;
-    height: 100%;
-    width: 100%;
-}
-
-body * {
+    padding: 0;
     box-sizing: border-box;
 }
 
-/* 컨테이너 스타일 */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #ffffff;
+    padding-top: 120px; /* Space for fixed header */
+}
+
+/* Container */
 .container {
-    margin: 5px;
-    max-width: 99%;
-    padding: 20px;
-}
-
-/* 헤더 스타일 */
-.header {
-    width: 100%;
-    background: white;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.top-header {
-    background: #f8f9fa;
-    padding: 8px 0;
-}
-
-.top-nav {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
-    padding: 0 20px;
-}
-
-.top-nav a {
-    color: #666;
-    text-decoration: none;
-    font-size: 14px;
-}
-
-.main-header {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-.logo {
-    color: #00256c;
-    text-decoration: none;
-    font-size: 24px;
-    font-weight: bold;
+/* Main content area */
+.main-content {
+    margin-top: 120px; /* Adjusted for fixed header */
 }
 
-.main-nav {
-    display: flex;
-    gap: 30px;
-}
-
-.main-nav a {
-    color: #333;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-/* FAQ 헤더 스타일 */
+/* FAQ Header */
 .faq-header {
     text-align: center;
     margin-bottom: 40px;
 }
 
 .faq-header h1 {
-    font-size: 32px;
-    color: #000000;
-    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 30px;
+    font-weight: bold;
+    margin-top: 100px;
 }
 
-/* 검색 스타일 */
+/* Search Container */
 .search-container {
     max-width: 600px;
-    margin: 0 auto 40px;
+    margin: 0 auto 30px;
+}
+
+.search-container form {
     display: flex;
     gap: 10px;
 }
 
 .search-box {
-    flex-grow: 1;
-    position: relative;
+    flex: 1;
 }
 
 .search-box input {
     width: 100%;
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 .search-button {
-    padding: 0 20px;
-    background: #00256c;
-    color: white;
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-/* 카테고리 스타일 */
-.category-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
-
-.category-tab {
-    padding: 10px 20px;
-    background: #f5f5f5;
-    border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-    text-decoration: none;
-    color: #333;
-    transition: all 0.3s ease;
-}
-
-.category-tab.active {
-    background: #00256c;
-    color: white;
     font-weight: bold;
 }
 
-/* 타이틀 카운트 스타일 */
-.title-count {
-    font-size: 16px;
-    color: #333;
-    margin-bottom: 15px;
-    font-weight: 500;
-    padding-left: 5px;
+.search-button:hover {
+    background-color: #0056b3;
 }
 
-/* FAQ 리스트 스타일 */
+/* Category Tabs */
+.category-tabs {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 30px;
+    padding: 0 20px;
+}
+
+.category-tab {
+    padding: 8px 16px;
+    background-color: #fff;
+    color: #007bff;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.category-tab:hover {
+    background-color: #f8f9fa;
+}
+
+.category-tab.active {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* FAQ List */
 .faq-list {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
+}
+
+.title-count {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 20px;
+    padding: 0 10px;
 }
 
 .faq-item {
     margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
 .faq-title {
-    padding: 15px;
-    background: #f9f9f9;
+    padding: 15px 20px;
+    background-color: #fff;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    font-size: 15px;
+    color: #333;
+    transition: background-color 0.3s ease;
 }
 
 .faq-title:hover {
-    background: #f0f0f0;
+    background-color: #f8f9fa;
 }
 
 .faq-contents {
-    padding: 20px;
     display: none;
-    background: white;
-    border-top: 1px solid #ddd;
-}
-
-.faq-contents pre {
-    font-family: inherit;
-    white-space: pre-wrap;
-    margin: 0;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-top: 1px solid #e0e0e0;
 }
 
 .faq-contents.show {
     display: block;
 }
 
-/* 관리자 컨트롤 스타일 */
+.faq-contents pre {
+    font-family: inherit;
+    white-space: pre-wrap;
+    margin: 0;
+    line-height: 1.6;
+    color: #666;
+}
+
+/* Admin Controls */
 .admin-controls {
     text-align: right;
     margin-bottom: 20px;
-    padding: 0 20px;
 }
 
 .admin-button {
     padding: 8px 16px;
-    background: #00256c;
-    color: white;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.admin-button:hover {
+    background-color: #0056b3;
+}
+
+/* Edit Buttons */
+.edit-buttons {
+    display: flex;
+    gap: 8px;
+    margin-top: 15px;
+    justify-content: flex-end;
+}
+
+.edit-button,
+.delete-button {
+    padding: 6px 12px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin-left: 10px;
-}
-
-.edit-buttons {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
+    font-size: 13px;
+    font-weight: bold;
 }
 
 .edit-button {
-    padding: 6px 12px;
-    background: #00256c;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
 }
 
 .delete-button {
-    padding: 6px 12px;
-    background: #dc3545;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    background-color: #dc3545;
+    color: #fff;
 }
 
-/* 모달 스타일 */
+.edit-button:hover {
+    background-color: #0056b3;
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+}
+
+/* Modal */
 .modal {
     display: none;
     position: fixed;
@@ -243,98 +230,270 @@ body * {
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%;
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 25px;
+    border-radius: 5px;
+    width: 90%;
     max-width: 500px;
+    position: relative;
 }
 
 .close-modal {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close-modal:hover,
-.close-modal:focus {
-    color: black;
-    text-decoration: none;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    font-size: 24px;
+    color: #666;
     cursor: pointer;
 }
 
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
 }
 
 .form-group input,
 .form-group textarea,
 .form-group select {
     width: 100%;
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
+    font-size: 14px;
 }
 
-/* 페이지네이션 스타일 */
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Pagination */
 .pagination {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 5px;
     margin: 30px 0;
 }
 
 .pagination a {
     padding: 8px 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #007bff;
     border-radius: 4px;
+    color: #007bff;
     text-decoration: none;
-    color: #333;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .pagination a.active {
-    background: #00256c;
-    color: white;
-    border-color: #00256c;
+    background-color: #007bff;
+    color: #fff;
 }
 
+.pagination a:hover:not(.active) {
+    background-color: #f8f9fa;
+}
+
+/* No Results */
+.no-results {
+    text-align: center;
+    padding: 40px 20px;
+    color: #666;
+    font-size: 16px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+    margin: 20px 0;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .container {
-        padding: 10px;
+        padding: 15px;
     }
 
-    .faq-header h1 {
-        font-size: 24px;
+    .category-tabs {
+        padding: 0 10px;
     }
 
     .category-tab {
-        padding: 8px 16px;
+        padding: 6px 12px;
         font-size: 13px;
     }
 
-    .main-nav {
-        display: none;
+    .search-container form {
+        flex-direction: column;
+    }
+
+    .search-button {
+        width: 100%;
+    }
+
+    .modal-content {
+        margin: 20px;
+        padding: 15px;
     }
 }
 
-/* 검색 결과 없음 스타일 */
-.no-results {
+header {
+    background-color: #ffffff;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 100px;
+    margin-left: 20px;
+}
+
+.nav {
+    margin-left: 20px;
+}
+
+.nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around; /* 메뉴 항목 균등 배치 */
+    width: 100%;
+}
+
+.nav-item {
+    position: relative;
+    flex-grow: 1;
+    margin: 0 100px; /* 좌우 여백 추가 */
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: #000000;
+    padding: 5px 10px;
+    font-size: 20px; /* 글씨 크기 조절 */
+    font-weight: bold; /* 글씨 두께 조절 */
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #ffffff;
+    z-index: 1;
+    width: 100%;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+    top: calc(100% + 5px); /* 드롭다운 메뉴 위치 조정 */
+    min-width: 150px; /* 드롭다운 메뉴 최소 너비 설정 */
+    left: 50%; /* nav-item 중앙에 배치 */
+    transform: translateX(-50%); /* 중앙 정렬 */
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #333;
+    font-size: 16px; /* dropdown-menu 글씨 크기 */
+    font-weight: normal; /* dropdown-menu 글씨 두께 */
     text-align: center;
-    padding: 30px;
-    color: #666;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f0f0f0;
+}
+.auth {
+    display: flex;
+    text-align: center;
+    margin-right: 50px;
+}
+
+.login-btn {
+    background-color: #fff; /* 로그인 버튼 배경색 */
+    color: #007bff; /* 로그인 버튼 글자색 */
+    padding: 10px 20px; /* 로그인 버튼 내부 여백 */
+    border: none; /* 로그인 버튼 테두리 제거 */
+    border-radius: 5px; /* 로그인 버튼 모서리 둥글게 */
+    font-size: 16px; /* dropdown-menu 글씨 크기 */
+    font-weight: bold; /* dropdown-menu 글씨 두께 */
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.join-btn {
+    background-color: #fff; /* 로그인 버튼 배경색 */
+    color: #007bff; /* 로그인 버튼 글자색 */
+    padding: 10px 20px; /* 회원가입 버튼 내부 여백 */
+    border: none; /* 회원가입 버튼 테두리 제거 */
+    border-radius: 5px; /* 회원가입 버튼 모서리 둥글게 */
+    font-size: 16px; /* dropdown-menu 글씨 크기 */
+    font-weight: bold; /* dropdown-menu 글씨 두께 */
+    text-decoration: none;
+
+}
+
+.login-btn:hover {
+    background-color: #007bff; /* 마우스 호버 시 로그인 버튼 배경색 */
+    color: #fff; /* 마우스 호버 시 로그인 버튼 글자색 */
+}
+
+.join-btn:hover {
+    background-color: #007bff; /* 마우스 호버 시 회원가입 버튼 배경색 */
+    color: #fff; /* 마우스 호버 시 회원가입 버튼 글자색 */
+}
+
+/* 여기서부터는 로그인 후 헤더 */
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.logout-btn, .mypage-btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
     font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-right: 10px;
+}
+
+.welcome-msg {
+    margin-left: 20px;
+}
+
+.header-after-login.hidden {
+    display: none;
 }
 

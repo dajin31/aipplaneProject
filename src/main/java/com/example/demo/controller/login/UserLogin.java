@@ -1,5 +1,6 @@
 package com.example.demo.controller.login;
 
+import com.example.demo.service.UserService;
 import com.example.demo.service.UserServiceImpl;
 import com.example.demo.vo.UserVO;
 import com.google.gson.Gson;
@@ -42,7 +43,7 @@ public class UserLogin extends HttpServlet {
             String userId = jsonObject.get("user_id").getAsString();
             String userPw = jsonObject.get("user_pw").getAsString(); // 평문 비밀번호
 
-            UserServiceImpl service = UserServiceImpl.getInstance();
+            UserService service = UserServiceImpl.getInstance();
             UserVO user = service.login(userId, userPw); // 평문 비밀번호로 로그인
 
             if (user != null) {

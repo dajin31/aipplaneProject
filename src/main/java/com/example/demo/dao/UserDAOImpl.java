@@ -3,6 +3,7 @@ package com.example.demo.dao;
 import com.example.demo.util.MyBatisUtil;
 import com.example.demo.vo.OrdersVO;
 import com.example.demo.vo.UserVO;
+import com.example.demo.vo.UsersVO;
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,18 +15,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-public class UserDAOImpl implements UserDAO {
+public class UserDAOImpl implements UserDAO{
+
     private static final Logger logger = LoggerFactory.getLogger(UserDAOImpl.class);
-    private static UserDAOImpl dao;
+    private static UserDAO dao;
+
     private static final String PROPERTIES_PATH = "config/db.properties";
     private String url;
     private String user;
     private String password;
     private String driver;
 
-    private UserDAOImpl() {
+
+    public UserDAOImpl() {
         loadDbProperties();
     }
+
 
     private void loadDbProperties() {
         Properties properties = new Properties();
@@ -40,47 +45,49 @@ public class UserDAOImpl implements UserDAO {
         }
     }
 
-    public static UserDAOImpl getInstance() {
-        if (dao == null) dao = new UserDAOImpl();
+
+    public static UserDAO getInstance() {
+        if (dao == null) {
+            dao = new UserDAOImpl();
+        }
         return dao;
     }
 
+
     @Override
-    public int selectUser(UserVO userVO) {
+    public int selectUser(UsersVO usersVO) {
         SqlSession session = null;
         int cnt = 0;
 
-        try {
+        try{
             session = MyBatisUtil.getSession();
-            cnt = session.selectOne("selectUser", userVO);
-        } catch (Exception e) {
+            cnt = session.selectOne("selectUser", usersVO);
+        }catch (Exception e){
             e.printStackTrace();
-        } finally {
-            if (session != null) {
+        }finally {
+            if(session != null){
                 session.close();
             }
         }
         return cnt;
-
     }
 
     @Override
     public int selectMileage(String userId) {
         SqlSession session = null;
-        int mileage = 0;
+        int mile = 0;
 
-        try {
+        try{
             session = MyBatisUtil.getSession();
-            mileage = session.selectOne("selectMileage", userId);
-        } catch (Exception e) {
+            mile = session.selectOne("selectMileage", userId);
+        }catch (Exception e){
             e.printStackTrace();
-        } finally {
-            if (session != null) {
+        }finally {
+            if(session != null){
                 session.close();
             }
         }
-        return mileage;
-
+        return mile;
     }
 
     @Override
@@ -103,23 +110,22 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public int updateMileage(UserVO userVO) {
+    public int updateMileage(UsersVO usersVO) {
         SqlSession session = null;
         int cnt = 0;
 
         try {
             session = MyBatisUtil.getSession();
-            cnt = session.update("updateMileage", userVO);
+            cnt = session.update("updateMileage", usersVO);
             session.commit();
-        } catch (Exception e) {
+        }catch (Exception e){
             e.printStackTrace();
-        } finally {
-            if (session != null) {
+        }finally {
+            if(session != null){
                 session.close();
             }
         }
         return cnt;
-
     }
 
     @Override
@@ -146,7 +152,7 @@ public class UserDAOImpl implements UserDAO {
         int count = 0;
         try {
             session = MyBatisUtil.getSession();
-            count = session.insert("user.insertUser", userVO);
+            count = session.insert("insertUser", userVO);
             session.commit();
         } catch (Exception e) {
             if (session != null) {
@@ -170,7 +176,7 @@ public class UserDAOImpl implements UserDAO {
             Map<String, String> paramMap = new HashMap<>();
             paramMap.put("user_id", userId);
             paramMap.put("user_pw", userPw);
-            user = session.selectOne("user.login", paramMap);  // MyBatis에 정의된 login 호출
+            user = session.selectOne("login", paramMap);  // MyBatis에 정의된 login 호출
         } catch (Exception e) {
             logger.error("로그인 오류 발생", e);
         } finally {
@@ -225,26 +231,6 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void updateUserPassword(UserVO user) {
-        SqlSession session = null;
-        try {
-            session = MyBatisUtil.getSession();
-            session.update("user.updateUserPassword", user);
-            session.commit();
-        } catch (Exception e) {
-            if (session != null) {
-                session.rollback();
-            }
-            logger.error("updateUserPassword 오류: {}", e.getMessage());
-            throw new RuntimeException("비밀번호 업데이트 중 오류 발생", e);
-        } finally {
-            if (session != null) {
-                session.close();
-            }
-        }
-    }
-
-    @Override
     public UserVO getUserByNameRegnumEmail(String userName, String userRegnum, String userEmail) {
         SqlSession session = null;
         UserVO user = null;
@@ -281,5 +267,83 @@ public class UserDAOImpl implements UserDAO {
             }
         }
         return user;
+
+    }
+
+    @Override
+    public void updateUserPassword(UserVO user) {
+        SqlSession session = null;
+        try {
+            session = MyBatisUtil.getSession();
+            session.update("user.updateUserPassword", user);
+            session.commit();
+        } catch (Exception e) {
+            if (session != null) {
+                session.rollback();
+            }
+            logger.error("updateUserPassword 오류: {}", e.getMessage());
+            throw new RuntimeException("비밀번호 업데이트 중 오류 발생", e);
+        } finally {
+            if (session != null) {
+                session.close();
+            }
+        }
+    }
+
+    @Override
+    public UserVO getmyUser(String userId) {
+        SqlSession session = MyBatisUtil.getSession();
+        UserVO userVO = null;
+
+        try {
+            userVO = session.selectOne("user.getmyUser", userId); // namespace 사용
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        System.out.println(userVO);
+        return userVO;
+    }
+
+    @Override
+    public int updatePassUser(UserVO userVO) {
+        int res = 0;
+        System.out.println("UserUpdate->user2 : " + userVO);
+        System.out.println("초기화값" + res);
+        SqlSession session = MyBatisUtil.getSession();
+        System.out.println("UserUpdate->user3 : " + userVO);
+        try {
+            res = session.update("user.getUpdatePassUser", userVO);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            session.commit();
+            session.close();
+        }
+        System.out.println("사용자 값" + userVO);
+        System.out.println("받아온 값" + res);
+
+        return res;
+
+    }
+
+    @Override
+    public int updateUser(UserVO userVO) {
+        int res = 0;
+        SqlSession session = MyBatisUtil.getSession();
+
+        try {
+            //            userVO{user_id=test,user_pw=1234,user_name=null,user_email=te22@.com..}
+            //<mapper namespace="user"> + <update id="getUpdateUser" parameterType="userVo">
+            res = session.update("user.getUpdateUser", userVO);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            session.commit();
+            session.close();
+        }
+        return res;
+
     }
 }

@@ -1,21 +1,19 @@
 package com.example.demo.controller.mileage;
 
-import java.io.IOException;
-import java.util.List;
-
-
 import com.example.demo.service.MileageService;
 import com.example.demo.service.MileageServicelmp;
 import com.example.demo.vo.MileageVO;
 import com.example.demo.vo.UserVO;
 import com.google.gson.Gson;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+import java.io.IOException;
+import java.util.List;
 
 @WebServlet("/user/mileagehistory.do")
 public class MileageHistroy extends HttpServlet{
@@ -50,7 +48,7 @@ public class MileageHistroy extends HttpServlet{
         //service객체 얻기
         MileageService service = MileageServicelmp.getInstance();
         List<MileageVO> res=null;
-
+        
         if(gbValue != null) {
             switch (gbValue) {
                 case "0":

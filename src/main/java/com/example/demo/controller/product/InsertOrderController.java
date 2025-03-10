@@ -1,5 +1,6 @@
 package com.example.demo.controller.product;
 
+import com.example.demo.service.UserService;
 import com.example.demo.service.UserServiceImpl;
 import com.example.demo.vo.OrdersVO;
 import jakarta.servlet.ServletException;
@@ -18,7 +19,7 @@ public class InsertOrderController extends HttpServlet {
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        UserServiceImpl service = UserServiceImpl.getInstance();
+        UserService service = UserServiceImpl.getInstance();
 //         #{orderAmt} 주문금액, #{userId} 회원아이디, #{prodId} 상품아이디 ,#{orderQty} 수량
         String orderAmtParam = req.getParameter("orderAmt");
         String userId = req.getParameter("userId");

@@ -28,6 +28,9 @@
 			<typeAlias type="com.example.demo.vo.Board1_1VO" alias="BoardVO"/>
 			<typeAlias type="com.example.demo.vo.Reply1_1VO" alias="replyVo"/>
 			<typeAlias type="com.example.demo.vo.FAQBoardVO" alias="faqboardVo"/>
+			<typeAlias type="com.example.demo.vo.MyReservationVO" alias="myReservationVO"/>
+			<typeAlias type="com.example.demo.vo.UsersVO" alias="usersVO"/>
+			<typeAlias type="com.example.demo.vo.MileageVO" alias="mileageVO"/>
 	</typeAliases>
 
 
@@ -55,6 +58,7 @@
 		<mapper resource="META-INF/notice-mapper.xml"/>
 		<mapper resource="META-INF/board-mapper.xml"/>
 		<mapper resource="META-INF/faqboard-mapper.xml"/>
+		<mapper resource="META-INF/mileage-mapper.xml"/>
 
 	</mappers>
 </configuration>

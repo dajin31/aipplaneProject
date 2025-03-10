@@ -12,7 +12,7 @@
     <title>공지사항</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script src="/js/jquery.serializejson.js"></script>
-    <link rel="stylesheet" href="../../css/1_1viewstyle.css">
+    <link rel="stylesheet" href="/css/1_1viewstyle.css">
 
     <%
         Board1_1VO boardVO = (Board1_1VO) request.getAttribute("boardVO");

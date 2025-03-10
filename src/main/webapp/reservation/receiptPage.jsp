@@ -16,14 +16,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>여정 정보</title>
-    <link rel="stylesheet" href="/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/pdfSender.css">
 </head>
 <body>
 <div class="container">
     <!-- 헤더 -->
     <div class="header">
-        <img src="\images/SoonAirLine.png" alt="SOON 항공사 로고" class="logo">
+        <img src="/images/2.png" alt="SOON 항공사 로고" class="logo">
     </div>
 
     <!-- 단계 네비게이션 -->

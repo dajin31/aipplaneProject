@@ -1,5 +1,6 @@
 package com.example.demo.controller.login;
 
+import com.example.demo.service.UserService;
 import com.example.demo.service.UserServiceImpl;
 import com.example.demo.vo.UserVO;
 import jakarta.servlet.ServletException;
@@ -24,7 +25,7 @@ public class UserIdCheck extends HttpServlet {
         String userId = request.getParameter("user_id");
 
         // 서비스 객체 생성
-        UserServiceImpl service = UserServiceImpl.getInstance();
+        UserService service = UserServiceImpl.getInstance();
 
         // db에서 처리한 결과 받기
         int count = service.userIdCount(userId);
@@ -66,7 +67,7 @@ public class UserIdCheck extends HttpServlet {
             }
 
             // 회원가입 서비스 호출
-            UserServiceImpl service = UserServiceImpl.getInstance();
+            UserService service = UserServiceImpl.getInstance();
             UserVO newUser = new UserVO(userId, userPw, userName, userRegnum, userEmail);
             int result = service.insertUser(newUser);
 

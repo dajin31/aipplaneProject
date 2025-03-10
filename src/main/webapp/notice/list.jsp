@@ -118,8 +118,8 @@
           <a href="#">공지사항</a>
           <ul class="dropdown-menu">
             <li><a href="notice.jsp">공지사항</a></li>
-            <li><a href="qna.jsp">1:1 문의</a></li>
-            <li><a href="faq.jsp">FAQ</a></li>
+            <li><a href="/board_1_1/list1_1.jsp">1:1 문의</a></li>
+            <li><a href="/FAQ/faqBoardView.jsp">FAQ</a></li>
           </ul>
         </li>
       </ul>
@@ -152,8 +152,8 @@
           <a href="<%=request.getContextPath()%>/member/list.do">공지사항</a>
           <ul class="dropdown-menu">
             <li><a href="<%=request.getContextPath()%>/member/list.do">공지사항</a></li>
-            <li><a href="qna.jsp">1:1 문의</a></li>
-            <li><a href="faq.jsp">FAQ</a></li>
+            <li><a href="/board_1_1/list1_1.jsp">1:1 문의</a></li>
+            <li><a href="/FAQ/faqBoardView.jsp">FAQ</a></li>
           </ul>
         </li>
       </ul>
@@ -248,12 +248,10 @@
 </div>
 
 <%
-  if (loginUser != null && loginUser.getMemCode().equals("admin")) {
+  if (loginUser != null && loginUser.getMemCode() != null && loginUser.getMemCode().equals("admin")) {
 %>
 <button class="register-btn" id="write">등록</button>
-<%
-  }
-%>
+<% } %>
 
 
 </body>

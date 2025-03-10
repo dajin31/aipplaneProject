@@ -1,17 +1,11 @@
 package com.example.demo.controller.faqBoard;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import com.example.demo.service.FAQBoardServiceImpl;
 import com.example.demo.service.IFAQBoardService;
 import com.example.demo.service.UserService;
 import com.example.demo.service.UserServiceImpl;
 import com.example.demo.vo.FAQBoardVO;
 import com.example.demo.vo.FAQPageVO;
-
 import com.example.demo.vo.UserVO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -19,6 +13,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 //request{category=reservation, question=질문있어요, answer=답변이에요}
 @WebServlet("/FAQBoard")
@@ -30,6 +29,10 @@ public class FAQBoard extends HttpServlet {
 
         HttpSession session = request.getSession();
         UserVO loginUser = (UserVO) session.getAttribute("loginUser"); // 세션에 로그인 사용자 정보 가져오기
+
+        if (loginUser != null) {
+            request.setAttribute("loginUser", loginUser); // 로그인 사용자 정보를 요청 속성에 추가
+        }
 
         //Controller -> Service를 호출
         IFAQBoardService fqaboardService = FAQBoardServiceImpl.getInstance();

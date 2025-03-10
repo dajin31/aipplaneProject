@@ -3,8 +3,8 @@
 <%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> --%>
 <%@page import="com.example.demo.vo.AirVO"%>
-<%@page import="com.example.demo.Air.service.AirServicelmp"%>
-<%@page import="com.example.demo.Air.service.AirService"%>
+<%@page import="com.example.demo.service.AirServicelmp"%>
+<%@page import="com.example.demo.service.AirService"%>
 <%@ page import="com.example.demo.vo.UserVO" %>
 <!DOCTYPE html>
 <html lang="ko">
@@ -18,7 +18,7 @@
     UserVO userVo = (UserVO)session.getAttribute("loginUser");/*로그인 정보 불러오기*/
 
     if(userVo==null){//로그인 안되었다면
-      response.sendRedirect("/middle/member/login.jsp");
+      response.sendRedirect("/login/login.jsp");
 
       return;
     }
@@ -29,7 +29,7 @@
     //user_id, flt_code,
     AirVO airVO = new AirVO();
     //로그인 한 회원의 아이디(동적으로 바뀜)
-    airVO.setUser_id(userVo.getUser_id());
+    airVO.setUser_id(userVo.getUserId());
     airVO.setFlt_code(Integer.parseInt(request.getParameter("flt_code")));
     List<AirVO> list= airService.getAirList(airVO);
     if(list != null){

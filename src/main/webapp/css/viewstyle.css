@@ -4,7 +4,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     margin: 0;
     padding: 20px;
-    background-color: #f5f5f5;
+    /*background-color: #f5f5f5;*/
     line-height: 1.6;
 }
 a {
@@ -17,9 +17,17 @@ a {
     background-color: #fff;
     padding: 40px;
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    /*box-shadow: 0 1px 3px rgba(0,0,0,0.3);*/
 }
-
+h1 {
+    font-weight: 450;
+    font-size: 40px;
+    margin-bottom: 30px;
+    width: 300px;
+}
+.list-btn{
+ text-align: center;
+}
 .notice-header {
     margin-top: 10px;
     margin-bottom: 30px;
@@ -33,9 +41,9 @@ a {
     font-size: 32px;
 }
 .notice-title {
-    border-top: 2px solid #007bff;
-    font-size: 24px;
-    font-weight: bold;
+    border-top: 2px solid #002e97;
+    font-size: 25px;
+    /*font-weight: bold;*/
     margin-bottom: 10px;
     padding-top: 30px;
 }
@@ -48,8 +56,11 @@ a {
 }
 
 .notice-content {
-    margin-bottom: 40px;
-    min-height: 200px;
+    padding-top: 20px;
+
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
 }
 
 .notice-content ul {
@@ -67,16 +78,39 @@ a {
     margin-top: 30px;
 }
 
-.list-button {
-    padding: 8px 24px;
-    background-color: #fff;
-    border: 1px solid #0064de;
-    color: #0064de;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-    text-decoration: none;
+.button-container {
+    text-align: right;
+    margin-top: 20px;
 }
+.list-bbtn{
+    text-align: center;
+}
+
+.list-button {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #fff;
+    border: 1.5px solid #0056b3;
+    border-radius: 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+
+}
+
+/*.list-button {*/
+/*    padding: 8px 24px;*/
+/*    background-color: #fff;*/
+/*    border: 1px solid #0064de;*/
+/*    color: #0064de;*/
+/*    border-radius: 4px;*/
+/*    cursor: pointer;*/
+/*    font-size: 14px;*/
+/*    text-decoration: none;*/
+/*}*/
 
 .list-button:hover {
     background-color: #f8f9fa;
@@ -247,4 +281,31 @@ header {
 
 .header-after-login.hidden {
     display: none;
+}
+.btn-btn-secondary{
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #fff;
+    border: 1.5px solid #0056b3;
+    border-radius: 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+}
+
+.btn-btn-primary{
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #fff;
+    border: 1.5px solid #0056b3;
+    border-radius: 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
 }

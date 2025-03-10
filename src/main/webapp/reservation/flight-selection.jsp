@@ -462,8 +462,8 @@
             </ul>
         </nav>
         <div class="auth">
-            <a href="/login/userJoin.jsp" class="join-btn">회원가입</a>
-            <a href="/login/login.jsp" class="login-btn">로그인</a>
+            <a href="/user/userJoin.jsp" class="join-btn">회원가입</a>
+            <a href="/user/login.jsp" class="login-btn">로그인</a>
         </div>
     </div>
     <div class="header-container header-after-login hidden">
@@ -497,7 +497,7 @@
         </nav>
         <div class="user-info">
             <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
-            <a href="/user/mypage.jsp" class="mypage-btn">마이페이지</a>
+            <a href="/myPage/mypage.jsp" class="mypage-btn">마이페이지</a>
             <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
         </div>
     </div>
@@ -625,7 +625,7 @@
         $(".logout-btn").click(function(event) {
             event.preventDefault(); // 기본 링크 동작 방지
             if (confirm("로그아웃 하시겠습니까?")) {
-                location.href = "<%=request.getContextPath()%>/logout.do";
+                location.href = "<%=request.getContextPath()%>/user/logout.do";
             }
         });
     });

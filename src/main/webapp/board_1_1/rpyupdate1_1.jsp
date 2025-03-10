@@ -12,7 +12,7 @@
   <title>공지사항</title>
   <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
   <script src="/js/jquery.serializejson.js"></script>
-  <link rel="stylesheet" href="../../css/1_1viewstyle.css">
+  <link rel="stylesheet" href="/css/1_1viewstyle.css">
 
   <script>
     $(document).ready(function() {
@@ -87,7 +87,6 @@
     <div class="notice-header">
       <div class="notice-title"><%=boardVO.getInd_title()%></div>
       <div class="notice-meta">
-        <div class="notice-tag">여행정보</div>
         <div class="notice-date"><%=boardVO.getCrt_date()%></div>
       </div>
     </div>
@@ -110,17 +109,10 @@
         <textarea class="form-control" id="rpy_contents" name="rpy_contents" cols="100=" rows="15"><%=replyVO.getRpy_contents()%></textarea>
       </div>
     </div>
-
-
-
     <div class="button-container">
       <button type="button" id="rpyupdatesend" class="button" >확인</button>
-
     </div>
 </form>
-
-
-
     <a href="<%=request.getContextPath()%>/member/list1_1.do" class="button">목록보기</a>
   </div>
 </div>

@@ -11,9 +11,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>자주 묻는 질문 | Soon Airline</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link rel="stylesheet" href="<%=request.getContextPath() %>/css/faqBoard.css">
+  <link rel="stylesheet" href="/css/faqBoard.css">
   <script src="<%=request.getContextPath()%>/js/jquery-3.7.1.js"></script>
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // 세션에서 로그인 상태 확인
+    const isLoggedIn = ${sessionScope.loginUser != null};
+    const userName = "${sessionScope.loginUser.userName}";
+
+    if (isLoggedIn) {
+      $(".header-before-login").hide();
+      $(".header-after-login").removeClass("hidden");
+      $(".welcome-msg").text(userName + "님 환영합니다.");
+    } else {
+      $(".header-before-login").show();
+      $(".header-after-login").addClass("hidden");
+    }
+
+    // 로그아웃 후 페이지 리로드
+    $(".logout-btn").click(function(event) {
+      event.preventDefault(); // 기본 링크 동작 방지
+      if (confirm("로그아웃 하시겠습니까?")) {
+        location.href = "<%=request.getContextPath()%>/user/logout.do";
+      }
+    });
+  });
+</script>
 <body>
 <%
   // 로그인 세션 정보 가져오기
@@ -33,25 +58,76 @@
   boolean isAdmin = loginUser != null && loginUser.getMemCode().equals("admin");
 %>
 
-<button type="button" id="login" name="login">
-  <a href="<%=request.getContextPath() %>/login/login.jsp">로그인</a>
-</button>
-
 <!-- 헤더 -->
-<header class="header">
-  <div class="top-header">
-    <nav class="top-nav">
-      <a href="/login/userJoin.jsp">회원가입</a>
-      <a href="<%=request.getContextPath()%>/login/login.jsp">로그인</a>
+<header>
+  <div class="header-container header-before-login">
+    <div class="logo">
+      <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="/reservation/receiptPage.jsp">예약</a>
+          <ul class="dropdown-menu">
+            <li><a href="<%=request.getContextPath()%>/reservation/reservation-airport.jsp">항공권 예매</a></li>
+            <li><a href="reservation.jsp">예약 취소</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="#">마일리지</a>
+          <ul class="dropdown-menu">
+            <li><a href="<%=request.getContextPath()%>/mileage/mileageShop.jsp">마일리지샵</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="<%=request.getContextPath()%>/member/list.do">공지사항</a>
+          <ul class="dropdown-menu">
+            <li><a href="<%=request.getContextPath()%>/member/list.do">공지사항</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/list1_1.do">1:1 문의</a></li>
+            <li><a href="<%=request.getContextPath()%>/FAQBoard">FAQ</a></li>
+          </ul>
+        </li>
+      </ul>
     </nav>
+    <div class="auth">
+      <a href="/login/userJoin.jsp" class="join-btn">회원가입</a>
+      <a href="/login/login.jsp" class="login-btn">로그인</a>
+    </div>
   </div>
-  <div class="main-header">
-    <a href="#" class="logo">Soon Airline</a>
-    <nav class="main-nav">
-      <a href="/reservation/reservation-airport.jsp">예약</a>
-      <a href="/mileage/mileageShop.jsp">마일리지</a>
-      <a href="<%=request.getContextPath()%>/member/list.do">공지사항</a>
+  <div class="header-container header-after-login hidden">
+    <div class="logo">
+      <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
+    </div>
+    <nav class="nav">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="/reservation/receiptPage.jsp">예약</a>
+          <ul class="dropdown-menu">
+            <li><a href="<%=request.getContextPath()%>/reservation/reservation-airport.jsp">항공권 예매</a></li>
+            <li><a href="/reservationreservation.jsp">예약 취소</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="/mileage/mileageShop.jsp">마일리지</a>
+          <ul class="dropdown-menu">
+            <li><a href="<%=request.getContextPath()%>/mileage/mileageShop.jsp">마일리지샵</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a href="<%=request.getContextPath()%>/member/list.do">공지사항</a>
+          <ul class="dropdown-menu">
+            <li><a href="<%=request.getContextPath()%>/member/list.do">공지사항</a></li>
+            <li><a href="<%=request.getContextPath()%>/member/list1_1.do">1:1 문의</a></li>
+            <li><a href="<%=request.getContextPath()%>/FAQBoard">FAQ</a></li>
+          </ul>
+        </li>
+      </ul>
     </nav>
+    <div class="user-info">
+      <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
+      <a href="/myPage/mypage.jsp" class="mypage-btn">마이페이지</a>
+      <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
+    </div>
   </div>
 </header>
 
@@ -320,6 +396,7 @@
     }
   }
 </script>
+
 </body>
 </html>
 

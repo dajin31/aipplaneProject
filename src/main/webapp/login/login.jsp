@@ -147,6 +147,8 @@
             $(".header-after-login").show();
             $(".welcome-msg").text(data.userName + "님 환영합니다.");
             location.href = "<%=request.getContextPath()%>/mainPage/mainPage.jsp";
+            // window.history.back();
+            // history.back();
           } else if (data.result === "fail") {
             // 로그인 실패: 서버에서 전달된 오류 메시지 표시
             $("#loginError").text(data.message).addClass("error");

@@ -1,5 +1,6 @@
 package com.example.demo.controller.login;
 
+import com.example.demo.service.UserService;
 import com.example.demo.service.UserServiceImpl;
 import com.example.demo.vo.UserVO;
 import com.google.gson.Gson;
@@ -16,7 +17,7 @@ import java.io.PrintWriter;
 
 @WebServlet("/userFindId")
 public class UserFindId extends HttpServlet {
-    private final UserServiceImpl userService = UserServiceImpl.getInstance();
+    private final UserService userService = UserServiceImpl.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

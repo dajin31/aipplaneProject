@@ -11,7 +11,14 @@ public class UserVO {
     private int userMileage;
     private int userTotalMileage;
     private String userPassNum;
-    private String memCode;
+    private String memCode = "";
+
+    private int user_mileage;
+    private String user_passnum;
+    private String mem_code;
+    private String new_pw;
+    private int user_totalmileage;
+
 
     public UserVO() {
     }
@@ -60,6 +67,45 @@ public class UserVO {
         return userVO;
     }
 
+    public int getUser_mileage() {
+        return user_mileage;
+    }
+
+    public void setUser_mileage(int user_mileage) {
+        this.user_mileage = user_mileage;
+    }
+
+    public String getUser_passnum() {
+        return user_passnum;
+    }
+
+    public void setUser_passnum(String user_passnum) {
+        this.user_passnum = user_passnum;
+    }
+
+    public String getMem_code() {
+        return mem_code;
+    }
+
+    public void setMem_code(String mem_code) {
+        this.mem_code = mem_code;
+    }
+
+    public String getNew_pw() {
+        return new_pw;
+    }
+
+    public void setNew_pw(String new_pw) {
+        this.new_pw = new_pw;
+    }
+
+    public int getUser_totalmileage() {
+        return user_totalmileage;
+    }
+
+    public void setUser_totalmileage(int user_totalmileage) {
+        this.user_totalmileage = user_totalmileage;
+    }
 
     public String getUserId() {
         return userId;

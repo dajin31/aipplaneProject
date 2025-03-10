@@ -1,5 +1,6 @@
 package com.example.demo.controller.login;
 
+import com.example.demo.service.UserService;
 import com.example.demo.service.UserServiceImpl;
 import com.example.demo.vo.UserVO;
 import com.google.gson.Gson;
@@ -55,7 +56,7 @@ public class UserInsert extends HttpServlet {
             }
 
             // 회원가입 서비스 호출
-            UserServiceImpl service = UserServiceImpl.getInstance();
+            UserService service = UserServiceImpl.getInstance();
             UserVO newUser = new UserVO(userId, userPw, userName, userRegnum, userEmail);
             int result = service.insertUser(newUser);
 

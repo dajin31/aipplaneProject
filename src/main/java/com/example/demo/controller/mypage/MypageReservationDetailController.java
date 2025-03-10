@@ -1,7 +1,7 @@
-package com.example.demo.controller.product;
+package com.example.demo.controller.mypage;
 
-import com.example.demo.service.UserService;
-import com.example.demo.service.UserServiceImpl;
+import com.example.demo.service.MyPageService;
+import com.example.demo.vo.MyReservationVO;
 import com.google.gson.Gson;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -10,37 +10,34 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 
-@WebServlet("/mileage/userMileage")
-public class UserMileageController extends HttpServlet {
+@WebServlet("/myPage/selectReservationDetail")
+public class MypageReservationDetailController extends HttpServlet {
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setCharacterEncoding("utf-8");
         resp.setCharacterEncoding("utf-8");
         resp.setContentType("application/json; charset=utf-8");
 
-        UserService service = UserServiceImpl.getInstance();
-
         String userId = req.getParameter("userId");
 
-        int param = service.selectMileage(userId);
+        MyPageService service = MyPageService.getInstance();
+
+        List<MyReservationVO> myReservationVOS = service.selectMyReservationDetail(userId);
 
         Gson gson = new Gson();
 
-        String json = gson.toJson(param);
+        String json = gson.toJson(myReservationVOS);
 
-        PrintWriter out = resp.getWriter();
-        out.write(json);
+        resp.getWriter().write(json);
 
         resp.flushBuffer();
-
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
-
 }

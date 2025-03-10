@@ -105,7 +105,7 @@ console.log(userVo);
             if (data.result=== 'success') {
               alert('예약이 성공적으로 취소되었습니다.');
               // 취소 성공 후 마이페이지로 이동
-              location.href="<%= request.getContextPath() %>/member/mypage.jsp" // 예시: 페이지 새로고침
+              location.href="<%= request.getContextPath() %>/myPage/mypage.jsp" // 예시: 페이지 새로고침
             } else {
               alert('예약 취소에 실패했습니다. 다시 시도해주세요.');
             }

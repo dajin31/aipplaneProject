@@ -36,7 +36,7 @@ public class UserServiceImp implements IUserService {
 
     public int insertUser(UserVO user) {
         int result = 0;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try {
             result = session.insert("user.insertUser", user);

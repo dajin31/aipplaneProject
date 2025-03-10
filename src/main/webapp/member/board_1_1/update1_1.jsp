@@ -13,7 +13,9 @@
     <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
     <script src="/js/jquery.serializejson.js"></script>
     <link rel="stylesheet" href="../../css/1_1viewstyle.css">
-
+<%
+    Board1_1VO boardVO = (Board1_1VO) request.getAttribute("boardVO");
+%>
     <script>
         $(document).ready(function() {
             // 세션에서 로그인 상태 확인
@@ -42,6 +44,7 @@
                 // 입력한 모든 값을 가져온다
                 const formData = $("#wform").serializeJSON();
 
+
                 $.ajax({
                     url : "<%=request.getContextPath()%>/member/update1_1.do",
                     contentType :"application/json; charset=utf-8",
@@ -49,7 +52,7 @@
                     data : JSON.stringify(formData),
                     success: function(response) {
                         console.log("답변 성공" + response)
-                        history.back();
+                        location.href = "<%=request.getContextPath()%>/member/view1_1.do?board_id=<%=boardVO.getBoard_id()%>";
 
                     },
                     error: function(xhr, status, error) {
@@ -67,7 +70,7 @@
         })
     </script>
     <%
-        Board1_1VO boardVO = (Board1_1VO) request.getAttribute("boardVO");
+
         UserVO loginUser = (UserVO) session.getAttribute("loginUser");
         Reply1_1VO replyVO = (Reply1_1VO) request.getAttribute("replyVO");
     %>

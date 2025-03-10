@@ -9,7 +9,6 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.Charset;
 
-
 public class MyBatisUtil {
 
 	private static SqlSessionFactory sessionFactory;
@@ -35,7 +34,7 @@ public class MyBatisUtil {
 
 	}
 
-	public static SqlSession getSqlSession() {
+	public static SqlSession getSession() {
 		return sessionFactory.openSession();
 	}
 
@@ -43,4 +42,5 @@ public class MyBatisUtil {
 		return sessionFactory.openSession(autoCommit);
 	}
 }
+
 

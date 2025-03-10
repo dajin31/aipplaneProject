@@ -49,7 +49,7 @@ public class UserDaoImp implements IUserDAO {
         SqlSession session = null;
         int count = 0;
         try {
-            session = MyBatisUtil.getSqlSession();
+            session = MyBatisUtil.getSession();
             count = session.selectOne("user.userIdCount", userId);
         } catch (Exception e) {
             logger.error("userIdCount 오류: {}", e.getMessage());
@@ -67,7 +67,7 @@ public class UserDaoImp implements IUserDAO {
         SqlSession session = null;
         int count = 0;
         try {
-            session = MyBatisUtil.getSqlSession();
+            session = MyBatisUtil.getSession();
             count = session.insert("user.insertUser", userVO);
             session.commit();
         } catch (Exception e) {
@@ -86,7 +86,7 @@ public class UserDaoImp implements IUserDAO {
 
     @Override
     public UserVO login(String userId, String userPw) {
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
         UserVO user = null;
         try {
             Map<String, String> paramMap = new HashMap<>();
@@ -106,7 +106,7 @@ public class UserDaoImp implements IUserDAO {
         SqlSession session = null;
         UserVO user = null;
         try {
-            session = MyBatisUtil.getSqlSession();
+            session = MyBatisUtil.getSession();
             logger.info("getUser() 호출 - 입력된 ID: {}", userId);
 
             user = session.selectOne("user.getUser", userId);
@@ -133,7 +133,7 @@ public class UserDaoImp implements IUserDAO {
         SqlSession session = null;
         UserVO user = null;
         try {
-            session = MyBatisUtil.getSqlSession();
+            session = MyBatisUtil.getSession();
             user = session.selectOne("user.getUserByIdRegnumEmail", UserVO.createUserVOForFindPassword(userId, userRegnum, userEmail));
         } catch (Exception e) {
             logger.error("getUserByIdRegnumEmail 오류: {}", e.getMessage());
@@ -150,7 +150,7 @@ public class UserDaoImp implements IUserDAO {
     public void updateUserPassword(UserVO user) {
         SqlSession session = null;
         try {
-            session = MyBatisUtil.getSqlSession();
+            session = MyBatisUtil.getSession();
             session.update("user.updateUserPassword", user);
             session.commit();
         } catch (Exception e) {
@@ -171,7 +171,7 @@ public class UserDaoImp implements IUserDAO {
         SqlSession session = null;
         UserVO user = null;
         try {
-            session = MyBatisUtil.getSqlSession();
+            session = MyBatisUtil.getSession();
 
             List<UserVO> userList = session.selectList("user.getUserByNameRegnumEmail", UserVO.createUserVOForFindId(userName, userRegnum, userEmail)); // 수정: selectList 사용 및 팩토리 메서드 사용
 

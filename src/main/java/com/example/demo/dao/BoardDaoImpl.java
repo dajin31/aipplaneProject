@@ -24,7 +24,7 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public int insertBoard(Board1_1VO boardVO) {
         int res = 0;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try {
             res = session.insert("board1_1.insertBoard", boardVO);
@@ -39,7 +39,7 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public int deleteBoard(int board_id) {
         int res = 0;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try {
             res = session.delete("board1_1.deleteBoard", board_id);
@@ -55,7 +55,7 @@ public class BoardDaoImpl implements BoardDao {
     public Board1_1VO getBoard(int board_id) {
         Board1_1VO boardVO = null;
 //        int res = 0;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try {
             return session.selectOne("board1_1.getBoard", board_id);
@@ -69,7 +69,7 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public int updateBoard(Board1_1VO boardVO) {
         int res = 0;
-        SqlSession  session = MyBatisUtil.getSqlSession();
+        SqlSession  session = MyBatisUtil.getSession();
 
         try {
             res = session.update("board1_1.updateBoard", boardVO);
@@ -85,7 +85,7 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public List<Board1_1VO> selectByPage(Map<String, Object> map) {
         List<Board1_1VO> boardVOList = null;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try {
             boardVOList = session.selectList("board1_1.selectByPage", map);
@@ -99,7 +99,7 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public int totalCount(Map<String, Object> map) {
         int res = 0;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try{
             res = session.selectOne("board1_1.totalCount", map);
@@ -114,7 +114,7 @@ public class BoardDaoImpl implements BoardDao {
     public Reply1_1VO getReply(int board_id) {
         Reply1_1VO replyVO = null;
 
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try {
             replyVO = session.selectOne("board1_1.getReply", board_id);
@@ -130,7 +130,7 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public int insertReply(Reply1_1VO replyVO) {
         int res = 0;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try{
             res = session.insert("board1_1.insertReply", replyVO);
@@ -144,7 +144,7 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public int deleteReply(int reply_id) {
         int res = 0;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try{
             res = session.delete("board1_1.deleteReply", reply_id);
@@ -158,7 +158,7 @@ public class BoardDaoImpl implements BoardDao {
     @Override
     public int updateReply(Reply1_1VO reply11VO) {
         int res = 0;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
         try{
             res = session.update("board1_1.updateReply", reply11VO);
         }finally {

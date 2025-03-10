@@ -37,6 +37,7 @@
       });
     });
     $(function() {
+
       // 페이지 번호 클릭 이벤트
       $(document).on('click', '.pageno', function() {
         $('#page').val(parseInt($(this).text()));
@@ -115,7 +116,7 @@
     </nav>
     <div class="auth">
       <a href="/user/userJoin.jsp" class="join-btn">회원가입</a>
-      <a href="/user/login.jsp" class="login-btn">로그인</a>
+      <a href="<%=request.getContextPath() %>/member/login.jsp" class="login-btn">로그인</a>
     </div>
   </div>
   <div class="header-container header-after-login hidden">
@@ -171,6 +172,7 @@
   String user_id = (String) request.getAttribute("user_id");
   sword = sword == null ? "" : sword;
 %>
+
 
 
 <div class="container">
@@ -230,9 +232,12 @@
   }
 %>
 <!-- 페이지네이션 -->
+
+
+
 <div class="pagination">
   <%
-    if (pageVO != null || !boardVOList.isEmpty() || boardVOList != null) { // pageVO가 null이 아닌 경우에만 처리
+    if  (loginUser != null && boardVOList != null && !boardVOList.isEmpty() && pageVO != null) { // pageVO가 null이 아닌 경우에만 처리
       if (pageVO.getStartPage() > 1) {
   %>
   <button type="button" class="page-arrow" id="prev">이전</button>

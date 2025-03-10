@@ -24,7 +24,7 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     @Override
     public int insertBoard(Notice_BoardVO nboardVO) {
         int res = 0;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try{
             System.out.println("Dao insert title : "+ nboardVO.getNtc_title());
@@ -41,7 +41,7 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     @Override
     public int updateBoard(Notice_BoardVO nboardVO) {
         int res = 0;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try{
             res = session.update("notice.updateBoard", nboardVO);
@@ -55,7 +55,7 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     @Override
     public int deleteBoard(int ntc_board) {
         int res = 0;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try{
             res = session.delete("notice.deleteBoard", ntc_board);
@@ -70,7 +70,7 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     @Override
     public Notice_BoardVO getBoard(int ntc_board) {
         Notice_BoardVO nboardVO = null;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try{
             nboardVO = session.selectOne("notice.getBoard", ntc_board);
@@ -86,7 +86,7 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     @Override
     public List<Notice_BoardVO> selectByPage(Map<String, Object> map) {
         List<Notice_BoardVO> list = null;
-        SqlSession session = MyBatisUtil.getSqlSession();
+        SqlSession session = MyBatisUtil.getSession();
 
         try{
             list = session.selectList("notice.selectByPage", map);
@@ -100,7 +100,7 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
     @Override
     public int totalCount(Map<String, Object> map) {
         int res = 0;
-        SqlSession  session = MyBatisUtil.getSqlSession();
+        SqlSession  session = MyBatisUtil.getSession();
 
         try {
             res = session.selectOne("notice.totalCount", map);

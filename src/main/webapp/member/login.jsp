@@ -147,7 +147,7 @@
 
                         if (data.result === "success") {
                             alert("로그인 성공!");
-                            history.back();
+                            location.href = "/member/list1_1.do";
                         } else if (data.result === "fail") {
                             // 로그인 실패: 서버에서 전달된 오류 메시지 표시
                             $("#loginError").text(data.message).addClass("error");

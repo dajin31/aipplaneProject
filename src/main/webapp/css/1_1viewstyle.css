@@ -10,6 +10,17 @@
     line-height: 1.6;
 }
 
+/*.admin-reply {*/
+/*    display: none;*/
+/*}*/
+
+#rform {
+    display: none; /* 초기에는 숨김 */
+}
+
+a {
+    text-decoration: none; /* 모든 a 태그의 밑줄 제거 */
+}
 /* 공지사항 제목 */
 .board-title {
     padding-top: 30px;

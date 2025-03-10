@@ -25,7 +25,7 @@ public interface BoardService {
     public Board1_1VO getBoard(int board_id);
 
     //페이지별 정보구하기 - 페이지 처리 를 위한 정보 -
-    public PageVO pageInfo(int page, String sword);
+    public PageVO pageInfo(int page, String sword,Map<String, Object> map);
 
     //전체글 갯수 구하기
     public int totalCount(Map<String, Object> map) ;

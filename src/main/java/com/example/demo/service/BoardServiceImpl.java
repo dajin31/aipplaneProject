@@ -50,13 +50,17 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public PageVO pageInfo(int page, String sword) {
-        Map<String, Object> map = new HashMap<>();
+    public PageVO pageInfo(int page, String sword, Map<String, Object> map) {
+
         map.put("sword", sword);
 
         int count = this.totalCount(map);
 
         int totalPage = (int) Math.ceil((double)count / PageVO.getPerList());
+
+        if (totalPage == 0) {
+            totalPage = 1;
+        }
 
         //시작 게시글 , 끝 게시글 구하기
         int start = (page - 1) * PageVO.getPerList() + 1;

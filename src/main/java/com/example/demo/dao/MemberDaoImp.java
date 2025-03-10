@@ -24,7 +24,7 @@ public class MemberDaoImp implements IMemberDAO{
 		int count = 0;
 		
 		try {
-			session = MyBatisUtil.getSqlSession();
+			session = MyBatisUtil.getSession();
 			count = session.selectOne("member.memberIdCount",memId);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -40,7 +40,7 @@ public class MemberDaoImp implements IMemberDAO{
 		int count = 0;
 		
 		try {
-			session = MyBatisUtil.getSqlSession();
+			session = MyBatisUtil.getSession();
 			count = session.insert("member.insertMember",memVO);
 		} catch (Exception e) {
 			e.printStackTrace();

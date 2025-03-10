@@ -14,9 +14,25 @@
     <script src="/js/jquery.serializejson.js"></script>
     <link rel="stylesheet" href="../../css/1_1viewstyle.css">
 
+    <%
+        Board1_1VO boardVO = (Board1_1VO) request.getAttribute("boardVO");
+    %>
     <script>
 
         $(document).ready(function() {
+
+            $("#admin-rpy").click(function() {
+                $(".admin-reply").slideDown(); // 답변 입력 창 보이기
+                $(this).hide(); // 버튼 숨기기
+            });
+
+
+            $('#admin-rpy').click(function() {
+                $('#rform').show(); // rform을 보이게 함
+            });
+
+
+
             // 세션에서 로그인 상태 확인
             const isLoggedIn = ${sessionScope.loginUser != null};
             const userName = "${sessionScope.loginUser.userName}";
@@ -36,6 +52,13 @@
                 if (confirm("로그아웃 하시겠습니까?")) {
                     location.href = "<%=request.getContextPath()%>/user/logout.do";
                 }
+            });
+
+            $(document).ready(function() {
+                $("#admin-rpy").click(function() {
+                    $(".admin-reply").slideDown(); // 답변 입력 창 보이기
+                    $(this).hide(); // 버튼 숨기기
+                });
             });
         });
         $(function (){
@@ -77,7 +100,7 @@
                     success : function(data){
                         if(data.result>0){
                             console.log(board_id + "번 게시글이 삭제되었습니다.");
-                            history.back();
+                            location.href = "<%=request.getContextPath()%>/member/list1_1.do?"
                         }else{
                             console.log("게시글 삭제 오류~~")
                         }
@@ -101,7 +124,7 @@
                     success : function(data){
                         if(data.result>0){
                             console.log(board_id + "번 게시물 답변이 삭제되었습니다.");
-                            history.back();
+                            location.href = "<%=request.getContextPath()%>/member/view1_1.do?board_id=<%=boardVO.getBoard_id()%>";
                         }else{
                             console.log("답변 삭제 오류~~")
                         }
@@ -117,13 +140,13 @@
         })
 
         $('#updatesend').on('click', function (){
-            location.href = "/member/replyupdate.do"
+            location.href = "<%=request.getContextPath()%>/member/view1_1.do?board_id=<%=boardVO.getBoard_id()%>";
         })
 
 
     </script>
     <%
-        Board1_1VO boardVO = (Board1_1VO) request.getAttribute("boardVO");
+
         UserVO loginUser = (UserVO) session.getAttribute("loginUser");
          Reply1_1VO replyVO = (Reply1_1VO) request.getAttribute("replyVO");
     %>
@@ -137,7 +160,6 @@
         <div class="notice-header">
             <div class="notice-title"><%=boardVO.getInd_title()%></div>
             <div class="notice-meta">
-                <div class="notice-tag">여행정보</div>
                 <div class="notice-date"><%=boardVO.getCrt_date()%></div>
             </div>
         </div>
@@ -163,9 +185,15 @@
             }
         %>
 
+
         <%
             if (loginUser.getMemCode().equals("admin") && replyVO == null){
         %>
+
+        <div class="button-container">
+            <button type="button" id="admin-rpy">관리자 답변 등록</button>
+        </div>
+
         <!-- 관리자 답변 영역 추가 -->
         <form id="rform">
         <div class="admin-reply">
@@ -173,14 +201,14 @@
             <input type="hidden" id="user_id" name="user_id" value="<%=loginUser.getUserId()%>">
             <div class="admin-reply-header">
                 <div class="admin-reply-title">관리자 답변</div>
-                <div class="admin-reply-date">2025.02.25</div>
             </div>
             <div class="admin-reply-content">
                 <textarea class="form-control" id="rpy_contents" name="rpy_contents" cols="100=" rows="15"></textarea>
             </div>
-        </div>
+
         <div class="button-container">
             <button type="button" id="send" class="button" >등록</button>
+        </div>
         </div>
         </form>
         <%

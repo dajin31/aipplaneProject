@@ -176,7 +176,8 @@
 
 
 <div class="container">
-  <h1>1:1 문의</h1>
+  <button class="register-btn" id="write">문의 등록</button>
+  <h1>1:1 문의  </h1>
 
   <!-- 검색 영역 -->
   <div class="search-box">
@@ -209,26 +210,27 @@
                 if (replyVO != null) { // replyVO가 null이 아닌 경우에만 getBoard_id() 호출
           System.out.println("답변 아이딩????????????????" + replyVO.getBoard_id());
         }
+
     %>
 
           <div class="notice-list">
 
-  <div class="notice-item">
     <a href="<%=request.getContextPath() %>/member/view1_1.do?board_id=<%=boardVO.getBoard_id()%>">
-      <div class="notice-item-content"><span class="notice-title"><%=boardVO.getInd_title()%></span>
+      <div class="notice-item">
+      <span class="notice-title"><%=boardVO.getInd_title()%></span>
       <span class="notice-date"><%=boardVO.getCrt_date()%></span>
       <% if (replyVO == null) { %>
-      <span class="notice-replyst">답변 전</span>
+      <span class="notice-replyst">답변 대기</span>
       <% } else { %>
       <span class="notice-replyst">답변 완료</span>
       <% }
-      }
+
       %>
       </div>
     </a>
-  </div>
 </div>
 <%
+    }
   }
 %>
 <!-- 페이지네이션 -->
@@ -268,7 +270,7 @@
 
 
 
-<button class="register-btn" id="write">문의 등록</button>
+
 
 
 

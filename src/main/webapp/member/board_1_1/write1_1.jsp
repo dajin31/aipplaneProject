@@ -72,6 +72,80 @@
     %>
 </head>
 <body>
+
+
+<header>
+    <div class="header-container header-before-login">
+        <div class="logo">
+            <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#">예약</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="reservation.jsp">항공권 예매</a></li>
+                        <li><a href="reservation.jsp">예약 취소</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">마일리지</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="mileage.jsp">마일리지샵</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">공지사항</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="notice.jsp">공지사항</a></li>
+                        <li><a href="qna.jsp">1:1 문의</a></li>
+                        <li><a href="faq.jsp">FAQ</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="auth">
+            <a href="/user/userJoin.jsp" class="join-btn">회원가입</a>
+            <a href="<%=request.getContextPath() %>/member/login.jsp" class="login-btn">로그인</a>
+        </div>
+    </div>
+    <div class="header-container header-after-login hidden">
+        <div class="logo">
+            <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#">예약</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="reservation.jsp">항공권 예매</a></li>
+                        <li><a href="reservation.jsp">예약 취소</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">마일리지</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="mileage.jsp">마일리지샵</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">공지사항</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="notice.jsp">공지사항</a></li>
+                        <li><a href="qna.jsp">1:1 문의</a></li>
+                        <li><a href="faq.jsp">FAQ</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="user-info">
+            <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
+            <a href="/user/mypage.jsp" class="mypage-btn">마이페이지</a>
+            <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
+        </div>
+    </div>
+</header>
+
 <form id="wform">
 <div class="notice-board">
     <h1 class="board-title">문의글 작성</h1>

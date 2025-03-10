@@ -152,9 +152,9 @@
 </header>
 <form id="wform" enctype="multipart/form-data">
 <div class="container">
-    <div class="notice-header">
+    <div class="notice-header"><h1>공지사항 수정</h1>
         <input type="hidden" id="ntc_board" name="ntc_board" value="<%=noticeBoardVO.getNtc_board()%>">
-        <div class="notice-title"><h4>공지사항 수정</h4> 제목 <input type="text" class="form-control" id="ntc_title" name="ntc_title"
+        <div class="notice-title"> 제목 <input type="text" class="form-control" id="ntc_title" name="ntc_title"
                                                              value="<%=noticeBoardVO.getNtc_title()%>"></div>
         <div class="notice-info">
             <input type="file" name="file">
@@ -162,7 +162,7 @@
         </div>
     </div>
 
-    <div class="notice-content">내용<br>
+    <div class="notice-content">
         <textarea class="form-control" id="ntc_contents" name="ntc_contents" cols="100" rows="30"><%=noticeBoardVO.getNtc_contents()%></textarea>
     </div>
 

@@ -186,7 +186,7 @@
     </div>
 
     <div class="button-container">
-        <a href="/member/list.do" class="list-button">목록보기</a>
+
 
 <%--        <%--%>
 <%--            if(loginUser.getMemCode().equals("admin")){--%>
@@ -205,6 +205,7 @@
         <button type="button" class="list-button">
             <a href="<%=request.getContextPath()%>/member/update.do?ntc_board=<%=noticeBoardVO.getNtc_board()%>" id="update">수정</a>
         </button>
+
         <button type="button" data-num="<%=noticeBoardVO.getNtc_board()%>" class="list-button" id="delete">삭제</button>
         <%
             }
@@ -212,6 +213,6 @@
 
     </div>
 </div>
-
+<a href="/member/list.do" class="list-button">목록보기</a>
 </body>
 </html>

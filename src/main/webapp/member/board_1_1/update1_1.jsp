@@ -76,15 +76,89 @@
     %>
 </head>
 <body>
+
+
+<header>
+    <div class="header-container header-before-login">
+        <div class="logo">
+            <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#">예약</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="reservation.jsp">항공권 예매</a></li>
+                        <li><a href="reservation.jsp">예약 취소</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">마일리지</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="mileage.jsp">마일리지샵</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">공지사항</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="notice.jsp">공지사항</a></li>
+                        <li><a href="qna.jsp">1:1 문의</a></li>
+                        <li><a href="faq.jsp">FAQ</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="auth">
+            <a href="/user/userJoin.jsp" class="join-btn">회원가입</a>
+            <a href="<%=request.getContextPath() %>/member/login.jsp" class="login-btn">로그인</a>
+        </div>
+    </div>
+    <div class="header-container header-after-login hidden">
+        <div class="logo">
+            <a href="index.jsp"><img src="/images/2.png" alt="로고"></a>
+        </div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#">예약</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="reservation.jsp">항공권 예매</a></li>
+                        <li><a href="reservation.jsp">예약 취소</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">마일리지</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="mileage.jsp">마일리지샵</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#">공지사항</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="notice.jsp">공지사항</a></li>
+                        <li><a href="qna.jsp">1:1 문의</a></li>
+                        <li><a href="faq.jsp">FAQ</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="user-info">
+            <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
+            <a href="/user/mypage.jsp" class="mypage-btn">마이페이지</a>
+            <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
+        </div>
+    </div>
+</header>
+
 <form id="wform">
     <div class="notice-board">
         <h1 class="board-title">1대1 문의사항</h1>
-        <div class="divider"></div>
+
 
         <div class="notice-item">
-            <div class="notice-header">]
+            <div class="notice-header">
                 <input type="hidden" id="board_id" name="board_id" value="<%=boardVO.getBoard_id()%>">
-                <div class="notice-title">제목 : <input type="text" id="ind_title" name="ind_title" value="<%=boardVO.getInd_title()%>"></div>
+                <div class="notice-title"> 제목 : <input type="text" id="ind_title" name="ind_title" value="<%=boardVO.getInd_title()%>"></div>
                 <div class="notice-meta">
                     <div class="notice-tag">여행정보</div>
                     <div class="notice-date"><%=boardVO.getCrt_date()%></div>

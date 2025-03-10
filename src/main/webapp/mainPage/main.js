@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     cloneSlides();
 
+
     let currentIndex = 0;
     let isTransitioning = false;
 

@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="/css/header.css">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="/mainPage/main.js"></script>
+    <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f12a315bb86ece33f4207e49ecac47cf"></script>
 </head>
 <body>
 
@@ -26,6 +28,7 @@
     <div class="header-container header-before-login">
         <div class="logo">
             <a href="/mainPage/mainPage.jsp"><img src="/images/2.png" alt="로고"></a>
+
         </div>
         <nav class="nav">
             <ul class="nav-list">
@@ -346,26 +349,25 @@
             });
         });
     });
-    
-<!-- 다음 지도 api -->
+</script>
 
-    document.addEventListener('DOMContentLoaded', function() {
-
-        var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    <!-- 다음 지도 api -->
+<script src="/mainPage/weather.js"></script>
+<script type="text/javascript">
+    function initMap() {
+        var mapContainer = document.getElementById('map'),
             mapOption = {
-                center: new kakao.maps.LatLng(37.5659975, 126.9799762), // 지도의 중심좌표
-                level: 4, // 지도의 확대 레벨
-                mapTypeId: kakao.maps.MapTypeId.ROADMAP // 지도종류
+                center: new kakao.maps.LatLng(37.5659975, 126.9799762),
+                level: 4,
+                mapTypeId: kakao.maps.MapTypeId.ROADMAP
             };
 
-        // 지도를 생성한다
         var map = new kakao.maps.Map(mapContainer, mapOption);
 
-        // 지도에 마커를 생성하고 표시한다
         var markerPositions = [
-            new kakao.maps.LatLng(37.5653, 126.980979), //롯데 호텔
-            new kakao.maps.LatLng(37.564378, 126.980058), //웨스틴조선서울 좌표
-            new kakao.maps.LatLng(37.5649903, 126.981369) //롯데호텔 이그제큐티브
+            new kakao.maps.LatLng(37.5653, 126.980979),
+            new kakao.maps.LatLng(37.564378, 126.980058),
+            new kakao.maps.LatLng(37.5649903, 126.981369)
         ];
 
         var hotelNames = [
@@ -379,16 +381,28 @@
                 position: markerPositions[i],
                 map: map
             });
-
-            (function (marker, i) {
-                kakao.maps.event.addListener(marker, 'click', function () {
+            (function(marker, i) {
+                kakao.maps.event.addListener(marker, 'click', function() {
                     alert(hotelNames[i] + '을(를) 추천합니다!');
                 });
             })(marker, i);
         }
+    }
+
+    // SDK 로드 대기
+    document.addEventListener('DOMContentLoaded', function() {
+        if (typeof kakao === 'undefined' || typeof kakao.maps === 'undefined') {
+            setTimeout(function checkKakao() {
+                if (typeof kakao !== 'undefined' && typeof kakao.maps !== 'undefined') {
+                    initMap();
+                } else {
+                    setTimeout(checkKakao, 100); // 100ms 후 재확인
+                }
+            }, 100);
+        } else {
+            initMap();
+        }
     });
 </script>
-<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e8306615f01d266edffd26c9c180c3c4"></script>
-<script src="/mainPage/weather.js"></script>
 </body>
 </html>

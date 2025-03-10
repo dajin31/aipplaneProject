@@ -113,8 +113,8 @@
 
 <!--	마이페이지-->
 	<update id="getUpdateUser" parameterType="userVo">
-		update users set user_email=#{user_email}
-		where user_id = #{user_id} and user_pw = #{user_pw}
+		update users set user_email=#{userEmail}
+		where user_id = #{userId} and user_pw = #{userPw}
 	</update>
 
 	<!-- 회원 탈퇴 -->
@@ -126,7 +126,7 @@
 	<!-- 회원비밀번호 변경 -->
 	<update id="getUpdatePassUser" parameterType="userVo">
 		update users set user_pw=#{new_pw}
-		where user_id = #{user_id} and user_pw = #{user_pw}
+		where user_id = #{userId} and user_pw = #{userPw}
 	</update>
 
 	<select id="getmyUser" resultType="com.example.demo.vo.UserVO" parameterType="String">

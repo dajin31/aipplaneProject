@@ -400,7 +400,7 @@
         </nav>
         <div class="user-info">
             <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
-            <a href="/user/mypage.jsp" class="mypage-btn">마이페이지</a>
+            <a href="/myPage/mypage.jsp" class="mypage-btn">마이페이지</a>
             <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
         </div>
     </div>

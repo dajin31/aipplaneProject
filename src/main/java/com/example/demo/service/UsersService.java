@@ -149,4 +149,14 @@ public class UsersService implements IUsersService {
     public UserVO getmyUser(String userId) {
         return dao.getmyUser(userId);
     }
+
+    @Override
+    public int updatePassUser(UserVO userVO) {
+        return dao.updatePassUser(userVO);
+    }
+
+    @Override
+    public int updateUser(UserVO userVO) {
+        return dao.updateUser(userVO);
+    }
 }

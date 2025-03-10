@@ -32,4 +32,8 @@ public interface IUsersService {
     void updateUserPassword(UserVO user) throws Exception;
 
     public UserVO getmyUser(String userId);
+
+    public int updatePassUser(UserVO userVO);
+
+    public int updateUser(UserVO userVO);
 }

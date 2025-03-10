@@ -1,5 +1,7 @@
 <%@ page import="com.example.demo.vo.UserVO" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.example.demo.service.UsersService"%>
+<%@ page import="com.example.demo.service.IUsersService"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +13,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 <%
-    UserVO userVo = (UserVO)session.getAttribute("UserVO");/*로그인 정보 불러오기*/
-//         if(userVo==null){//로그인 안되었다면
-//         	response.sendRedirect("/middle/member/login.jsp");
-//         }
+    UserVO userVo = (UserVO) session.getAttribute("loginUser");/*로그인 정보 불러오기*/
+
+
+         if(userVo==null){//로그인 안되었다면
+         	response.sendRedirect(request.getContextPath()+"/mainPage/mainPage.jsp");
+             return;
+         }
+    UsersService service = UsersService.getInstance();
+    UserVO userInfo = service.getmyUser(userVo.getUserId());
 %>
 <style>
 
@@ -71,7 +78,7 @@
             $.ajax({
                 url: `<%= request.getContextPath() %>/user/userupdate.do`,
                 type: 'post',
-                data: JSON.stringify({"user_pw":enteredPassword,"user_email":enteredEmail}),
+                data: JSON.stringify({"userPw":enteredPassword,"userEmail":enteredEmail}),
                 contentType : 'application/json;charset=utf-8',
                 success : function(data){			// 성공했을 경우 마이페이지로 돌아간다.
                     //update 성공 시 res : 1
@@ -84,7 +91,7 @@
 
                     if(data.result>0){
                         alert('회원정보가 변경되었습니다.');
-                        location.href="<%= request.getContextPath() %>/member/mypage.jsp"
+                        location.href="<%= request.getContextPath() %>/myPage/mypage.jsp"
                     }else{
                         alert('비밀번호가 틀렸습니다.');
                     }
@@ -149,21 +156,21 @@
     <form class="form-horizontal"   onsubmit="return false;">
 
         <div class="form-group">
-            <label class="control-label col-sm-2" for="id">아이디</label>
+            <label class="control-label col-sm-2" >아이디</label>
             <div class="col-sm-10">
                 <span class="text-xl font-semibold"><%=userVo.getUserId()%></span>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-sm-2" for="name">이름</label>
+            <label class="control-label col-sm-2" >이름</label>
             <div class="col-sm-2">
                 <div class="text-xl font-semibold"><%=userVo.getUserName()%></div>
             </div>
         </div>
 
         <div class="form-group">
-            <label class="control-label col-sm-2" for="bir">생년월일</label>
+            <label class="control-label col-sm-2">생년월일</label>
             <div class="col-sm-2">
                 <div class="text-xl font-semibold"><%=userVo.getUserRegnum()%></div>
             </div>
@@ -192,11 +199,8 @@
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button id="send" type="button" class="btn btn-primary btn-lg">회원정보 변경</button><br><br>
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button id="withdrawalBtn" class="text-sm underline">회원탈퇴</button>
-                    <span id="joinspan"></span>
-                </div>
-            </div>
+
+            </div></div>
     </form></div>
 </body>
 </html>

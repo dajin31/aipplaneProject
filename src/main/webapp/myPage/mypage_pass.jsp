@@ -80,13 +80,13 @@
                 $.ajax({
                     url: `<%= request.getContextPath() %>/user/userpassupdate.do`,
                     type: 'post',
-                    data: JSON.stringify({"user_pw":currentPassword, "new_pw": newPassword}),
+                    data: JSON.stringify({"userPw":currentPassword, "new_pw": newPassword}),
                     contentType : 'application/json;charset=utf-8',
                     //성공시
                     success : function(data){
                         if(data.result>0){
                             alert('비밀번호가 변경되었습니다.');
-                            location.href="<%= request.getContextPath() %>/member/mypage.jsp"
+                            location.href="<%= request.getContextPath() %>/myPage/mypage.jsp"
                         }else{
                             alert('현재 비밀번호가 틀렸습니다.');
                         }

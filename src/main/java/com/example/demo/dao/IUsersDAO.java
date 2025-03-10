@@ -28,4 +28,8 @@ public interface IUsersDAO {
 
 //    마이페이지
      public UserVO getmyUser(String userId);
+
+    public int updatePassUser(UserVO userVO);
+
+    public int updateUser(UserVO userVO);
 }

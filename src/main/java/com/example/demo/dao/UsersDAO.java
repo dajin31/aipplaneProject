@@ -305,4 +305,45 @@ public class UsersDAO implements IUsersDAO{
         System.out.println(userVO);
         return userVO;
     }
+
+    @Override
+    public int updatePassUser(UserVO userVO) {
+        int res = 0;
+        System.out.println("UserUpdate->user2 : " + userVO);
+        System.out.println("초기화값" + res);
+        SqlSession session = MyBatisUtil.getSession();
+        System.out.println("UserUpdate->user3 : " + userVO);
+        try {
+            res = session.update("users.getUpdatePassUser", userVO);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            session.commit();
+            session.close();
+        }
+        System.out.println("사용자 값" + userVO);
+        System.out.println("받아온 값" + res);
+
+        return res;
+
+    }
+
+    @Override
+    public int updateUser(UserVO userVO) {
+        int res = 0;
+        SqlSession session = MyBatisUtil.getSession();
+
+        try {
+            //            userVO{user_id=test,user_pw=1234,user_name=null,user_email=te22@.com..}
+            //<mapper namespace="user"> + <update id="getUpdateUser" parameterType="userVo">
+            res = session.update("users.getUpdateUser", userVO);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            session.commit();
+            session.close();
+        }
+        return res;
+
+    }
 }

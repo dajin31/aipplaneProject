@@ -19,6 +19,7 @@ public class WeatherServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
+
         String nx = request.getParameter("nx");
         String ny = request.getParameter("ny");
 

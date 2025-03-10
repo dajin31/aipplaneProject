@@ -45,6 +45,7 @@ public class Notice_BoardDaoImpl implements Notice_BoardDao {
 
         try{
             res = session.update("notice.updateBoard", nboardVO);
+            System.out.println("Dao update res = " + res);
         }finally{
             session.commit();
             session.close();

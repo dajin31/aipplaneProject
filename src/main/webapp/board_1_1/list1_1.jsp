@@ -94,14 +94,13 @@
         <li class="nav-item">
           <a href="/reservation/receiptPage.jsp">예약</a>
           <ul class="dropdown-menu">
-            <li><a href="/reservation/reservation.jsp">항공권 예매</a></li>
-            <li><a href="reservation.jsp">예약 취소</a></li>
+            <li><a href="<%=request.getContextPath()%>/reservation/reservation-airport.jsp">항공권 예매</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <a href="/mileage/mileageShop.jsp">마일리지</a>
+          <a href="#">마일리지</a>
           <ul class="dropdown-menu">
-            <li><a href="/mileage/mileage.jsp">마일리지샵</a></li>
+            <li><a href="<%=request.getContextPath()%>/mileage/mileageShop.jsp">마일리지샵</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -116,7 +115,7 @@
     </nav>
     <div class="auth">
       <a href="/login/userJoin.jsp" class="join-btn">회원가입</a>
-      <a href="<%=request.getContextPath() %>/member/list1_1.do" class="login-btn">로그인</a>
+      <a href="/login/login.jsp" class="login-btn">로그인</a>
     </div>
   </div>
   <div class="header-container header-after-login hidden">
@@ -128,14 +127,13 @@
         <li class="nav-item">
           <a href="/reservation/receiptPage.jsp">예약</a>
           <ul class="dropdown-menu">
-            <li><a href="/reservation/reservation.jsp">항공권 예매</a></li>
-            <li><a href="reservation.jsp">예약 취소</a></li>
+            <li><a href="<%=request.getContextPath()%>/reservation/reservation-airport.jsp">항공권 예매</a></li>
           </ul>
         </li>
         <li class="nav-item">
           <a href="/mileage/mileageShop.jsp">마일리지</a>
           <ul class="dropdown-menu">
-            <li><a href="/mileage/mileage.jsp">마일리지샵</a></li>
+            <li><a href="<%=request.getContextPath()%>/mileage/mileageShop.jsp">마일리지샵</a></li>
           </ul>
         </li>
         <li class="nav-item">
@@ -149,7 +147,7 @@
       </ul>
     </nav>
     <div class="user-info">
-      <a href="<%=request.getContextPath()%>/user/logout.do" class="logout-btn">로그아웃</a>
+      <a href="<%=request.getContextPath()%>/logout.do" class="logout-btn">로그아웃</a>
       <a href="/myPage/mypage.jsp" class="mypage-btn">마이페이지</a>
       <span class="welcome-msg">${sessionScope.loginUser.userName}님 환영합니다.</span>
     </div>

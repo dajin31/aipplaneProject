@@ -264,7 +264,6 @@
 </section>
 
 <!-- 여행 경험 섹션 -->
-<!-- 여행 경험 섹션 -->
 <section class="travel-experience">
     <div class="section-container">
         <h2 style="margin-left: 100px;">여행을 위한 경험</h2>
